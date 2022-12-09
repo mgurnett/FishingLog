@@ -145,7 +145,7 @@ LOGIN_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPH_MODELS = {
-  'app_labels': ["blog"],
+  'app_labels': ["catches"],
   'group_models': True,
   'color_code_deletions': True,
 #   'arrow_shape': True,
