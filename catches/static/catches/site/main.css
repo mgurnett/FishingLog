@@ -82,3 +82,34 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #5f788a !important;
+    border-color: #5f788a !important;
+    color: #cbd5db;
+    box-shadow: none !important;
+}
+
+.btn-primary:hover {
+    background-color: #5f788a !important;
+    border-color: #5f788a !important;
+    color: #ffffff;
+}
+/* https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/ */
+.dropdown-toggle,
+.dropdown-toggle:active,
+.dropdown-toggle:visited,
+.dropdown-toggle:focus {
+  background-color: #5f788a !important;
+  border-color: #5f788a !important;
+  color: #cbd5db;
+}
+
+.dropdown-toggle:hover {
+    background-color: #5f788a !important;
+    border-color: #5f788a !important;
+    color: #ffffff;
+}

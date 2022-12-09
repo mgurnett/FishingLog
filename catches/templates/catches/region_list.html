@@ -1,0 +1,17 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<h1>Fishing regions</h1>    
+<dl>
+    {% for reg in regions %}
+        <dt>
+            <h5>
+                
+                <a href="#">{{ reg.name}}</a> 
+
+            </h5>
+        </dt>
+        <dd>{{ reg.notes }}</dd>
+    {% endfor %}
+</dl>     
+
+{% endblock content %}

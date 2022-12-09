@@ -1,2 +1,43 @@
 {% extends "catches/base/base.html" %}
-<h1>big test</h1>
+<!-- This is going ot be the main landing page for everything. -->
+{% block content %}
+<h1>Lakes</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<div class="card">
+				<h5 class="card-header">
+					<!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#REGIONS">Fishing regions</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#TEST">test</a>
+                        </li>
+                    </ul>
+				</h5>
+				<div class="card-body">
+					<!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="REGIONS"></div>
+                        <div class="tab-pane container fade" id="STOCKS"></div>
+                        <div class="tab-pane container fade" id="TEST"></div>
+                    </div>
+				</div>
+				<div class="card-footer">
+					Card footer
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

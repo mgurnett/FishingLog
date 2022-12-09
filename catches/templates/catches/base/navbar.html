@@ -1,89 +1,49 @@
-{% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark">
-    
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-    <span class="navbar-toggler-icon"></span>
-    </button> <a class="navbar-brand" href="#">
-    <img src="{% static 'catches/site/fly_image.jpg' %}" alt="FLY" width="45" height="36" class="d-inline-block align-text-top">
-    </a>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="navbar-nav">
-        <li>
+{% load static %}   
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{% url 'catch_home' %}"><img src="{% static 'catches/site/fly_image.jpg' %}" alt="FLY" width="45" height="36" class="d-inline-block align-text-top">
+            Fishing Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
             <div class="btn-group">
-                <a type="button" class="btn" href="#" >Lakes</a>
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
+                <button type="button" class="btn btn-primary">Lakes</button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">New lake</a> 
-                    <div class="dropdown-divider"></div>
-                    <h6>
-                        <a class="dropdown-item" href="#">Favourite lakes</a>
-                    </h6>
-                    <div class="dropdown-divider"></div>
-                    <h6>
-                        <a class="dropdown-item" href="#">Regions</a>
-                    </h6>
+                  <a class="dropdown-item" href="#">New Lake</a>
+                  <a class="dropdown-item" href="#">Favorites</a>
+                  <a class="dropdown-item" href="#">Regions</a>
+                  <a class="dropdown-item" href="#">Districts</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Stocks</a>
                 </div>
-            </div>
-        </li>
-        <li>
-            <div class="btn-group">
-                <a type="button" class="btn" href="#" >Fish</a>
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">New fish</a>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="btn-group">
-                <a type="button" class="btn" href="#" >Flys</a>
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">New fly</a> 
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Types of flys</a>
-                <a class="dropdown-item" href="#">Bugs</a>
-            </div>
-        </li>
-        <li>
-            <div class="btn-group">
-                <a type="button" class="btn" href="#" >Logs</a>
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">New log</a> 
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://mgurnett.pythonanywhere.com" target="_blank">pythonanywhere.com</a>
-        </li>
-    </ul>
-                <!-- Navbar Right Side -->
-    <form class="form-inline my-2 my-lg-0 ml-md-auto" action="#" method="get">
-        <input class="form-control mr-sm-2" name="q" type="search" placeholder="Lake search">
-        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <ul class="navbar-nav ml-md-auto">
-        {% if user.is_authenticated %}
-        <li class="navbar-text">
-            {{ user.username }}
-        </li>
-        {% endif %}
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item active">
-            <a class="nav-link" href="#">ADMIN</a>
-        </li>
-        {% endif %}
-    </ul>
-    </div>
-</nav>
+              </div>
+            <a class="nav-item nav-link" href="#">Fish</a>
+            <a class="nav-item nav-link" href="#">Flys</a>
+            <a class="nav-item nav-link" href="#">Bugs</a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            <form class="form-inline my-2 my-lg-0 ml-md-auto" action="#" method="get">
+                <input class="form-control mr-sm-2" name="q" type="search" placeholder="Lake search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            {% if user.is_authenticated %}
+              <a class="nav-item nav-link" href="#">Profile</a>
+              <a class="nav-item nav-link" href="#">Logout</a>
+              <a class="nav-item nav-link" href="{% url 'admin:index' %}">ADMIN</a>
+            {% else %}
+              <a class="nav-item nav-link" href="#">Login</a>
+              <a class="nav-item nav-link" href="#">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
