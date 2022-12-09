@@ -142,11 +142,11 @@ LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# GRAPH_MODELS = {
-#   'app_labels': ["fishes", "lakes", "logs", "flys"],
-#   'group_models': True,
-#   'color_code_deletions': True,
+GRAPH_MODELS = {
+  'app_labels': ["blog"],
+  'group_models': True,
+  'color_code_deletions': True,
 #   'arrow_shape': True,
 #   'hide_edge_labels': True,
-# }   
+}   
 #to run: python3 manage.py graph_models -o fish_log_models.png
