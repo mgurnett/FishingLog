@@ -1,0 +1,27 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<h1>Fishing regions</h1>    
+<div class="album py-5 ">
+    <div class="container">
+        <div class = "row">
+            {% for reg in regions %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ reg.notes }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class = "row">
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'region_create' %}">New Region</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "catches/base/base.html" %}Bug
+{% block content %}
+<h1>Fly types</h1>    
+<div class="album py-5 ">
+    <div class="container">
+        <div class = "row">
+            {% for type in flys %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <a href="{% url 'fly_detail' type.id %}" class="card-link">{{ type.name}} </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ type.notes }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class = "row">
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'fly_create' %}">New fly</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

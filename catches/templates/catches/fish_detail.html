@@ -1,0 +1,31 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-1"> </div>
+		<div class="col-md-10">
+			<div class="card">
+				<h5 class="card-header">
+					<img class = "card-img-top" src="{{ fishes.image.url }}" alt={{ fish.name | title }}>
+					<h2 class="pt-5"><b>{{ fishes.name }}</b> {% if fishes.abbreviation %}({{ fishes.abbreviation}}){% endif %}</h2>
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						{{ fishesS.notes }}
+					</p>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+                        <div class="col-md-8"> </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_update' fishes.id %}" type="submit" >edit</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fish_delete' fishes.id %}" type="submit" >delete</a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div>
+</div>
+{% endblock content %}

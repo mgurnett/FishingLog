@@ -59,7 +59,7 @@ class Fish(models.Model):
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  
-        return reverse ('fishes-detail', kwargs = {'pk': self.pk})
+        return reverse ('fish_detail', kwargs = {'pk': self.pk})
 
     def save(self, *args, **kwargs):
         super(Fish, self).save(*args, **kwargs)
@@ -82,7 +82,7 @@ class Bug(models.Model):
         return self.name
 
     def get_absolute_url (self):
-        return reverse ('flys-list')
+        return reverse ('bug_list')
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
@@ -129,7 +129,7 @@ class Lake(models.Model):
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.
-        return reverse ('lakes-detail', kwargs = {'pk': self.pk})
+        return reverse ('lake_detail', kwargs = {'pk': self.pk})
 
 class Stock(models.Model):
     name = models.CharField(max_length = 100)
@@ -152,6 +152,9 @@ class Stock(models.Model):
     
     class Meta:
         ordering = ['-date_stocked']
+
+    def get_absolute_url (self):
+        return reverse ('stock_list')
 
     @property 
     def inch (self):
@@ -194,6 +197,9 @@ class Temp(models.Model):
     def __str__ (self):
         return self.name
 
+    def get_absolute_url (self):
+        return reverse ('temp_list')
+
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField(blank=True)
@@ -223,7 +229,7 @@ class Fly(models.Model):
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  
-        return reverse ('flys-detail', kwargs = {'pk': self.pk})
+        return reverse ('fly_detail', kwargs = {'pk': self.pk})
 
     def save(self, *args, **kwargs):
         super(Fly, self).save(*args, **kwargs)
@@ -263,7 +269,7 @@ class Log(models.Model):
         ordering = ['temp']
 
     def get_absolute_url (self):
-        return reverse ('logs-list')
+        return reverse ('logs_list')
 
     def __str__(self):
         if self.lake.other_name:
@@ -327,4 +333,8 @@ class Bug_site(models.Model):
 
     def __str__ (self):
         return self.name
+
+
+    def get_absolute_url (self):
+        return reverse ('bug_site_list')
 

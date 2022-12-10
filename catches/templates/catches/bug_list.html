@@ -1,0 +1,27 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<h1>Bug</h1>      
+<div class="album py-5 ">
+    <div class="container">
+        <div class = "row">
+            {% for bug in bugs %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <a href="{% url 'bug_detail' bug.id %}" class="card-link">{{ bug.name}} </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ bug.notes }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class = "row">
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'bug_create' %}">New Bug</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

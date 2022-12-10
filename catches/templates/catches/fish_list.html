@@ -1,0 +1,28 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<h1>Fish</h1>    
+<div class="album py-5 ">
+    <div class="container">
+        <div class = "row">
+            {% for fish in fishes %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}>
+                    <a href="{% url 'fish_detail' fish.id %}" class="card-link">{{ fish.name | title}} </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ fish.notes }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class = "row">
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'fish_create' %}">New fish</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}
