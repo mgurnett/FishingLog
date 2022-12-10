@@ -201,6 +201,9 @@ class Fly_type(models.Model):
     def __str__ (self):
         return self.name
 
+    def get_absolute_url (self):
+        return reverse ('fly_type_list')
+
 class Fly(models.Model):
     name = models.CharField(max_length = 100)
     bug = models.ManyToManyField('Bug', blank=True)

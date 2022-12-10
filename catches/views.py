@@ -11,7 +11,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from catches.forms import New_Regions_Form
+from catches.forms import *
 
 def home (request):
     return render (request, 'catches/home.html', {})
@@ -25,12 +25,10 @@ class RegionDetailView (DetailView):
     model = Region
     context_object_name = 'region'
 
-
 class RegionCreateView(LoginRequiredMixin, CreateView):
     model = Region
     form_class = New_Regions_Form
     success_message = "New region saved"
-
 
 class RegionUpdateView(LoginRequiredMixin, UpdateView):
     model = Region
@@ -40,3 +38,26 @@ class RegionUpdateView(LoginRequiredMixin, UpdateView):
 class RegionDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Region
     success_url = "/regions/"
+
+class Fly_typeListView (ListView):
+    model = Fly_type
+    context_object_name = 'fly_types' 
+    paginate_by = 6
+
+class Fly_typeDetailView (DetailView): 
+    model = Fly_type
+    context_object_name = 'fly_type'
+
+class Fly_typeCreateView(LoginRequiredMixin, CreateView):
+    model = Fly_type
+    form_class = New_Fly_type_Form
+    success_message = "New Fly type saved"
+
+class Fly_typeUpdateView(LoginRequiredMixin, UpdateView):
+    model = Fly_type
+    form_class = New_Fly_type_Form
+    success_message = "Fly type fixed"
+
+class Fly_typeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
+    model = Fly_type
+    success_url = "/fly_type/"

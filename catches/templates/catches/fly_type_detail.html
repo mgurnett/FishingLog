@@ -1,0 +1,30 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-1"> </div>
+		<div class="col-md-10">
+			<div class="card">
+				<h5 class="card-header">
+					{{ fly_type.name | title }}
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						{{ fly_type.notes }}
+					</p>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+                        <div class="col-md-8"> </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_type_update' fly_type.id %}" type="submit" >edit</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fly_type_delete' fly_type.id %}" type="submit" >delete</a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div>
+</div>
+{% endblock content %}
