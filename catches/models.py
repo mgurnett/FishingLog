@@ -132,7 +132,6 @@ class Lake(models.Model):
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
 
 class Stock(models.Model):
-    name = models.CharField(max_length = 100)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     date_stocked = models.DateField()
