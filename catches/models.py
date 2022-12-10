@@ -43,7 +43,7 @@ class Region(models.Model):
         return self.name
 
     def get_absolute_url (self):
-        return reverse ('lakes-list')
+        return reverse ('region_list')
         
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
