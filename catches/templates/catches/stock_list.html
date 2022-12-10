@@ -1,27 +1,19 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<h1>Fishing regions</h1>    
-<div class="album py-5 ">
-    <div class="container">
-        <div class = "row">
-            {% for reg in regions %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a>
-                    <div class="card-body">
-                        <p class="card-text">{{ reg.notes }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class = "row">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'region_create' %}">New Region</a>
-        </button>
-    </div>
-</div>
+
+<h1>Stocking records of
+    <a href="{% url 'lakes_detail' stocks.first.lake.id %}">{{ stocks.first.lake.name }}</a>
+</h1>    
+<dl>
+    {% for stock in stocks %}
+        <p>
+            On {{stock.date_stocked}}, 
+            {{stock.number}}  
+            <a href="{% url 'fishes_detail' stock.fish.id %}">{{stock.fish.name}}</a>
+            (Strain: {{ stock.strain[1] }} Genotype: {{ stock.gentotype[1] }})
+            were {{stock.length}}cm long.
+        </p>
+    {% endfor %}
+</dl>     
+
 {% endblock content %}

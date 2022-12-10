@@ -241,7 +241,6 @@ class Fly(models.Model):
             img.save(self.image.path)
 
 class Log(models.Model):
-    name =  models.CharField(max_length = 100)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)

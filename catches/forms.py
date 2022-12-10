@@ -22,7 +22,7 @@ class New_Regions_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
 
-class New_temp_Form (forms.ModelForm): 
+class New_Temp_Form (forms.ModelForm): 
     class Meta:
         model = Temp
         fields = '__all__'
@@ -224,7 +224,7 @@ class New_Log_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
-class New_bug_site_Form (forms.ModelForm):
+class New_Bug_site_Form (forms.ModelForm):
     
     class Meta:
         model = Bug_site
