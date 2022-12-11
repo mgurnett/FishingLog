@@ -57,7 +57,6 @@ class Fish(models.Model):
     def __str__(self):
         return f'{self.name} ({self.abbreviation})'  # used in the admin to set the name of the model
     
-    #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  
         return reverse ('fish_detail', kwargs = {'pk': self.pk})
 
@@ -211,24 +210,28 @@ class Fly_type(models.Model):
 
 class Fly(models.Model):
     name = models.CharField(max_length = 100)
-    bug = models.ManyToManyField('Bug', blank=True)
+    bug = models.ForeignKey(Bug, blank=True, null= True, on_delete=models.SET_NULL )
     fly_type = models.ForeignKey(Fly_type, blank=True, null= True, on_delete=models.SET_NULL) 
-    description = models.CharField ('Description', max_length=400, blank=True)
-    size_range = models.CharField ('Hook sizes', max_length=100, blank=True)
-    author = models.CharField ('Author', max_length=100, blank=True)
-    youtube = models.URLField ('YouTube video', blank=True )
-    image = models.ImageField ('Picture of fly', default='default.jpg', upload_to='', height_field=None, width_field=None, max_length=100, blank=True)
+    description = models.CharField (max_length=400, blank=True)
+    size_range = models.CharField ( max_length=100, blank=True)
+    author = models.CharField (max_length=100, blank=True)
+    youtube = models.URLField (blank=True )
+    image = models.ImageField ( 
+        default='default.jpg', 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True)
 
-    
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return f'{self.name} - {self.description}'  # used in the admin to set the name of the model
-    
-    #https://youtu.be/-s7e_Fy6NRU?t=1730
+
     def get_absolute_url (self):  
-        return reverse ('fly_detail', kwargs = {'pk': self.pk})
+        return reverse ('fly_list')
 
     def save(self, *args, **kwargs):
         super(Fly, self).save(*args, **kwargs)
@@ -238,6 +241,7 @@ class Fly(models.Model):
         if img.height > 300 or img.width > 300:
             output_size = (300,300)
             img.thumbnail(output_size)
+            img.save(self.image.path) 
             img.save(self.image.path)
 
 class Log(models.Model):

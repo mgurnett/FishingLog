@@ -12,17 +12,17 @@
           <div class="navbar-nav mr-auto">
             <!-- Lakes -->
             <div class="btn-group">
-                <button type="button" class="btn btn-primary">Lakes</button>
+              <button type="button" class="btn btn-primary"><a href="{% url 'lake_list' %}">Lakes</a></button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">New Lake</a>
+                  <a class="dropdown-item" href="{% url 'lake_create' %}">New Lake</a>
                   <a class="dropdown-item" href="#">Favorites</a>
                   <a class="dropdown-item" href="{% url 'region_list' %}">Regions</a>
                   <a class="dropdown-item" href="#">Districts</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Stocks</a>
+                  <a class="dropdown-item" href="{% url 'stock_list' %}">Stocks</a>
                 </div>
               </div>
             <!-- Fish -->
@@ -32,7 +32,7 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="{% url 'fish_create' %}">New fish</a>
                   <a class="dropdown-item" href="#"></a>
                   <a class="dropdown-item" href="#"></a>
                   <a class="dropdown-item" href="#"></a>
@@ -42,17 +42,17 @@
               </div>
             <!-- Flys -->
               <div class="btn-group">
-                <button type="button" class="btn btn-primary">Flys</button>
+                <button type="button" class="btn btn-primary"><a href="{% url 'fly_list' %}">Flys</a></button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">New Fly</a>
+                  <a class="dropdown-item" href="{% url 'fly_create' %}">New Fly</a>
                   <a class="dropdown-item" href="{% url 'fly_type_list' %}">Fly types</a>
-                  <a class="dropdown-item" href="#">Bugs</a>
+                  <a class="dropdown-item" href="{% url 'bug_list' %}">Ent groups</a>
                   <a class="dropdown-item" href="#"></a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="{% url 'bug_site_list' %}">Hatch</a>
                 </div>
               </div>
             <!-- Insects -->

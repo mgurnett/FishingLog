@@ -59,8 +59,8 @@ class Fly_typeUpdateView(LoginRequiredMixin, UpdateView):
     success_message = "Fly type fixed"
 
 class Fly_typeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
-    model = Region
-    success_url = "/regions/"
+    model = Fly_type
+    success_url = "/fly_type/"
 
 class FishListView (ListView):
     model = Fish
@@ -129,7 +129,7 @@ class FlyUpdateView(LoginRequiredMixin, UpdateView):
 
 class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Fly
-    success_url = "/fly/"
+    success_url = "/flys/"
 
 class LakeListView (ListView):
     model = Lake
@@ -152,7 +152,7 @@ class LakeUpdateView(LoginRequiredMixin, UpdateView):
 
 class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Lake
-    success_url = "/lake/"
+    success_url = "/lakes/"
 
 class TempListView (ListView):
     model = Temp
