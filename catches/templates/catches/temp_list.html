@@ -1,27 +1,32 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<h1>Fishing regions</h1>    
+<div class="container">
+    <div class = "row">
+        <div class="col-md-8">
+            <h1>Fishing temperature groups</h1>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary">
+                <a href="{% url 'temp_create' %}">New Temperature</a>
+            </button>
+        </div>
+</div>
+
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
-            {% for reg in regions %}
+            {% for temp in temps %}
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a>
+                    <a href="{% url 'temp_detail' temp.id %}" class="card-link"><b>{{ temp.name}}</b> </a>
                     <div class="card-body">
-                        <p class="card-text">{{ reg.notes }}</p>
+                        <p class="card-text">Temperature notes: <b>{{ temp.notes }}</b></p>
+                        <p class="card-text">Search keys:<b>{{ temp.search_keys }}</b></p>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </div>
-</div>
-<div class="container">
-    <div class = "row">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'region_create' %}">New Region</a>
-        </button>
     </div>
 </div>
 {% endblock content %}

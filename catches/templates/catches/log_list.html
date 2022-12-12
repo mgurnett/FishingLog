@@ -1,35 +1,51 @@
 {% extends "catches/base/base.html" %}
-{% block content %}
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-md-9">
-                <h1>Lakes</h1> 
+{% block content %}   
+    <div class="album py-5 ">
+        <div class="container">
+            <div class = "row">
+                <div class="col-7">
+                    <h3>Fishing logs</h3>
+                </div>
+                <div class="col-5 text-right">
+                    <form class="form-inline my-2 my-lg-0 ml-md-auto" action="#" method="get">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" name="q" type="search" placeholder="Water Temp search">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-3">
-                <div class= "text-right">favourites: {{ fav_count }}</div>
+            <div class = "row">
+                {% for log in logs %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            Water temp: <b>{{ log.get_watertemp_display }}</b>
+                                        </div>
+                                        <div class="col-5">
+                                            <a href="{% url 'log_detail' log.id %}">{{ log.catch_date|date:"D, N j, y" }}</a> 
+                                        </div>
+                                    </div>
+                                </h5>
+                                <h6>
+                                    Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{ log.lake.lake_info | title}}</a> 
+                                </h6>
+                                <h6>
+                                    Fish: <a href="{% url 'fish_detail' log.fish.id %}">{{ log.fish_info | title}}</a>  
+                                </h6>
+                                <h6>
+                                    Fly: <a href="{% url 'fly_detail' log.fly.id %}">{{ log.fly_info | title}}</a>  
+                                </h6>
+                                <p class="card-text">
+                                    {{ log.notes }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card" >
-            <div class="card-body" style="column-count: 1;">                                
-                <ul class="list-unstyled card-columns" >
-                    {% for lake in lakes %}
-                        <li>
-                            <a href="{% url 'lakes-detail' lake.id %}">{{ lake.name | title }}</a>
-                                {% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
-                                {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                                ({{ lake.num_of_stock }} )
-                        </li>
-                    {% endfor %} 
-                </ul> 
-            </div>
-        </div>
-    </div>
-</div>
-
 {% endblock content %}

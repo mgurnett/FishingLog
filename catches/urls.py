@@ -11,7 +11,7 @@ from .views import (
     Bug_siteListView, Bug_siteCreateView, Bug_siteUpdateView, Bug_siteDetailView, Bug_siteDeleteView,
     LogListView, LogCreateView, LogUpdateView, LogDetailView, LogDeleteView,
     StockListView, StockCreateView, StockUpdateView, StockDetailView, StockDeleteView,
-    LakeListView_search, LakeListView_regions
+    LakeListView_search, LogListView_search, LakeListView_regions
 )
         
         
@@ -71,6 +71,7 @@ urlpatterns = [
     path ('log/new/', LogCreateView.as_view(), name = 'log_create'),  
     path ('log/update/<int:pk>/', LogUpdateView.as_view(), name = 'log_update'), 
     path ('log/delete/<int:pk>/', LogDeleteView.as_view(), name = 'log_delete'),
+    path ('log/search/', LogListView_search.as_view(), name = 'log_search_list'),
     
     path ('stock/', StockListView.as_view(), name = 'stock_list'), 
     path ('stock/<int:pk>/', StockDetailView.as_view(), name = 'stock_detail'), 

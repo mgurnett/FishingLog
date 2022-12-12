@@ -190,6 +190,7 @@ class Stock(models.Model):
 
 class Temp(models.Model):
     name = models.CharField(max_length = 100)
+    search_keys = models.CharField(max_length = 400, blank=True)
     notes = models.TextField(blank=True)
 
     def __str__ (self):

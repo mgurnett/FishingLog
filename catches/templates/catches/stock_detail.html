@@ -15,9 +15,17 @@
 				<div class="card-body">
 					<p class="card-text">
 						<div class="row">
-							<div class="col-md-4">Genotype: <b>{{ stock.full_geno }}</b></div>
+							<div class="col-md-4">
+								{% if stock.gentotype %}
+									Genotype: <b>{{ stock.full_geno }}</b>
+								{% endif %}
+							</div>
 							<div class="col-md-4"></div>
-							<div class="col-md-4">Strain: <b>{{ stock.full_strain }}</b></div>
+							<div class="col-md-4">
+								{% if stock.gentotype %}
+									Strain: <b>{{ stock.full_strain }}</b>
+								{% endif %}
+							</div>
 						</div>
 					</p>
 				</div>

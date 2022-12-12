@@ -28,6 +28,7 @@ class New_Temp_Form (forms.ModelForm):
         fields = '__all__'
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
+    search_keys = forms.CharField ( required = True )     
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,6 +40,10 @@ class New_Temp_Form (forms.ModelForm):
             ),
             Row(
                 Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('search_keys', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -167,6 +172,7 @@ class New_Log_Form (forms.ModelForm):
         fields = '__all__'     
 
     catch_date = forms.DateField(
+        initial=timezone.now,
         widget=forms.widgets.DateInput(format="%m/%d/%Y") )
     notes = forms.CharField ( required = False )  
     image = forms.ImageField (required = False )
@@ -176,6 +182,7 @@ class New_Log_Form (forms.ModelForm):
         required = False )
 
     watertemp = forms.ModelChoiceField(
+        label='Water Temperature',
         queryset=Temp.objects.all(),
         required = False )
 
@@ -210,7 +217,7 @@ class New_Log_Form (forms.ModelForm):
             Row(
                 Column('fly', css_class='form-group col-md-4 mb-0'),
                 Column('fly_size', css_class='form-group col-md-4 mb-0'),
-                Column('fly_color', css_class='form-group col-md-4 mb-0'),
+                Column('fly_colour', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -340,8 +347,13 @@ class New_Stock_Form (forms.ModelForm):
             ),
             Row(
                 Column('fish', css_class='form-group col-md-4 mb-0'),
-                Column('length', css_class='form-group col-md-4 mb-0'),
+                Column('gentotype', css_class='form-group col-md-4 mb-0'),
+                Column('strain', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
                 Column('number', css_class='form-group col-md-4 mb-0'),
+                Column('length', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

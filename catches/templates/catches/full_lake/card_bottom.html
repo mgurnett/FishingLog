@@ -1,0 +1,35 @@
+
+            <!-- bottom card - start -->
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <!-- Nav tabs -->
+                            {% include 'catches/full_lake/tab_tops.html' %}
+                        </div>
+                        <div class="col-3 test-right">
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create' %}">New log</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <div class="row">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane container active" id="LOGS">
+                                {% include 'catches/full_lake/log_tab.html' %}
+                            </div>
+                            <div class="tab-pane container fade" id="STOCKS">
+                                {% include 'catches/full_lake/stock_tab.html' %}
+                            </div>
+                            <div class="tab-pane container fade" id="TEST">
+                                <!-- test - start -->
+                                test tab
+                                <!-- test - end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <!-- bottom card - end -->

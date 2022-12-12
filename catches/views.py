@@ -164,6 +164,13 @@ class LakeListView_regions (TemplateView):
 class LakeDetailView (DetailView): 
     model = Lake
     context_object_name = 'lake'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(LakeDetailView, self).get_context_data(**kwargs)
+        context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
+        context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
+        context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
+        return context
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
     model = Lake
@@ -182,7 +189,7 @@ class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
 class TempListView (ListView):
     model = Temp
     context_object_name = 'temps' 
-    paginate_by = 6
+    paginate_by = 50
 
 class TempDetailView (DetailView): 
     model = Temp
@@ -229,6 +236,27 @@ class LogListView (ListView):
     model = Log
     context_object_name = 'logs' 
     paginate_by = 6
+
+class LogListView_search (ListView):
+    model = Log
+    context_object_name = 'logs' # this is the name that we are passing to the template
+    paginate_by = 9
+    template_name = 'log_list.html'
+
+    def get_queryset(self):
+        index = 0
+        query = self.request.GET.get("q")
+        for sublist in search_data.TEMP_ORDER_dict:
+            lenof = len(sublist)
+            for i in range(lenof):
+                if sublist[i] == query:
+                    index = sublist[0]
+                    break
+        if index == 0:
+            object_list = Log.objects.all()
+        else:
+            object_list = Log.objects.filter(watertemp = index)
+        return object_list
 
 class LogDetailView (DetailView): 
     model = Log

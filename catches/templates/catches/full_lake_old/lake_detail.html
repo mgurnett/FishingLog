@@ -1,19 +1,21 @@
-{% extends "catches/base/base.html" %}
+{% extends "lakes/base-lake.html" %}
 {% block content %}
 
 <div class="container">
 
+
     <div class="row">
         <div class="col"> </div>
         <div class="col-10">
-            {% include 'catches/full_lake/card_top.html' %}
+            {% include "lakes/top_card.html" %}
         </div>
         <div class="col"> </div>
     </div>
+
     <div class="row">
         <div class="col"> </div>
         <div class="col-10">
-            {% include 'catches/full_lake/card_bottom.html' %}
+            {% include "lakes/bottom_card.html" %}
         </div>
         <div class="col"> </div>
     </div>
@@ -25,6 +27,3 @@
  
 
 {% endblock content %}
-<!--
-{% include "lake_detail/top_card.html" %}
-{% include "lake_detail/bottom_card.html" %}  -->

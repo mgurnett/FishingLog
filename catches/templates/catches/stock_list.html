@@ -8,10 +8,15 @@
                 at <a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name}}</a>
                 {{stock.number}}  
                 <a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a>
-                (Genotype: {{ stock.full_geno }}, Strain: {{ stock.full_strain }} )
+                {% if stock.gentotype %}
+                    (Genotype: {{ stock.full_geno }}),
+                {% endif %}
+                {% if stock.gentotype %}
+                    (Strain: {{ stock.strain }}),
+                {% endif %}
                 were {{stock.length}}cm ({{stock.inch}}") long.
             </li>
         </ul>
-    {% endfor %}
+    {% endfor %} 
 
 {% endblock content %}

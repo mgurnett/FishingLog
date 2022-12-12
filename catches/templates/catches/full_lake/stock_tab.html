@@ -1,0 +1,13 @@
+
+                                <!-- Stock tab  - start -->
+                                {% for stocks in stockings %}
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            On {{stocks.date_stocked}}, {{stocks.number}}  
+                                            <a href="{% url 'fish_detail' stocks.fish.id %}">{{stocks.fish.name}}</a>
+                                            (Genotype: {{ stocks.full_geno }}, Strain: {{ stocks.full_strain }} )
+                                            were {{stocks.length}}cm ({{stocks.inch}}") long.
+                                        </li>
+                                    </ul>
+                                    {% endfor %}
+                                <!-- Stock tab -  end -->
