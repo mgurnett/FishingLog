@@ -6,16 +6,24 @@
 		<div class="col-md-10">
 			<div class="card">
 				<h5 class="card-header">
-					{{ stock.date_stocked }}
+					<div class="row">
+						<div class="col-md-4"><b>{{ stock.date_stocked }}</b></div>
+						<div class="col-md-4"><b><a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.lake_info }}</a></b></div>
+						<div class="col-md-4"><b><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></b></div>
+					</div>
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						{{ stock.fish.name }}
+						<div class="row">
+							<div class="col-md-4">Genotype: <b>{{ stock.full_geno }}</b></div>
+							<div class="col-md-4"></div>
+							<div class="col-md-4">Strain: <b>{{ stock.full_strain }}</b></div>
+						</div>
 					</p>
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8"> </div>
+                        <div class="col-md-8">{{stock.length}}cm ({{stock.inch}}") long</div>
                         <div class="col-md-4">
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'stock_update' stock.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'stock_delete' stock.id %}" type="submit" >delete</a>

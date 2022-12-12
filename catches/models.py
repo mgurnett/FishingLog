@@ -85,7 +85,7 @@ class Bug(models.Model):
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
-    region = models.ForeignKey(Region, blank=True, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, blank=True, null=True, on_delete=models.CASCADE)
     notes = models.TextField(blank=True)
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)

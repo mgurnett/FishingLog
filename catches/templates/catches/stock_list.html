@@ -1,24 +1,17 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
 
-<h1>Stocking records of
-
-</h1>    
-<dl>
     {% for stock in stocks %}
-        <p>
-            On {{stock.date_stocked}}, 
-            {{stock.number}}  
-            <a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a>
-            were {{stock.length}}cm long.
-            (Strain: {{ stock.STRAIN }}
-        </p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                On <a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a>, 
+                at <a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name}}</a>
+                {{stock.number}}  
+                <a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a>
+                (Genotype: {{ stock.full_geno }}, Strain: {{ stock.full_strain }} )
+                were {{stock.length}}cm ({{stock.inch}}") long.
+            </li>
+        </ul>
     {% endfor %}
-</dl>     
 
 {% endblock content %}
-<a href="{% url 'lakes_detail' stocks.first.lake.id %}">{{ stocks.first.lake.name }}</a>
-<!-- 
-
-
- -->

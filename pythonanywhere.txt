@@ -1,0 +1,7 @@
+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
+
+https://github.com/mgurnett/django_project.git
+
+git fetch origin Fishing-Log
+git reset --hard FETCH_HEAD
+git clean -df

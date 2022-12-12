@@ -134,7 +134,7 @@ class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
 class LakeListView (ListView):
     model = Lake
     context_object_name = 'lakes' 
-    paginate_by = 6
+    paginate_by = 45
 
 class LakeDetailView (DetailView): 
     model = Lake
