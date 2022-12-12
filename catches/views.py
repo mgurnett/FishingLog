@@ -136,6 +136,31 @@ class LakeListView (ListView):
     context_object_name = 'lakes' 
     paginate_by = 45
 
+class LakeListView_search (ListView):
+    model = Lake
+    context_object_name = 'lakes' # this is the name that we are passing to the template
+    paginate_by = 30
+    template_name = 'lake_list.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = Lake.objects.filter(
+            Q(name__icontains=query) | Q(district__icontains=query)
+        )
+        return object_list
+
+class LakeListView_regions (TemplateView):
+    model = Lake
+    context_object_name = 'lakes' # this is the name that we are passing to the template
+    paginate_by = 30
+    template_name = 'lake_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        print (self.kwargs)
+        context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
+        context ['lakes'] = Lake.objects.filter (region=self.kwargs['region'])
+        return context
+
 class LakeDetailView (DetailView): 
     model = Lake
     context_object_name = 'lake'
