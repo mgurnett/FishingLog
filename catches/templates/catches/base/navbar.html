@@ -18,10 +18,9 @@
                 </button>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="{% url 'lake_create' %}">New Lake</a>
-                  <a class="dropdown-item" href="#">Favorites</a>
+                  <a class="dropdown-item" href="{% url 'lake_list_fav' 'True' %}">Favourite</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'region_list' %}">Regions</a>
-                  <a class="dropdown-item" href="#">Districts</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'stock_list' %}">Stocks</a>
                   <div class="dropdown-divider"></div>

@@ -24,6 +24,11 @@ class RegionListView (ListView):
 class RegionDetailView (DetailView): 
     model = Region
     context_object_name = 'region'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(RegionDetailView, self).get_context_data(**kwargs)
+        context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
+        return context
 
 class RegionCreateView(LoginRequiredMixin, CreateView):
     model = Region
@@ -153,12 +158,27 @@ class LakeListView_regions (TemplateView):
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
-    template_name = 'lake_list.html'
-
+    template_name = 'catches/templates/catches/lake_list.html'
+ 
     def get_context_data(self, *args, **kwargs):
         print (self.kwargs)
         context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
-        context ['lakes'] = Lake.objects.filter (region=self.kwargs['region'])
+        context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
+        return context
+
+class LakeListView_fav (TemplateView):
+    model = Lake
+    context_object_name = 'lakes' # this is the name that we are passing to the template
+    paginate_by = 15
+    template_name = 'catches/templates/catches/lake_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        favourite = False
+        if self.kwargs['favourite'] == 'True':
+            favourite = True
+
+        context = super (LakeListView_fav, self).get_context_data (*args, **kwargs)
+        context ['lakes'] = Lake.objects.filter (favourite=favourite)
         return context
 
 class LakeDetailView (DetailView): 

@@ -8,11 +8,29 @@
 				<h5 class="card-header">
 					{{ region.name | title }}
 				</h5>
-				<div class="card-body">
-					<p class="card-text">
-						{{ region.notes }}
-					</p>
-				</div>
+				<p class="card-text">
+					{{ region.notes }}
+				</p>
+				<div class="card-body"> <!-- lakes part-->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card" >
+								<div class="card-body" style="column-count: 1;">                                
+									<ul class="list-unstyled card-columns" >
+										{% for lake in lakes %}
+											<li>
+												<a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
+													{% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
+													{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+													({{ lake.num_of_stock }} )
+											</li>
+										{% endfor %} 
+									</ul> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- lakes part-->
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> </div>
@@ -28,3 +46,4 @@
 	</div>
 </div>
 {% endblock content %}
+
