@@ -78,7 +78,7 @@ urlpatterns = [
     path ('stock/update/<int:pk>/', StockUpdateView.as_view(), name = 'stock_update'), 
     path ('stock/delete/<int:pk>/', StockDeleteView.as_view(), name = 'stock_delete'),
 
-    path ('search/',                    LakeListView_search.as_view(), name = 'search_list'),
-    path ('lakes/region/<int:pk>/',     LakeListView_regions.as_view(), name = 'lake_list_reg'),
+    path ('search/', LakeListView_search.as_view(), name = 'search_list'),
+    path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
 ]

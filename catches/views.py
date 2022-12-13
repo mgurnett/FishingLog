@@ -209,7 +209,7 @@ class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
 class TempListView (ListView):
     model = Temp
     context_object_name = 'temps' 
-    paginate_by = 50
+    paginate_by = 10
 
 class TempDetailView (DetailView): 
     model = Temp
@@ -266,16 +266,17 @@ class LogListView_search (ListView):
     def get_queryset(self):
         index = 0
         query = self.request.GET.get("q")
-        for sublist in search_data.TEMP_ORDER_dict:
-            lenof = len(sublist)
-            for i in range(lenof):
-                if sublist[i] == query:
-                    index = sublist[0]
-                    break
+        print ('query is: ' + query)
+        templist = Temp.objects.all()
+        for t in templist:
+            if query in t.search_keys:
+                print (t.name)
+                index = t.id
+                break
         if index == 0:
             object_list = Log.objects.all()
         else:
-            object_list = Log.objects.filter(watertemp = index)
+            object_list = Log.objects.filter(temp = index)
         return object_list
 
 class LogDetailView (DetailView): 
