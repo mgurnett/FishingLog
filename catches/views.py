@@ -299,8 +299,8 @@ class LogCreateView_from_lake(LoginRequiredMixin, CreateView):
     success_message = "New Log saved"
 
     def get_initial(self):
-     lake = Lake.objects.get(pk=self.kwargs['pk'])
-     return {'lake': lake}
+        lake = Lake.objects.get(pk=self.kwargs['pk'])
+        return {'lake': lake}
 
 class LogCreateView_from_temp(LoginRequiredMixin, CreateView):
     model = Log

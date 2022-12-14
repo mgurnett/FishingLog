@@ -304,6 +304,7 @@ class New_Log_Form (forms.ModelForm):
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=forms.widgets.DateInput(format="%m/%d/%Y") )
+
     # record_date = forms.DateField(
     #     initial=timezone.now,
     #     widget=forms.widgets.DateInput(format="%m/%d/%Y") )
