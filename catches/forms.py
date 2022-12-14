@@ -125,7 +125,7 @@ class New_Lake_Form (forms.ModelForm):
     
     class Meta:
         model = Lake
-        fields = '__all__'
+        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 'district', 'waterbody_id', 'favourite', 'region']
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
     notes = forms.CharField ( max_length = 100, required = False )      
