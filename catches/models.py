@@ -395,4 +395,33 @@ class Bug_site(models.Model):
     def get_absolute_url (self):
         return reverse ('bug_site_list')
 
- 
+class Tag(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    date_added = models.DateField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['name']
+
+    def __str__ (self):
+        return self.name
+
+    def get_absolute_url (self):
+        return reverse ('lake_list')
+        
+class Video(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    author = models.TextField (blank=True)
+    url = models.URLField(max_length = 200)
+    tag = models.ManyToManyField(Tag)
+    date_added = models.DateField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['name']
+
+    def __str__ (self):
+        return self.name
+
+    def get_absolute_url (self):
+        return reverse ('lake_list')

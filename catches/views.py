@@ -345,4 +345,16 @@ class StockDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7
     model = Stock
     success_url = "/stock/"
 
+class VideoListView (ListView):
+    model = Video
+    context_object_name = 'videos' 
+    paginate_by = 6
 
+class VideoDetailView (DetailView): 
+    model = Video
+    context_object_name = 'videos'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(VideoDetailView, self).get_context_data(**kwargs)
+        context ['videos'] = Video.objects.filter (video=self.kwargs['pk'])
+        return context

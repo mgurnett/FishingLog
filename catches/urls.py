@@ -12,7 +12,8 @@ from .views import (
     LogListView, LogCreateView, LogUpdateView, LogDetailView, LogDeleteView,
     StockListView, StockCreateView, StockUpdateView, StockDetailView, StockDeleteView,
     LakeListView_search, LogListView_search, LakeListView_regions, LakeListView_fav,
-    LogCreateView_from_lake, LogCreateView_from_temp
+    LogCreateView_from_lake, LogCreateView_from_temp,
+    VideoListView, VideoDetailView
 )
         
 urlpatterns = [
@@ -84,4 +85,6 @@ urlpatterns = [
     path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
+    path ('video/', VideoListView.as_view(), name = 'video_list'), 
+    path ('video/<int:pk>/', VideoDetailView.as_view(), name = 'video_detail'), 
 ]
