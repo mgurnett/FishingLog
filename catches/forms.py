@@ -297,14 +297,16 @@ class New_Log_Form (forms.ModelForm):
     
     class Meta:
         model = Log
-        fields = '__all__'     
+        # fields = '__all__' 
+        fields = ['catch_date', 'notes', 'image', 'lake', 'location', 
+        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight']  
 
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=forms.widgets.DateInput(format="%m/%d/%Y") )
-    record_date = forms.DateField(
-        initial=timezone.now,
-        widget=forms.widgets.DateInput(format="%m/%d/%Y") )
+    # record_date = forms.DateField(
+    #     initial=timezone.now,
+    #     widget=forms.widgets.DateInput(format="%m/%d/%Y") )
     notes = forms.CharField ( required = False )  
     image = forms.ImageField (required = False )
 
@@ -359,10 +361,10 @@ class New_Log_Form (forms.ModelForm):
                 Column('image', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
-            Row(
-                Column('record_date', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
+            # Row(
+            #     Column('record_date', css_class='form-group col-md-12 mb-0'),
+            #     css_class='form-row'
+            # ),
             Submit('submit', 'Save')
         )
         

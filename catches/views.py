@@ -214,6 +214,11 @@ class TempListView (ListView):
 class TempDetailView (DetailView): 
     model = Temp
     context_object_name = 'temp'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(TempDetailView, self).get_context_data(**kwargs)
+        context ['logs'] = Log.objects.filter (temp=self.kwargs['pk'])
+        return context
 
 class TempCreateView(LoginRequiredMixin, CreateView):
     model = Temp
@@ -297,6 +302,15 @@ class LogCreateView_from_lake(LoginRequiredMixin, CreateView):
      lake = Lake.objects.get(pk=self.kwargs['pk'])
      return {'lake': lake}
 
+class LogCreateView_from_temp(LoginRequiredMixin, CreateView):
+    model = Log
+    form_class = New_Log_Form
+    success_message = "New Log saved"
+
+    def get_initial(self):
+     temp = Temp.objects.get(pk=self.kwargs['pk'])
+     return {'temp': temp}
+
 class LogUpdateView(LoginRequiredMixin, UpdateView):
     model = Log
     form_class = New_Log_Form
@@ -328,3 +342,5 @@ class StockUpdateView(LoginRequiredMixin, UpdateView):
 class StockDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Stock
     success_url = "/stock/"
+
+
