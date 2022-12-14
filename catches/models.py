@@ -73,6 +73,28 @@ class Fish(models.Model):
 class Bug(models.Model):    
     name = models.CharField ('Insect name', max_length=100)
     description = models.TextField ('Description', blank=True)
+    article = models.FileField(
+        upload_to='', 
+        blank=True)
+    image = models.ImageField ('Picture of insect', 
+        default=None, 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    def save(self, *args, **kwargs):
+        super(Bug, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
+            img.save(self.image.path)
     
     class Meta:
         ordering = ['name']
@@ -202,6 +224,28 @@ class Temp(models.Model):
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField(blank=True)
+    article = models.FileField(
+        upload_to='', 
+        blank=True)
+    image = models.ImageField ('Picture of fly type', 
+        default=None, 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    def save(self, *args, **kwargs):
+        super(Fly_type, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
+            img.save(self.image.path)
 
     def __str__ (self):
         return self.name
@@ -266,6 +310,17 @@ class Log(models.Model):
         max_length=100, 
         blank=True
         )
+
+    def save(self, *args, **kwargs):
+        super(Fly, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
+            img.save(self.image.path)
      
     class Meta:
         ordering = ['temp']
@@ -340,3 +395,4 @@ class Bug_site(models.Model):
     def get_absolute_url (self):
         return reverse ('bug_site_list')
 
+ 

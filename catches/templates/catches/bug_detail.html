@@ -9,8 +9,16 @@
 					{{ bug.name | title }}
 				</h5>
 				<div class="card-body">
-					<p class="card-text">
+					<p class="card text-center">
+						{% if bug.image %}<img src="{{ bug.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+					</p>
+					<p>
 						{{ bug.notes }}
+					</p>
+					<p>
+						{% if bug.article %} 
+							<a href="{{ bug.article.url }}" target="_blank" >{{ bug.article }} </a>
+						{% endif %}
 					</p>
 				</div>
 				<div class="card-footer">
@@ -27,4 +35,4 @@
 		<div class="col-md-1"> </div>
 	</div>
 </div>
-{% endblock content %}
+{% endblock content %} 

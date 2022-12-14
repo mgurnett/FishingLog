@@ -5,11 +5,18 @@
     <div class="container">
         <div class = "row">
             {% for bug in bugs %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'bug_detail' bug.id %}" class="card-link">{{ bug.name}} </a>
+            <div class="col-md-6">
+                <div class="card mb-2 box-shadow card-link">
+                    <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a>
                     <div class="card-body">
-                        <p class="card-text">{{ bug.notes }}</p>
+                        <p>{{ bug.notes }}</p>
+                        <p>
+                            {% if bug.image %}
+                                <a href="{% url 'bug_detail' bug.id %}" >
+                                    <img src="{{ bug.image.url }}" class="img-thumbnail"style="width:50%" >
+                                </a>
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>

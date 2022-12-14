@@ -58,6 +58,8 @@ class New_Fly_type_Form (forms.ModelForm):
         fields = '__all__'
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
+    image = forms.ImageField (required = False )
+    article = forms.FileField( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,6 +70,11 @@ class New_Fly_type_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             'notes',
+            Row(
+                Column('image', css_class='form-group col-md-6 mb-0'),
+                Column('article', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
             Submit('submit', 'Save')
         )
 
@@ -108,6 +115,8 @@ class New_Bug_Form (forms.ModelForm):
         fields = '__all__'
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )  
+    image = forms.ImageField (required = False )
+    article = forms.FileField( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,6 +130,11 @@ class New_Bug_Form (forms.ModelForm):
                 Column('notes', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
+            Row(
+                Column('image', css_class='form-group col-md-6 mb-0'),
+                Column('article', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
             Submit('submit', 'Save')
         )
 
@@ -129,6 +143,7 @@ class New_Lake_Form (forms.ModelForm):
     class Meta:
         model = Lake
         fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 'district', 'waterbody_id', 'favourite', 'region']
+
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
     notes = forms.CharField ( max_length = 100, required = False )      

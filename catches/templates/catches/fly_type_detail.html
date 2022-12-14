@@ -9,8 +9,16 @@
 					{{ fly_type.name | title }}
 				</h5>
 				<div class="card-body">
-					<p class="card-text">
+					<p class="card text-center">
+						{% if fly_type.image %}<img src="{{ fly_type.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+					</p>
+					<p>
 						{{ fly_type.notes }}
+					</p>
+					<p>
+						{% if fly_type.article %} 
+							<a href="{{ fly_type.article.url }}" target="_blank" >{{ fly_type.article }} </a>
+						{% endif %}
 					</p>
 				</div>
 				<div class="card-footer">
@@ -27,4 +35,4 @@
 		<div class="col-md-1"> </div>
 	</div>
 </div>
-{% endblock content %}
+{% endblock content %} 

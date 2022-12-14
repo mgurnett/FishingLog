@@ -47,7 +47,7 @@ class RegionDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s
 class Fly_typeListView (ListView):
     model = Fly_type
     context_object_name = 'fly_types' 
-    paginate_by = 6
+    paginate_by = 9
 
 class Fly_typeDetailView (DetailView): 
     model = Fly_type
@@ -93,7 +93,7 @@ class FishDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
 class BugListView (ListView):
     model = Bug
     context_object_name = 'bugs' 
-    paginate_by = 6
+    paginate_by = 9
 
 class BugDetailView (DetailView): 
     model = Bug
