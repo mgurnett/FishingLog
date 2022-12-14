@@ -164,6 +164,7 @@ class LakeListView_regions (TemplateView):
         print (self.kwargs)
         context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
+        context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
         return context
 
 class LakeListView_fav (TemplateView):
@@ -179,6 +180,7 @@ class LakeListView_fav (TemplateView):
 
         context = super (LakeListView_fav, self).get_context_data (*args, **kwargs)
         context ['lakes'] = Lake.objects.filter (favourite=favourite)
+        context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
         return context
 
 class LakeDetailView (DetailView): 

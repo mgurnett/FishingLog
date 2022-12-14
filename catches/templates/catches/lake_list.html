@@ -8,7 +8,7 @@
                 <h1>Lakes</h1> 
             </div>
             <div class="col-md-3">
-                <div class= "text-right">favourites: {{ fav_count }}</div>
+                {% if fav_count %}<div class= "text-right">favourites: {{ fav_count }}</div>{% endif %}
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
                             <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
                                 {% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
                                 {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                                ({{ lake.num_of_stock }} )
+                                {% if lake.log_set.count %}({{ lake.log_set.count }}){% endif %}
                         </li>
                     {% endfor %} 
                 </ul> 
