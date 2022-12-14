@@ -3,6 +3,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from .models import *
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class New_Regions_Form (forms.ModelForm): 
     class Meta:
         model = Region
@@ -303,7 +306,7 @@ class New_Log_Form (forms.ModelForm):
 
     catch_date = forms.DateField(
         initial=timezone.now,
-        widget=forms.widgets.DateInput(format="%m/%d/%Y") )
+        widget=DateInput )
 
     # record_date = forms.DateField(
     #     initial=timezone.now,
