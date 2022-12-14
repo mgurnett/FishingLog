@@ -249,17 +249,16 @@ class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
-    fly = models.ForeignKey(Fly, blank=True, on_delete=models.CASCADE)    
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now)
     location = models.CharField (max_length=100, blank=True)
-    length = models.FloatField ( blank=True, null=True)
-    weight = models.FloatField ( blank=True, null=True)
-    fly = models.ForeignKey(Fly, on_delete=models.CASCADE)
+    length = models.FloatField ( blank=True, default=0.0 )
+    weight = models.FloatField ( blank=True, default=0.0 )
+    fly = models.ForeignKey(Fly, blank=True, null=True, on_delete=models.SET_NULL)
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
     notes = models.TextField(blank=True)
-    image = models.ImageField ('Picture of fly', 
+    image = models.ImageField ('Picture of catch', 
         default=None, 
         upload_to='', 
         height_field=None, 
@@ -272,7 +271,7 @@ class Log(models.Model):
         ordering = ['temp']
 
     def get_absolute_url (self):
-        return reverse ('logs_list')
+        return reverse('log_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         if self.lake.other_name:

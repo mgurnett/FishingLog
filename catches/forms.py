@@ -164,73 +164,7 @@ class New_Lake_Form (forms.ModelForm):
             Row('notes'),
             Submit('submit', 'Save')
         )
-        
-class New_Log_Form (forms.ModelForm):
-    
-    class Meta:
-        model = Log
-        fields = '__all__'     
-
-    catch_date = forms.DateField(
-        initial=timezone.now,
-        widget=forms.widgets.DateInput(format="%m/%d/%Y") )
-    notes = forms.CharField ( required = False )  
-    image = forms.ImageField (required = False )
-
-    lake = forms.ModelChoiceField(
-        queryset=Lake.objects.all(),
-        required = False )
-
-    watertemp = forms.ModelChoiceField(
-        label='Water Temperature',
-        queryset=Temp.objects.all(),
-        required = False )
-
-    fly = forms.ModelChoiceField(
-        queryset=Fly.objects.all(),
-        required = False )
-    fly_size = forms.CharField ( required = False ) 
-    fly_colour = forms.CharField ( required = False ) 
-
-    fish = forms.ModelChoiceField(
-        queryset=Fish.objects.all(),
-        required = False )
-    length = forms.CharField ( required = False ) 
-    weight = forms.CharField ( required = False ) 
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('lake', css_class='form-group col-md-4 mb-0'),
-                Column('watertemp', css_class='form-group col-md-4 mb-0'),
-                Column('catch_date', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('fish', css_class='form-group col-md-4 mb-0'),
-                Column('length', css_class='form-group col-md-4 mb-0'),
-                Column('weight', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('fly', css_class='form-group col-md-4 mb-0'),
-                Column('fly_size', css_class='form-group col-md-4 mb-0'),
-                Column('fly_colour', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('notes', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('image', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Submit('submit', 'Save')
-        )
-        
+              
 class New_Bug_site_Form (forms.ModelForm):
     
     class Meta:
@@ -354,6 +288,79 @@ class New_Stock_Form (forms.ModelForm):
             Row(
                 Column('number', css_class='form-group col-md-4 mb-0'),
                 Column('length', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save')
+        )
+        
+class New_Log_Form (forms.ModelForm):
+    
+    class Meta:
+        model = Log
+        fields = '__all__'     
+
+    catch_date = forms.DateField(
+        initial=timezone.now,
+        widget=forms.widgets.DateInput(format="%m/%d/%Y") )
+    record_date = forms.DateField(
+        initial=timezone.now,
+        widget=forms.widgets.DateInput(format="%m/%d/%Y") )
+    notes = forms.CharField ( required = False )  
+    image = forms.ImageField (required = False )
+
+    lake = forms.ModelChoiceField(
+        queryset=Lake.objects.all())
+    location = forms.CharField ( required = False ) 
+
+    temp = forms.ModelChoiceField(
+        label='Water Temperature',
+        queryset=Temp.objects.all(),
+        required = False )
+
+    fly = forms.ModelChoiceField(
+        queryset=Fly.objects.all(),
+        required = False )
+    fly_size = forms.CharField ( required = False ) 
+    fly_colour = forms.CharField ( required = False ) 
+
+    fish = forms.ModelChoiceField(
+        queryset=Fish.objects.all() )
+    length = forms.CharField ( required = False, initial=0.0 ) 
+    weight = forms.CharField ( required = False, initial=0.0 ) 
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('lake', css_class='form-group col-md-4 mb-0'),
+                Column('location', css_class='form-group col-md-4 mb-0'),
+                Column('temp', css_class='form-group col-md-2 mb-0'),
+                Column('catch_date', css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fish', css_class='form-group col-md-4 mb-0'),
+                Column('length', css_class='form-group col-md-4 mb-0'),
+                Column('weight', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fly', css_class='form-group col-md-4 mb-0'),
+                Column('fly_size', css_class='form-group col-md-4 mb-0'),
+                Column('fly_colour', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('record_date', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

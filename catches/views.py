@@ -288,6 +288,15 @@ class LogCreateView(LoginRequiredMixin, CreateView):
     form_class = New_Log_Form
     success_message = "New Log saved"
 
+class LogCreateView_from_lake(LoginRequiredMixin, CreateView):
+    model = Log
+    form_class = New_Log_Form
+    success_message = "New Log saved"
+
+    def get_initial(self):
+     lake = Lake.objects.get(pk=self.kwargs['pk'])
+     return {'lake': lake}
+
 class LogUpdateView(LoginRequiredMixin, UpdateView):
     model = Log
     form_class = New_Log_Form
