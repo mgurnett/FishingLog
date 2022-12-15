@@ -44,6 +44,20 @@ class Region(models.Model):
 
     def get_absolute_url (self):
         return reverse ('region_list')
+
+class Tag(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    date_added = models.DateField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['name']
+
+    def __str__ (self):
+        return self.name
+
+    def get_absolute_url (self):
+        return reverse ('lake_list')
         
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -104,6 +118,10 @@ class Bug(models.Model):
 
     def get_absolute_url (self):
         return reverse ('bug_list')
+            
+    @property 
+    def fly_ent_count (self):
+        return Fly.objects.count()
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
@@ -252,6 +270,23 @@ class Fly_type(models.Model):
 
     def get_absolute_url (self):
         return reverse ('fly_type_list')
+        
+class Video(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    author = models.CharField (max_length = 100, blank=True)
+    url = models.URLField(max_length = 200)
+    tag = models.ManyToManyField(Tag)
+    date_added = models.DateField(default=timezone.now)
+    
+    class Meta:
+        ordering = ['name']
+
+    def __str__ (self):
+        return self.name.title()
+
+    def get_absolute_url (self):
+        return reverse ('video_list')
 
 class Fly(models.Model):
     name = models.CharField(max_length = 100)
@@ -260,7 +295,7 @@ class Fly(models.Model):
     description = models.CharField (max_length=400, blank=True)
     size_range = models.CharField ( max_length=100, blank=True)
     author = models.CharField (max_length=100, blank=True)
-    youtube = models.URLField (blank=True )
+    youtube = models.ForeignKey(Video, blank=True, null= True, on_delete=models.SET_NULL) 
     image = models.ImageField ( 
         default='default.jpg', 
         upload_to='', 
@@ -394,34 +429,3 @@ class Bug_site(models.Model):
 
     def get_absolute_url (self):
         return reverse ('bug_site_list')
-
-class Tag(models.Model):
-    name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True)
-    date_added = models.DateField(default=timezone.now)
-    
-    class Meta:
-        ordering = ['name']
-
-    def __str__ (self):
-        return self.name
-
-    def get_absolute_url (self):
-        return reverse ('lake_list')
-        
-class Video(models.Model):
-    name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True)
-    author = models.CharField (max_length = 100, blank=True)
-    url = models.URLField(max_length = 200)
-    tag = models.ManyToManyField(Tag)
-    date_added = models.DateField(default=timezone.now)
-    
-    class Meta:
-        ordering = ['name']
-
-    def __str__ (self):
-        return self.name
-
-    def get_absolute_url (self):
-        return reverse ('lake_list')

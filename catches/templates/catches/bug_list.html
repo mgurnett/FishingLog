@@ -5,15 +5,15 @@
     <div class="container">
         <div class = "row">
             {% for bug in bugs %}
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card mb-2 box-shadow card-link">
-                    <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a>
+                    <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a> {{ bug.fly_ent_count }}
                     <div class="card-body">
                         <p>{{ bug.notes }}</p>
                         <p>
                             {% if bug.image %}
                                 <a href="{% url 'bug_detail' bug.id %}" >
-                                    <img src="{{ bug.image.url }}" class="img-thumbnail"style="width:50%" >
+                                    <img src="{{ bug.image.url }}" class="img-thumbnail"style="width:75%" >
                                 </a>
                             {% endif %}
                         </p>

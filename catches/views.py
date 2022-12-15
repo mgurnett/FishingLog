@@ -52,6 +52,11 @@ class Fly_typeListView (ListView):
 class Fly_typeDetailView (DetailView): 
     model = Fly_type
     context_object_name = 'fly_type'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(Fly_typeDetailView, self).get_context_data(**kwargs)
+        context ['flys'] = Fly.objects.filter (fly_type=self.kwargs['pk'])
+        return context
 
 class Fly_typeCreateView(LoginRequiredMixin, CreateView):
     model = Fly_type

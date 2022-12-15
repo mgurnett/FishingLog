@@ -234,8 +234,11 @@ class New_Fly_Form (forms.ModelForm):
     description = forms.CharField ( required = False ) 
     size_range = forms.CharField ( required = False )
     author = forms.CharField ( required = False )
-    youtube = forms.CharField ( required = False )
     image = forms.ImageField (required = False )
+
+    youtube = forms.ModelChoiceField(
+        queryset=Video.objects.all(),
+        required = False )
 
     bug = forms.ModelChoiceField(
         queryset=Bug.objects.all(),

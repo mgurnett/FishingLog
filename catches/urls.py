@@ -89,7 +89,7 @@ urlpatterns = [
     path ('video/new/', VideoCreateView.as_view(), name = 'video_create'),  
     path ('video/update/<int:pk>/', VideoUpdateView.as_view(), name = 'video_update'),  
 
-    path ('tag/new/', TagCreateView.as_view(), name = 'video_create'),  
+    path ('tag/new/', TagCreateView.as_view(), name = 'tag_create'),  
 
     path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
