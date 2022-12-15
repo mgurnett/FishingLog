@@ -45,10 +45,11 @@
             <div class="col-md-9  "> <!-- Nav tabs -->
                 <ul class="nav nav-tabs ">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"  href="#LOGS">Fishing Logs ({{ lake.log_set.count }})</a>
+                        <a class="nav-link active" data-toggle="tab"  
+                        href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report ({{ lake.num_of_stock }})</a>
+                        <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#TEST">test</a>

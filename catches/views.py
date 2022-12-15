@@ -98,6 +98,11 @@ class BugListView (ListView):
 class BugDetailView (DetailView): 
     model = Bug
     context_object_name = 'bug'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(BugDetailView, self).get_context_data(**kwargs)
+        context ['flys'] = Fly.objects.filter (bug=self.kwargs['pk'])
+        return context
 
 class BugCreateView(LoginRequiredMixin, CreateView):
     model = Bug
@@ -354,7 +359,17 @@ class VideoDetailView (DetailView):
     model = Video
     context_object_name = 'videos'
     
-    def get_context_data(self, **kwargs): 
-        context = super(VideoDetailView, self).get_context_data(**kwargs)
-        context ['videos'] = Video.objects.filter (video=self.kwargs['pk'])
-        return context
+class VideoCreateView(LoginRequiredMixin, CreateView):
+    model = Video
+    form_class = New_Video_Form
+    success_message = "New Stock saved"
+
+class VideoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Video
+    form_class = New_Video_Form
+    success_message = "Stock fixed"
+    
+class TagCreateView(LoginRequiredMixin, CreateView):
+    model = Tag
+    form_class = New_Tag_Form
+    success_message = "New tag saved"

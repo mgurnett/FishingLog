@@ -23,7 +23,9 @@
                             <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
                                 {% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
                                 {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                                {% if lake.log_set.count %}({{ lake.log_set.count }}){% endif %}
+                                {% if lake.log_set.count %}
+                                    <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                                {% endif %}
                         </li>
                     {% endfor %} 
                 </ul> 

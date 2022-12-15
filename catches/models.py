@@ -412,7 +412,7 @@ class Tag(models.Model):
 class Video(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
-    author = models.TextField (blank=True)
+    author = models.CharField (max_length = 100, blank=True)
     url = models.URLField(max_length = 200)
     tag = models.ManyToManyField(Tag)
     date_added = models.DateField(default=timezone.now)

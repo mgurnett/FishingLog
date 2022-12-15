@@ -387,6 +387,54 @@ class New_Log_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
+class New_Video_Form (forms.ModelForm): 
+    class Meta:
+        model = Video
+        fields = ['name', 'notes', 'author', 'url', 'tag' ]
+        name = forms.CharField ( required = True )       
+        notes = forms.CharField ( required = False )
+        author = forms.CharField ( required = False )
+        url = forms.URLField ( required = False )
+        tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                Column('author', css_class='form-group col-md-4 mb-0'),
+                Column('url', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes', css_class='form-group col-md-8 mb-0'),
+                Column('tag', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save')
+        )
 
+class New_Tag_Form (forms.ModelForm): 
+    class Meta:
+        model = Tag
+        fields = ['name', 'notes' ]
+        name = forms.CharField ( required = True )       
+        notes = forms.CharField ( required = False )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes', css_class='form-group col-md-8 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save')
+        )
 
 
