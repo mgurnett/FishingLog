@@ -374,7 +374,3 @@ class VideoUpdateView(LoginRequiredMixin, UpdateView):
     form_class = New_Video_Form
     success_message = "Stock fixed"
     
-class TagCreateView(LoginRequiredMixin, CreateView):
-    model = Tag
-    form_class = New_Tag_Form
-    success_message = "New tag saved"
