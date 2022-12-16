@@ -121,7 +121,7 @@ class Bug(models.Model):
             
     @property 
     def fly_ent_count (self):
-        return Fly.objects.count()
+        return Fly.objects.filter(bug=self.id).count()
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
