@@ -10,6 +10,11 @@
                     <a href="{% url 'video_detail' vids.id %}" class="card-link">{{ vids.name}} </a>
                     <div class="card-body">
                         <p class="card-text">{{ vids.notes }}</p>
+                        <p class="card-text">
+                            {% for tag in vids.tags.all %}
+                                <small>{{tag}}</small>
+                            {% endfor %}
+                        </p>
                     </div>
                 </div>
             </div>

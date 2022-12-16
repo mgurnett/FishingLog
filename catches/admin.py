@@ -11,4 +11,10 @@ admin.site.register (Log)
 admin.site.register (Bug_site)
 admin.site.register (Temp)
 admin.site.register (Fly_type)
-admin.site.register (Video)
+
+@admin.register (Video)
+class VideoAdmin (admin.ModelAdmin):
+    list_display = ['name', 'get_tags']
+
+    def get_tags (self, obj):
+        return ", ".join(o for o in obj.tags.names())

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'catches.apps.CatchesConfig',
     'crispy_forms',
     'django_extensions',
+    "taggit",
 ]
 
 MIDDLEWARE = [
@@ -144,6 +145,8 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TAGGIT_CASE_INSENSITIVE = True
 
 GRAPH_MODELS = {
   'app_labels': ["catches"],

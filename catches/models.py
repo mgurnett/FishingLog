@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from PIL import Image
+from taggit.managers import TaggableManager
 
 ''' blank talks about being required!!!!!!!  
     # 
@@ -263,6 +264,7 @@ class Video(models.Model):
     author = models.CharField (max_length = 100, blank=True)
     url = models.URLField(max_length = 200)
     date_added = models.DateField(default=timezone.now)
+    tags = TaggableManager()
     
     class Meta:
         ordering = ['name']
@@ -417,4 +419,3 @@ class Bug_site(models.Model):
 
 
 
-        

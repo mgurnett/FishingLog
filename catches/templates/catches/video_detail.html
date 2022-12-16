@@ -26,7 +26,10 @@
 					{{ videos.notes }}
 				</p>
 				<p class="card-text">
-					tags	
+					tags:
+					{% for tag in videos.tags.all %}
+						<small>{{tag}}</small>
+					{% endfor %}
 				</p>
 				<div class="card-footer">
 					<div class="row">
