@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from lakes.models import Lake, Region
+from .models import Lake, Region
 
 class Command(BaseCommand):
 

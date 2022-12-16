@@ -1,0 +1,34 @@
+python3 manage.py shell
+
+from catches.models import Video, Fly
+Video.objects.all() - shows the __str__ for each of the instance of Video
+
+vids = Video.objects.all()
+vids - same as above
+
+vids [0] - shows the  __str__ of the first one
+vids [0].name
+vids[0].tags.all() - <QuerySet [<Tag: water boatman>, <Tag: wet fly>, <Tag: tying>, <Tag: backswimmer>]>
+
+vids = Video.objects.filter(name__exact='Brian')
+
+Video.objects.filter(tags__name__contains="backswimmer").count() - 2
+
+
+Notes:
+filter() will always give you a QuerySet 
+get() will get you a single
+
+The field specified in a lookup has to be the name of a model field. There’s one exception though, in case of a ForeignKey you can specify the field name suffixed with _id. In this case, the value parameter is expected to contain the raw value of the foreign model’s primary key.
+Video.objects.filter (tags_id = 1)
+
+exact
+iexact - A case-insensitive match.
+contains - Case-sensitive containment test
+    vids = Video.objects.filter(name__contains='Brian') 
+- <QuerySet [<Video: Fly Tying: Brian'S Dlt Micro Leech>, <Video: Fly Tying: Brian'S Simple Scud>]>
+
+startswith, endswith - Starts-with and ends-with search, respectively 
+Lookups that span relationships - https://docs.djangoproject.com/en/4.1/topics/db/queries/#lookups-that-span-relationships
+Entry.objects.filter(blog__name='Beatles Blog')
+Blog.objects.filter(entry__headline__contains='Lennon')

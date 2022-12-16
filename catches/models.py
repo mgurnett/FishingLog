@@ -32,7 +32,7 @@ GENTOTYPE = (
     ("AF2N", "all-female diploid"),
     ("AF3N", "all-female triploid"),
 )
-
+        
 class Region(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
@@ -50,8 +50,9 @@ class Fish(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField( blank=True )
     abbreviation = models.CharField (max_length=10, blank=True)
-    image = models.ImageField (default='default.jpg', upload_to='', height_field=None, width_field=None, max_length=100, blank=True)     
-    
+    image = models.ImageField (default='default.jpg', upload_to='', height_field=None, width_field=None, max_length=100, blank=True)
+    tag_name = models.CharField(max_length = 100, blank=True)
+
     class Meta:
         ordering = ['name']
 
@@ -85,6 +86,8 @@ class Bug(models.Model):
         max_length=100, 
         blank=True, null=True
         )
+    
+    tag_name = models.CharField(max_length = 100, blank=True)
 
     def save(self, *args, **kwargs):
         super(Bug, self).save(*args, **kwargs)
@@ -109,6 +112,10 @@ class Bug(models.Model):
     @property 
     def fly_ent_count (self):
         return Fly.objects.filter(bug=self.id).count()
+            
+    @property 
+    def fly_kind_count (self):
+        return Fly.objects.filter(fly_type=self.id).count()
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
@@ -122,6 +129,7 @@ class Lake(models.Model):
     district = models.CharField (max_length=100, blank=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
+    tag_name = models.CharField(max_length = 100, blank=True)
     
     class Meta:
         ordering = ['-favourite', 'name']
@@ -250,30 +258,12 @@ class Fly_type(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path) 
-            img.save(self.image.path)
 
     def __str__ (self):
         return self.name
 
     def get_absolute_url (self):
         return reverse ('fly_type_list')
-        
-class Video(models.Model):
-    name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True)
-    author = models.CharField (max_length = 100, blank=True)
-    url = models.URLField(max_length = 200)
-    date_added = models.DateField(default=timezone.now)
-    tags = TaggableManager()
-    
-    class Meta:
-        ordering = ['name']
-
-    def __str__ (self):
-        return self.name.title()
-
-    def get_absolute_url (self):
-        return reverse ('video_list')
 
 class Fly(models.Model):
     name = models.CharField(max_length = 100)
@@ -282,7 +272,7 @@ class Fly(models.Model):
     description = models.CharField (max_length=400, blank=True)
     size_range = models.CharField ( max_length=100, blank=True)
     author = models.CharField (max_length=100, blank=True)
-    youtube = models.ForeignKey(Video, blank=True, null= True, on_delete=models.SET_NULL) 
+    tag_name = models.CharField(max_length = 100, blank=True)
     image = models.ImageField ( 
         default='default.jpg', 
         upload_to='', 
@@ -299,6 +289,10 @@ class Fly(models.Model):
 
     def get_absolute_url (self):  
         return reverse ('fly_list')
+
+    @property 
+    def tag_title (self):
+        return self.tag_name
 
     def save(self, *args, **kwargs):
         super(Fly, self).save(*args, **kwargs)
@@ -406,6 +400,7 @@ class Bug_site(models.Model):
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     notes = models.TextField(blank=True)
+    tag_name = models.CharField(max_length = 100, blank=True)
      
     class Meta:
         ordering = ['temp']
@@ -417,5 +412,24 @@ class Bug_site(models.Model):
     def get_absolute_url (self):
         return reverse ('bug_site_list')
 
+class Video(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    author = models.CharField (max_length = 100, blank=True)
+    url = models.URLField(max_length = 200)
+    date_added = models.DateField(default=timezone.now)
+    tags = TaggableManager(blank=True)
+    fly = models.ManyToManyField (Fly, blank=True)
+    lake = models.ManyToManyField (Lake, blank=True)
+    bug = models.ManyToManyField (Bug, blank=True)
+    fish = models.ManyToManyField (Fish, blank=True)
+    
+    class Meta:
+        ordering = ['-date_added']
 
+    def __str__ (self):
+        return self.name.title()
+
+    def get_absolute_url (self):
+        return reverse ('video_list')
 

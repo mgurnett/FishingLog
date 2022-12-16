@@ -15,11 +15,16 @@
 					<p>
 						{{ fly_type.notes }}
 					</p>
-					<p>
-						{% if fly_type.article %} 
-							<a href="{{ fly_type.article.url }}" target="_blank" >{{ fly_type.article }} </a>
-						{% endif %}
-					</p>
+				
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+															
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+					</div>
 				</div>
 				<div class="card-footer">
 					<div class="row">
@@ -34,53 +39,51 @@
 		</div>
 		<div class="col-md-1"> </div>
 	</div>
-	<div class="row">  <!--   list of flys of that type -->
+	<div class="row">  <!--   list of bug flys  -->
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
-			{% for fly in flys %}
-				<div class="card col-6">
+			<div class="album py-1 ">
+				<div class="container">
 					<div class="row">
-						<h4 class="card-header col-4">
-							{{ fly.name | title }}
-						</h4>
-						<h5 class="card-header col-4">
-							{% if not fly.fly_type == "" %} 
-								Fly type: <a href="#" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
-							{% endif %}
-						</h5>
-						<h5 class="card-header col-4">
-							{% if fly.bug %} 
-								Bug type: <a href="#" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
-							{% endif %}
-						</h5>
-					</div>
-					<div class="card-body">
-						<p class="card text-center">
-							{% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
-						</p>
-						<p>
-							{{ fly.description }}
-						</p>
-					</div>
-					<div class="card-footer">
-						<div class="row">
-							<div class="col-3">
-								size range: <b> {{ fly.size_range }}</b>
+						{% for fly in flys %}
+							<div class="card col-6">
+								<div class="row">
+									<p class="card-header col-4">
+										{{ fly.name | title }}
+										<a href="{% url 'fly_detail' fly.id %}" class="card-link"><b>{{ fly.name | title }}</b> </a>
+									</p>
+									<p class="card-header col-4">
+										{% if not fly.fly_type == "" %} 
+											Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
+										{% endif %}
+									</p>
+									<p class="card-header col-4">
+										{% if fly.bug %} 
+											Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
+										{% endif %}
+									</p>
+								</div>
+								<div class="card-body">
+									<p class="card text-center">
+										{% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+									</p>
+									<p>
+										{{ fly.description }}
+									</p>
+								</div>
+								<div class="card-footer">
+									<div class="row">
+										<div class="col-4">
+											size range: <b> {{ fly.size_range }}</b>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="col-6">
-								{% if not fly.youtube == "" %} <a href="{{ fly.youtube }}" target="_blank" >Youtube link</a>{% endif %}
-								{% if not fly.author == "" %} - by: {{ fly.author }} {% endif %} 
-							</div>
-							<div class="col-3">
-								<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" >edit</a>
-								<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fly_delete' fly.id %}" type="submit" >delete</a>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
-			{% endfor %}
-		</div>
+			</div>
 		<div class="col-md-1"> </div>
 	</div>
 </div>
-{% endblock content %} 
+{% endblock content %}

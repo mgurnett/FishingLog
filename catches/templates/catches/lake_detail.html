@@ -52,7 +52,7 @@
                         <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#TEST">test</a>
+                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos</a>
                     </li>
                 </ul>
             </div>
@@ -69,10 +69,8 @@
                     <div class="tab-pane container fade" id="STOCKS">
                         {% include 'catches/full_lake/stock_tab.html' %}
                     </div>
-                    <div class="tab-pane container fade" id="TEST">
-                        <!-- test - start -->
-                        test tab
-                        <!-- test - end -->
+                    <div class="tab-pane container fade" id="VIDS">
+                        {% include 'catches/full_lake/videos_tab.html' %}
                     </div>
                 </div>
             </div>

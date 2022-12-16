@@ -117,6 +117,7 @@ class New_Bug_Form (forms.ModelForm):
     notes = forms.CharField ( required = False )  
     image = forms.ImageField (required = False )
     article = forms.FileField( required = False )
+    tags = forms.CharField ( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -133,6 +134,10 @@ class New_Bug_Form (forms.ModelForm):
             Row(
                 Column('image', css_class='form-group col-md-6 mb-0'),
                 Column('article', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('tags', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -235,10 +240,7 @@ class New_Fly_Form (forms.ModelForm):
     size_range = forms.CharField ( required = False )
     author = forms.CharField ( required = False )
     image = forms.ImageField (required = False )
-
-    youtube = forms.ModelChoiceField(
-        queryset=Video.objects.all(),
-        required = False )
+    tags = forms.CharField ( required = False )
 
     bug = forms.ModelChoiceField(
         queryset=Bug.objects.all(),
@@ -267,6 +269,10 @@ class New_Fly_Form (forms.ModelForm):
             Row(
                 Column('author', css_class='form-group col-md-4 mb-0'),
                 Column('youtube', css_class='form-group col-md-8 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('tags', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -393,11 +399,12 @@ class New_Log_Form (forms.ModelForm):
 class New_Video_Form (forms.ModelForm): 
     class Meta:
         model = Video
-        fields = ['name', 'notes', 'author', 'url' ]
+        fields = ['name', 'notes', 'author', 'url' ,'tags']
         name = forms.CharField ( required = True )       
         notes = forms.CharField ( required = False )
         author = forms.CharField ( required = False )
         url = forms.URLField ( required = False )
+        tags = forms.CharField ( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -411,6 +418,10 @@ class New_Video_Form (forms.ModelForm):
             ),
             Row(
                 Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('tags', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

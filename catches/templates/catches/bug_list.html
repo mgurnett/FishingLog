@@ -8,11 +8,11 @@
             <div class="col-md-4">
                 <div class="card mb-2 box-shadow">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a>
                         </div>
-                        <div class="col-md-2">
-                            {{ bug.fly_ent_count }}
+                        <div class="col-md-4">
+                            Fly count: {{ bug.fly_ent_count }}
                         </div>
                     </div>
                     <div class="card-body">

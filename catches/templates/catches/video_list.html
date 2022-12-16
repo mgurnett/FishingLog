@@ -1,6 +1,18 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<h1>Fishing videos</h1>    
+<div class="container">
+    <div class = "row">
+        <div class="col-md-8">
+            <h1>Fishing videos</h1>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary">
+                <a href="{% url 'video_create' %}">New video</a>
+            </button>
+        </div>
+    </div>
+</div>
+    
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
@@ -9,24 +21,18 @@
                 <div class="card mb-4 box-shadow">
                     <a href="{% url 'video_detail' vids.id %}" class="card-link">{{ vids.name}} </a>
                     <div class="card-body">
-                        <p class="card-text">{{ vids.notes }}</p>
-                        <p class="card-text">
+                        <p class="card-text">{{ vids.notes }}
+                        </br>
                             {% for tag in vids.tags.all %}
                                 <small>{{tag}}</small>
                             {% endfor %}
+                        </br><small>added: {{ vids.date_added }}</small>
                         </p>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </div>
-</div>
-<div class="container">
-    <div class = "row">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'video_create' %}">New video</a>
-        </button>
     </div>
 </div>
 {% endblock content %}

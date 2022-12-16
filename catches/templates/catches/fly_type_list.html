@@ -6,17 +6,31 @@
         <div class = "row">
             {% for type in fly_types %}
             <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'fly_type_detail' type.id %}" class="card-link">{{ type.name}} </a>
+                <div class="card mb-2 box-shadow">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <a href="{% url 'fly_type_detail' type.id %}" class="card-link">{{ type.name }} </a>
+                        </div>
+                        <div class="col-md-4">
+                            Fly count: {{ type.fly_kind_count }}
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <p class="card-text">{{ type.notes }}</p>
+                        <p>
+                            {% if type.image %}
+                                <a href="{% url 'fly_type_detail' type.id %}" >
+                                    <img src="{{ type.image.url }}" class="img-thumbnail"style="width:75%" >
+                                </a>
+                            {% endif %}
+                        </p>
+                        <p>{{ type.notes }}</p>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-</div>
+</div> 
 <div class="container">
     <div class = "row">
         <button type="button" class="btn btn-primary">

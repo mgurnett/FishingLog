@@ -80,6 +80,12 @@ class FishListView (ListView):
 class FishDetailView (DetailView): 
     model = Fish
     context_object_name = 'fishes'
+ 
+    def get_context_data(self, *args, **kwargs):
+        context = super (FishDetailView, self).get_context_data (*args, **kwargs)
+        data = Fish.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        return context
 
 class FishCreateView(LoginRequiredMixin, CreateView):
     model = Fish
@@ -107,6 +113,8 @@ class BugDetailView (DetailView):
     def get_context_data(self, **kwargs): 
         context = super(BugDetailView, self).get_context_data(**kwargs)
         context ['flys'] = Fly.objects.filter (bug=self.kwargs['pk'])
+        data = Bug.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
 class BugCreateView(LoginRequiredMixin, CreateView):
@@ -131,6 +139,12 @@ class FlyListView (ListView):
 class FlyDetailView (DetailView): 
     model = Fly
     context_object_name = 'fly'
+ 
+    def get_context_data(self, *args, **kwargs):
+        context = super (FlyDetailView, self).get_context_data (*args, **kwargs)
+        data = Fly.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        return context
 
 class FlyCreateView(LoginRequiredMixin, CreateView):
     model = Fly
@@ -202,6 +216,8 @@ class LakeDetailView (DetailView):
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
+        data = Lake.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
@@ -335,7 +351,7 @@ class LogDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
 class StockListView (ListView):
     model = Stock
     context_object_name = 'stocks' 
-    paginate_by = 6
+    paginate_by = 12
 
 class StockDetailView (DetailView): 
     model = Stock

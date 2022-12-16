@@ -11,7 +11,7 @@
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						{{ fishesS.notes }}
+						{{ fishes.notes }}
 					</p>
 				</div>
 				<div class="card-footer">
@@ -26,6 +26,23 @@
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
+	</div>
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="card-body">
+					YouTube videos tag: {{ fishes.tag_name }}
+					<div class="col-6">
+						{% for vid in videos %}
+							<a href="{{ vid.url }}" target="_blank" >{{ vid.name }}</a><br>
+						{% endfor %}
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-1"></div>
+		</div>
 	</div>
 </div>
 {% endblock content %}

@@ -38,7 +38,7 @@
 							<div class="col-md-6">
 								<div class="card mb-4 box-shadow">
 									<div class="card-body">
-										<h5 class="card-title">
+										<p class="card-title">
 											<div class="row">
 												<div class="col-7">
 													Water temp: <b>{{ log.temp.name }}</b>
@@ -47,16 +47,16 @@
 													<a href="{% url 'log_detail' log.id %}">{{ log.catch_date|date:"D, N j, y" }}</a> 
 												</div>
 											</div>
-										</h5>
-										<h6>
+										</p>
+										<p>
 											Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{ log.lake.lake_info | title}}</a> 
-										</h6>
-										<h6>
+										</p>
+										<p>
 											Fish: <a href="{% url 'fish_detail' log.fish.id %}">{{ log.fish_info | title}}</a>  
-										</h6>
-										<h6>
+										</p>
+										<p>
 											Fly: <a href="{% url 'fly_detail' log.fly.id %}">{{ log.fly_info | title}}</a>  
-										</h6>
+										</p>
 										<p class="card-text">
 											{{ log.notes }}
 										</p>
