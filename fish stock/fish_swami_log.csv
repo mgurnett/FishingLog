@@ -1,0 +1,64 @@
+#,Fishing spot name,Date year,Date month,day,Pattern name,Pattern color, temp,Lake,Fish
+3,"Cardiff, AB",2021,5,,Adams Parachute,Gray,,23,1
+1,"Chickakoo Lake, AB",2021,5,,Adams Parachute,Gray,,36,1
+5,"Mitchell Lake, AB",2021,5,,Blue Dun,,,36,1
+5,"Mitchell Lake, AB",2021,5,,Green Drake,,,85,1
+5,"Mitchell Lake, AB",2021,5,,Mosquito,,,103,1
+1,"Hermitage Park Pond, AB",2021,5,,Scud,Dun,,178,1
+1,"Boyle Pond, AB",2021,6,,Adams Parachute,Gray,,21,1
+1,"Cardiff, AB",2021,6,,Adams Parachute,Gray,,23,1
+1,"Star Lake, AB",2021,6,,Adams Parachute,Gray,,36,1
+1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,,,36,1
+1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Dun,,36,1
+0,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Gray,,36,1
+1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Gray,,36,1
+2,"Fort Lions Community Fish Pond, AB",2021,7,,Doc Spratley,Red,,85,1
+2,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,,,36,1
+1,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,Gray,,36,1
+2,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,Olive,,36,1
+1,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,,,36,1
+6,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,,,36,1
+3,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,Olive,,85,1
+1,"Fort Lions Community Fish Pond, AB",2021,8,,E/C Caddis,,,85,1
+1,"Cardiff, AB",2021,8,,Water Boatman,,16.5,178,1
+3,"Fort Lions Community Fish Pond, AB",2021,9,,Blue-Winged Olive Parachute,,12.5,85,1
+3,"Boulder Lake, AB",2021,9,,Water Boatman,,17,178,1
+2,"Cardiff, AB",2021,9,,Water Boatman,White,12,193,3
+1,"Boulder Lake, AB",2021,9,,Water Boatman,,17,252,3
+1,"Cardiff, AB",2021,10,,Attractor,Green,5,36,1
+1,"Len Thompson Pond, AB",2021,10,,Micro Leach,Brown,3.5,103,1
+2,"Len Thompson Pond, AB",2021,10,,Micro Leach,Brown,3.5,103,1
+2,"Cardiff, AB",2021,10,,Water Boatman,,5,193,3
+1,"Hasse, AB",2021,10,,Water Boatman,Peacock,3.5,193,3
+1,"Cardiff, AB",2021,10,,Woolly Worm,Brown,5,266,3
+1,"Fort Lions Community Fish Pond, AB",2022,4,,Micro Leach,Black,,103,1
+1,"Cardiff, AB",2022,5,,Adams,Olive,16,21,2
+2,"Cardiff, AB",2022,5,,Blob,Chartreuse,16,36,1
+4,"Hermitage Park Pond, AB",2022,5,,Blob,Chartreuse,,36,1
+1,"Cardiff, AB",2022,5,,CDC Spinner,Olive,,85,1
+5,"Hermitage Park Pond, AB",2022,5,,Chironomid,Brown,8,85,1
+1,"Hermitage Park Pond, AB",2022,5,,Chironomid,Red,14,85,1
+2,"Hermitage Park Pond, AB",2022,5,,Cormorant,Black,12,85,1
+1,"Cardiff, AB",2022,5,,FAB,Chartreuse,13,85,1
+2,"Hermitage Park Pond, AB",2022,5,,FAB,Orange,8,85,1
+2,"Cardiff, AB",2022,5,,Micro Leach,Black,16,103,1
+10,"Hermitage Park Pond, AB",2022,5,,Micro Leach,Black,10.7,103,1
+1,"Hermitage Park Pond, AB",2022,6,,Adams Parachute,,16,36,1
+2,"Nordegg Borrow Pit East, AB",2022,6,,Dragon Fly,Olive,,85,1
+1,"Twin Lakes, AB",2022,6,,Emerger,Olive,17,85,1
+13,"Hermitage Park Pond, AB",2022,6,,Gold Ribbed Hare's Ear,,16.9,85,1
+1,"Hermitage Park Pond, AB",2022,6,,Gold Ribbed Hare's Ear,Red,16.4,85,1
+1,"Cardiff, AB",2022,6,,Grizzly Damsel,Olive,16,99,1
+2,"Nordegg Borrow Pit East, AB",2022,6,,Kazakawich,Red,,260,1
+8,"Struble Lake, AB",2022,6,,Kazakawich,Red,,103,1
+1,"Hermitage Park Pond, AB",2022,6,,Mosquito,,16.4,103,1
+4,"Hermitage Park Pond, AB",2022,6,,Pheasant Tail,,18.5,103,1
+1,"Boyle Pond, AB",2022,6,,Prince Nymph,,,142,1
+2,"Hermitage Park Pond, AB",2022,6,,Prince Nymph,,,142,1
+2,"Nordegg Borrow Pit East, AB",2022,6,,Water Boatman,Black,,249,3
+1,"Fort Lions Community Fish Pond, AB",2022,10,,Dragon Fly,Olive,11,85,1
+2,"Fort Lions Community Fish Pond, AB",2022,10,,Dragon Fly,Olive,11,85,1
+1,"Cardiff, AB",2022,10,,Micro Leach,Black,9,103,1
+1,"Fort Lions Community Fish Pond, AB",2022,10,,Micro Leach,Black,,103,1
+2,"Hay Lakes (Telegraph Park), AB",2022,10,,Micro Leach,Olive,5,103,1
+1,"Cardiff, AB",2022,10,,Micro Leach,Black,9,103,1

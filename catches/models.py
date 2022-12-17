@@ -318,25 +318,6 @@ class Log(models.Model):
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
     notes = models.TextField(blank=True)
-    image = models.ImageField ('Picture of catch', 
-        default=None, 
-        upload_to='', 
-        height_field=None, 
-        width_field=None, 
-        max_length=100, 
-        blank=True
-        )
-
-    def save(self, *args, **kwargs):
-        super(Fly, self).save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
-            img.save(self.image.path)
      
     class Meta:
         ordering = ['temp']
