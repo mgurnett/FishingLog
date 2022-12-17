@@ -264,6 +264,10 @@ class Fly_type(models.Model):
 
     def get_absolute_url (self):
         return reverse ('fly_type_list')
+            
+    @property 
+    def fly_kind_count (self):
+        return Fly.objects.filter(fly_type=self.id).count()
 
 class Fly(models.Model):
     name = models.CharField(max_length = 100)
