@@ -285,7 +285,15 @@ class Fly(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return f'{self.name} - {self.description}'  # used in the admin to set the name of the model
+        if self.bug:
+            bug = self.bug.name
+        else:
+            bug="" 
+        if self.fly_type:
+            ftype = self.fly_type.name
+        else:
+            ftype=""   
+        return f'{self.name} - {bug} {ftype}'  # used in the admin to set the name of the model
 
     def get_absolute_url (self):  
         return reverse ('fly_list')
@@ -303,7 +311,6 @@ class Fly(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path) 
-            img.save(self.image.path)
 
 class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)

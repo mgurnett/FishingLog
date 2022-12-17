@@ -253,6 +253,7 @@ class New_Fly_Form (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Row(
                 Column('name', css_class='form-group col-md-4 mb-0'),
@@ -268,11 +269,7 @@ class New_Fly_Form (forms.ModelForm):
             'description',
             Row(
                 Column('author', css_class='form-group col-md-4 mb-0'),
-                Column('youtube', css_class='form-group col-md-8 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('tags', css_class='form-group col-md-12 mb-0'),
+                Column('tags', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
