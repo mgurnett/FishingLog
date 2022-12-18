@@ -107,7 +107,7 @@ class Bug(models.Model):
         return self.name
 
     def get_absolute_url (self):
-        return reverse ('bug_list')
+        return reverse ('bug_detail', kwargs = {'pk': self.pk})
             
     @property 
     def fly_ent_count (self):
@@ -263,7 +263,7 @@ class Fly_type(models.Model):
         return self.name
 
     def get_absolute_url (self):
-        return reverse ('fly_type_list')
+        return reverse ('fly_type_detail', kwargs = {'pk': self.pk})
             
     @property 
     def fly_kind_count (self):
@@ -300,7 +300,8 @@ class Fly(models.Model):
         return f'{self.name} - {bug} {ftype}'  # used in the admin to set the name of the model
 
     def get_absolute_url (self):  
-        return reverse ('fly_list')
+        return reverse ('fly_detail', kwargs = {'pk': self.pk})
+        
 
     @property 
     def tag_title (self):
@@ -402,7 +403,7 @@ class Bug_site(models.Model):
 
 
     def get_absolute_url (self):
-        return reverse ('bug_site_list')
+        return reverse ('bug_site_detail', kwargs = {'pk': self.pk})
 
 class Video(models.Model):
     name = models.CharField(max_length = 100)
@@ -423,5 +424,4 @@ class Video(models.Model):
         return self.name.title()
 
     def get_absolute_url (self):
-        return reverse ('video_list')
-
+        return reverse ('video_detail', kwargs = {'pk': self.pk})

@@ -230,6 +230,18 @@ class New_Bug_site_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
 
+# class New_Fly_Form (forms.ModelForm):
+    
+#     class Meta:
+#         model = Fly
+#         fields = '__all__'
+    
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.helper = FormHelper()
+#         self.helper.form_method = 'post'
+
+
 class New_Fly_Form (forms.ModelForm):
     
     class Meta:
