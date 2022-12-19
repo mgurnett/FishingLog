@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_extensions',
     "taggit",
+    'test_app.apps.TestAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,7 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TAGGIT_CASE_INSENSITIVE = True
 
 GRAPH_MODELS = {
-  'app_labels': ["catches"],
+  'app_labels': ["catches", "test_app"],
   'group_models': True,
   'color_code_deletions': True,
 #   'arrow_shape': True,
