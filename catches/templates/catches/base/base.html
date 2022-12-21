@@ -12,50 +12,39 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'catches/site/main.css' %}">
 
-    {% if title %}
-        <title>Fishing Logs - {{ title }}</title>
-    {% else %}
-        <title>Fishing Logs</title>
-    {% endif %}
+
+    <title>{% block title %}FlyLogs{% endblock %}</title>
 </head>
 <body>
-  <!-- Navbar -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        {% include "catches/base/navbar.html" %} 
+    <main>
+      <div class="container-fluid">
+
+            <div class="row"><!--  Navbar -->
+              <div class="col-md-12"> 
+                {% include "catches/base/navbar.html" %}
+              </div>
+            </div>
+            
+            <div class="row"><!--  Main content -->
+              <div class="col-md-2 "></div> <!--  Left side bar  -->
+              <div class="col-md-8 ">
+                {% block content %}{% endblock %}
+                {% include 'catches/base/pagein.html' %}
+              </div>
+              <div class="col-md-2 "></div> <!--  Right side bar  -->
+            </div>
+            
       </div>
-    </div>
-  </div>
-  
-  <!-- Message -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        {% if messages %}
-          {% include "catches/base/message.html" %} 
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  
-  <!-- main content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 pt-2">
-        {% block content %}{% endblock %}
-        {% include 'catches/base/pagein.html' %}
-      </div>
-    </div>
-  </div>
-  
+
+    </main>
   <!-- Footer -->
+  <!--
   <div class="container">
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark">
       <p>© Fishing log 2022</p>
     </nav>
   </div>
-
+-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
