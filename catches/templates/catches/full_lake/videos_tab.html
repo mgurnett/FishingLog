@@ -2,9 +2,9 @@
 <div class="album py-1 ">
     <div class="container">
         <div class = "row">
-            {% if video_list %}
+            {% if videos %}
             <ul class="list-group">
-                {% for video in video_list %}
+                {% for video in videos %}
                     <li class="list-group-item">
                         <a class="text-reset" href="{% url 'video_detail' video.id %}">
                             {{ video }}

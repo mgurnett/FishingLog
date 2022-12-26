@@ -2,19 +2,34 @@
 <div class="album py-1 ">
     <div class="container">
         <div class = "row">
-            {% if picure_list %}
-            <ul class="list-group">
-                {% for picure in picure_list %}
-                    <li class="list-group-item">
-                        <a class="text-reset" href="{% url 'picure_detail' picure.id %}">
-                            {{ picure }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>There are no picures to display</p>
-        {% endif %}
+            {% for picture in pictures %}
+                <div class="col-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="text-reset" href="{% url 'picture_detail' picture.id %}">{{ picture }}</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <img class='img-responsive thumbnail' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
+                                        {{ picture.notes|safe }}
+                                    </div>
+                                </div>
+                            </h5>
+                            <h6>
+                                
+                            </h6>
+                            <h6>
+                                
+                            </h6>
+                            <p class="card-text">
+                               
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
