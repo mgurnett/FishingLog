@@ -1,21 +1,6 @@
 from django.urls import path
 from . import views
-from .views import (
-    RegionListView, RegionCreateView, RegionUpdateView, RegionDetailView, RegionDeleteView,
-    Fly_typeListView, Fly_typeCreateView, Fly_typeUpdateView, Fly_typeDetailView, Fly_typeDeleteView,
-    FishListView, FishCreateView, FishUpdateView, FishDetailView, FishDeleteView,
-    BugListView, BugCreateView, BugUpdateView, BugDetailView, BugDeleteView,    
-    FlyListView, FlyCreateView, FlyUpdateView, FlyDetailView, FlyDeleteView,
-    LakeListView, LakeCreateView, LakeUpdateView, LakeDetailView, LakeDeleteView,
-    TempListView, TempCreateView, TempUpdateView, TempDetailView, TempDeleteView,
-    Bug_siteListView, Bug_siteCreateView, Bug_siteUpdateView, Bug_siteDetailView, Bug_siteDeleteView,
-    LogListView, LogCreateView, LogUpdateView, LogDetailView, LogDeleteView,
-    StockListView, StockCreateView, StockUpdateView, StockDetailView, StockDeleteView,
-    LakeListView_search, LogListView_search, LakeListView_regions, LakeListView_fav,
-    LogCreateView_from_lake, LogCreateView_from_temp,
-    VideoListView, VideoDetailView, VideoCreateView, VideoUpdateView,  
-
-)
+from .views import *
         
 urlpatterns = [
     path ('', views.home, name = 'catch_home'),
@@ -83,10 +68,23 @@ urlpatterns = [
     path ('stock/update/<int:pk>/', StockUpdateView.as_view(), name = 'stock_update'), 
     path ('stock/delete/<int:pk>/', StockDeleteView.as_view(), name = 'stock_delete'),
 
-    path ('video/', VideoListView.as_view(), name = 'video_list'), 
-    path ('video/<int:pk>/', VideoDetailView.as_view(), name = 'video_detail'),
-    path ('video/new/', VideoCreateView.as_view(), name = 'video_create'),  
-    path ('video/update/<int:pk>/', VideoUpdateView.as_view(), name = 'video_update'),  
+    path ('videos/',                  views.VideoListView.as_view(),    name ="videos_list" ),
+    path ('videos/add/',              views.VideoCreateView.as_view(),  name ="video_create" ),
+    path ('videos/<int:pk>/',         views.VideoDetailView.as_view(),  name ="video_detail" ),
+    path ('videos/update/<int:pk>/',  views.VideoUpdateView.as_view(),  name ='video_update'), 
+    path ('videos/delete/<int:pk>/',  views.VideoDeleteView.as_view(),  name ='video_delete'),
+
+    path ('articles/',                  views.ArticleListView.as_view(),    name ="articles_list" ),
+    path ('articles/add/',              views.ArticleCreateView.as_view(),  name ="article_create" ),
+    path ('articles/<int:pk>/',         views.ArticleDetailView.as_view(),  name ="article_detail" ),
+    path ('articles/update/<int:pk>/',  views.ArticleUpdateView.as_view(),  name ='article_update'), 
+    path ('articles/delete/<int:pk>/',  views.ArticleDeleteView.as_view(),  name ='article_delete'),
+    
+    path ('pictures/',                  views.PictureListView.as_view(),    name ="pictures_list" ),
+    path ('pictures/add/',              views.PictureCreateView.as_view(),  name ="picture_create" ),
+    path ('pictures/<int:pk>/',         views.PictureDetailView.as_view(),  name ="picture_detail" ),
+    path ('pictures/update/<int:pk>/',  views.PictureUpdateView.as_view(),  name ='picture_update'), 
+    path ('pictures/delete/<int:pk>/',  views.PictureDeleteView.as_view(),  name ='picture_delete'), 
 
     path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),

@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 from PIL import Image
 from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 ''' blank talks about being required!!!!!!!  
     # 
@@ -48,10 +50,9 @@ class Region(models.Model):
       
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField( blank=True )
-    abbreviation = models.CharField (max_length=10, blank=True)
-    image = models.ImageField (default='default.jpg', upload_to='', height_field=None, width_field=None, max_length=100, blank=True)
-    tag_name = models.CharField(max_length = 100, blank=True)
+    notes = RichTextField (blank=True, null=True)
+    abbreviation = models.CharField (max_length=10, blank=True)    
+    static_tag = models.SlugField()
 
     class Meta:
         ordering = ['name']
@@ -62,43 +63,11 @@ class Fish(models.Model):
     def get_absolute_url (self):  
         return reverse ('fish_detail', kwargs = {'pk': self.pk})
 
-    def save(self, *args, **kwargs):
-        super(Fish, self).save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
-
 class Bug(models.Model):    
     name = models.CharField ('Insect name', max_length=100)
     description = models.TextField ('Description', blank=True)
-    article = models.FileField(
-        upload_to='', 
-        blank=True)
-    image = models.ImageField ('Picture of insect', 
-        default=None, 
-        upload_to='', 
-        height_field=None, 
-        width_field=None, 
-        max_length=100, 
-        blank=True, null=True
-        )
-    
-    tag_name = models.CharField(max_length = 100, blank=True)
-
-    def save(self, *args, **kwargs):
-        super(Bug, self).save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
-            img.save(self.image.path)
+    notes = RichTextField (blank=True, null=True)
+    static_tag = models.SlugField()
     
     class Meta:
         ordering = ['name']
@@ -120,7 +89,7 @@ class Bug(models.Model):
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
     region = models.ForeignKey(Region, blank=True, null=True, on_delete=models.CASCADE)
-    notes = models.TextField(blank=True)
+    notes = RichTextField (blank=True, null=True)
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
     ats = models.CharField (max_length=100, blank=True)
@@ -129,7 +98,7 @@ class Lake(models.Model):
     district = models.CharField (max_length=100, blank=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
-    tag_name = models.CharField(max_length = 100, blank=True)
+    static_tag = models.SlugField()
     
     class Meta:
         ordering = ['-favourite', 'name']
@@ -226,7 +195,7 @@ class Stock(models.Model):
 class Temp(models.Model):
     name = models.CharField(max_length = 100)
     search_keys = models.CharField(max_length = 400, blank=True)
-    notes = models.TextField(blank=True)
+    notes = RichTextField (blank=True, null=True)
 
     def __str__ (self):
         return self.name
@@ -237,27 +206,6 @@ class Temp(models.Model):
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField(blank=True)
-    article = models.FileField(
-        upload_to='', 
-        blank=True)
-    image = models.ImageField ('Picture of fly type', 
-        default=None, 
-        upload_to='', 
-        height_field=None, 
-        width_field=None, 
-        max_length=100, 
-        blank=True, null=True
-        )
-
-    def save(self, *args, **kwargs):
-        super(Fly_type, self).save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
 
     def __str__ (self):
         return self.name
@@ -273,17 +221,11 @@ class Fly(models.Model):
     name = models.CharField(max_length = 100)
     bug = models.ForeignKey(Bug, blank=True, null= True, on_delete=models.SET_NULL )
     fly_type = models.ForeignKey(Fly_type, blank=True, null= True, on_delete=models.SET_NULL) 
-    description = models.CharField (max_length=400, blank=True)
+    notes = RichTextField (blank=True, null=True)
     size_range = models.CharField ( max_length=100, blank=True)
     author = models.CharField (max_length=100, blank=True)
-    tag_name = models.CharField(max_length = 100, blank=True)
-    image = models.ImageField ( 
-        default='default.jpg', 
-        upload_to='', 
-        height_field=None, 
-        width_field=None, 
-        max_length=100, 
-        blank=True)
+    static_tag = models.SlugField()
+    snippet = models.CharField (max_length = 255, blank=True)
 
     class Meta:
         ordering = ['name']
@@ -307,16 +249,6 @@ class Fly(models.Model):
     def tag_title (self):
         return self.tag_name
 
-    def save(self, *args, **kwargs):
-        super(Fly, self).save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
-
 class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
@@ -329,7 +261,7 @@ class Log(models.Model):
     fly = models.ForeignKey(Fly, blank=True, null=True, on_delete=models.SET_NULL)
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
-    notes = models.TextField(blank=True)
+    notes = RichTextField (blank=True, null=True)
      
     class Meta:
         ordering = ['temp']
@@ -392,8 +324,8 @@ class Bug_site(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
-    notes = models.TextField(blank=True)
-    tag_name = models.CharField(max_length = 100, blank=True)
+    notes = RichTextField (blank=True, null=True)
+    static_tag = models.SlugField()
      
     class Meta:
         ordering = ['temp']
@@ -412,16 +344,100 @@ class Video(models.Model):
     url = models.URLField(max_length = 200)
     date_added = models.DateField(default=timezone.now)
     tags = TaggableManager(blank=True)
-    fly = models.ManyToManyField (Fly, blank=True)
-    lake = models.ManyToManyField (Lake, blank=True)
-    bug = models.ManyToManyField (Bug, blank=True)
-    fish = models.ManyToManyField (Fish, blank=True)
+    snippet = models.CharField (max_length = 255, blank=True)
     
     class Meta:
         ordering = ['-date_added']
 
     def __str__ (self):
-        return self.name.title()
+        if self.snippet:
+            snip = f" - {self.snippet}"
+        else:
+            snip=""
+        if self.author:
+            auth = f" - by: {self.author.title()}"
+        else:
+            auth=""
+        if self.tags:
+            t_list = f' tags ({u", ".join(o.name for o in self.tags.all())})'
+        return f'{self.name.title()}{snip}{auth}{t_list}'
 
     def get_absolute_url (self):
         return reverse ('video_detail', kwargs = {'pk': self.pk})
+
+    @property
+    def tag_list (self):
+        t_list = u", ".join(o.name for o in self.tags.all())
+        return str(t_list)
+    
+class Article(models.Model):
+    name = models.CharField(max_length = 100)
+    author = models.CharField (max_length = 100, blank=True)
+    url = models.URLField(max_length = 200, blank=True)
+    notes = RichTextField (blank=True, null=True)
+    file = models.FileField( upload_to='files/', blank=True )
+    date_added = models.DateField(default=timezone.now)
+    tags = TaggableManager(blank=True)
+    snippet = models.CharField (max_length = 255, blank=True)
+    
+    class Meta:
+        ordering = ['-date_added']
+
+    def __str__ (self):
+        if self.snippet:
+            snip = f" - {self.snippet}"
+        else:
+            snip=""
+        if self.author:
+            auth = f" - by: {self.author.title()}"
+        else:
+            auth=""
+        if self.tags:
+            t_list = f' tags ({u", ".join(o.name for o in self.tags.all())})'
+        return f'{self.name.title()}{snip}{auth}{t_list}'
+
+    def get_absolute_url (self):
+        return reverse ('article_detail', kwargs = {'pk': self.pk})
+
+    @property
+    def tag_list (self):
+        t_list = u", ".join(o.name for o in self.tags.all())
+        return str(t_list)
+     
+class Picture(models.Model):
+    name = models.CharField(max_length = 100)
+    image = models.ImageField( upload_to='pictures/', blank=True )
+    notes = RichTextField (blank=True, null=True)
+    date_added = models.DateField(default=timezone.now)
+    tags = TaggableManager(blank=True)
+    snippet = models.CharField (max_length = 255, blank=True)
+    
+    class Meta:
+        ordering = ['-date_added']
+
+    def __str__ (self):
+        if self.snippet:
+            snip = f" - {self.snippet}"
+        else:
+            snip=""
+        if self.tags:
+            t_list = f' tags ({u", ".join(o.name for o in self.tags.all())})'
+        return f'{self.name.title()}{snip}{t_list}'
+
+    def get_absolute_url (self):
+        return reverse ('picture_detail', kwargs = {'pk': self.pk})
+
+    @property
+    def tag_list (self):
+        t_list = u", ".join(o.name for o in self.tags.all())
+        return str(t_list)
+
+    def save(self, *args, **kwargs):
+        super(Picture, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 

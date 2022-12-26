@@ -1,5 +1,5 @@
 {% extends "catches/base/base.html" %}
-{% block title %}Video:{{ video.name }}{% endblock %}
+{% block title %}Picture:{{ picture.name }}{% endblock %}
 
 {% block content %}
 
@@ -24,32 +24,28 @@
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
 			<div class="card">
-				<h5 class="card-header">
-					{{ video.name | title }}
-				</h5>
+				<h5 class="card-header"><b>{{ picture.name | title }}</b> - {{ picture.snippet }}</h5>
 				<div class="card-body">
+
 					<p>
-						{{ video.notes|safe }}
+						<img class='img-responsive thumbnail' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
+						{{ picture.notes|safe }}
 					</p>
-					<p>
-						Tags: <b>{{ video.tag_list }}</b>
-					</p>
+				
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-3"> 
-							Author: {{ video.author|title}}
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+							Tags: <b>{{ picture.tag_list }}</b>
 						</div>
                         <div class="col-md-3">
-							<a href="{{ video.url }}" target="_blank" >Youtube link</a>
-						</div>
-                        <div class="col-md-3">
-                            {{ video.date_added }}
+                            {{ picture.date_added }}
                         </div>
                         <div class="col-md-3">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_update' video.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'video_delete' video.id %}" type="submit" >delete</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' %}" type="submit" >new</a>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_update' picture.id %}" type="submit" >edit</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'picture_delete' picture.id %}" type="submit" >delete</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' %}" type="submit" >new</a>
                         </div>
                     </div>
 				</div>

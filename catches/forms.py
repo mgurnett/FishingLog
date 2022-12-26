@@ -147,7 +147,8 @@ class New_Lake_Form (forms.ModelForm):
     
     class Meta:
         model = Lake
-        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 'district', 'waterbody_id', 'favourite', 'region']
+        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
+        'district', 'waterbody_id', 'favourite', 'region', 'static_tag']
 
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
@@ -156,6 +157,7 @@ class New_Lake_Form (forms.ModelForm):
     lat = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
     long = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
     district = forms.CharField( max_length = 100, required = False )
+    static_tag = forms.CharField( max_length = 100, required = False )
     waterbody_id = forms.IntegerField( required = False )
     favourite = forms.BooleanField( required = False )
     region = forms.ModelChoiceField(
@@ -174,7 +176,8 @@ class New_Lake_Form (forms.ModelForm):
             ),
             Row(
                 Column('district', css_class='form-group col-md-3 mb-0'),
-                Column('region', css_class='form-group col-md-3 mb-0 offset-md-2'),
+                Column('static_tag', css_class='form-group col-md-3 mb-0'),
+                Column('region', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -235,57 +238,45 @@ class New_Bug_site_Form (forms.ModelForm):
 #     class Meta:
 #         model = Fly
 #         fields = '__all__'
+#     name = forms.CharField ( required = True ) 
+#     description = forms.CharField ( required = False ) 
+#     size_range = forms.CharField ( required = False )
+#     author = forms.CharField ( required = False )
+#     image = forms.ImageField (required = False )
+#     tags = forms.CharField ( required = False )
+
+#     bug = forms.ModelChoiceField(
+#         queryset=Bug.objects.all(),
+#         required = False )   
+
+#     fly_type = forms.ModelChoiceField(
+#         queryset=Fly_type.objects.all(),
+#         required = False )
     
 #     def __init__(self, *args, **kwargs):
 #         super().__init__(*args, **kwargs)
 #         self.helper = FormHelper()
 #         self.helper.form_method = 'post'
-
-
-class New_Fly_Form (forms.ModelForm):
-    
-    class Meta:
-        model = Fly
-        fields = '__all__'
-    name = forms.CharField ( required = True ) 
-    description = forms.CharField ( required = False ) 
-    size_range = forms.CharField ( required = False )
-    author = forms.CharField ( required = False )
-    image = forms.ImageField (required = False )
-    tags = forms.CharField ( required = False )
-
-    bug = forms.ModelChoiceField(
-        queryset=Bug.objects.all(),
-        required = False )   
-
-    fly_type = forms.ModelChoiceField(
-        queryset=Fly_type.objects.all(),
-        required = False )
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('fly_type', css_class='form-group col-md-4 mb-0'),
-                Column('bug', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('size_range', css_class='form-group col-md-6 mb-0'),
-                Column('image', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            'description',
-            Row(
-                Column('author', css_class='form-group col-md-4 mb-0'),
-                Column('tags', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Submit('submit', 'Save')
-        )
+#         self.helper.layout = Layout(
+#             Row(
+#                 Column('name', css_class='form-group col-md-4 mb-0'),
+#                 Column('fly_type', css_class='form-group col-md-4 mb-0'),
+#                 Column('bug', css_class='form-group col-md-4 mb-0'),
+#                 css_class='form-row'
+#             ),
+#             Row(
+#                 Column('size_range', css_class='form-group col-md-6 mb-0'),
+#                 Column('image', css_class='form-group col-md-6 mb-0'),
+#                 css_class='form-row'
+#             ),
+#             'description',
+#             Row(
+#                 Column('author', css_class='form-group col-md-4 mb-0'),
+#                 Column('tags', css_class='form-group col-md-4 mb-0'),
+#                 css_class='form-row'
+#             ),
+#             Submit('submit', 'Save')
+#         )
 
 class New_Stock_Form (forms.ModelForm):
     
@@ -393,35 +384,5 @@ class New_Log_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
-class New_Video_Form (forms.ModelForm): 
-    class Meta:
-        model = Video
-        fields = ['name', 'notes', 'author', 'url' ,'tags']
-        name = forms.CharField ( required = True )       
-        notes = forms.CharField ( required = False )
-        author = forms.CharField ( required = False )
-        url = forms.URLField ( required = False )
-        tags = forms.CharField ( required = False )
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('author', css_class='form-group col-md-4 mb-0'),
-                Column('url', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('notes', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('tags', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Submit('submit', 'Save')
-        )
 
 

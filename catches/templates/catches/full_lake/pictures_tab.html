@@ -1,21 +1,21 @@
-<!-- video tab - start -->
+<!-- picure tab - start -->
 <div class="album py-1 ">
     <div class="container">
         <div class = "row">
-            {% if video_list %}
+            {% if picure_list %}
             <ul class="list-group">
-                {% for video in video_list %}
+                {% for picure in picure_list %}
                     <li class="list-group-item">
-                        <a class="text-reset" href="{% url 'video_detail' video.id %}">
-                            {{ video }}
+                        <a class="text-reset" href="{% url 'picure_detail' picure.id %}">
+                            {{ picure }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>There are no videos to display</p>
+            <p>There are no picures to display</p>
         {% endif %}
         </div>
     </div>
 </div>
-<!-- video tab - end -->
+<!-- picure tab - end -->

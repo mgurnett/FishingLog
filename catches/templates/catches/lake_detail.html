@@ -17,11 +17,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3  ">
+            <div class="col-md-2  ">
                 {% if not lake.district == "" %} District: <b>{{ lake.district | title  }}</b> {% endif %}
             </div>
-            <div class="col-md-3  ">
+            <div class="col-md-2  ">
                 Location: <b> {{ lake.ats }}</b>
+            </div>
+            <div class="col-md-3  ">
+                Tag: <b> {{ lake.static_tag }}</b>
             </div>
             <div class="col-md-3  ">
                 {% if not lake.lat == None %} 
@@ -54,6 +57,12 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#VIDS">Videos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-3   text-right">
@@ -71,6 +80,12 @@
                     </div>
                     <div class="tab-pane container fade" id="VIDS">
                         {% include 'catches/full_lake/videos_tab.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="ARTS">
+                        {% include 'catches/full_lake/articles_tab.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="PICS">
+                        {% include 'catches/full_lake/pictures_tab.html' %}
                     </div>
                 </div>
             </div>

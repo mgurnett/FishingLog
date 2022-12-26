@@ -1,21 +1,21 @@
-<!-- video tab - start -->
+<!-- article tab - start -->
 <div class="album py-1 ">
     <div class="container">
         <div class = "row">
-            {% if video_list %}
+            {% if article_list %}
             <ul class="list-group">
-                {% for video in video_list %}
+                {% for article in article_list %}
                     <li class="list-group-item">
-                        <a class="text-reset" href="{% url 'video_detail' video.id %}">
-                            {{ video }}
+                        <a class="text-reset" href="{% url 'article_detail' article.id %}">
+                            {{ article }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>There are no videos to display</p>
+            <p>There are no article to display</p>
         {% endif %}
         </div>
     </div>
 </div>
-<!-- video tab - end -->
+<!-- article tab - end -->

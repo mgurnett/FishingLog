@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import *
+from django.contrib import messages
+from django.urls import reverse_lazy
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -44,6 +46,7 @@ class RegionDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s
     model = Region
     success_url = "/regions/"
 
+
 class Fly_typeListView (ListView):
     model = Fly_type
     context_object_name = 'fly_types' 
@@ -71,6 +74,7 @@ class Fly_typeUpdateView(LoginRequiredMixin, UpdateView):
 class Fly_typeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Fly_type
     success_url = "/fly_type/"
+
 
 class FishListView (ListView):
     model = Fish
@@ -100,6 +104,7 @@ class FishUpdateView(LoginRequiredMixin, UpdateView):
 class FishDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Fish
     success_url = "/fish/"
+
 
 class BugListView (ListView):
     model = Bug
@@ -131,6 +136,7 @@ class BugDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
     model = Bug
     success_url = "/bug/"
 
+
 class FlyListView (ListView):
     model = Fly
     context_object_name = 'flys' 
@@ -146,19 +152,44 @@ class FlyDetailView (DetailView):
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
+# class FlyCreateView(LoginRequiredMixin, CreateView):
+#     model = Fly
+#     form_class = New_Fly_Form
+#     success_message = "New Fly saved"
+
+# class FlyUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Fly
+#     form_class = New_Fly_Form
+#     success_message = "Fly fixed"
+
 class FlyCreateView(LoginRequiredMixin, CreateView):
     model = Fly
-    form_class = New_Fly_Form
-    success_message = "New Fly saved"
+    fields = '__all__'
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The fly was added'
+        )
+        return super().form_valid (form)
 
 class FlyUpdateView(LoginRequiredMixin, UpdateView):
     model = Fly
-    form_class = New_Fly_Form
-    success_message = "Fly fixed"
+    fields = '__all__'
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'fly fixed'
+        )
+        return super().form_valid (form)
 
 class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Fly
     success_url = "/flys/"
+
 
 class LakeListView (ListView):
     model = Lake
@@ -216,8 +247,10 @@ class LakeDetailView (DetailView):
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
-        data = Lake.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        context ['articles'] = Article.objects.filter (tags__name__contains=data)
+        context ['pictures'] = Picture.objects.filter (tags__name__contains=data)
         return context
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
@@ -233,6 +266,7 @@ class LakeUpdateView(LoginRequiredMixin, UpdateView):
 class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Lake
     success_url = "/lakes/"
+
 
 class TempListView (ListView):
     model = Temp
@@ -262,6 +296,7 @@ class TempDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
     model = Temp
     success_url = "/temp/"
 
+
 class Bug_siteListView (ListView):
     model = Bug_site
     context_object_name = 'bug_sites' 
@@ -284,6 +319,7 @@ class Bug_siteUpdateView(LoginRequiredMixin, UpdateView):
 class Bug_siteDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Bug_site
     success_url = "/bug_site/"
+
 
 class LogListView (ListView):
     model = Log
@@ -348,6 +384,7 @@ class LogDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
     model = Log
     success_url = "/log/"
 
+
 class StockListView (ListView):
     model = Stock
     context_object_name = 'stocks' 
@@ -371,22 +408,113 @@ class StockDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7
     model = Stock
     success_url = "/stock/"
 
-class VideoListView (ListView):
-    model = Video
-    context_object_name = 'videos' 
-    paginate_by = 6
 
-class VideoDetailView (DetailView): 
+class VideoListView(ListView):
     model = Video
-    context_object_name = 'videos'
-    
+    paginate_by = 12
+ 
+class VideoDetailView(DetailView):
+    model = Video
+
 class VideoCreateView(LoginRequiredMixin, CreateView):
     model = Video
-    form_class = New_Video_Form
-    success_message = "New Stock saved"
+    # form_class = Video_Form
+    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The video was added'
+        )
+        return super().form_valid (form)
 
 class VideoUpdateView(LoginRequiredMixin, UpdateView):
     model = Video
-    form_class = New_Video_Form
-    success_message = "Stock fixed"
-    
+    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'Video fixed'
+        )
+        return super().form_valid (form)
+
+class VideoDeleteView (LoginRequiredMixin, DeleteView):
+    model = Video
+    success_url = reverse_lazy('videos_list')
+
+
+class ArticleListView(ListView):
+    model = Article
+    paginate_by = 12
+ 
+class ArticleDetailView(DetailView):
+    model = Article
+
+class ArticleCreateView(LoginRequiredMixin, CreateView):
+    model = Article
+    # form_class = Article_Form
+    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The article was added'
+        )
+        return super().form_valid (form)
+
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
+    model = Article
+    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'Article fixed'
+        )
+        return super().form_valid (form)
+
+class ArticleDeleteView (LoginRequiredMixin, DeleteView):
+    model = Article
+    success_url = reverse_lazy('articles_list')
+
+
+class PictureListView(ListView):
+    model = Picture
+    paginate_by = 12
+ 
+class PictureDetailView(DetailView):
+    model = Picture
+
+class PictureCreateView(LoginRequiredMixin, CreateView):
+    model = Picture
+    # form_class = Picture_Form
+    fields = ('name', 'notes', 'tags', 'image', 'snippet')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The picture was added'
+        )
+        return super().form_valid (form)
+
+class PictureUpdateView(LoginRequiredMixin, UpdateView):
+    model = Picture
+    fields = ('name', 'notes', 'tags', 'image', 'snippet')
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'Picture fixed'
+        )
+        return super().form_valid (form)
+
+class PictureDeleteView (LoginRequiredMixin, DeleteView):
+    model = Picture
+    success_url = reverse_lazy('pictures_list')
