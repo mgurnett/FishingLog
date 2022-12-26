@@ -68,6 +68,24 @@ class Bug(models.Model):
     description = models.TextField ('Description', blank=True)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()
+    image = models.ImageField ('Picture of the bug', 
+        default=None, 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    def save(self, *args, **kwargs):
+        super(Bug, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
     
     class Meta:
         ordering = ['name']
@@ -206,6 +224,24 @@ class Temp(models.Model):
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField(blank=True)
+    image = models.ImageField ('Picture of fly type', 
+        default=None, 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    def save(self, *args, **kwargs):
+        super(Fly_type, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
 
     def __str__ (self):
         return self.name
@@ -226,6 +262,13 @@ class Fly(models.Model):
     author = models.CharField (max_length=100, blank=True)
     static_tag = models.SlugField()
     snippet = models.CharField (max_length = 255, blank=True)
+    image = models.ImageField ( 
+        default='default.jpg', 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True)
 
     class Meta:
         ordering = ['name']
@@ -244,10 +287,19 @@ class Fly(models.Model):
     def get_absolute_url (self):  
         return reverse ('fly_detail', kwargs = {'pk': self.pk})
         
-
     @property 
     def tag_title (self):
         return self.tag_name
+
+    def save(self, *args, **kwargs):
+        super(Fly, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
 
 class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)

@@ -116,8 +116,7 @@ class New_Bug_Form (forms.ModelForm):
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )  
     image = forms.ImageField (required = False )
-    article = forms.FileField( required = False )
-    tags = forms.CharField ( required = False )
+    static_tag = forms.CharField ( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -125,6 +124,7 @@ class New_Bug_Form (forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('name', css_class='form-group col-md-4 mb-0'),
+                Column('static_tag', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -133,7 +133,6 @@ class New_Bug_Form (forms.ModelForm):
             ),
             Row(
                 Column('image', css_class='form-group col-md-6 mb-0'),
-                Column('article', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Row(

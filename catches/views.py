@@ -118,7 +118,7 @@ class BugDetailView (DetailView):
     def get_context_data(self, **kwargs): 
         context = super(BugDetailView, self).get_context_data(**kwargs)
         context ['flys'] = Fly.objects.filter (bug=self.kwargs['pk'])
-        data = Bug.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        data = Bug.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
