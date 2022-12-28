@@ -5,15 +5,16 @@
     <div class="container">
         <div class = "row">
             {% for fish in fishes %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}>
-                    <a href="{% url 'fish_detail' fish.id %}" class="card-link">{{ fish.name | title}} </a>
-                    <div class="card-body">
-                        <p class="card-text">{{ fish.notes }}</p>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <a href="{% url 'fish_detail' fish.id %}" class="card-link"><b>{{ fish.name | title}}</b> 
+                        <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}>
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text">{{ fish.notes }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>

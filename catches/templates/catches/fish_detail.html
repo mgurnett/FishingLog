@@ -32,7 +32,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="card-body">
-					YouTube videos tag: {{ fishes.tag_name }}
+					Tag: {{ fishes.static_tag }}
 					<div class="col-6">
 						{% for vid in videos %}
 							<a href="{{ vid.url }}" target="_blank" >{{ vid.name }}</a><br>

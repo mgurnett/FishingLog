@@ -58,8 +58,7 @@ class New_Fly_type_Form (forms.ModelForm):
         fields = '__all__'
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
-    image = forms.ImageField (required = False )
-    article = forms.FileField( required = False )
+    image = forms.ImageField (required = False )  
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -72,7 +71,6 @@ class New_Fly_type_Form (forms.ModelForm):
             'notes',
             Row(
                 Column('image', css_class='form-group col-md-6 mb-0'),
-                Column('article', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -87,6 +85,7 @@ class New_Fish_Form (forms.ModelForm):
     notes = forms.CharField ( required = False )      
     abbreviation = forms.CharField ( required = False )
     image = forms.ImageField (required = False )
+    static_tag = forms.CharField ( required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -102,7 +101,8 @@ class New_Fish_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('image', css_class='form-group col-md-12 mb-0'),
+                Column('image', css_class='form-group col-md-8 mb-0'),
+                Column('static_tag', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

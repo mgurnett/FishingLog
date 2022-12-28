@@ -46,7 +46,7 @@ class RegionDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s
     model = Region
     success_url = "/regions/"
 
-
+ 
 class Fly_typeListView (ListView):
     model = Fly_type
     context_object_name = 'fly_types' 
@@ -87,7 +87,7 @@ class FishDetailView (DetailView):
  
     def get_context_data(self, *args, **kwargs):
         context = super (FishDetailView, self).get_context_data (*args, **kwargs)
-        data = Fish.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        data = Fish.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
@@ -148,7 +148,7 @@ class FlyDetailView (DetailView):
  
     def get_context_data(self, *args, **kwargs):
         context = super (FlyDetailView, self).get_context_data (*args, **kwargs)
-        data = Fly.objects.filter (id=self.kwargs['pk']).values_list('tag_name', flat=True)[0]
+        data = Fly.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 

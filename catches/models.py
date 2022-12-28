@@ -53,6 +53,24 @@ class Fish(models.Model):
     notes = RichTextField (blank=True, null=True)
     abbreviation = models.CharField (max_length=10, blank=True)    
     static_tag = models.SlugField()
+    image = models.ImageField ('Picture of the bug', 
+        default=None, 
+        upload_to='', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    def save(self, *args, **kwargs):
+        super(Fish, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
     class Meta:
         ordering = ['name']
@@ -232,7 +250,7 @@ class Fly_type(models.Model):
         max_length=100, 
         blank=True, null=True
         )
-
+ 
     def save(self, *args, **kwargs):
         super(Fly_type, self).save(*args, **kwargs)
 
