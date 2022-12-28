@@ -55,7 +55,7 @@ class Fish(models.Model):
     static_tag = models.SlugField()
     image = models.ImageField ('Picture of the bug', 
         default=None, 
-        upload_to='', 
+        upload_to='fish/', 
         height_field=None, 
         width_field=None, 
         max_length=100, 
@@ -88,7 +88,7 @@ class Bug(models.Model):
     static_tag = models.SlugField()
     image = models.ImageField ('Picture of the bug', 
         default=None, 
-        upload_to='', 
+        upload_to='bug/', 
         height_field=None, 
         width_field=None, 
         max_length=100, 
@@ -244,7 +244,7 @@ class Fly_type(models.Model):
     notes = models.TextField(blank=True)
     image = models.ImageField ('Picture of fly type', 
         default=None, 
-        upload_to='', 
+        upload_to='fly_type/', 
         height_field=None, 
         width_field=None, 
         max_length=100, 
@@ -282,7 +282,7 @@ class Fly(models.Model):
     snippet = models.CharField (max_length = 255, blank=True)
     image = models.ImageField ( 
         default='default.jpg', 
-        upload_to='', 
+        upload_to='flys/', 
         height_field=None, 
         width_field=None, 
         max_length=100, 
