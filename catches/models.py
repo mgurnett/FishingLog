@@ -332,6 +332,8 @@ class Log(models.Model):
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
     notes = RichTextField (blank=True, null=True)
+    fish_swami = models.IntegerField (blank=True)
+    num_landed = models.IntegerField (blank=True)
      
     class Meta:
         ordering = ['temp']

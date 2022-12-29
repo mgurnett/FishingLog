@@ -1,62 +1,41 @@
-#,Fishing spot name,Date year,Date month,day,Pattern name,Pattern color, temp,Lake,Fish,fly
-3,"Cardiff, AB",2021,5,,Adams Parachute,Gray,,23,1,11
-1,"Chickakoo Lake, AB",2021,5,,Adams Parachute,Gray,,36,1,11
-5,"Mitchell Lake, AB",2021,5,,Blue Dun,blue,,36,1,11
-5,"Mitchell Lake, AB",2021,5,,Green Drake,,,85,1,25
-5,"Mitchell Lake, AB",2021,5,,Mosquito,,,103,1,22
-1,"Hermitage Park Pond, AB",2021,5,,Scud,Dun,,178,1,6
-1,"Boyle Pond, AB",2021,6,,Adams Parachute,Gray,,21,1,11
-1,"Cardiff, AB",2021,6,,Adams Parachute,Gray,,23,1,11
-1,"Star Lake, AB",2021,6,,Adams Parachute,Gray,,36,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,,,36,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Dun,,36,1,11
-0,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Gray,,36,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,7,,Adams Parachute,Gray,,36,1,11
-2,"Fort Lions Community Fish Pond, AB",2021,7,,Doc Spratley,Red,,85,1,17
-2,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,,,36,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,Gray,,36,1,11
-2,"Fort Lions Community Fish Pond, AB",2021,8,,Adams Parachute,Olive,,36,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,blue,,36,1,11
-6,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,blue,,36,1,11
-3,"Fort Lions Community Fish Pond, AB",2021,8,,Blue-Winged Olive Parachute,Olive,,85,1,11
-1,"Fort Lions Community Fish Pond, AB",2021,8,,E/C Caddis,,,85,1,12
-1,"Cardiff, AB",2021,8,,Water Boatman,,16.5,178,1,1
-3,"Fort Lions Community Fish Pond, AB",2021,9,,Blue-Winged Olive Parachute,blue,12.5,85,1,11
-2,"Cardiff, AB",2021,9,,Water Boatman,White,12,193,3,1
-3,"Boulder Lake, AB",2021,9,,Water Boatman,,17,178,1,1
-1,"Boulder Lake, AB",2021,9,,Water Boatman,,17,252,3,1
-1,"Cardiff, AB",2021,10,,Attractor,Green,5,36,1,14
-1,"Len Thompson Pond, AB",2021,10,,Micro Leach,Brown,3.5,103,1,10
-2,"Len Thompson Pond, AB",2021,10,,Micro Leach,Brown,3.5,103,1,10
-1,"Hasse, AB",2021,10,,Water Boatman,Peacock,3.5,193,3,1
-2,"Cardiff, AB",2021,10,,Water Boatman,,5,193,3,1
-1,"Cardiff, AB",2021,10,,Woolly Worm,Brown,5,266,3,1
-1,"Fort Lions Community Fish Pond, AB",2022,4,,Micro Leach,Black,,103,1,10
-1,"Cardiff, AB",2022,5,,Adams,Olive,16,21,2,11
-2,"Cardiff, AB",2022,5,,Blob,Chartreuse,16,36,1,20
-4,"Hermitage Park Pond, AB",2022,5,,Blob,Chartreuse,,36,1,20
-1,"Cardiff, AB",2022,5,,CDC Spinner,Olive,,85,1,27
-5,"Hermitage Park Pond, AB",2022,5,,Chironomid,Brown,8,85,1,19
-1,"Hermitage Park Pond, AB",2022,5,,Chironomid,Red,14,85,1,19
-2,"Hermitage Park Pond, AB",2022,5,,Cormorant,Black,12,85,1,18
-2,"Hermitage Park Pond, AB",2022,5,,FAB,Orange,8,85,1,15
-1,"Cardiff, AB",2022,5,,FAB,Chartreuse,13,85,1,15
-10,"Hermitage Park Pond, AB",2022,5,,Micro Leach,Black,10.7,103,1,10
-2,"Cardiff, AB",2022,5,,Micro Leach,Black,16,103,1,10
-1,"Hermitage Park Pond, AB",2022,6,,Adams Parachute,,16,36,1,11
-2,"Nordegg Borrow Pit East, AB",2022,6,,Dragon Fly,Olive,,85,1,26
-1,"Twin Lakes, AB",2022,6,,Emerger,Olive,17,85,1,27
-1,"Hermitage Park Pond, AB",2022,6,,Gold Ribbed Hare's Ear,Red,16.4,85,1,9
-13,"Hermitage Park Pond, AB",2022,6,,Gold Ribbed Hare's Ear,,16.9,85,1,9
-1,"Cardiff, AB",2022,6,,Grizzly Damsel,Olive,16,99,1,24
-2,"Nordegg Borrow Pit East, AB",2022,6,,Kazakawich,Red,,260,1,16
-8,"Struble Lake, AB",2022,6,,Kazakawich,Red,,103,1,16
-1,"Hermitage Park Pond, AB",2022,6,,Mosquito,,16.4,103,1,22
-4,"Hermitage Park Pond, AB",2022,6,,Pheasant Tail,,18.5,103,1,23
-1,"Boyle Pond, AB",2022,6,,Prince Nymph,,,142,1,21
-2,"Hermitage Park Pond, AB",2022,6,,Prince Nymph,,,142,1,21
-2,"Nordegg Borrow Pit East, AB",2022,6,,Water Boatman,Black,,249,3,1
-1,"Fort Lions Community Fish Pond, AB",2022,10,,Dragon Fly,Olive,11,85,1,26
-2,"Fort Lions Community Fish Pond, AB",2022,10,,Dragon Fly,Olive,11,85,1,26
-1,"Cardiff, AB",2022,10,,Micro Leach,Black,9,103,1,10
-1,"Fort Lions Community Fish Pond, AB",2022,10,,Micro Leach,Black,,103,1,10
+#,Pattern color,temp,Date,Lake#,Flys#,fish#,swami
+2,Olive,38,2022-10-29,260,10,1,44434
+1,Black,34,2022-10-16,36,10,3,44355
+1,Black,34,2022-10-16,36,10,1,44355
+2,Olive,32,2022-10-13,85,26,3,44334
+1,Olive,32,2022-10-13,85,26,1,44334
+1,Olive,26,2022-06-28,266,27,1,43598
+1,,22,2022-06-21,103,9,1,43533
+1,,18,2022-06-05,103,22,1,43392
+10,Red,18,2022-06-05,103,9,1,43392
+4,,17,2022-06-10,103,23,1,43448
+2,,17,2022-06-10,103,23,1,43448
+1,,14,2022-06-25,103,11,1,43353
+1,Olive,14,2022-05-28,11,27,1,43298
+1,Chartreuse,14,2022-05-28,36,15,1,43298
+2,Black,14,2022-05-28,36,10,1,43298
+1,Red,12,2022-05-17,103,19,1,43180
+1,Red,12,2022-05-17,103,19,1,43180
+1,Chartreuse,11,2022-05-15,36,15,1,43169
+2,,10,2022-05-04,103,10,1,43056
+2,,10,2022-05-04,103,18,1,43056
+3,,8,2022-05-13,103,10,1,43145
+2,,8,2022-05-09,103,10,1,43116
+2,Orange,6,2022-05-03,103,15,1,43052
+5,Brown,6,2022-05-03,103,19,1,43052
+2,Brown,6,2022-05-03,103,10,1,43052
+1,Black,1,2022-10-23,85,10,1,44395
+1,,1,2022-09-08,193,26,1,44094
+2,Olive,1,2022-06-30,193,26,1,43622
+2,Red,1,2022-06-30,193,16,1,43622
+2,Black,1,2022-06-30,193,1,1,43622
+8,Red,1,2022-06-29,252,16,1,43607
+1,Olive,1,2022-06-17,36,24,1,43503
+2,,1,2022-06-11,23,21,1,43459
+1,,1,2022-06-09,103,9,1,43442
+2,,1,2022-06-07,103,21,1,43423
+1,,1,2022-06-23,103,9,1,43376
+4,Chartreuse,1,2022-05-25,103,20,1,43264
+1,Black,1,2022-05-23,36,20,1,43247
+1,Black,1,2022-05-23,36,10,1,43247
+1,Black,1,2022-05-23,36,27,1,43247

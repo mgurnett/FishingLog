@@ -4,12 +4,14 @@
             {% for picture in pictures_list %}
                 <div class="col-md-6">
                     <div class="card mb-4 box-shadow">
-                        <img src='{{ picture.image.url }}' class="card-img-top" alt="image">
+                        <a href="{% url 'picture_detail' picture.id %}" >
+                            <img src="{{ picture.image.url }}" class="img-thumbnail"style="width:75%" >
+                        </a>
                         <div class="card-body">
                             <p class="card-text">{{ picture.name | title }}, 
                                 {% if picture.snippet %}{{ picture.snippet }}, {% endif %}
-                                {{ picture.date_added }}, 
-                                {{ picture.tag_list }} 
+                                date added: {{ picture.date_added }}, 
+                                tags: {{ picture.tag_list }} 
                             </p>
                         </div>
                     </div>
@@ -18,3 +20,5 @@
         </div>
     </div>
 </div>
+
+

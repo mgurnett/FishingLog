@@ -325,7 +325,7 @@ class New_Log_Form (forms.ModelForm):
         model = Log
         # fields = '__all__' 
         fields = ['catch_date', 'notes', 'lake', 'location', 
-        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight']  
+        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami']  
 
     catch_date = forms.DateField(
         initial=timezone.now,
@@ -352,16 +352,18 @@ class New_Log_Form (forms.ModelForm):
         queryset=Fish.objects.all() )
     length = forms.CharField ( required = False, initial=0.0 ) 
     weight = forms.CharField ( required = False, initial=0.0 ) 
+    fish_swami = forms.IntegerField ( required = False, initial=0 ) 
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('lake', css_class='form-group col-md-4 mb-0'),
-                Column('location', css_class='form-group col-md-4 mb-0'),
+                Column('lake', css_class='form-group col-md-3 mb-0'),
+                Column('location', css_class='form-group col-md-3 mb-0'),
                 Column('temp', css_class='form-group col-md-2 mb-0'),
                 Column('catch_date', css_class='form-group col-md-2 mb-0'),
+                Column('fish_swami', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(

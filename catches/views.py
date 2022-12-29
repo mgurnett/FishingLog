@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import *
 from django.contrib import messages
 from django.urls import reverse_lazy
+from taggit.models import Tag
+from django.http import HttpResponse
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -240,9 +242,9 @@ class LakeDetailView (DetailView):
         context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
-        context ['videos'] = Video.objects.filter (tags__name__contains=data)
-        context ['articles'] = Article.objects.filter (tags__name__contains=data)
-        context ['pictures'] = Picture.objects.filter (tags__name__contains=data)
+        context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
+        context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
+        context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         return context
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
@@ -404,6 +406,7 @@ class StockDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7
 class VideoListView(ListView):
     model = Video
     paginate_by = 12
+    context_object_name = 'videos_list' 
  
 class VideoDetailView(DetailView):
     model = Video
@@ -441,6 +444,7 @@ class VideoDeleteView (LoginRequiredMixin, DeleteView):
 class ArticleListView(ListView):
     model = Article
     paginate_by = 12
+    context_object_name = 'articles_list' 
  
 class ArticleDetailView(DetailView):
     model = Article
@@ -477,7 +481,8 @@ class ArticleDeleteView (LoginRequiredMixin, DeleteView):
 
 class PictureListView(ListView):
     model = Picture
-    paginate_by = 12
+    paginate_by = 2
+    context_object_name = 'pictures_list'
  
 class PictureDetailView(DetailView):
     model = Picture
@@ -508,5 +513,22 @@ class PictureUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid (form)
 
 class PictureDeleteView (LoginRequiredMixin, DeleteView):
-    model = Picture
-    success_url = reverse_lazy('pictures_list')
+    model = Article
+    success_url = reverse_lazy('articles_list')
+
+
+def TagsListView(request):
+    all_tags = Tag.objects.all().order_by('name')
+    context = { 'tags_list': all_tags }
+    return render (request, 'catches/tags_list.html', context)
+
+def TagsDetailView(request, pk):
+    tag = Tag.objects.filter(pk=pk)
+    context = { 'tag': tag[0] }
+    context ['videos_list'] = Video.objects.filter (tags__name__contains=tag[0])
+    context ['articles_list'] = Article.objects.filter (tags__name__contains=tag[0])
+    context ['pictures_list'] = Picture.objects.filter (tags__name__contains=tag[0])
+    context ['flys'] = Fly.objects.filter (static_tag=tag[0].name)
+    context ['lakes'] = Lake.objects.filter (static_tag=tag[0].name)
+    context ['bugs'] = Bug.objects.filter (static_tag=tag[0].name)
+    return render (request, 'catches/tags_detail.html', context)

@@ -31,12 +31,18 @@
                                         <div class="col-3">
                                             {{ log.fish.abbreviation }}</a>  
                                         </div>
+                                        <div class="col-3">
+                                            {% if log.fish_swami > 0 %}
+                                                {{ log.fish_swami }}</a>  
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     
                                 </div>
                                 <div class="card-text">
                                     {% if log.length %}<p>length: {{ log.length }}cm ({{ log.len_inch }}")</p>{% endif %}
                                     {% if log.weight %}<p>Weight: {{ log.weight }}Kg ({{ log.wen_lbs }}lbs)</p>{% endif %}
+                                    {% if log.num_landed %}<p>Number caught: {{ log.num_landed }}</p>{% endif %}
                                 </div>
                             </div>
                             <div class="card col-6">

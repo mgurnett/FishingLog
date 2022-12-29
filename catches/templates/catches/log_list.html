@@ -36,7 +36,7 @@
                                     Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{ log.lake.lake_info | title}}</a> 
                                 </h6>
                                 <h6>
-                                    Fish: <a href="{% url 'fish_detail' log.fish.id %}">{{ log.fish_info | title}}</a>  
+                                    Fish: <a href="{% url 'fish_detail' log.fish.id %}">{{ log.num_landed }} {{ log.fish_info | title}}</a>  
                                 </h6>
                                 <h6>
                                     Fly: <a href="{% url 'fly_detail' log.fly.id %}">{{ log.fly_info | title}}</a>  

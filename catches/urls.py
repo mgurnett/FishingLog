@@ -85,6 +85,9 @@ urlpatterns = [
     path ('pictures/<int:pk>/',         views.PictureDetailView.as_view(),  name ="picture_detail" ),
     path ('pictures/update/<int:pk>/',  views.PictureUpdateView.as_view(),  name ='picture_update'), 
     path ('pictures/delete/<int:pk>/',  views.PictureDeleteView.as_view(),  name ='picture_delete'), 
+    
+    path ('tags/', views.TagsListView, name ="tags_list" ),
+    path ('tags/<int:pk>/', views.TagsDetailView, name ="tag_detail" ),
 
     path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
