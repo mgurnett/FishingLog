@@ -1,0 +1,40 @@
+<div class="album py-1 ">
+    <div class="container">
+        <div class="row">
+            {% for fly in flys %}
+                <div class="card col-6">
+                    <div class="row">
+                        <p class="card-header col-4">
+                            <a href="{% url 'fly_detail' fly.id %}" class="card-link"><b>{{ fly.name | title }}</b> </a>
+                        </p>
+                        <p class="card-header col-4">
+                            {% if not fly.fly_type == "" %} 
+                                Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
+                            {% endif %}
+                        </p>
+                        <p class="card-header col-4">
+                            {% if fly.bug %} 
+                                Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card text-center">
+                            {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+                        </p>
+                        <p>
+                            {{ fly.description }}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-4">
+                                size range: <b> {{ fly.size_range }}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Author</th>
+        <th scope="col">Snippit</th>
+        <th scope="col">Date</th>
+        <th scope="col">tags</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for article in article_list %}
+      <tr>
+            <th scope="row">
+                <a class="text-reset" href="{% url 'article_detail' article.id %}">{{ article.name }} </a>
+            </th>
+            <td>{{ article.author }}</th>
+            <td>{{ article.snippet }}</th>
+            <td>{{ article.date_added }}</th>
+            <td>{{ article.tag_list }}</th>
+      </tr>
+    {% endfor %} 
+    </tbody>
+  </table>

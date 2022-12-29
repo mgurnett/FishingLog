@@ -119,7 +119,9 @@ class BugDetailView (DetailView):
         context = super(BugDetailView, self).get_context_data(**kwargs)
         context ['flys'] = Fly.objects.filter (bug=self.kwargs['pk'])
         data = Bug.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
-        context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
+        context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
+        context ['picture_list'] = Picture.objects.filter (tags__name__contains=data)
         return context
 
 class BugCreateView(LoginRequiredMixin, CreateView):
@@ -151,16 +153,6 @@ class FlyDetailView (DetailView):
         data = Fly.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
-
-# class FlyCreateView(LoginRequiredMixin, CreateView):
-#     model = Fly
-#     form_class = New_Fly_Form
-#     success_message = "New Fly saved"
-
-# class FlyUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Fly
-#     form_class = New_Fly_Form
-#     success_message = "Fly fixed"
 
 class FlyCreateView(LoginRequiredMixin, CreateView):
     model = Fly
@@ -205,7 +197,7 @@ class LakeListView_search (ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         object_list = Lake.objects.filter(
-            Q(name__icontains=query) | Q(district__icontains=query)
+            Q(name__icontains=query) | Q(other_name__icontains=query) | Q(district__icontains=query)
         )
         return object_list
 

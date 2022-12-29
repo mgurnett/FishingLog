@@ -17,20 +17,9 @@
         </div>
         </div>
     </div><!-- Message -->
+
     <h1 class="h3">Videos</h1>
-    {% if video_list %}
-        <ul class="list-group">
-            {% for video in video_list %}
-                <li class="list-group-item">
-                    <a class="text-reset" href="{% url 'video_detail' video.id %}">
-                        {{ video }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no videos to display</p>
-    {% endif %}
+    {% include 'snippets/video_list.html' %}
 
     <div class="row">
         <div class="col-md-8"> </div>
@@ -38,5 +27,6 @@
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' %}" type="submit" >new</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
         </div>
+    </div>
 
 {% endblock content %}

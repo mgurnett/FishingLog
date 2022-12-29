@@ -7,7 +7,11 @@
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <a href="{% url 'fly_detail' fly.id %}" class="card-link">
-                                <img src={{ fly.image.url }} alt={{ fly.name | title }}>
+                                {% if fly.image %}
+                                    <img src={{ fly.image.url }} alt={{ fly.name | title }}>
+                                {% else %}
+                                    <img src= flys/default.jpg  >
+                                {% endif %}
                             </a>
                             <div class="card-body">
                                 <h4 class="">{{ fly.name | title  }}</h4>

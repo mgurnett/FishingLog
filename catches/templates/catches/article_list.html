@@ -17,20 +17,8 @@
         </div>
         </div>
     </div><!-- Message -->
-    <h1 class="h3">Articles</h1>
-    {% if article_list %}
-        <ul class="list-group">
-            {% for article in article_list %}
-                <li class="list-group-item">
-                    <a class="text-reset" href="{% url 'article_detail' article.id %}">
-                        {{ article }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no articles to display</p>
-    {% endif %}
+
+    {% include 'snippets/article_list.html' %}
 
     <div class="row">
         <div class="col-md-8"> </div>
@@ -38,5 +26,6 @@
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' %}" type="submit" >new</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
         </div>
+    </div>
 
 {% endblock content %}

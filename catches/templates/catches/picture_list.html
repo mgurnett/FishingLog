@@ -17,20 +17,9 @@
         </div>
         </div>
     </div><!-- Message -->
+
     <h1 class="h3">Pictures</h1>
-    {% if picture_list %}
-        <ul class="list-group">
-            {% for picture in picture_list %}
-                <li class="list-group-item">
-                    <a class="text-reset" href="{% url 'picture_detail' picture.id %}">
-                        {{ picture }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no pictures to display</p>
-    {% endif %}
+    {% include 'snippets/picture_list.html' %}
 
     <div class="row">
         <div class="col-md-8"> </div>

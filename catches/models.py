@@ -285,7 +285,7 @@ class Fly(models.Model):
         upload_to='flys/', 
         height_field=None, 
         width_field=None, 
-        max_length=100, 
+        max_length=100,
         blank=True)
 
     class Meta:

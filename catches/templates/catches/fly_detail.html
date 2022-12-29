@@ -27,7 +27,7 @@
                                     {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
                                 </p>
                                 <p>
-                                    {{ fly.description }}
+                                    {{ fly.notes | safe }}
                                 </p>
                             </div>
                             <div class="card-footer">
