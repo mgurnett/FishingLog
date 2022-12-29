@@ -90,7 +90,9 @@ class FishDetailView (DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super (FishDetailView, self).get_context_data (*args, **kwargs)
         data = Fish.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
-        context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
+        context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
+        context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         return context
 
 class FishCreateView(LoginRequiredMixin, CreateView):
@@ -188,7 +190,7 @@ class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
 class LakeListView (ListView):
     model = Lake
     context_object_name = 'lakes' 
-    paginate_by = 46
+    paginate_by = 48
 
 class LakeListView_search (ListView):
     model = Lake
@@ -531,4 +533,5 @@ def TagsDetailView(request, pk):
     context ['flys'] = Fly.objects.filter (static_tag=tag[0].name)
     context ['lakes'] = Lake.objects.filter (static_tag=tag[0].name)
     context ['bugs'] = Bug.objects.filter (static_tag=tag[0].name)
+    context ['fishes'] = Fish.objects.filter (static_tag=tag[0].name)
     return render (request, 'catches/tags_detail.html', context)

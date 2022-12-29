@@ -53,7 +53,7 @@ def run():
                 lake = lake_id,
                 fly = fly_id,
                 fish = fish_id,
-                fish_swami = row[6],
+                fish_swami = row[7],
                 fly_colour = colour,
                 )
             print (log)

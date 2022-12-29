@@ -238,6 +238,10 @@ class Temp(models.Model):
 
     def get_absolute_url (self):
         return reverse ('temp_list')
+            
+    @property 
+    def log_count (self):
+        return Log.objects.filter(temp=self.id).count()
 
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)

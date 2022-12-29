@@ -44,6 +44,9 @@
                     href="#LAKES">Lakes <span class="badge badge-dark badge-pill"></span></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#FISHES">Fish</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#FLYS">Flys</a>
                 </li>
                 <li class="nav-item">
@@ -66,6 +69,9 @@
             <div class="tab-content ">
                 <div class="tab-pane container active" id="LAKES">
                     {% include 'snippets/lake_list.html' %}
+                </div>
+                <div class="tab-pane container active" id="FISHES">
+                    {% include 'snippets/fish_list.html' %}
                 </div>
                 <div class="tab-pane container active" id="FLYS">
                     {% include 'snippets/fly_list.html' %}

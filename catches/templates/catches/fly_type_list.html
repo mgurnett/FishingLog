@@ -1,6 +1,17 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<h1>Fly types</h1>    
+
+<div class="row">
+    <div class="col-md-4">
+        <h1>Catagories of flys</h1> 
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-right">
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'fly_create' %}">New fly</a>
+        </button> 
+    </div>
+</div>   
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">

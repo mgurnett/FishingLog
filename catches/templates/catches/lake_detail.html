@@ -67,22 +67,22 @@
             </div>
             <div class="col-md-3   text-right">
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' lake.id %}">New log</a>
-            </div>
+            </div> 
           </div>
           <div class="row">
             <div class="col-md-12  ">               <!-- Tab panes -->
                 <div class="tab-content ">
                     <div class="tab-pane container active" id="LOGS">
-                        {% include 'catches/full_lake/log_tab.html' %}
+                        {% include 'snippets/log_tab.html' %}
                     </div>
                     <div class="tab-pane container fade" id="STOCKS">
-                        {% include 'catches/full_lake/stock_tab.html' %}
+                        {% include 'snippets/stock_tab.html' %}
                     </div>
                     <div class="tab-pane container fade" id="VIDS">
-                        {% include 'catches/full_lake/videos_tab.html' %}
+                        {% include 'snippets/video_list.html' %}
                     </div>
                     <div class="tab-pane container fade" id="ARTS">
-                        {% include 'catches/full_lake/articles_tab.html' %}
+                        {% include 'snippets/article_list.html' %}
                     </div>
                     <div class="tab-pane container fade" id="PICS">
                         {% include 'snippets/picture_list.html' %}

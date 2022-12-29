@@ -16,7 +16,9 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8"> </div>
+                        <div class="col-md-8"> 
+							Tag: {{ fishes.static_tag }}
+						</div>
                         <div class="col-md-4">
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_update' fishes.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fish_delete' fishes.id %}" type="submit" >delete</a>
@@ -27,22 +29,44 @@
 		</div>
 		<div class="col-md-1"> </div>
 	</div>
-	<div class="col-md-12">
+
+	<div class="row mb-3"><!-- Bottom card-->
+		<div class="col-md-1  "></div>
+		<div class="col-md-10  ">
 		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-10">
-				<div class="card-body">
-					Tag: {{ fishes.static_tag }}
-					<div class="col-6">
-						{% for vid in videos %}
-							<a href="{{ vid.url }}" target="_blank" >{{ vid.name }}</a><br>
-						{% endfor %}
+			<div class="col-md-9  "> <!-- Nav tabs -->
+				<ul class="nav nav-tabs ">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab"  
+						href="#VIDS">Videos <span class="badge badge-dark badge-pill"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12  ">               <!-- Tab panes -->
+				<div class="tab-content ">
+					<div class="tab-pane container fade" id="VIDS">
+						{% include 'snippets/video_list.html' %}
+					</div>
+					<div class="tab-pane container fade" id="ARTS">
+						{% include 'snippets/article_list.html' %}
+					</div>
+					<div class="tab-pane container fade" id="PICS">
+						{% include 'snippets/picture_list.html' %}
 					</div>
 				</div>
-				
 			</div>
-			<div class="col-md-1"></div>
 		</div>
-	</div>
+		</div>
+		<div class="col-md-1  "></div>
+	</div><!-- Bottom card-->
 </div>
+
 {% endblock content %}

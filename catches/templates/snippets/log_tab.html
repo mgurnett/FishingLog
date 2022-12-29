@@ -1,30 +1,29 @@
-<!-- picure tab - start -->
+<!-- log tab - start -->
 <div class="album py-1 ">
     <div class="container">
         <div class = "row">
-            {% for picture in pictures %}
+            {% for log in logs %}
                 <div class="col-md-6">
                     <div class="card mb-4 box-shadow">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a class="text-reset" href="{% url 'picture_detail' picture.id %}">{{ picture }}</a>
+                                        Water temp: <b>{{ log.temp.name }}</b>
                                     </div>
                                     <div class="col-6">
-                                        <img class='img-responsive thumbnail' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
-                                        {{ picture.notes|safe }}
+                                        <a href="{% url 'log_detail' log.id%}"><b>{{ log.catch_date|date:"D, N j, y" }}</a></b>
                                     </div>
                                 </div>
                             </h5>
                             <h6>
-                                
+                                Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</a>  </b>
                             </h6>
                             <h6>
-                                
+                                Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly_info | title}}</a>  </b>
                             </h6>
                             <p class="card-text">
-                               
+                                {% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}
                             </p>
                         </div>
                     </div>
@@ -33,4 +32,4 @@
         </div>
     </div>
 </div>
-<!-- picure tab - end -->
+<!-- log tab - end -->
