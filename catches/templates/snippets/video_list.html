@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-        {% for video in video_list %}
+        {% for video in videos_list %}
       <tr>
             <th scope="row">
                 <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name }} </a>

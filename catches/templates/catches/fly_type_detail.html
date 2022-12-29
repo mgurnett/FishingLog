@@ -39,49 +39,50 @@
 		</div>
 		<div class="col-md-1"> </div>
 	</div>
-
-	<div class="row mb-3"><!-- Bottom card-->
-        <div class="col-md-1  "></div>
-        <div class="col-md-10  ">
-          <div class="row">
-            <div class="col-md-9  "> <!-- Nav tabs -->
-                <ul class="nav nav-tabs ">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"  
-                        href="#FLYS">Flys <span class="badge badge-dark badge-pill"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
-                    </li>
-                </ul>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12  ">               <!-- Tab panes -->
-                <div class="tab-content ">
-                    <div class="tab-pane container active" id="FLYS">
-                        {% include 'snippets/fly_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="VIDS">
-                        {% include 'snippets/video_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="ARTS">
-                        {% include 'snippets/article_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="PICS">
-						{% include 'snippets/picture_list.html' %}
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1  "></div>
-      </div><!-- Bottom card-->
-
+	<div class="row">  <!--   list of bug flys  -->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10">
+			<div class="album py-1 ">
+				<div class="container">
+					<div class="row">
+						{% for fly in flys %}
+							<div class="card col-6">
+								<div class="row">
+									<p class="card-header col-4">
+										<a href="{% url 'fly_detail' fly.id %}" class="card-link"><b>{{ fly.name | title }}</b> </a>
+									</p>
+									<p class="card-header col-4">
+										{% if not fly.fly_type == "" %} 
+											Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
+										{% endif %}
+									</p>
+									<p class="card-header col-4">
+										{% if fly.bug %} 
+											Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
+										{% endif %}
+									</p>
+								</div>
+								<div class="card-body">
+									<p class="card text-center">
+										{% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+									</p>
+									<p>
+										{{ fly.description }}
+									</p>
+								</div>
+								<div class="card-footer">
+									<div class="row">
+										<div class="col-4">
+											size range: <b> {{ fly.size_range }}</b>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		<div class="col-md-1"> </div>
+	</div>
+</div>
 {% endblock content %}
