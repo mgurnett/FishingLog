@@ -24,9 +24,16 @@
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
 			<div class="card">
-				<h5 class="card-header">
-					{{ bug.name | title }}
-				</h5>
+				<div class="card-header">
+					<div class="row">
+						<div class="col-md-6">
+							<b>{{ bug.name | title }}</b>
+						</div>
+						<div class="col-md-4">
+							Fly count: <b>{{ bug.fly_ent_count }}</b>
+						</div>
+						<div class="col-md-2 text-center"></div>
+					</div>
 				<div class="card-body">
 					<p class="card text-center">
 						{% if bug.image %}<img src="{{ bug.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}

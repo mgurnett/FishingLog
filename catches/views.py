@@ -3,7 +3,10 @@ from .models import *
 from django.contrib import messages
 from django.urls import reverse_lazy
 from taggit.models import Tag
-from django.http import HttpResponse
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.offline import plot
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -534,3 +537,36 @@ def TagsDetailView(request, pk):
     context ['bugs'] = Bug.objects.filter (static_tag=tag[0].name)
     context ['fishes'] = Fish.objects.filter (static_tag=tag[0].name)
     return render (request, 'catches/tags_detail.html', context)
+
+
+
+class Graph(TemplateView):
+    template_name = 'catches/graph.html'
+    context_object_name = 'graph'
+
+    def get_context_data(self, **kwargs):
+        context = super(Graph, self).get_context_data(**kwargs)
+        logs = Log.objects.all()
+        csv_out = []
+        for log in logs:
+            if log.temp.id > 1:
+                c_week = log.catch_date.isocalendar().week
+                data_out = [log.catch_date, c_week, log.temp.deg, log.temp.direction, log.temp.id, log.temp.name]
+                csv_out.append (data_out)
+
+        df = pd.DataFrame(csv_out)
+        df.columns = ['Catch date', 'Week', 'Temp', 'Direction', 'Temp ID', 'Temperature Name']
+        df.sort_values('Week')
+
+        fig = px.scatter(df, 
+            x='Week',
+            y='Temp',
+            trendline="rolling", 
+            trendline_options=dict(window=5),
+            
+            )
+            
+        plt_div = plot(fig, output_type='div')
+
+        context['graph'] = plt_div
+        return context

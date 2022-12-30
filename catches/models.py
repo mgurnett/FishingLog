@@ -236,6 +236,8 @@ class Temp(models.Model):
     name = models.CharField(max_length = 100)
     search_keys = models.CharField(max_length = 400, blank=True)
     notes = RichTextField (blank=True, null=True)
+    deg = models.IntegerField ()
+    direction = models.CharField(max_length = 10)
 
     def __str__ (self):
         return self.name

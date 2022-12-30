@@ -61,6 +61,7 @@ urlpatterns = [
     path ('log/update/<int:pk>/', LogUpdateView.as_view(), name = 'log_update'), 
     path ('log/delete/<int:pk>/', LogDeleteView.as_view(), name = 'log_delete'),
     path ('log/search/', LogListView_search.as_view(), name = 'log_search_list'),
+    path ('log/graph/', views.Graph.as_view(), name ="log_graph" ),
     
     path ('stock/', StockListView.as_view(), name = 'stock_list'), 
     path ('stock/<int:pk>/', StockDetailView.as_view(), name = 'stock_detail'), 
