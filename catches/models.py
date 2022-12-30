@@ -331,8 +331,8 @@ class Fly(models.Model):
 
 class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
-    fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
-    temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
+    fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
+    temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now)
     location = models.CharField (max_length=100, blank=True)

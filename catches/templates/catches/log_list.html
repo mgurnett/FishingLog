@@ -37,10 +37,14 @@
                                     Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{ log.lake.lake_info | title}}</a> 
                                 </h6>
                                 <h6>
-                                    Fish: <a href="{% url 'fish_detail' log.fish.id %}">{{ log.num_landed }} {{ log.fish_info | title}}</a>  
+                                    {% if log.fish %}
+                                        Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.num_landed }} {{ log.fish.name | title }}</b></a>
+                                    {% endif %}
                                 </h6>
                                 <h6>
-                                    Fly: <a href="{% url 'fly_detail' log.fly.id %}">{{ log.fly_info | title}}</a>  
+                                    {% if log.fly %}
+                                        Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly.name | title}}</b></a>  
+                                    {% endif %}
                                 </h6>
                                 <p class="card-text">
                                     {{ log.notes }}

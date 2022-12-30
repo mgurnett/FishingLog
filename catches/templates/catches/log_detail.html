@@ -26,7 +26,9 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-6">
-                                            Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a>
+                                            {% if log.fish %}
+                                                Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a>
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
                                             {% if log.fish_swami > 0 %}
@@ -46,7 +48,9 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-4">
-                                            Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly.name | title}}</b></a>  
+                                            {% if log.fly %}
+                                                Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly.name | title}}</b></a>  
+                                            {% endif %}
                                         </div>
                                         <div class="col-4">
                                             Bug: <b>{{ log.fly.bug.name | title}}</b></a>  
