@@ -15,8 +15,8 @@
                 <a href="{% url 'region_list' %}">Regions</a>
             </button> 
     </div>
-    <div class="col-md-4 text-right">
-        {% if fav_count %}favourites: {{ fav_count }}{% endif %}
+    <div class="col-md-4 text-center">
+        {% if fav_count %}favourites: <b>{{ fav_count }}</b> {% endif %}
     </div>
 </div>
 

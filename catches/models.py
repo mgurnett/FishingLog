@@ -47,6 +47,10 @@ class Region(models.Model):
 
     def get_absolute_url (self):
         return reverse ('region_list')
+            
+    @property 
+    def lake_count (self):
+        return Lake.objects.filter(region=self.id).count()
       
 class Fish(models.Model):
     name = models.CharField(max_length = 100)

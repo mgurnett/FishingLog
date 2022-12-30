@@ -4,33 +4,24 @@
 	<div class="row">
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
-			<div class="card">
-				<h5 class="card-header">
-					{{ region.name | title }}
-				</h5>
+			<div class="card">	
+				<div class="row card-header">
+					<div class="col-md-4"> 
+						<h5>
+							<b>{{ region.name | title }}</b>
+						</h5>
+					</div>
+					<div class="col-md-7 text-right">
+						Lakes in the region: <b>{{ region.lake_count }}</b>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
 				<p class="card-text">
 					{{ region.notes }}
 				</p>
-				<div class="card-body"> <!-- lakes part-->
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card" >
-								<div class="card-body" style="column-count: 1;">                                
-									<ul class="list-unstyled card-columns" >
-										{% for lake in lakes %}
-											<li>
-												<a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
-													{% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
-													{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-													({{ lake.num_of_stock }} )
-											</li>
-										{% endfor %} 
-									</ul> 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div><!-- lakes part-->
+				<p>
+					{% include 'snippets/lake_list.html' %}
+				</p>
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> </div>

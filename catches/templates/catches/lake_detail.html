@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-5   text-right">
                 {% if not lake.region == None %} 
-                    Region: <b><a href="{% url 'lake_list_reg' lake.region.id %}">{{ lake.region | title }}</a> </b>
+                    Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>
                 {% endif %}
             </div>
           </div>
@@ -20,10 +20,10 @@
             <div class="col-md-2  ">
                 {% if not lake.district == "" %} District: <b>{{ lake.district | title  }}</b> {% endif %}
             </div>
-            <div class="col-md-2  ">
+            <div class="col-md-3  ">
                 Location: <b> {{ lake.ats }}</b>
             </div>
-            <div class="col-md-3  ">
+            <div class="col-md-2  ">
                 Tag: <b> {{ lake.static_tag }}</b>
             </div>
             <div class="col-md-3  ">

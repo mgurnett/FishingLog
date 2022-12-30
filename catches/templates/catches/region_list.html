@@ -8,6 +8,7 @@
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                     <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a>
+                    Lakes in the region: {{ reg.lake_count }}
                     <div class="card-body">
                         <p class="card-text">{{ reg.notes }}</p>
                     </div>
