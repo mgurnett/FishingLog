@@ -1,16 +1,16 @@
 <div class="album py-1 ">
     <div class="container">
-        <div class="row">
+        <div class="list-group">
             {% for lake in lakes %}
-            <li>
-                <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
-                    {% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
+                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item list-group-item-action">
+                    {{ lake.lake_info }}
                     {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                     {% if lake.log_set.count %}
-                        <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                    <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
                     {% endif %}
-            </li>
-        {% endfor %}
+                </a>
+            {% endfor %}
         </div>
     </div>
 </div>
+  

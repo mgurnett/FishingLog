@@ -17,10 +17,14 @@
                                 </div>
                             </h5>
                             <h6>
-                                Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</a>  </b>
+                                {% if log.fish %}
+                                    Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</a>  </b>
+                                {% endif %}
                             </h6>
                             <h6>
-                                Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly_info | title}}</a>  </b>
+                                {% if log.fly %}
+                                    Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly_info | title}}</a>  </b>
+                                {% endif %}
                             </h6>
                             <p class="card-text">
                                 {% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}

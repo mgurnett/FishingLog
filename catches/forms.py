@@ -387,5 +387,3 @@ class New_Log_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
-
-

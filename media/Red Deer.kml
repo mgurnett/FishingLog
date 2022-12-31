@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="9">
+        <Placemark id="11">
+            <name>Boulder Lake</name>
+            <description>Red Deer</description>
+            <Point id="10">
+                <coordinates>-113.8715060000,52.3559240000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="13">
+            <name>Dickson Trout Pond</name>
+            <description>Red Deer</description>
+            <Point id="12">
+                <coordinates>-114.3093340000,52.0110010000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="15">
+            <name>Len Thompson Pond</name>
+            <description>Red Deer</description>
+            <Point id="14">
+                <coordinates>-113.7127060000,52.4768050000,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>

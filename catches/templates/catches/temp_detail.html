@@ -15,12 +15,12 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-7"> </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3   text-right">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_temp' temp.id %}">New log</a>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'temp_update' temp.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'temp_delete' temp.id %}" type="submit" >delete</a>
                         </div>
-						<div class="col-md-2   text-right">
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_temp' temp.id %}">New log</a>
+						<div class="col-md-1">
 						</div>
                     </div>
 				</div>
@@ -49,13 +49,19 @@
 											</div>
 										</p>
 										<p>
+											{% if log.lake %}
 											Lake: <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title}}</b></a> 
+											{% endif %}
 										</p>
 										<p>
+											{% if log.fish %}
 											Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</b></a>  
+											{% endif %}
 										</p>
 										<p>
+											{% if log.fly %}
 											Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly_info | title}}</b></a>  
+											{% endif %}
 										</p>
 										<p class="card-text">
 											{% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}

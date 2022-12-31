@@ -193,7 +193,7 @@ class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
 class LakeListView (ListView):
     model = Lake
     context_object_name = 'lakes' 
-    paginate_by = 48
+    paginate_by = 72
 
 class LakeListView_search (ListView):
     model = Lake
@@ -363,6 +363,31 @@ class LogCreateView_from_lake(LoginRequiredMixin, CreateView):
     def get_initial(self):
         lake = Lake.objects.get(pk=self.kwargs['pk'])
         return {'lake': lake}
+
+class LogDuplicateView(LoginRequiredMixin, CreateView):
+    model = Log
+    form_class = New_Log_Form
+    success_message = "New Log saved"
+
+    def get_initial(self):
+        initial = super(LogDuplicateView, self).get_initial()
+        log = Log.objects.get(pk=self.kwargs['pk'])
+        initial['lake'] = log.lake
+        initial['fish'] = log.fish
+        initial['temp'] = log.temp
+        initial['catch_date'] = log.catch_date
+        initial['record_date'] = timezone.now
+        initial['location'] = log.location
+        initial['length'] = log.length
+        initial['weight'] = log.weight
+        initial['fly'] = log.fly
+        initial['fly_size'] = log.fly_size
+        initial['fly_colour'] = log.fly_colour
+        initial['notes'] = log.notes
+        initial['num_landed'] = log.num_landed
+        initial['fish_swami'] = log.fish_swami
+        initial['pk'] = None
+        return initial
 
 class LogCreateView_from_temp(LoginRequiredMixin, CreateView):
     model = Log
@@ -538,8 +563,6 @@ def TagsDetailView(request, pk):
     context ['fishes'] = Fish.objects.filter (static_tag=tag[0].name)
     return render (request, 'catches/tags_detail.html', context)
 
-
-
 class Graph(TemplateView):
     template_name = 'catches/graph.html'
     context_object_name = 'graph'
@@ -570,3 +593,4 @@ class Graph(TemplateView):
 
         context['graph'] = plt_div
         return context
+

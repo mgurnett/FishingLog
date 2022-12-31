@@ -1,0 +1,14 @@
+{% extends "catches/base/base.html" %}
+<!-- This is going ot be the main landing page for everything. -->
+
+<head>
+	{{form.media}}
+</head>
+
+{% block content %}
+<h1>Make a map</h1>
+<div class="container">
+	{{map.as_p}}
+</div>
+
+{% endblock content %}

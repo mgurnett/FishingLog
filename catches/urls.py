@@ -58,6 +58,7 @@ urlpatterns = [
     path ('log/new/', LogCreateView.as_view(), name = 'log_create'),  
     path ('log/newl/<int:pk>/', LogCreateView_from_lake.as_view(), name = 'log_create_from_lake'),
     path ('log/newt/<int:pk>/', LogCreateView_from_temp.as_view(), name = 'log_create_from_temp'),
+    path ('log/duplicate/<int:pk>/', LogDuplicateView.as_view(), name = 'log_duplicate'),
     path ('log/update/<int:pk>/', LogUpdateView.as_view(), name = 'log_update'), 
     path ('log/delete/<int:pk>/', LogDeleteView.as_view(), name = 'log_delete'),
     path ('log/search/', LogListView_search.as_view(), name = 'log_search_list'),

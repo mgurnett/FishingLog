@@ -1,31 +1,27 @@
 from django.core.management import BaseCommand
-from lakes.models import Lake as Water
+from models import Lake, Region
+import simplekml
 
 class Command(BaseCommand):
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('water_ids', nargs='+', type=int)  #gets an argument
+    def get_context_data(self, **kwargs):
+        context = super(Command, self).get_context_data(**kwargs)
+        region_id=self.kwargs['pk']
+        lakes = Lake.objects.filter (region=region_id)
+        region_name = Region.objects.get(pk=region_id).name
 
-    def handle(self, *args, **options):
-        # for water_id in options['water_ids']:  #uses the argument
-        #     print (water_id)
-        # lakes = Water.objects.filter(favourite=True)
-        
-        lakes = Water.objects.all()
-        print ('<?xml version="1.0" encoding="UTF-8"?>')
-        print ('<kml xmlns="http://www.opengis.net/kml/2.2">')
-        print ('<Document>')
+        kml = simplekml.Kml()
+
         for lake in lakes:
-            print ('    <Placemark>')
-            print (f'       <name>{lake.name}</name>')
-            # print (f' <styleUrl>#icon-503-DB4436-labelson-nodesc</styleUrl>')
-            print ('        <Point>')
-            print (f'           <coordinates>{lake.long},{lake.lat},0</coordinates>')
-            print ('        </Point>')
-            print ('    </Placemark>')
-        
-        print ('</Document>')
-        print ('</klm>')
+            kml.newpoint(
+                name = lake.lake_info, 
+                description = lake.region,
+                coords=[(lake.long,lake.lat)]
+            )  # lon, lat optional height
+
+            file_name = f'media/{region_name}.kml'
+
+        kml.save(file_name)
 
 
 
