@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,re_path
 from . import views
 from .views import *
         
@@ -31,7 +31,9 @@ urlpatterns = [
     
     path ('flys/', FlyListView.as_view(), name = 'fly_list'), 
     path ('flys/<int:pk>/', FlyDetailView.as_view(), name = 'fly_detail'), 
-    path ('flys/new/', FlyCreateView.as_view(), name = 'fly_create'),  
+    re_path(r'^flys/new/$', FlyCreateView.as_view(), name = 'fly_create'), # this is same as normal
+    #This allows to add a model name with id to set initial data.
+    re_path(r'^flys/new/(?P<field>[a-z_]+)/(?P<pk>[0-9]+)/$', FlyCreateView.as_view(), name = 'fly_create'),   
     path ('flys/update/<int:pk>/', FlyUpdateView.as_view(), name = 'fly_update'), 
     path ('flys/delete/<int:pk>/', FlyDeleteView.as_view(), name = 'fly_delete'),    
     
@@ -94,4 +96,6 @@ urlpatterns = [
     path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
+
+    
 ]

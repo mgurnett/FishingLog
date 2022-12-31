@@ -161,17 +161,17 @@ class FlyDetailView (DetailView):
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
-class FlyCreateView(LoginRequiredMixin, CreateView):
-    model = Fly
-    fields = '__all__'
+# class FlyCreateView(LoginRequiredMixin, CreateView):
+#     model = Fly
+#     fields = '__all__'
 
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The fly was added'
-        )
-        return super().form_valid (form)
+#     def form_valid (self, form):
+#         messages.add_message(
+#             self.request, 
+#             messages.SUCCESS,
+#             'The fly was added'
+#         )
+#         return super().form_valid (form)
 
 class FlyUpdateView(LoginRequiredMixin, UpdateView):
     model = Fly
@@ -586,11 +586,37 @@ class Graph(TemplateView):
             y='Temp',
             trendline="rolling", 
             trendline_options=dict(window=5),
-            
+            height = 750,
             )
-            
-        plt_div = plot(fig, output_type='div')
 
-        context['graph'] = plt_div
+        context= {'graph': fig.to_html()}
         return context
 
+
+def LogTestlView(request, **kwargs):
+    print (f'request is {request} & kwargs is {kwargs}')
+    log = Log.objects.get(pk=kwargs.get('pk'))
+    context = { 'log': log, 'kwargs': kwargs }
+    return render (request, 'catches/log_test.html', context)
+
+
+class FlyCreateView(LoginRequiredMixin, CreateView):
+    model = Fly
+    fields = '__all__'    
+    
+    def get_initial(self):
+        if not self.kwargs:
+            return
+        if self.kwargs.get('field') == 'bug':
+            model_to_use = Bug.objects.get(pk=self.kwargs['pk'])
+        if self.kwargs.get('field') == 'fly_type':
+            model_to_use = Fly_type.objects.get(pk=self.kwargs['pk'])
+        return {self.kwargs.get('field'): model_to_use}
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The fly was added'
+        )
+        return super().form_valid (form)
