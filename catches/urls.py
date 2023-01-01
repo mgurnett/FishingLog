@@ -73,19 +73,28 @@ urlpatterns = [
     path ('stock/delete/<int:pk>/', StockDeleteView.as_view(), name = 'stock_delete'),
 
     path ('videos/',                  views.VideoListView.as_view(),    name ="videos_list" ),
-    path ('videos/add/',              views.VideoCreateView.as_view(),  name ="video_create" ),
+    re_path(r'^videos/new/$', VideoCreateView.as_view(), name = 'video_create'),# this is same as normal
+    #This allows to add a model name with id to set initial data.
+    re_path(r'^videos/new/(?P<field>[a-z_]+)/(?P<pk>[0-9]+)/(?P<tag>[A-Za-z_]+)/$', VideoCreateView.as_view(), name = 'video_create'), 
+    # path ('videos/add/',              views.VideoCreateView.as_view(),  name ="video_create" ),
     path ('videos/<int:pk>/',         views.VideoDetailView.as_view(),  name ="video_detail" ),
     path ('videos/update/<int:pk>/',  views.VideoUpdateView.as_view(),  name ='video_update'), 
     path ('videos/delete/<int:pk>/',  views.VideoDeleteView.as_view(),  name ='video_delete'),
 
     path ('articles/',                  views.ArticleListView.as_view(),    name ="articles_list" ),
-    path ('articles/add/',              views.ArticleCreateView.as_view(),  name ="article_create" ),
+    re_path(r'^articles/new/$', ArticleCreateView.as_view(), name = 'article_create'),# this is same as normal
+    #This allows to add a model name with id to set initial data.
+    re_path(r'^articles/new/(?P<field>[a-z_]+)/(?P<pk>[0-9]+)/(?P<tag>[A-Za-z_]+)/$', ArticleCreateView.as_view(), name = 'article_create'), 
+    # path ('articles/add/',              views.ArticleCreateView.as_view(),  name ="article_create" ),
     path ('articles/<int:pk>/',         views.ArticleDetailView.as_view(),  name ="article_detail" ),
     path ('articles/update/<int:pk>/',  views.ArticleUpdateView.as_view(),  name ='article_update'), 
     path ('articles/delete/<int:pk>/',  views.ArticleDeleteView.as_view(),  name ='article_delete'),
     
     path ('pictures/',                  views.PictureListView.as_view(),    name ="pictures_list" ),
-    path ('pictures/add/',              views.PictureCreateView.as_view(),  name ="picture_create" ),
+    re_path(r'^pictures/new/$', PictureCreateView.as_view(), name = 'picture_create'),# this is same as normal
+    #This allows to add a model name with id to set initial data.
+    re_path(r'^pictures/new/(?P<field>[a-z_]+)/(?P<pk>[0-9]+)/(?P<tag>[A-Za-z_]+)/$', PictureCreateView.as_view(), name = 'picture_create'), 
+    # path ('pictures/add/',              views.PictureCreateView.as_view(),  name ="picture_create" ),
     path ('pictures/<int:pk>/',         views.PictureDetailView.as_view(),  name ="picture_detail" ),
     path ('pictures/update/<int:pk>/',  views.PictureUpdateView.as_view(),  name ='picture_update'), 
     path ('pictures/delete/<int:pk>/',  views.PictureDeleteView.as_view(),  name ='picture_delete'), 

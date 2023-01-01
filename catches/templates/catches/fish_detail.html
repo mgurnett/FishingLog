@@ -1,71 +1,81 @@
 {% extends "catches/base/base.html" %}
+{% block title %}Fish: {{ fish.name | title }}{% endblock %}
 {% block content %}
+
 <div class="container">
-	<div class="row">
+	<div class="row"><!-- Top card-->
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
 			<div class="card">
 				<h5 class="card-header">
-					<img class = "card-img-top" src="{{ fishes.image.url }}" alt={{ fish.name | title }} width="500" height="400">
-					<h2 class="pt-5"><b>{{ fishes.name }}</b> {% if fishes.abbreviation %}({{ fishes.abbreviation}}){% endif %}</h2>
+					<img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }} width="500" height="400">
+					<p class="card-text">
+						<h2 class="pt-5"><b>  {{ fish }}</b></h2>
+					</p>
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						{{ fishes.notes }}
+						{{ fish.notes }}
+						Tag: <b>{{ fish.static_tag }}</b>
 					</p>
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8"> 
-							Tag: {{ fishes.static_tag }}
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6 text-right">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_list' %}" type="submit" >back</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_create' %}" type="submit" >new</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_update' fish.id %}" type="submit" >edit</a>
+							<a class="btn btn-danger    btn-sm mt-1 mb-1" href="{% url 'fish_delete' fish.id %}" type="submit" >delete</a>
 						</div>
-                        <div class="col-md-4">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fish_update' fishes.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fish_delete' fishes.id %}" type="submit" >delete</a>
+                        <div class="col-md-4 text-left">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='fish' pk=fish.id tag=fish.static_tag %}">New video</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='fish' pk=fish.id tag=fish.static_tag %}">New article</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='fish' pk=fish.id tag=fish.static_tag %}">New picture</a>
                         </div>
                     </div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
-	</div>
+	</div><!-- Top card-->
 
 	<div class="row mb-3"><!-- Bottom card-->
-		<div class="col-md-1  "></div>
-		<div class="col-md-10  ">
-		<div class="row">
-			<div class="col-md-9  "> <!-- Nav tabs -->
-				<ul class="nav nav-tabs ">
-					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab"  
-						href="#VIDS">Videos <span class="badge badge-dark badge-pill"></span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
-					</li>
-				</ul>
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
+						</li>
+					</ul>
+				</h5>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12  ">               <!-- Tab panes -->
-				<div class="tab-content ">
-					<div class="tab-pane container fade" id="VIDS">
-						{% include 'snippets/video_list.html' %}
-					</div>
-					<div class="tab-pane container fade" id="ARTS">
-						{% include 'snippets/article_list.html' %}
-					</div>
-					<div class="tab-pane container fade" id="PICS">
-						{% include 'snippets/picture_list.html' %}
+
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+						<div class="tab-pane container active" id="VIDS">
+							{% include 'snippets/video_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="ARTS">
+							{% include 'snippets/article_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="PICS">
+							{% include 'snippets/picture_list.html' %}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		<div class="col-md-1  "></div>
+		<div class="col-md-1"></div>
 	</div><!-- Bottom card-->
 </div>
 

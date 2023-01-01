@@ -61,12 +61,27 @@
                         <a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
+                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a> 
                     </li>
                 </ul>
             </div>
             <div class="col-md-3   text-right">
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' lake.id %}">New log</a>
+                <!-- Tab panes -->
+                <div class="tab-content ">
+                    <div class="tab-pane container active" id="LOGS">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' lake.id %}">New log</a>
+                    </div>
+                    <div class="tab-pane container fade" id="STOCKS"></div>
+                    <div class="tab-pane container fade" id="VIDS">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
+                    </div>
+                    <div class="tab-pane container fade" id="ARTS">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
+                    </div>
+                    <div class="tab-pane container fade" id="PICS">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
+                    </div>
+                </div>
             </div> 
           </div>
           <div class="row">
@@ -93,6 +108,5 @@
         </div>
         <div class="col-md-1  "></div>
       </div><!-- Bottom card-->
-
 
 {% endblock content %}

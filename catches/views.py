@@ -88,7 +88,7 @@ class FishListView (ListView):
  
 class FishDetailView (DetailView): 
     model = Fish
-    context_object_name = 'fishes'
+    context_object_name = 'fish'
  
     def get_context_data(self, *args, **kwargs):
         context = super (FishDetailView, self).get_context_data (*args, **kwargs)
@@ -161,17 +161,26 @@ class FlyDetailView (DetailView):
         context ['videos'] = Video.objects.filter (tags__name__contains=data)
         return context
 
-# class FlyCreateView(LoginRequiredMixin, CreateView):
-#     model = Fly
-#     fields = '__all__'
+class FlyCreateView(LoginRequiredMixin, CreateView):
+    model = Fly
+    fields = '__all__'    
+    
+    def get_initial(self):
+        if not self.kwargs:
+            return
+        if self.kwargs.get('field') == 'bug':
+            model_to_use = Bug.objects.get(pk=self.kwargs['pk'])
+        if self.kwargs.get('field') == 'fly_type':
+            model_to_use = Fly_type.objects.get(pk=self.kwargs['pk'])
+        return {self.kwargs.get('field'): model_to_use}
 
-#     def form_valid (self, form):
-#         messages.add_message(
-#             self.request, 
-#             messages.SUCCESS,
-#             'The fly was added'
-#         )
-#         return super().form_valid (form)
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The fly was added'
+        )
+        return super().form_valid (form)
 
 class FlyUpdateView(LoginRequiredMixin, UpdateView):
     model = Fly
@@ -444,6 +453,18 @@ class VideoCreateView(LoginRequiredMixin, CreateView):
     model = Video
     # form_class = Video_Form
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+    
+    def get_initial(self):
+        if not self.kwargs:
+            return
+        tag = self.kwargs['tag']
+        return {('tags'): tag}
+    
+    def get_success_url(self):
+        if not self.kwargs:
+            return reverse('videos_list')
+        model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
@@ -482,6 +503,18 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
     # form_class = Article_Form
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
+    
+    def get_initial(self):
+        if not self.kwargs:
+            return
+        tag = self.kwargs['tag']
+        return {('tags'): tag}
+    
+    def get_success_url(self):
+        if not self.kwargs:
+            return reverse('articles_list')
+        model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
@@ -520,6 +553,18 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
     model = Picture
     # form_class = Picture_Form
     fields = ('name', 'notes', 'tags', 'image', 'snippet')
+    
+    def get_initial(self):
+        if not self.kwargs:
+            return
+        tag = self.kwargs['tag']
+        return {('tags'): tag}
+    
+    def get_success_url(self):
+        if not self.kwargs:
+            return reverse('pictures_list')
+        model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
@@ -542,8 +587,8 @@ class PictureUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid (form)
 
 class PictureDeleteView (LoginRequiredMixin, DeleteView):
-    model = Article
-    success_url = reverse_lazy('articles_list')
+    model = Picture
+    success_url = reverse_lazy('pictures_list')
 
 
 def TagsListView(request):
@@ -599,24 +644,3 @@ def LogTestlView(request, **kwargs):
     context = { 'log': log, 'kwargs': kwargs }
     return render (request, 'catches/log_test.html', context)
 
-
-class FlyCreateView(LoginRequiredMixin, CreateView):
-    model = Fly
-    fields = '__all__'    
-    
-    def get_initial(self):
-        if not self.kwargs:
-            return
-        if self.kwargs.get('field') == 'bug':
-            model_to_use = Bug.objects.get(pk=self.kwargs['pk'])
-        if self.kwargs.get('field') == 'fly_type':
-            model_to_use = Fly_type.objects.get(pk=self.kwargs['pk'])
-        return {self.kwargs.get('field'): model_to_use}
-
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The fly was added'
-        )
-        return super().form_valid (form)
