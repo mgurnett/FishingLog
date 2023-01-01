@@ -1,112 +1,122 @@
 {% extends "catches/base/base.html" %}
+{% block title %}Lake: {{ lake.name | title }}{% endblock %}
 {% block content %}
 
-      <div class="row mb-3"><!-- Top card-->
-        <div class="col-md-1  "></div>
-        <div class="col-md-10  ">
-          <div class="row">
-            <div class="col-md-7  ">
-                <h5>
-                    <b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                </h5>
-            </div>
-            <div class="col-md-5   text-right">
-                {% if not lake.region == None %} 
-                    Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>
-                {% endif %}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2  ">
-                {% if not lake.district == "" %} District: <b>{{ lake.district | title  }}</b> {% endif %}
-            </div>
-            <div class="col-md-3  ">
-                Location: <b> {{ lake.ats }}</b>
-            </div>
-            <div class="col-md-2  ">
-                Tag: <b> {{ lake.static_tag }}</b>
-            </div>
-            <div class="col-md-3  ">
-                {% if not lake.lat == None %} 
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" target="_blank" type="submit" >map</a>
-                {% endif %}
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' object.id %}" type="submit" >edit</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lake_delete' object.id %}" type="submit" >delete</a>
-            </div>
-            <div class="col-md-3  ">
-                {% if not lake.waterbody_id == None %} Waterbody ID: <b>{{ lake.waterbody_id }} </b>{% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1  "></div>
-      </div><!-- Top card-->
+<div class="container">
+	<div class="row"><!-- Top card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10">
+			<div class="card">
+				<h5 class="card-header">
+					<div class="row">
+						<div class="col-md-8">
+							<b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+						</div>
+						<div class="col-md-4">
+							Tag: <b> {{ lake.static_tag }}</b>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-8">
+							{% if lake.region %} Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
+						</div>
+						<div class="col-md-4">
+							{% if lake.district %} District: <b>{{ lake.district | title  }}</b> {% endif %}
+						</div>
+					</div>
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						{{ lake.notes | safe }}
+					</p>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+                        <div class="col-md-3 text-left">
+							{% if not lake.lat == None %} 
+								<a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" target="_blank" type="submit" >map</a>
+							{% endif %}
+						</div>
+                        <div class="col-md-4 text-centre">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
+							<a class="btn btn-danger    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+						</div>
+                        <div class="col-md-5 text-right">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div><!-- Top card-->
 
-      <div class="row mb-3"><!-- Bottom card-->
-        <div class="col-md-1  "></div>
-        <div class="col-md-10  ">
-          <div class="row">
-            <div class="col-md-9  "> <!-- Nav tabs -->
-                <ul class="nav nav-tabs ">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"  
-                        href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a> 
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-3   text-right">
-                <!-- Tab panes -->
-                <div class="tab-content ">
-                    <div class="tab-pane container active" id="LOGS">
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' lake.id %}">New log</a>
-                    </div>
-                    <div class="tab-pane container fade" id="STOCKS"></div>
-                    <div class="tab-pane container fade" id="VIDS">
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
-                    </div>
-                    <div class="tab-pane container fade" id="ARTS">
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
-                    </div>
-                    <div class="tab-pane container fade" id="PICS">
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
-                    </div>
-                </div>
-            </div> 
-          </div>
-          <div class="row">
-            <div class="col-md-12  ">               <!-- Tab panes -->
-                <div class="tab-content ">
-                    <div class="tab-pane container active" id="LOGS">
-                        {% include 'snippets/log_tab.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="STOCKS">
-                        {% include 'snippets/stock_tab.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="VIDS">
-                        {% include 'snippets/video_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="ARTS">
-                        {% include 'snippets/article_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="PICS">
-                        {% include 'snippets/picture_list.html' %}
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1  "></div>
-      </div><!-- Bottom card-->
+	<div class="row mb-3"><!-- Bottom card-->
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab"  
+                            href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" 
+                            href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
+                        </li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+                            href="#LOC"><b>Location</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+                            href="#VIDS"><b>Videos</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+                            href="#ARTS"><b>Articles</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab"
+                            href="#PICS"><b>Pictures</b></a>
+						</li>
+					</ul>
+				</h5>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+                        <div class="tab-pane container active" id="LOGS">
+                            {% include 'snippets/log_tab.html' %}
+                        </div>
+                        <div class="tab-pane container fade" id="STOCKS">
+                            {% include 'snippets/stock_tab.html' %}
+                        </div>    
+						<div class="tab-pane container fade" id="LOC">
+							{% include 'snippets/lake_location.html' %}
+						</div>   
+						<div class="tab-pane container fade" id="VIDS">
+							{% include 'snippets/video_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="ARTS">
+							{% include 'snippets/article_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="PICS">
+							{% include 'snippets/picture_list.html' %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div><!-- Bottom card-->
+</div>
 
 {% endblock content %}

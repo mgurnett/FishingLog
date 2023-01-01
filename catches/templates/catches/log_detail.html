@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-5">
                                 <h5>
                                     Fishing log for <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title  }}</b></a>{% if log.lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                                 </h5>
@@ -15,9 +15,9 @@
                             <div class="col-4 text-right">
                                 Water temp: <b>{{ log.temp.name }}</b>
                             </div>
-                            <div class="col-2 text-right">
-                                {{ log.catch_date|date:"D, N j, y" }}
-                            </div>
+                            <h5 class="col-3 text-right">
+                                <b>{{ log.catch_date|date:"D, N j, y" }}</b>
+                            </h5>
                         </div>
                     </div>
                     <div class="card-body"> 
@@ -30,7 +30,7 @@
                                                 Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a>
                                             {% endif %}
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             {% if log.fish_swami > 0 %}
                                                 <a href="https://www.fishswami.com/log_entries/{{ log.fish_swami }}" target="_blank" >Fish Swami log</a>
                                             {% endif %}
@@ -38,7 +38,7 @@
                                     </div>
                                     
                                 </div>
-                                <div class="card-text">
+                                <div class="card-text pt-3">
                                     {% if log.length %}<p>length: <b>{{ log.length }}cm ({{ log.len_inch }}")</b></p>{% endif %}
                                     {% if log.weight %}<p>Weight: <b>{{ log.weight }}Kg ({{ log.wen_lbs }}lbs)</b></p>{% endif %}
                                     {% if log.num_landed %}<p>Number of fish caught: <b>{{ log.num_landed }}</b></p>{% endif %}
@@ -72,8 +72,8 @@
                     </p>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col-8"></div>
-                            <div class="col-4 text-right ">
+                            <div class="col-6"></div>
+                            <div class="col-6 text-right ">
                                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create' %}" type="submit" >new log</a>
                                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_duplicate' log.id %}" type="submit" >duplicate log</a>
                                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_update' log.id %}" type="submit" >edit</a>
