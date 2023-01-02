@@ -18,101 +18,94 @@
 	  </div>
 	</div>
   </div><!-- Message -->
-  
+
 <div class="container">
-	<div class="row">
+	<div class="row"><!-- Top card-->
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
 			<div class="card">
-				<div class="card-header">
-					<div class="row">
-						<div class="col-md-6">
-							<b>{{ bug.name | title }}</b>
-						</div>
-						<div class="col-md-4">
-							Fly count: <b>{{ bug.fly_ent_count }}</b>
-						</div>
-						<div class="col-md-2 text-center"></div>
-					</div>
-				<div class="card-body">
-					<p class="card text-center">
-						{% if bug.image %}<img src="{{ bug.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+				<h5 class="card-header">
+					<img class = "card-img-top mx-auto d-block" src="{{ bug.image.url }}" alt={{ bug.name | title }} class="img-thumbnail"style="width:50%">
+					<p class="card-text">
+						<h2 class="pt-2"><b>{{ bug.name | title }}</b></h2>
 					</p>
-					<p>
+					<div class="row">
+                        <div class="col-md-6 ">
+							<div class="text-center">Fly count: <b>{{ bug.fly_ent_count }}</b></div>
+						</div>
+                        <div class="col-md-6 text-center">
+							Tag: <b>{{ bug.static_tag }}</b>
+						</div>
+					</div>
+					
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
 						{{ bug.notes }}
 					</p>
-				
-					<div class="col-md-12">
-						<div class="row">
-							<div class="col-md-1"></div>
-							<div class="col-md-10">
-								<div class="card-body">
-								</div>
-							</div>
-							<div class="col-md-1"></div>
-						</div>
-					</div>
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8">
-							Tag: {{ bug.static_tag }}
-						</div>
-                        <div class="col-md-4">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
+                        <div class="col-md-12 text-right">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_list' %}" type="submit" >back</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_create' %}" type="submit" >new</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'bug_delete' bug.id %}" type="submit" >delete</a>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='bug' pk=bug.id %}" type="submit" >new {{ bug.name | title }} fly </a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='bug' pk=bug.id tag=bug.static_tag %}">New video</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='bug' pk=bug.id tag=bug.static_tag %}">New article</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='bug' pk=bug.id tag=bug.static_tag %}">New picture</a>
                         </div>
                     </div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
-	</div>
+	</div><!-- Top card-->
 
 	<div class="row mb-3"><!-- Bottom card-->
-        <div class="col-md-1  "></div>
-        <div class="col-md-10  ">
-          <div class="row">
-            <div class="col-md-9  "> <!-- Nav tabs -->
-                <ul class="nav nav-tabs ">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"  
-                        href="#FLYS">Flys <span class="badge badge-dark badge-pill"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
-                    </li>
-                </ul>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12  ">               <!-- Tab panes -->
-                <div class="tab-content ">
-                    <div class="tab-pane container active" id="FLYS">
-                        {% include 'snippets/fly_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="VIDS">
-                        {% include 'snippets/video_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="ARTS">
-                        {% include 'snippets/article_list.html' %}
-                    </div>
-                    <div class="tab-pane container fade" id="PICS">
-						{% include 'snippets/picture_list.html' %}
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1  "></div>
-      </div><!-- Bottom card-->
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#FLY"><b>Flys</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
+						</li>
+					</ul>
+				</h5>
+			</div>
 
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+						<div class="tab-pane container active" id="FLY">
+							{% include 'snippets/fly_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="VIDS">
+							{% include 'snippets/video_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="ARTS">
+							{% include 'snippets/article_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="PICS">
+							{% include 'snippets/picture_list.html' %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div><!-- Bottom card-->
+</div>
 
 {% endblock content %}

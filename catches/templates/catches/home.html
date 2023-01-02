@@ -1,41 +1,82 @@
 {% extends "catches/base/base.html" %}
 <!-- This is going ot be the main landing page for everything. -->
 {% block content %}
-<h1>Lakes</h1>
+<h1>Fishing Logs </h1><h3>   Where water temp is king</h3>
 <div class="container">
-	<div class="row">
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-10">
-			<div class="card">
-				<h5 class="card-header">
-					<!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#REGIONS">Fishing regions</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#STOCKS">Stock report</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#TEST">test</a>
-                        </li>
-                    </ul>
-				</h5>
-				<div class="card-body">
-					<!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane container active" id="REGIONS"></div>
-                        <div class="tab-pane container fade" id="STOCKS"></div>
-                        <div class="tab-pane container fade" id="TEST"></div>
-                    </div>
-				</div>
-				<div class="card-footer">
-					Card footer
-				</div>
+	<div class="row pt-3">
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'lake_list' %}" class="card-link">
+					<img src="media/pictures/Mitchel.jpeg" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">LAKES</h5>
+						<p class="card-text">All Stocked lakes in the province</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
 			</div>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'fish_list' %}" class="card-link">
+					<img src="media/pictures/Cardiff_Tiger.jpeg" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">FISH</h5>
+						<p class="card-text">The fish we catch</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'bug_list' %}" class="card-link">
+					<img src="media/bug/damselfly_nymph.jpg" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">BUGS</h5>
+						<p class="card-text">What the fish eat</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row pt-3">
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'fly_type_list' %}" class="card-link">
+					<img src="media/flys/Parachute.png" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">FLYS</h5>
+						<p class="card-text">The Flys we use</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'log_list' %}" class="card-link">
+					<img src="media/logs_pict.png" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">LOGS</h5>
+						<p class="card-text">A full record of what is happening at the lake</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<a href="{% url 'blog-home' %}" class="card-link">
+					<img src="media/blog_pict.png" class="card-img-top border border-secondary rounded width="150" height="200"" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">BLOG</h5>
+						<p class="card-text">To record whats going on</p>
+						<p class="card-text"><small class="text-muted"></small></p>
+					</div>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>

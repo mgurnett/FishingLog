@@ -1,4 +1,5 @@
 {% extends "catches/base/base.html" %}
+{% load static %}
 {% block title %}Lake: {{ lake.name | title }}{% endblock %}
 {% block content %}
 
@@ -18,8 +19,14 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-6">
 							{% if lake.region %} Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
+						</div>
+						<div class="col-md-2">
+							{% if lake.lat %} 
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" 
+								target="_blank" type="submit" >map</a>
+							{% endif %}
 						</div>
 						<div class="col-md-4">
 							{% if lake.district %} District: <b>{{ lake.district | title  }}</b> {% endif %}
@@ -33,12 +40,7 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-3 text-left">
-							{% if not lake.lat == None %} 
-								<a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" target="_blank" type="submit" >map</a>
-							{% endif %}
-						</div>
-                        <div class="col-md-4 text-centre">
+                        <div class="col-md-7 text-centre">
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
