@@ -32,7 +32,9 @@
 						<p>{{ article.notes|safe }}</p>
 					{% endif %}
 					{% if article.file %}
-						<p>{{ article.file }}</p>
+						<p>
+							<a href = /media/{{ article.file }} download>{{ article.name | title }}</a>
+						</p>
 					{% endif %}
 				</div>
 				<div class="card-footer">

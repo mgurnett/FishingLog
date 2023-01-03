@@ -6,6 +6,7 @@
         <th scope="col">Snippit</th>
         <th scope="col">Date</th>
         <th scope="col">tags</th>
+        <th scope="col">File</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
             <td>{{ article.snippet }}</th>
             <td>{{ article.date_added }}</th>
             <td>{{ article.tag_list }}</th>
+            <td><a href = /media/{{ article.file }} download>{{ article.file }}</a></th>
       </tr>
     {% endfor %} 
     </tbody>
