@@ -632,6 +632,7 @@ class Graph(TemplateView):
             trendline="rolling", 
             trendline_options=dict(window=5),
             height = 750,
+            text='Catch date'
             )
 
         context= {'graph': fig.to_html()}
