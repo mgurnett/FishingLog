@@ -13,7 +13,7 @@ from django.utils import timezone
 
 
 def run():
-    Log.objects.all().delete()
+    Log.objects.all()
     with open('fish stock/fish_swami_log.csv') as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
@@ -28,11 +28,13 @@ def run():
                 fish_id = Fish.objects.get(id=row[6])
             except:
                 print (f'We are looking for fish {row[6]} and we failed')
+                fish_id = ""
 
-            try:  # check to see if we have the fish in the database already
+            try:  # check to see if we have the fly in the database already
                 fly_id = Fly.objects.get(id=row[5])
             except:
                 print (f'We are looking for fly {row[5]} and we failed')
+                fly_id = ""
 
             try:  # check to see if we have the fish in the database already
                 temp_id = Temp.objects.get(id=row[2])
@@ -57,4 +59,4 @@ def run():
                 fly_colour = colour,
                 )
             print (log)
-            log.save()
+            # log.save()
