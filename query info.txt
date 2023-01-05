@@ -32,3 +32,86 @@ startswith, endswith - Starts-with and ends-with search, respectively
 Lookups that span relationships - https://docs.djangoproject.com/en/4.1/topics/db/queries/#lookups-that-span-relationships
 Entry.objects.filter(blog__name='Beatles Blog')
 Blog.objects.filter(entry__headline__contains='Lennon')
+
+
+
+
+
+============================================================
+
+
+Relational database queries
+
+python3 manage.py shell
+from insects.models import *
+
+>>> Bug.objects.all()
+<QuerySet [<Bug: fly>, <Bug: Dragonfly>, <Bug: Waterboatman>]>
+If I want to search this, I need to put the whole thing in a hash.
+
+bugs = Bug.objects.all()
+>>> bug[1]
+<Bug: Dragonfly>
+
+>>> bugs = Bug.objects.all()
+>>> for b in bugs:
+...     b.name
+... 
+'fly'
+'Dragonfly'
+'Waterboatman'
+
+>>> Bug_site.objects.all()
+<QuerySet [<Bug_site: Dragonfly seen on 2022-12-06>, <Bug_site: Waterboatman seen on 2022-09-05>]>
+>>> sightings = Bug_site.objects.all()
+>>> sightings[1].bug.all()
+
+>>> for s in sightings:
+...     s.id
+... 
+1
+2
+
+>>> for s in sightings:
+...     s.bug
+... 
+<Bug: Dragonfly>
+<Bug: Waterboatman>
+=================================
+
+Major issue:  Bug sightings can see buts just fine, but there is no way to see if a specific bug has been sighted.
+
+=======================================
+
+One way to reverse lookup
+Step 1 get the id of the target bug
+>>> bug = Bug.objects.get(name="Dragonfly")
+>>> bug
+<Bug: Dragonfly>
+>>> bug.id
+2
+
+Step 2 sort thorough all the bug sightings and see if the id ever shows up
+sightings = Bug_site.objects.filter(bug=bug.id)
+>>> sightings
+<QuerySet [<Bug_site: Dragonfly seen on 2022-12-06>]>
+
+Second way to reverse lookup
+Step 1 get the id of the target bug
+>>> bug = Bug.objects.get(name="Dragonfly")
+>>> bug.id
+2
+Step 2 sort thorough all the bug sightings and see if the id ever shows up useing a REVERSE look up
+>>> sightings = bug.bug_site_set.all()
+>>> sightings
+<QuerySet [<Bug_site: Dragonfly seen on 2022-12-06>]>
+
+Third way to reverse lookup
+Step 1 get the id of the target bug
+>>> bug = Bug.objects.get(name="Dragonfly")
+>>> bug.id
+2
+Step 2 Change the model to include:  bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name="sightings")
+sightings = bug.sightings.all()
+>>> sightings
+<QuerySet [<Bug_site: Dragonfly seen on 2022-12-06>]>
