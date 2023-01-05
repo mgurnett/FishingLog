@@ -33,8 +33,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
-    'grappelli.dashboard',
-    'grappelli',
+    # 'grappelli.dashboard',
+    # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'insects.apps.InsectsConfig',
     # 'ckeditor',
-    "graphene_django",
-    'generic_scaffold',
+    # "graphene_django",
+    # 'generic_scaffold',
 ]
 
 MIDDLEWARE = [

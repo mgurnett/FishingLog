@@ -40,12 +40,28 @@ class Log(models.Model):
     def __str__ (self):
         return self.note
 
+STRENGTH = (
+    (0, "none"),
+    (1, "few"),
+    (2, "weak"),
+    (3, "low"),
+    (4, "lots"),
+    (5, "abundent"),
+)
+
 
 class Hatch(models.Model):
-    weeks = models.ManyToManyField(Week)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name="insect")
-    date = models.DateField(default=timezone.now)
+    week = models.ManyToManyField(Week, through = 'Strength')
 
     def __str__ (self):
-        return f'{self.bug.name} are often found during the weeks of {self.weeks}'
+        return f'{self.bug.name} are often found during the weeks of '
 
+
+class Strength(models.Model):
+    week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    hatch = models.ForeignKey(Hatch, on_delete=models.CASCADE)
+    strength = models.IntegerField ( 
+        default = 0,
+        choices = STRENGTH,
+        )
