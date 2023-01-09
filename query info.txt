@@ -79,7 +79,7 @@ bugs = Bug.objects.all()
 <Bug: Waterboatman>
 =================================
 
-Major issue:  Bug sightings can see buts just fine, but there is no way to see if a specific bug has been sighted.
+Major issue:  Bug sightings can see bugs just fine, but there is no way to see if a specific bug has been sighted.
 
 =======================================
 
