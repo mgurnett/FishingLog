@@ -59,9 +59,12 @@ class Hatch(models.Model):
 
 
 class Strength(models.Model):
-    week = models.ForeignKey(Week, on_delete=models.CASCADE)
+    week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
     hatch = models.ForeignKey(Hatch, on_delete=models.CASCADE)
     strength = models.IntegerField ( 
         default = 0,
         choices = STRENGTH,
         )
+
+    def __str__ (self):
+        return f'bug: {self.hatch.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
