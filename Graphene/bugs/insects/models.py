@@ -60,7 +60,7 @@ class Hatch(models.Model):
 
 class Strength(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
-    hatch = models.ForeignKey(Hatch, on_delete=models.CASCADE)
+    hatch = models.ForeignKey(Hatch, on_delete=models.CASCADE, related_name="strength_of_hatch")
     strength = models.IntegerField ( 
         default = 0,
         choices = STRENGTH,
