@@ -34,7 +34,16 @@ GENTOTYPE = (
     ("AF2N", "all-female diploid"),
     ("AF3N", "all-female triploid"),
 )
-        
+     
+STRENGTH = (
+    (0, "none"),
+    (1, "few"),
+    (2, "weak"),
+    (3, "low"),
+    (4, "lots"),
+    (5, "abundent"),
+)   
+
 class Region(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
@@ -125,6 +134,12 @@ class Bug(models.Model):
     @property 
     def fly_kind_count (self):
         return Fly.objects.filter(fly_type=self.id).count()
+
+class Week(models.Model):
+    number = models.IntegerField()
+
+    def __str__ (self):
+        return str(self.number)
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
@@ -238,6 +253,7 @@ class Temp(models.Model):
     notes = RichTextField (blank=True, null=True)
     deg = models.IntegerField ()
     direction = models.CharField(max_length = 10)
+    week_numbers = models.ManyToManyField(Week, through='Log')
 
     def __str__ (self):
         return self.name
@@ -333,6 +349,7 @@ class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
+    week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now)
     location = models.CharField (max_length=100, blank=True)
@@ -402,10 +419,11 @@ class Log(models.Model):
         return self.fly.name
 
 class Bug_site(models.Model):
-    name =  models.CharField(max_length = 100)
+    date = models.DateField(default=timezone.now)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
+    week = models.ForeignKey(Week, blank=True, on_delete=models.CASCADE)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()
      
@@ -524,4 +542,20 @@ class Picture(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path) 
 
-            
+class Hatch(models.Model):
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name="insect")
+    week = models.ManyToManyField(Week, through = 'Strength')
+
+    def __str__ (self):
+        return f'{self.bug.name} are often found during the weeks of '
+
+class Strength(models.Model):
+    week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
+    hatch = models.ForeignKey(Hatch, on_delete=models.CASCADE, related_name="strength_of_hatch")
+    strength = models.IntegerField ( 
+        default = 0,
+        choices = STRENGTH,
+        )
+
+    def __str__ (self):
+        return f'bug: {self.hatch.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
