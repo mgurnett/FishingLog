@@ -1,4 +1,4 @@
-from insects.models import *
+from catches.models import *
 import os
 import csv
 
@@ -34,16 +34,17 @@ def get_bug_list(csvfile):
 def get_bug_id(line):
     bug_id = 0
     first_word = line[0].split()[0]
-    # print (line[0] + first_word)
+    print (line[0] + first_word)
     bug = Bug.objects.filter(name__contains = first_word)
     if bug:
         for b in bug:
             # print (f'Name found is: {line[0]} and bug name is: {b.name}')
             bug_id = [b.id]
+    print (bug_id)
     return bug_id
 
 def run():
-    # fill_weeks()
+    fill_weeks()
     Hatch.objects.all().delete()
     Strength.objects.all().delete()
     csv_file = get_csv ('scripts/hatch_chart.csv')

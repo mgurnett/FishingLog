@@ -1,4 +1,4 @@
-from insects.models import *
+from catches.models import *
 
 def run():
     # temps = Temp.objects.all()

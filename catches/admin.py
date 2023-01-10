@@ -10,6 +10,9 @@ admin.site.register (Bug)
 admin.site.register (Log)
 admin.site.register (Bug_site)
 admin.site.register (Fly_type)
+admin.site.register (Hatch)
+admin.site.register (Week)
+admin.site.register (Strength)
 
 @admin.register (Video)
 class VideoAdmin (admin.ModelAdmin):
