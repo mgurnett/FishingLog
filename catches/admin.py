@@ -8,7 +8,7 @@ admin.site.register (Fish)
 admin.site.register (Fly)
 admin.site.register (Bug)
 admin.site.register (Log)
-admin.site.register (Bug_site)
+admin.site.register (Hatch)
 admin.site.register (Fly_type)
 
 @admin.register (Video)

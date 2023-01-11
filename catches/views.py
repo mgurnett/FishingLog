@@ -304,28 +304,28 @@ class TempDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
     success_url = "/temp/"
 
 
-class Bug_siteListView (ListView):
-    model = Bug_site
-    context_object_name = 'bug_sites' 
+class HatchListView (ListView):
+    model = Hatch
+    context_object_name = 'hatchs' 
     paginate_by = 6
 
-class Bug_siteDetailView (DetailView): 
-    model = Bug_site
-    context_object_name = 'bug_site'
+class HatchDetailView (DetailView): 
+    model = Hatch
+    context_object_name = 'hatch'
 
-class Bug_siteCreateView(LoginRequiredMixin, CreateView):
-    model = Bug_site
-    form_class = New_Bug_site_Form
-    success_message = "New Bug_site saved"
+class HatchCreateView(LoginRequiredMixin, CreateView):
+    model = Hatch
+    form_class = New_Hatch_Form
+    success_message = "New Hatch saved"
 
-class Bug_siteUpdateView(LoginRequiredMixin, UpdateView):
-    model = Bug_site
-    form_class = New_Bug_site_Form
-    success_message = "Bug_site fixed"
+class HatchUpdateView(LoginRequiredMixin, UpdateView):
+    model = Hatch
+    form_class = New_Hatch_Form
+    success_message = "Hatch fixed"
 
-class Bug_siteDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
-    model = Bug_site
-    success_url = "/bug_site/"
+class HatchDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
+    model = Hatch
+    success_url = "/hatch/"
 
 
 class LogListView (ListView):

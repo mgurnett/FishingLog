@@ -49,11 +49,11 @@ urlpatterns = [
     path ('temp/update/<int:pk>/', TempUpdateView.as_view(), name = 'temp_update'), 
     path ('temp/delete/<int:pk>/', TempDeleteView.as_view(), name = 'temp_delete'),
 
-    path ('bug_site/', Bug_siteListView.as_view(), name = 'bug_site_list'), 
-    path ('bug_site/<int:pk>/', Bug_siteDetailView.as_view(), name = 'bug_site_detail'), 
-    path ('bug_site/new/', Bug_siteCreateView.as_view(), name = 'bug_site_create'),  
-    path ('bug_site/update/<int:pk>/', Bug_siteUpdateView.as_view(), name = 'bug_site_update'), 
-    path ('bug_site/delete/<int:pk>/', Bug_siteDeleteView.as_view(), name = 'bug_site_delete'),    
+    path ('hatch/', HatchListView.as_view(), name = 'hatch_list'), 
+    path ('hatch/<int:pk>/', HatchDetailView.as_view(), name = 'hatch_detail'), 
+    path ('hatch/new/', HatchCreateView.as_view(), name = 'hatch_create'),  
+    path ('hatch/update/<int:pk>/', HatchUpdateView.as_view(), name = 'hatch_update'), 
+    path ('hatch/delete/<int:pk>/', HatchDeleteView.as_view(), name = 'hatch_delete'),    
     
     path ('log/', LogListView.as_view(), name = 'log_list'), 
     path ('log/<int:pk>/', LogDetailView.as_view(), name = 'log_detail'), 

@@ -190,10 +190,10 @@ class New_Lake_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
               
-class New_Bug_site_Form (forms.ModelForm):
+class New_Hatch_Form (forms.ModelForm):
     
     class Meta:
-        model = Bug_site
+        model = Hatch
         fields = '__all__'     
     name = forms.CharField ( required = False )
     notes = forms.CharField ( required = False )  

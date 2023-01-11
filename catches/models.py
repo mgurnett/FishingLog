@@ -401,7 +401,7 @@ class Log(models.Model):
             return self.fly.name
         return self.fly.name
 
-class Bug_site(models.Model):
+class Hatch(models.Model):
     name =  models.CharField(max_length = 100)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
