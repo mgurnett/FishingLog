@@ -34,6 +34,15 @@ GENTOTYPE = (
     ("AF2N", "all-female diploid"),
     ("AF3N", "all-female triploid"),
 )
+
+STRENGTH = (
+    (0, "none"),
+    (1, "few"),
+    (2, "weak"),
+    (3, "low"),
+    (4, "lots"),
+    (5, "abundent"),
+)
         
 class Region(models.Model):
     name = models.CharField(max_length = 100)
@@ -51,6 +60,12 @@ class Region(models.Model):
     @property 
     def lake_count (self):
         return Lake.objects.filter(region=self.id).count()
+
+class Week(models.Model):
+    number = models.IntegerField()
+
+    def __str__ (self):
+        return str(self.number)
       
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -129,6 +144,7 @@ class Bug(models.Model):
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
     region = models.ForeignKey(Region, blank=True, null=True, on_delete=models.CASCADE)
+    week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     notes = RichTextField (blank=True, null=True)
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
@@ -235,6 +251,7 @@ class Stock(models.Model):
 class Temp(models.Model):
     name = models.CharField(max_length = 100)
     search_keys = models.CharField(max_length = 400, blank=True)
+    week = models.ManyToManyField (Week, blank=True)
     notes = RichTextField (blank=True, null=True)
     deg = models.IntegerField ()
     direction = models.CharField(max_length = 10)
@@ -333,6 +350,7 @@ class Log(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
+    week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now)
     location = models.CharField (max_length=100, blank=True)
@@ -402,22 +420,21 @@ class Log(models.Model):
         return self.fly.name
 
 class Hatch(models.Model):
-    name =  models.CharField(max_length = 100)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
-    temp = models.ForeignKey(Temp, blank=True, on_delete=models.CASCADE)
+    week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()
      
     class Meta:
-        ordering = ['temp']
+        ordering = ['week']
 
     def __str__ (self):
         return self.name
 
 
     def get_absolute_url (self):
-        return reverse ('bug_site_detail', kwargs = {'pk': self.pk})
+        return reverse ('hatch_detail', kwargs = {'pk': self.pk})
 
 class Video(models.Model):
     name = models.CharField(max_length = 100)
@@ -524,4 +541,29 @@ class Picture(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path) 
 
-            
+class Chart(models.Model):
+    week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name="insect")
+    strength = models.IntegerField ( 
+        default = 0,
+        choices = STRENGTH,
+        )
+
+    def __str__ (self):
+        return f'bug: {self.hatch.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
+
+'''
+ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
+in the referencing table are deleted.
+ON DELETE SET NULL: if a row of the referenced table is deleted, then all referencing columns 
+in all matching rows of the referencing table to be set to null.
+on_delete=models.SET_NULL, null=True)
+ON DELETE SET DEFAULT: if a row of the referenced table is deleted, then all referencing 
+columns in all matching rows of the referencing table to be set to the column’s default value.
+on_delete=models.SET_DEFAULT, default=1)
+ON DELETE RESTRICT: it is prohibited to delete a row of the referenced table if that row 
+has any matching rows in the referencing table.
+ON DELETE NO ACTION (the default): there is no referential delete action; the referential 
+constraint only specifies a constraint check.
+NO DELETE PROTECT
+'''
