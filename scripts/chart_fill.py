@@ -44,8 +44,9 @@ def get_bug_id(line):
     return bug_id
 
 def run():
-    fill_weeks()
-    Hatch.objects.all().delete()
+    # fill_weeks()
+    # Hatch.objects.all().delete()
+    Chart.objects.all().delete()
     csv_file = get_csv ('scripts/hatch_chart.csv')
     for row in csv_file:
         bug_id = get_bug_id (row)[0]
@@ -55,9 +56,9 @@ def run():
         for x in range(1, 36):
             w = Week.objects.get( number = (x + 13) )
 
-            h = Hatch ( bug = b, week = w, strength = row[x] )
-            # h.save()
+            c = Chart ( bug = b, week = w, strength = row[x] )
+            c.save()
 
             print (f'row is: {row}')
-            print (f'# {x} week is {w.number}, hatch is {h} and strength is {row[x]}')
+            print (f'# {x} week is {w.number}, hatch is {c} and strength is {row[x]}')
 

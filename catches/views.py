@@ -328,6 +328,16 @@ class HatchDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7
     success_url = "/hatch/"
 
 
+class WeekListView (ListView):
+    model = Week
+    context_object_name = 'weeks' 
+    paginate_by = 6
+
+class WeekDetailView (DetailView): 
+    model = Week
+    context_object_name = 'week'
+
+
 class LogListView (ListView):
     model = Log
     context_object_name = 'logs' 

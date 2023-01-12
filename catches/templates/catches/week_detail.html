@@ -1,0 +1,56 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col"> </div>
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-5">
+                                <h5>
+                                    Details for week <b>#{{ week.number}}</b>
+                                </h5>
+                            </div>
+                            <div class="col-4 text-right"></div>
+                            <h5 class="col-3 text-right"></h5>
+                        </div>
+                    </div>
+                    <div class="card-body"> 
+                        <div class="row">
+                            <div class="card col-6">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-6"></div>
+                                        <div class="col-6"></div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-text pt-3"></div>
+                            </div>
+                            <div class="card col-6">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-4"></div>
+                                        <div class="col-4"></div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                </div>
+                                <div class="card-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text"></p>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-6 text-right "></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col"> </div>
+    </div>
+
+</div><!-- Top container -->
+{% endblock content %}

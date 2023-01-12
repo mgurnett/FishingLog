@@ -430,8 +430,7 @@ class Hatch(models.Model):
         ordering = ['week']
 
     def __str__ (self):
-        return self.name
-
+        return f'bug: {self.bug.name} in week: {self.week.number}'
 
     def get_absolute_url (self):
         return reverse ('hatch_detail', kwargs = {'pk': self.pk})
@@ -550,7 +549,7 @@ class Chart(models.Model):
         )
 
     def __str__ (self):
-        return f'bug: {self.hatch.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
+        return f'bug: {self.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
 
 '''
 ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 

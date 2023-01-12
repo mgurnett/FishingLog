@@ -9,6 +9,8 @@ admin.site.register (Fly)
 admin.site.register (Bug)
 admin.site.register (Log)
 admin.site.register (Hatch)
+admin.site.register (Chart)
+admin.site.register (Week)
 admin.site.register (Fly_type)
 
 @admin.register (Video)
