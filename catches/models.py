@@ -421,6 +421,7 @@ class Log(models.Model):
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
+    temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()

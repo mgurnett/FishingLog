@@ -1,0 +1,100 @@
+Make a webserver'
+
+Step 1 - set hostname
+hostnamectl set-hostname django-server
+
+hostname
+
+>>> django-server
+
+Step 2 - set the host
+sudo nano /etc/hosts
+
+add: 192.168.1.70 django-server
+
+Step 3 - add limitied user
+sudo adduser michael
+>>Adding user `michael' ...
+Adding new group `michael' (1004) ...
+Adding new user `michael' (1001) with group `michael' ...
+Creating home directory `/home/michael' ...
+Copying files from `/etc/skel' ...
+
+sudo adduser michael sudo
+
+add ssh key to michael's ssh host file
+
+cat ~/.ssh/id_rsa.pub | (ssh michael@webserver "cat >> ~/.ssh/authorized_keys")
+
+Step 4 - make a link
+Make a link to where the data will be stored.
+ln -s www/ ~/www
+
+Step 5 - get django running
+
+Step 6 - install apache2
+sudo apt install apache2
+sudo apt install libapache2-mod-wsgi-py3
+
+Step 6 - grant access to Apache2
+sudo nano /etc/apache2/avaiable-sites/000-default
+
+        Alias /static /media/www/FishingLog/FishingLog/static
+        <Directory /media/www/FishingLog/FishingLog/static>
+                Require all granted
+        </Directory>
+
+        Alias /media /media/www/FishingLog/FishingLog/media 
+        <Directory /media/www/FishingLog/FishingLog/media>
+                Require all granted
+        </Directory>
+
+        Alias /media /media/www/FishingLog/FishingLog/media 
+        <Directory /media/www/FishingLog>
+                <Files wsgi.py>
+                    Require all granted
+                </Files>
+        </Directory>
+
+        WSGIScriptAlias / /media/www/FishingLog/FishingLog/wsgi.py
+        WSGIDaemonProcess django_app python-path=/media/www/FishingLog python-home=/media/www/FishingLog/.venv
+        WSGIProcessGroup django_app
+
+and save as django_project.conf
+
+Step 7 - enagle the site in apache2
+sudo a2ensite django_project
+>>>>Enabling site django_project.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+
+Step 8 - give some permissions
+sudo chown :www-data FishingLog/db.sqlite3
+sudo chmod 664 FishingLog/db.sqlite3
+sudo chown :www-data FishingLog
+sudo chown -R :www-data FishingLog/media/
+sudo chmod -R 775 FishingLog/media
+
+Step 9 - hide sensitive data in config file
+sudo touch /etc/config.json
+{
+        "SECRET_KEY": "xxx>
+}
+
+
+in settings.py 
+
+import json
+
+with open ('/etc/config.json') as config_file:
+    config = json.load (config_file)
+
+change to:
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config ['SECRET_KEY']
+
+Step 10 - restart apache2
+sudo service apache2 restart
+
+
+
