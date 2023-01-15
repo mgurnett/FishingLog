@@ -1,0 +1,16 @@
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Insect</th>
+            <th scope="col">Strength</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in chart_for_week %}
+          <tr>
+            <th scope="row"><a href="#">{{c.bug.name | title}}</th>
+            <td>{{ c.strength_name }}</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>

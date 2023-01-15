@@ -195,19 +195,23 @@ class New_Hatch_Form (forms.ModelForm):
     class Meta:
         model = Hatch
         fields = '__all__'     
-    name = forms.CharField ( required = False )
     notes = forms.CharField ( required = False )  
+    static_tag = forms.CharField ( required = False )
 
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all(),
         required = False )
 
-    watertemp = forms.ModelChoiceField(
-        queryset=Temp.objects.all(),
-        required = False )
-
     bug = forms.ModelChoiceField(
         queryset=Bug.objects.all(),
+        required = False )
+
+    week = forms.ModelChoiceField(
+        queryset=Week.objects.all(),
+        required = False )
+
+    temp = forms.ModelChoiceField(
+        queryset=Temp.objects.all(),
         required = False )
     
     def __init__(self, *args, **kwargs):
@@ -215,18 +219,21 @@ class New_Hatch_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('', css_class='form-group col-md-8 mb-0'),
+                Column('bug', css_class='form-group col-md-6 mb-0'),
+                Column('lake', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('bug', css_class='form-group col-md-4 mb-0'),
-                Column('lake', css_class='form-group col-md-4 mb-0'),
-                Column('watertemp', css_class='form-group col-md-4 mb-0'),
+                Column('week', css_class='form-group col-md-6 mb-0'),
+                Column('temp', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Row(
                 Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('static_tag', css_class='form-group col-md-5 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

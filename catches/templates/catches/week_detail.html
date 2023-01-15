@@ -1,56 +1,107 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col"> </div>
-            <div class="col-10">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-5">
-                                <h5>
-                                    Details for week <b>#{{ week.number}}</b>
-                                </h5>
+<div class="row">
+    <div class="col-md-1"> </div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>
+                                Details for week <b>#{{ week.number}}</b>
+                            </h5>
+                        </div>
+                        <div class="col-4 text-right"></div>
+                        <h5 class="col-3 text-right"></h5>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <div class="row">
+                        <div class="card col-6">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6"></div>
+                                </div>
+                                
                             </div>
-                            <div class="col-4 text-right"></div>
-                            <h5 class="col-3 text-right"></h5>
+                            <div class="card-text pt-3"></div>
+                        </div>
+                        <div class="card col-6">
+                            <div class="card-header">
+                                <div class="row">2 
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                            <div class="card-text"></div>
                         </div>
                     </div>
-                    <div class="card-body"> 
-                        <div class="row">
-                            <div class="card col-6">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-6"></div>
-                                        <div class="col-6"></div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="card-text pt-3"></div>
-                            </div>
-                            <div class="card col-6">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-4"></div>
-                                        <div class="col-4"></div>
-                                        <div class="col-4"></div>
-                                    </div>
-                                </div>
-                                <div class="card-text"></div>
-                            </div>
+                </div>
+                <p class="card-text"></p>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'week_detail' week.prev_num %}"><b>Previous week</b></a> 
                         </div>
-                    </div>
-                    <p class="card-text"></p>
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-6"></div>
-                            <div class="col-6 text-right "></div>
+                        <div class="col-6 text-right ">
+                            <a href="{% url 'week_detail' week.next_num %}"><b>Next week</b></a> 
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="col"> </div>
-    </div>
+        </div>
+    <div class="col-md-1"> </div>
+</div>
 
-</div><!-- Top container -->
+
+<div class="row mb-3"><!-- Bottom card-->
+    <div class="col-md-1 "></div>
+    <div class="col-md-10">
+        <div class="row">
+            <h5 class="col-12"><!-- Nav tabs -->
+                <ul class="nav nav-tabs ">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab"  
+                        href="#LOGS">Fishing Logs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" 
+                        href="#HATCH">Hatch</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" 
+                        href="#TEMP">Temperatures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" 
+                        href="#CHART">Chart</a>
+                    </li>
+                </ul>
+            </h5>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12  ">               <!-- Tab panes -->
+                <div class="tab-content ">
+                    <div class="tab-pane container active" id="LOGS">
+                        {% include 'snippets/log_tab.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="HATCH">
+                        {% include 'snippets/stock_tab.html' %}
+                    </div>    
+                    <div class="tab-pane container fade" id="TEMP">
+                        {% include 'snippets/lake_location.html' %}
+                    </div>   
+                    <div class="tab-pane container fade" id="CHART">
+                        {% include 'snippets/chart_tab.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div><!-- Bottom card-->
+</div>
 {% endblock content %}

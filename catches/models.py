@@ -63,10 +63,12 @@ class Region(models.Model):
 
 class Week(models.Model):
     number = models.IntegerField()
+    prev_num = models.IntegerField()
+    next_num = models.IntegerField()
 
     def __str__ (self):
         return str(self.number)
-      
+              
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
     notes = RichTextField (blank=True, null=True)
@@ -430,7 +432,7 @@ class Hatch(models.Model):
         ordering = ['week']
 
     def __str__ (self):
-        return f'bug: {self.bug.name} in week: {self.week.number}'
+        return f'bug: {self.bug.name} at lake: {self.lake.name}'
 
     def get_absolute_url (self):
         return reverse ('hatch_detail', kwargs = {'pk': self.pk})
@@ -550,6 +552,17 @@ class Chart(models.Model):
 
     def __str__ (self):
         return f'bug: {self.bug.name} in week: {self.week.number} has a strength of: {self.strength}'
+
+    @property 
+    def strength_name (self):
+        strength_list = []
+        for i in STRENGTH:
+            strength_list.append(i[0])
+
+        strength_index = strength_list.index(self.strength)
+        strength_found = STRENGTH[strength_index][1]
+
+        return strength_found
 
 '''
 ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 

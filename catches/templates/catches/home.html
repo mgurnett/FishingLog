@@ -1,7 +1,20 @@
 {% extends "catches/base/base.html" %}
 <!-- This is going ot be the main landing page for everything. -->
+{% load tz %}
+
 {% block content %}
-<h1>Fishing Logs </h1><h3>   Where water temp is king</h3>
+<div class="row pt-3">
+	<div class="col-md-4">	
+		<h1>Fishing Logs </h1><h3>   Where water temp is king</h3>
+	</div>
+	<div class="col-md-2"></div>
+	<h3 class="col-md-6 text-right">
+		{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %} </br>
+		<a href="{% url 'week_list' %}">
+			<b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
+		</a>
+	</h3>
+</div>
 <div class="container">
 	<div class="row pt-3">
 		<div class="col-md-4">

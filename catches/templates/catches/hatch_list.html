@@ -1,15 +1,15 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<h1>Fishing regions</h1>    
+<h1>Insect hatchs</h1>    
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
-            {% for reg in regions %}
+            {% for h in hatchs %}
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a>
+                    <a href="{% url 'hatch_detail' h.id %}" class="card-link">{{ h }} </a>
                     <div class="card-body">
-                        <p class="card-text">{{ reg.notes }}</p>
+                        <p class="card-text">{{ h.notes }}</p>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
 <div class="container">
     <div class = "row">
         <button type="button" class="btn btn-primary">
-            <a href="{% url 'region_create' %}">New Region</a>
+            <a href="{% url 'hatch_create' %}">New hatch observed</a>
         </button>
     </div>
 </div>

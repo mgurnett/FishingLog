@@ -336,6 +336,11 @@ class WeekListView (ListView):
 class WeekDetailView (DetailView): 
     model = Week
     context_object_name = 'week'
+    
+    def get_context_data(self, **kwargs): 
+        context = super(WeekDetailView, self).get_context_data(**kwargs)
+        context ['chart_for_week'] = Chart.objects.filter (week=self.kwargs['pk']).order_by('-strength')
+        return context
 
 
 class LogListView (ListView):
