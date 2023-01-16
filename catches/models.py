@@ -361,7 +361,7 @@ class Log(models.Model):
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now)
-    location = models.CharField (max_length=100, blank=True)
+    location = models.CharField (max_length=100, blank=True, null=True)
     length = models.FloatField ( blank=True, default=0.0 )
     weight = models.FloatField ( blank=True, default=0.0 )
     fly = models.ForeignKey(Fly, blank=True, null=True, on_delete=models.SET_NULL)
@@ -369,7 +369,7 @@ class Log(models.Model):
     fly_colour = models.CharField (max_length=100, blank=True)
     notes = RichTextField (blank=True, null=True)
     fish_swami = models.IntegerField (blank=True)
-    num_landed = models.IntegerField (blank=True)
+    num_landed = models.IntegerField (default=0)
      
     class Meta:
         ordering = ['temp']
@@ -382,7 +382,10 @@ class Log(models.Model):
             lake_name = self.lake.name + ' (' + self.lake.other_name + ')'
         else:
             lake_name = self.lake.name
-        output = (f'On {self.catch_date} at {lake_name} a {self.fish.name} was caught with a {self.fly.name}')
+        if self.fly:
+            output = (f'On {self.catch_date} at {lake_name} a {self.fish.name} was caught with a {self.fly.name}')
+        else:
+            output = (f'On {self.catch_date} at {lake_name} a temperature was recorded')
         return output
 
     @property 

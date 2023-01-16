@@ -7,7 +7,7 @@ admin.site.register (Region)
 admin.site.register (Fish)
 admin.site.register (Fly)
 admin.site.register (Bug)
-admin.site.register (Log)
+# admin.site.register (Log)
 admin.site.register (Hatch)
 admin.site.register (Chart)
 admin.site.register (Week)
@@ -37,3 +37,7 @@ class PictureAdmin (admin.ModelAdmin):
 @admin.register (Temp)
 class TempAdmin (admin.ModelAdmin):
     list_display = ['name', 'deg', 'direction', 'search_keys']
+
+@admin.register (Log)
+class TempAdmin (admin.ModelAdmin):
+    list_display = ['lake', 'fish', 'temp', 'week']

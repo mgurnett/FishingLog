@@ -8,7 +8,9 @@ def run():
         week = Week.objects.get(number = week_num)
         if not log.week:
             log.week = week
+            log.save()
         
         print (f'week = {week} log.week = {log.week}')
+        
 
 
