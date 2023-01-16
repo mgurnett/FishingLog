@@ -54,9 +54,10 @@ def run():
     bug = Bug.objects.get(name__contains = "Mayfly")
     week = Week.objects.get(number=30)
     # print (week.id)  # > 93
-    hatch = Hatch.objects.get(week=week.id, bug=bug.id)
+
+    # hatches = Hatch.objects.filter(week=week.id, bug=bug.id)
     # for hatch in hatches:
-    # print (f'{hatch} {week.number}')   #-> Mayflys are often found during the weeks of  30
+    #     print (f'{hatch} {week.number}')   #-> Mayflys are often found during the weeks of  30
 
     # strength = Strength.objects.get(week=week.id, hatch=hatch.id)
     # print (strength.strength)   # -> bug: Mayflys in week: 30 has a strength of: 3
@@ -64,5 +65,15 @@ def run():
     # hatch_strength = Hatch.objects.get(id=hatch.strength_of_hatch)
     # print (hatch.strength_of_hatch.first().strength)
 
-    print (f'During the week of {week.number}, the {bug.name} has a strength of {hatch.strength_of_hatch.first().strength}') 
+    # print (f'During the week of {week.number}, the {bug.name} has a strength of {hatch.strength_of_hatch.first().strength}') 
     #  ->  During the week of 30, the Mayflys has a strength of 3
+
+    # hatches = Hatch.objects.filter ( week=week.id )
+    # temps = Temp.objects.all()
+    # for temp in temps:
+    #     print (f'{week} {temp.name}') 
+    logs = Log.objects.all()
+    for log in logs:
+        if log.temp:
+            print (f'temp { log.temp.name } with a date of { log.catch_date.format("Y-m-d") }')
+

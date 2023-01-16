@@ -8,7 +8,9 @@
         <tbody>
           {% for c in chart_for_week %}
           <tr>
-            <th scope="row"><a href="#">{{c.bug.name | title}}</th>
+            <th scope="row">
+              <a href="{% url 'bug_detail' c.bug.id %}"><b>{{ c.bug.name | title  }}</b> </a>
+            </th>
             <td>{{ c.strength_name }}</td>
           </tr>
           {% endfor %} 
