@@ -17,13 +17,14 @@
             </div>
             <div class = "row">
                 {% for week in weeks %}
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="card mb-4 box-shadow">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <div class="row">
                                         <div class="col-7">
                                             <a href="{% url 'week_detail' week.id %}">Week : <b>#{{ week.number }}</b></a> 
+                                            <small>log count: {{ week.log_count }}</small>
                                         </div>
                                         <div class="col-5"></div>
                                     </div>

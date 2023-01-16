@@ -238,7 +238,8 @@ class New_Hatch_Form (forms.ModelForm):
             ),
             Submit('submit', 'Save')
         )
-
+        
+'''
 # class New_Fly_Form (forms.ModelForm):
     
 #     class Meta:
@@ -283,6 +284,7 @@ class New_Hatch_Form (forms.ModelForm):
 #             ),
 #             Submit('submit', 'Save')
 #         )
+'''
 
 class New_Stock_Form (forms.ModelForm):
     

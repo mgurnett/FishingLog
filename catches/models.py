@@ -66,8 +66,15 @@ class Week(models.Model):
     prev_num = models.IntegerField()
     next_num = models.IntegerField()
 
+    class Meta:
+        ordering = ['number']
+
     def __str__ (self):
         return str(self.number)
+
+    @property 
+    def log_count (self):
+        return self.log_set.count
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -102,7 +109,7 @@ class Fish(models.Model):
     def get_absolute_url (self):  
         return reverse ('fish_detail', kwargs = {'pk': self.pk})
 
-class Bug(models.Model):    
+class Bug(models.Model):
     name = models.CharField ('Insect name', max_length=100)
     description = models.TextField ('Description', blank=True)
     notes = RichTextField (blank=True, null=True)
@@ -427,6 +434,7 @@ class Hatch(models.Model):
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()
+    sight_date = models.DateField(default=timezone.now)
      
     class Meta:
         ordering = ['week']

@@ -331,7 +331,7 @@ class HatchDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7
 class WeekListView (ListView):
     model = Week
     context_object_name = 'weeks' 
-    paginate_by = 6
+    paginate_by = 20
 
 class WeekDetailView (DetailView): 
     model = Week
@@ -340,8 +340,9 @@ class WeekDetailView (DetailView):
     def get_context_data(self, **kwargs): 
         context = super(WeekDetailView, self).get_context_data(**kwargs)
         context ['chart_for_week'] = Chart.objects.filter (week=self.kwargs['pk']).order_by('-strength')
-        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('week')
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('-temp')
+        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('-id')
+        context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
         return context
 
 
@@ -654,7 +655,6 @@ class Graph(TemplateView):
 
         context= {'graph': fig.to_html()}
         return context
-
 
 def LogTestlView(request, **kwargs):
     print (f'request is {request} & kwargs is {kwargs}')

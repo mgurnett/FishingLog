@@ -4,18 +4,20 @@
             <th scope="col">Insect</th>
             <th scope="col">Lake</th>
             <th scope="col">Temp</th>
+            <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
           {% for hatch in hatches %}
           <tr>
             <td scope="row">
-              <a href="{% url 'bug_detail' hatch.bug.id %}"><b>{{ hatch.bug.name | title  }}</b> </a>
+              <a href="{% url 'bug_detail' hatch.bug.id %}">{{ hatch.bug.name | title  }} </a>
             </td>
             <td scope="row">
-              <a href="{% url 'lake_detail' hatch.lake.id %}"><b>{{ hatch.lake.name | title  }}</b> </a>
+              <a href="{% url 'lake_detail' hatch.lake.id %}">{{ hatch.lake.name | title  }} </a>
             </td>
             <td>{% if hatch.temp %}{{ hatch.temp.name }} {% endif %}</td>
+            <td>{% if hatch.sight_date %} {{ hatch.sight_date | date:'D d M Y' }} {% endif %}</td>
           </tr>
           {% endfor %} 
         </tbody>
