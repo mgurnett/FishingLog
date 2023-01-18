@@ -254,6 +254,7 @@ class LakeDetailView (DetailView):
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
+        context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
@@ -341,7 +342,7 @@ class WeekDetailView (DetailView):
         context = super(WeekDetailView, self).get_context_data(**kwargs)
         context ['chart_for_week'] = Chart.objects.filter (week=self.kwargs['pk']).order_by('-strength')
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('-id')
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
         return context
 
@@ -434,7 +435,7 @@ class LogDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
     model = Log
     success_url = "/log/"
 
-
+ 
 class StockListView (ListView):
     model = Stock
     context_object_name = 'stocks' 

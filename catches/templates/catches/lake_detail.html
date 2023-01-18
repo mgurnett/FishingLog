@@ -69,6 +69,10 @@
                             href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span></a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  
+                            href="#HATCH">Hatch <span class="badge badge-dark badge-pill">{{ lake.num_of_hatch }}</span></a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" 
                             href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
                         </li>
@@ -98,9 +102,12 @@
                         <div class="tab-pane container active" id="LOGS">
                             {% include 'snippets/log_tab.html' %}
                         </div>
+                        <div class="tab-pane container fade" id="HATCH">
+                            {% include 'snippets/hatch_tab.html' %}
+                        </div>  
                         <div class="tab-pane container fade" id="STOCKS">
                             {% include 'snippets/stock_tab.html' %}
-                        </div>    
+                        </div>   
 						<div class="tab-pane container fade" id="LOC">
 							{% include 'snippets/lake_location.html' %}
 						</div>   

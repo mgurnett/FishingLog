@@ -6,11 +6,32 @@
 		<div class="col-md-10">
 			<div class="card">
 				<h5 class="card-header">
-					{{ hatch }}
+					<div class="row">
+						<div class="col-md-5"> 
+							Lake observed: <b>{{ hatch.lake.lake_info }}</b>
+						</div>
+						<div class="col-md-4">
+							Insect: <b>{{ hatch.bug }}</b>
+						</div>
+						<div class="col-md-3">
+							{% if hatch.temp.name %}Temperature: <b>{{ hatch.temp.name }}</b>{% endif %}
+						</div>
+					</div>
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						{{ hatch.notes }}
+						<div class="row">
+							<div class="col-md-5"> 
+								Date observed: <b>{{ hatch.sight_date }}</b> (week: <b>{{ hatch.week.number }}</b>)
+							</div>
+							<div class="col-md-2"> </div>
+							<div class="col-md-5"> 
+								Tag: <b>{{ hatch.static_tag }}</b>
+							</div>
+						</div>
+					</p>
+					<p class="card-text">
+						{{ hatch.notes | safe}}
 					</p>
 				</div>
 				<div class="card-footer">

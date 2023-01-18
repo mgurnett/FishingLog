@@ -44,7 +44,7 @@
 													Water temp: <b>{{ log.temp.name }}</b>
 												</div>
 												<div class="col-5">
-													<a href="{% url 'log_detail' log.id %}"><b>{{ log.catch_date|date:"D, N j, y" }}</b></a> 
+													<a href="{% url 'log_detail' log.id %}"><b>{{ log.catch_date|date:"D, N j, y" }}</b>({{ log.week.name }})</a> 
 												</div>
 											</div>
 										</p>

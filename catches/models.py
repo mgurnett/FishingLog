@@ -75,6 +75,10 @@ class Week(models.Model):
     @property 
     def log_count (self):
         return self.log_set.count
+
+    @property 
+    def temp_count (self):
+        return self.temp_set.count
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -170,6 +174,10 @@ class Lake(models.Model):
     @property 
     def num_of_stock (self):
         return self.fish.count
+
+    @property 
+    def num_of_hatch (self):
+        return self.hatch_set.count
 
     @property 
     def lake_info (self):
