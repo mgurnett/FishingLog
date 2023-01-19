@@ -77,8 +77,8 @@ class Week(models.Model):
         return self.log_set.count
 
     @property 
-    def temp_count (self):
-        return self.temp_set.count
+    def hatch_count (self):
+        return self.hatch_set.count
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -572,7 +572,7 @@ class Picture(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path) 
-
+    
 class Chart(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name="insect")

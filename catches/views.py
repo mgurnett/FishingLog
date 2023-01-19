@@ -334,20 +334,46 @@ class WeekListView (ListView):
     context_object_name = 'weeks' 
     paginate_by = 20
 
+def get_query_set(pk): 
+
+    week_data = Week.objects.get(id=pk)
+    last_week = week_data.prev_num
+    next_week = week_data.next_num
+    
+    chart_now = Chart.objects.filter (week=week_data.id)
+    chart_last = Chart.objects.filter (week=last_week)
+    chart_next = Chart.objects.filter (week=next_week)
+    
+    three_charts = []
+    for index, c in enumerate(chart_now):
+        if chart_last[index].strength + c.strength < c.strength + chart_next[index].strength:
+            trend = "rising"
+        elif chart_last[index].strength + c.strength == c.strength + chart_next[index].strength:
+            trend = "flat"
+        elif chart_last[index].strength + c.strength > c.strength + chart_next[index].strength:
+            trend = "falling"
+        insect = {
+                    'bug': c.bug.name, 
+                    'last': chart_last[index].strength_name, 
+                    'this': c.strength_name,
+                    'next': chart_next[index].strength_name,
+                    'trend': trend,
+                    'strength': c.strength
+                }
+
+        three_charts.append(insect)
+    allcharts = sorted(three_charts, key=lambda d: d['strength'], reverse=True)
+    allcharts = sorted(allcharts, key=lambda d: d['trend'], reverse=True)
+
+    return allcharts
+
 class WeekDetailView (DetailView): 
     model = Week
     context_object_name = 'week'
     
     def get_context_data(self, **kwargs): 
         context = super(WeekDetailView, self).get_context_data(**kwargs)
-        this_week = self.kwargs['pk']
-        week_data = Week.objects.get(id=this_week)
-        last_week = week_data.prev_num
-        next_week = week_data.next_num
-        for index, c in enumerate(items):
-
-        context ['chart_for_last_week'] = Chart.objects.filter (week=last_week).order_by('-strength')
-        context ['chart_for_week'] = Chart.objects.filter (week=this_week).order_by('-strength')
+        context ['chart_for_weeks'] = get_query_set(self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
