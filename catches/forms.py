@@ -197,6 +197,9 @@ class New_Hatch_Form (forms.ModelForm):
         fields = '__all__'     
     notes = forms.CharField ( required = False )  
     static_tag = forms.CharField ( required = False )
+    sight_date = forms.DateField(
+        initial=timezone.now,
+        widget=DateInput )
 
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all(),
@@ -234,6 +237,7 @@ class New_Hatch_Form (forms.ModelForm):
             ),
             Row(
                 Column('static_tag', css_class='form-group col-md-5 mb-0'),
+                Column('sight_date', css_class='form-group col-md-5 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')

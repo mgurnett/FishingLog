@@ -340,7 +340,14 @@ class WeekDetailView (DetailView):
     
     def get_context_data(self, **kwargs): 
         context = super(WeekDetailView, self).get_context_data(**kwargs)
-        context ['chart_for_week'] = Chart.objects.filter (week=self.kwargs['pk']).order_by('-strength')
+        this_week = self.kwargs['pk']
+        week_data = Week.objects.get(id=this_week)
+        last_week = week_data.prev_num
+        next_week = week_data.next_num
+        for index, c in enumerate(items):
+
+        context ['chart_for_last_week'] = Chart.objects.filter (week=last_week).order_by('-strength')
+        context ['chart_for_week'] = Chart.objects.filter (week=this_week).order_by('-strength')
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])

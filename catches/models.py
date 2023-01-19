@@ -438,6 +438,12 @@ class Log(models.Model):
             return self.fly.name
         return self.fly.name
 
+    def save (self, *args, **kwargs):
+        if not self.week:
+            week_num = Week.objects.get(number = int(self.catch_date.strftime('%U')))
+            self.week = week_num
+        super().save (*args, **kwargs)
+
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
@@ -455,6 +461,12 @@ class Hatch(models.Model):
 
     def get_absolute_url (self):
         return reverse ('hatch_detail', kwargs = {'pk': self.pk})
+
+    def save (self, *args, **kwargs):
+        if not self.week:
+            week_num = Week.objects.get(number = int(self.sight_date.strftime('%U')))
+            self.week = week_num
+        super().save (*args, **kwargs)
 
 class Video(models.Model):
     name = models.CharField(max_length = 100)
