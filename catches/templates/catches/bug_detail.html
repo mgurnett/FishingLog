@@ -55,6 +55,7 @@
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='bug' pk=bug.id tag=bug.static_tag %}">New video</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='bug' pk=bug.id tag=bug.static_tag %}">New article</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='bug' pk=bug.id tag=bug.static_tag %}">New picture</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'chart_graph' pk=bug.id %}">Chart</a>
                         </div>
                     </div>
 				</div>

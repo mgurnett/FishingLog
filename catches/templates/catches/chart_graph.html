@@ -1,0 +1,9 @@
+{% extends "catches/base/base.html" %}
+<!-- This is going ot be the main landing page for everything. -->
+{% block content %}
+<h3>Insect availibility per week for Northern Alberta</h3>
+<div class="container">
+	{{ graph | safe }}
+</div>
+
+{% endblock content %}

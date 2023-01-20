@@ -48,6 +48,7 @@ urlpatterns = [
     path ('temp/new/', TempCreateView.as_view(), name = 'temp_create'),  
     path ('temp/update/<int:pk>/', TempUpdateView.as_view(), name = 'temp_update'), 
     path ('temp/delete/<int:pk>/', TempDeleteView.as_view(), name = 'temp_delete'),
+    path ('chart/graph/<int:pk>/', views.ChartGraph.as_view(), name ="chart_graph" ),
 
     path ('hatch/', HatchListView.as_view(), name = 'hatch_list'), 
     path ('hatch/<int:pk>/', HatchDetailView.as_view(), name = 'hatch_detail'), 

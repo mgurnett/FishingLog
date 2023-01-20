@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from taggit.models import Tag
 import pandas as pd
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import plotly.express as px
-from plotly.offline import plot
+# from plotly.offline import plot
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -695,4 +695,25 @@ def LogTestlView(request, **kwargs):
     log = Log.objects.get(pk=kwargs.get('pk'))
     context = { 'log': log, 'kwargs': kwargs }
     return render (request, 'catches/log_test.html', context)
+
+class ChartGraph(TemplateView):
+    template_name = 'catches/chart_graph.html'
+    context_object_name = 'graph'
+
+    def get_context_data(self, **kwargs):
+        context = super(ChartGraph, self).get_context_data(**kwargs)
+        chart = Chart.objects.filter(bug=kwargs['pk'])
+
+        data = []
+        for row in chart:
+            data.append ({'bug': row.bug.name, 'week': row.week.number, 'strength': row.strength})
+
+        df = pd.DataFrame(data)
+        table = df.pivot_table ('strength','week', 'bug')
+
+        fig = px.area( table )
+
+        context = {'graph': fig.to_html()}
+
+        return context
 
