@@ -26,6 +26,8 @@ add ssh key to michael's ssh host file
 
 cat ~/.ssh/id_rsa.pub | (ssh michael@webserver "cat >> ~/.ssh/authorized_keys")
 
+instead use ssh-copy-id  
+
 Step 4 - make a link
 Make a link to where the data will be stored.
 ln -s www/ ~/www
