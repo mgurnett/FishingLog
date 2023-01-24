@@ -10,7 +10,7 @@ hostname
 Step 2 - set the host
 sudo nano /etc/hosts
 
-add: 192.168.1.70 django-server
+add: 139.177.195.251 django-server
 
 Step 3 - add limitied user
 sudo adduser michael
@@ -34,5 +34,4 @@ ln -s www/ ~/www
 
 Step 5 - get django running
 
-Step 6 - How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu 16.04
-https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04
+Step 6 - 
