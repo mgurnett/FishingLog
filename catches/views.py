@@ -20,6 +20,20 @@ from django.views.generic import (
 )
 from catches.forms import *
 
+def collect_tw_from_logs_and_hatches():
+    logs = Log.objects.all()
+    hatches = Hatch.objects.all()
+    data = []
+    for log in logs:
+        if log.temp.id > 1:
+            log_data = {'week': log.week.number, 'date': log.catch_date, 'temp': log.temp.deg, 'temp_name': log.temp.name}
+            data.append(log_data)
+    for hatch in hatches:
+        if hatch.temp.id > 1:
+            log_data = {'week': hatch.week.id, 'temp': hatch.temp.id}
+            data.append(log_data)
+    return data
+
 def home (request):
     return render (request, 'catches/home.html', {})
 
@@ -337,7 +351,7 @@ class WeekListView (ListView):
     context_object_name = 'weeks' 
     paginate_by = 20
 
-def get_query_set(pk): 
+def get_query_set(pk): # get the data for the hatch trends for week detail view
 
     week_data = Week.objects.get(id=pk)
     last_week = week_data.prev_num
@@ -669,21 +683,17 @@ class Graph(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Graph, self).get_context_data(**kwargs)
-        logs = Log.objects.all()
-        csv_out = []
-        for log in logs:
-            if log.temp.id > 1:
-                c_week = log.catch_date.isocalendar().week
-                data_out = [log.catch_date, c_week, log.temp.deg, log.temp.direction, log.temp.id, log.temp.name]
-                csv_out.append (data_out)
 
-        df = pd.DataFrame(csv_out)
-        df.columns = ['Catch date', 'Week', 'Temp', 'Direction', 'Temp ID', 'Temperature Name']
-        df.sort_values('Week')
+        data = collect_tw_from_logs_and_hatches()
+
+        df = pd.DataFrame.from_dict( data )
+        df.columns = ['Week', 'Catch date', 'Temperature', 'Temperature Name']
+        
+        df = df.sort_values(by='Week')
 
         fig = px.scatter(df, 
             x='Week',
-            y='Temp',
+            y='Temperature',
             trendline="rolling", 
             trendline_options=dict(window=5),
             height = 750,
@@ -693,11 +703,11 @@ class Graph(TemplateView):
         context= {'graph': fig.to_html()}
         return context
 
-def LogTestlView(request, **kwargs):
-    print (f'request is {request} & kwargs is {kwargs}')
-    log = Log.objects.get(pk=kwargs.get('pk'))
-    context = { 'log': log, 'kwargs': kwargs }
-    return render (request, 'catches/log_test.html', context)
+# def LogTestlView(request, **kwargs):
+#     print (f'request is {request} & kwargs is {kwargs}')
+#     log = Log.objects.get(pk=kwargs.get('pk'))
+#     context = { 'log': log, 'kwargs': kwargs }
+#     return render (request, 'catches/log_test.html', context)
 
 class ChartGraph(TemplateView):
     template_name = 'catches/chart_graph.html'
