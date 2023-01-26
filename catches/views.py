@@ -287,6 +287,9 @@ class TempDetailView (DetailView):
     
     def get_context_data(self, **kwargs): 
         context = super(TempDetailView, self).get_context_data(**kwargs)
+        context ['chart_for_weeks'] = get_query_set(self.kwargs['pk'])
+        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         context ['logs'] = Log.objects.filter (temp=self.kwargs['pk'])
         return context
 

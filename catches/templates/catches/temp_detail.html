@@ -1,5 +1,6 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
+
 <div class="container">
 	<div class="row">  <!--   Top of page  -->
 		<div class="col-md-1"> </div>
@@ -14,68 +15,61 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-7"> </div>
-                        <div class="col-md-3   text-right">
+						<div class="col-md-7"> </div>
+						<div class="col-md-3   text-right">
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_temp' temp.id %}">New log</a>
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'temp_update' temp.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'temp_delete' temp.id %}" type="submit" >delete</a>
-                        </div>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'temp_update' temp.id %}" type="submit" >edit</a>
+							<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'temp_delete' temp.id %}" type="submit" >delete</a>
+						</div>
 						<div class="col-md-1">
 						</div>
-                    </div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-1"> </div>
-	</div>
-	<div class="row">  <!--   list of logs  -->
-		<div class="col-md-1"> </div>
-		<div class="col-md-10">
-			<div class="card">
-				<div class="card-body">
-					<div class = "row">
-						{% for log in logs %}
-							<div class="col-md-6">
-								<div class="card mb-4 box-shadow">
-									<div class="card-body">
-										<p class="card-title">
-											<div class="row">
-												<div class="col-7">
-													Water temp: <b>{{ log.temp.name }}</b>
-												</div>
-												<div class="col-5">
-													<a href="{% url 'log_detail' log.id %}"><b>{{ log.catch_date|date:"D, N j, y" }}</b>({{ log.week.name }})</a> 
-												</div>
-											</div>
-										</p>
-										<p>
-											{% if log.lake %}
-											Lake: <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title}}</b></a> 
-											{% endif %}
-										</p>
-										<p>
-											{% if log.fish %}
-											Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</b></a>  
-											{% endif %}
-										</p>
-										<p>
-											{% if log.fly %}
-											Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly_info | title}}</b></a>  
-											{% endif %}
-										</p>
-										<p class="card-text">
-											{% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}
-										</p>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
 	</div>
-</div> 
-{% endblock content %}
 
+	<div class="row mb-3"><!-- Bottom card-->
+		<div class="col-md-1 "></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab"  
+							href="#LOGS">Fishing Logs</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+							href="#HATCH">Hatch</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+							href="#WEEK">Weeks</a>
+						</li>
+					</ul>
+				</h5>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+						<div class="tab-pane container active" id="LOGS">
+							{% include 'snippets/log_tab.html' %}
+						</div>
+						<div class="tab-pane container fade" id="HATCH">
+							{% include 'snippets/hatch_tab.html' %}
+						</div>    
+						<div class="tab-pane container fade" id="WEEK">
+							
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div><!-- Bottom card-->
+</div>
+
+{% endblock content %}

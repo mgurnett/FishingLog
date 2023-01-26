@@ -7,16 +7,19 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-12">
                                 <h5>
                                     Fishing log for <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title  }}</b></a>{% if log.lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                                 </h5>
                             </div>
-                            <div class="col-4 text-right">
-                                Water temp: <b>{{ log.temp.name }}</b>
-                            </div>
-                            <h5 class="col-3 text-right">
-                                <b>{{ log.catch_date|date:"D, N j, y" }}</b>({{ log.catch_date | date:"W" }})
+                        </div>
+                        <hr>
+                        <div class=row>
+                            <h5 class="col-6 text-center">
+                                <a href="{% url 'temp_detail' log.temp.id %}">Water temp: <b>{{ log.temp.name }}</b></a>
+                            </h5>
+                            <h5 class="col-6 text-right">
+                                <b>{{ log.catch_date|date:"D, N j, y" }} <a href="{% url 'week_detail' log.week.id %}"></b>   Week: <b>{{ log.week.number }}</a></b>
                             </h5>
                         </div>
                     </div>
