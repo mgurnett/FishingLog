@@ -5,7 +5,7 @@ admin.site.register (Lake)
 admin.site.register (Stock)
 admin.site.register (Region)
 admin.site.register (Fish)
-admin.site.register (Fly)
+# admin.site.register (Fly)
 admin.site.register (Bug)
 # admin.site.register (Log)
 admin.site.register (Hatch)
@@ -33,6 +33,10 @@ class PictureAdmin (admin.ModelAdmin):
 
     def get_tags (self, obj):
         return ", ".join(o for o in obj.tags.names())
+
+@admin.register (Fly)
+class FlyAdmin (admin.ModelAdmin):
+    list_display = ['name', 'static_tag']
 
 @admin.register (Temp)
 class TempAdmin (admin.ModelAdmin):
