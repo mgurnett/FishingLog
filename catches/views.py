@@ -272,8 +272,9 @@ class LakeDetailView (DetailView):
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
-        context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
+        context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         return context
+
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
     model = Lake

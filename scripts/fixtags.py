@@ -37,3 +37,5 @@ def run():
         if not found:
             print (f"can't find - {tag}")
         
+        # post_items = post_items.filter(tags__name__icontains=query)
+        # https://stackoverflow.com/questions/73093347/search-with-django-for-tags

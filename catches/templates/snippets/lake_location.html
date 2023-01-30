@@ -13,3 +13,23 @@
   </div>
   <div class="col-md-1"></div> 
 </div> 
+
+<div class = "row">
+    {% for picture in pictures_list_bath %}
+        <div class="col-md-6">
+            <div class="card mb-4 box-shadow">
+                <a href="{% url 'picture_detail' picture.id %}" >
+                    <img src="{{ picture.image.url }}" class="img-thumbnail"style="width:75%" >
+                </a>
+                <div class="card-body">
+                    <p class="card-text">{{ picture.name | title }}, 
+                        {% if picture.snippet %}{{ picture.snippet }}, {% endif %}
+                        date added: {{ picture.date_added }}, 
+                        tags: {{ picture.tag_list }} 
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
