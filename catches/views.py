@@ -4,9 +4,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from taggit.models import Tag
 import pandas as pd
-# import plotly.graph_objects as go
 import plotly.express as px
-# from plotly.offline import plot
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
