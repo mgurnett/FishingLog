@@ -26,11 +26,11 @@ def collect_tw_from_logs_and_hatches():
     data = []
     for log in logs:
         if log.temp.id > 1:
-            log_data = {'week': log.week.number, 'date': log.catch_date, 'temp': log.temp.deg, 'temp_name': log.temp.name}
+            log_data = {'week': log.week.number, 'week_id': log.week.id, 'date': log.catch_date, 'temp': log.temp.deg,'temp_id': log.temp.id, 'temp_name': log.temp.name}
             data.append(log_data)
     for hatch in hatches:
         if hatch.temp.id > 1:
-            log_data = {'week': hatch.week.id, 'temp': hatch.temp.id}
+            log_data = {'week': hatch.week.number, 'week_id': hatch.week.id, 'date': hatch.sight_date, 'temp': hatch.temp.deg,'temp_id': hatch.temp.id, 'temp_name': hatch.temp.name}
             data.append(log_data)
     return data
 
@@ -295,7 +295,7 @@ class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e
 class TempListView (ListView):
     model = Temp
     context_object_name = 'temps' 
-    paginate_by = 10
+    paginate_by = 12
 
 class TempDetailView (DetailView): 
     model = Temp
@@ -391,11 +391,22 @@ class WeekDetailView (DetailView):
     context_object_name = 'week'
     
     def get_context_data(self, **kwargs): 
+        all_temps = collect_tw_from_logs_and_hatches()
+        temps_this_week = []
+        for temp in all_temps:
+            # print (f'Dict - {temp.get("week")}     kwarg - {self.kwargs["pk"]}')
+            if temp.get("week_id") == self.kwargs['pk']:
+                temps_this_week.append(temp)
+        # print (temps_this_week)
+        # print (type(temps_this_week))
+
         context = super(WeekDetailView, self).get_context_data(**kwargs)
-        context ['chart_for_weeks'] = get_query_set(self.kwargs['pk'])
+        context ['chart_for_weeks'] = get_query_set (self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
+        # context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
+        context ['temps'] = sorted (temps_this_week, key=lambda d: d['temp_name'], reverse=True)
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
+        # print (type(Log.objects.filter (week=self.kwargs['pk'])))
         return context
 
 
@@ -689,7 +700,7 @@ class Graph(TemplateView):
         data = collect_tw_from_logs_and_hatches()
 
         df = pd.DataFrame.from_dict( data )
-        df.columns = ['Week', 'Catch date', 'Temperature', 'Temperature Name']
+        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name' ]
         
         df = df.sort_values(by='Week')
 
@@ -699,7 +710,7 @@ class Graph(TemplateView):
             trendline="rolling", 
             trendline_options=dict(window=5),
             height = 750,
-            text='Catch date'
+            text='Date'
             )
 
         context= {'graph': fig.to_html()}

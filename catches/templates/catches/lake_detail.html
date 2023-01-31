@@ -23,6 +23,10 @@
 							{% if lake.region %} Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
 						</div>
 						<div class="col-md-2">
+							{% if lake.gps_url %} 
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ lake.gps_url }}" 
+								target="_blank" type="submit" >gps</a>
+							{% endif %}
 							{% if lake.lat %} 
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" 
 								target="_blank" type="submit" >map</a>

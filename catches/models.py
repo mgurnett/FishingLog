@@ -167,6 +167,7 @@ class Lake(models.Model):
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
     static_tag = models.SlugField()
+    gps_url = models.URLField(max_length = 200, blank=True)
     
     class Meta:
         ordering = ['-favourite', 'name']
