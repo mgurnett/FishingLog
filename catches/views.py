@@ -32,6 +32,48 @@ def collect_tw_from_logs_and_hatches():
             data.append(log_data)
     return data
 
+def get_query_set(pk): # get the data for the hatch trends for week detail view
+
+    week_data = Week.objects.get(id=pk)
+    last_week = week_data.prev_num
+    next_week = week_data.next_num
+    
+    chart_now = Chart.objects.filter (week=week_data.id)
+    chart_last = Chart.objects.filter (week=last_week)
+    chart_next = Chart.objects.filter (week=next_week)
+    
+    three_charts = []
+    for index, c in enumerate(chart_now):
+        if chart_last[index].strength + c.strength < c.strength + chart_next[index].strength:
+            trend = "rising"
+        elif chart_last[index].strength + c.strength == c.strength + chart_next[index].strength:
+            trend = "flat"
+        elif chart_last[index].strength + c.strength > c.strength + chart_next[index].strength:
+            trend = "falling"
+        insect = {
+                    'bug': c.bug.name, 
+                    'last': chart_last[index].strength_name, 
+                    'this': c.strength_name,
+                    'next': chart_next[index].strength_name,
+                    'trend': trend,
+                    'strength': c.strength
+                }
+
+        three_charts.append(insect)
+    allcharts = sorted(three_charts, key=lambda d: d['strength'], reverse=True)
+    allcharts = sorted(allcharts, key=lambda d: d['trend'], reverse=True)
+
+    return allcharts
+
+def get_temps(pk):
+    all_temps = collect_tw_from_logs_and_hatches()
+    temps_this_week = []
+    for temp in all_temps:
+        if temp.get("week_id") == pk:
+            temps_this_week.append(temp)
+    temp_list = sorted (temps_this_week, key=lambda d: d['temp_name'], reverse=True)
+    return temp_list
+
 def home (request):
     return render (request, 'catches/home.html', {})
 
@@ -351,60 +393,31 @@ class WeekListView (ListView):
     context_object_name = 'weeks' 
     paginate_by = 20
 
-def get_query_set(pk): # get the data for the hatch trends for week detail view
-
-    week_data = Week.objects.get(id=pk)
-    last_week = week_data.prev_num
-    next_week = week_data.next_num
-    
-    chart_now = Chart.objects.filter (week=week_data.id)
-    chart_last = Chart.objects.filter (week=last_week)
-    chart_next = Chart.objects.filter (week=next_week)
-    
-    three_charts = []
-    for index, c in enumerate(chart_now):
-        if chart_last[index].strength + c.strength < c.strength + chart_next[index].strength:
-            trend = "rising"
-        elif chart_last[index].strength + c.strength == c.strength + chart_next[index].strength:
-            trend = "flat"
-        elif chart_last[index].strength + c.strength > c.strength + chart_next[index].strength:
-            trend = "falling"
-        insect = {
-                    'bug': c.bug.name, 
-                    'last': chart_last[index].strength_name, 
-                    'this': c.strength_name,
-                    'next': chart_next[index].strength_name,
-                    'trend': trend,
-                    'strength': c.strength
-                }
-
-        three_charts.append(insect)
-    allcharts = sorted(three_charts, key=lambda d: d['strength'], reverse=True)
-    allcharts = sorted(allcharts, key=lambda d: d['trend'], reverse=True)
-
-    return allcharts
-
 class WeekDetailView (DetailView): 
     model = Week
     context_object_name = 'week'
     
     def get_context_data(self, **kwargs): 
-        all_temps = collect_tw_from_logs_and_hatches()
-        temps_this_week = []
-        for temp in all_temps:
-            # print (f'Dict - {temp.get("week")}     kwarg - {self.kwargs["pk"]}')
-            if temp.get("week_id") == self.kwargs['pk']:
-                temps_this_week.append(temp)
-        # print (temps_this_week)
-        # print (type(temps_this_week))
-
         context = super(WeekDetailView, self).get_context_data(**kwargs)
         context ['chart_for_weeks'] = get_query_set (self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
-        # context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
-        context ['temps'] = sorted (temps_this_week, key=lambda d: d['temp_name'], reverse=True)
+        context ['temps'] = get_temps(self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
-        # print (type(Log.objects.filter (week=self.kwargs['pk'])))
+        return context
+
+class Plan(TemplateView):
+    model = Lake
+    template_name = 'catches/plan.html'
+    context_object_name = 'lake'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Plan, self).get_context_data(**kwargs)
+        context ['lake'] = Lake.objects.get (id=self.kwargs['pk'])
+        context ['week'] = Week.objects.get (id=self.kwargs['pk'])
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
+        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
+        context ['temps'] = get_temps(self.kwargs['pk'])
+        context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
         return context
 
 
@@ -665,7 +678,7 @@ class PictureUpdateView(LoginRequiredMixin, UpdateView):
             'Picture fixed'
         )
         return super().form_valid (form)
-
+ 
 class PictureDeleteView (LoginRequiredMixin, DeleteView):
     model = Picture
     success_url = reverse_lazy('pictures_list')
@@ -739,5 +752,18 @@ class ChartGraph(TemplateView):
 
         context = {'graph': fig.to_html()}
 
+        return context
+
+class Plan(TemplateView):
+    model = Lake
+    template_name = 'catches/plan.html'
+    context_object_name = 'lake'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Plan, self).get_context_data(**kwargs)
+        context ['lake'] = Lake.objects.get (id=self.kwargs['pk'])
+        context ['week'] = Week.objects.get (id=self.kwargs['pk'])
+
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         return context
 
