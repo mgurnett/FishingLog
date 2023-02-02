@@ -21,9 +21,11 @@
 				<div class="card-body">{{ region.notes }}</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8"> </div>
+                        <div class="col-md-8"> 
+						</div>
                         <div class="col-md-4 text-right">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'make_kml' region.id %}" type="submit" >Make KML file</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
                         </div>
                     </div>

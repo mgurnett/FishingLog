@@ -2,9 +2,11 @@ from django.shortcuts import render
 from .models import *
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.core.management import BaseCommand
 from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
+import simplekml
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -102,6 +104,24 @@ def get_weeks(pk):
             weeks_this_temp.append(week)
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
+
+def make_kml_file (request, *args, **kwargs):
+    # print (kwargs)
+    # region_id=kwargs['pk']
+    # region_id = pk
+    lakes = Lake.objects.filter (region=kwargs['pk'])
+    # region_name = Region.objects.get(pk=kwargs).name
+    region_name = 'test'
+    kml = simplekml.Kml()
+    for lake in lakes:
+        kml.newpoint(
+            name = lake.lake_info, 
+            description = region_name,
+            coords=[(lake.long,lake.lat)]
+        )  # lon, lat optional height
+        file_name = f'media/{region_name}.kml'
+    kml.save(file_name)
+    return render (request, 'catches/region_list.html', {})
 
 def home (request):
     return render (request, 'catches/home.html', {})
