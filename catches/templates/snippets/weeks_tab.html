@@ -2,31 +2,31 @@
         <thead>
           <tr>
             <th scope="col">Type</th>
-            <th scope="col">Temperature</th>
+            <th scope="col">Week</th>
             <th scope="col">Log or Hatch date</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody> 
-          {% for temp in temps %}
+          {% for week in weeks %}
           <tr>
-            <td scope="row">
-              {% if temp.type == "L"  %}
+            <td scope="row">  
+              {% if week.type == "L"  %}
                 Log
               {% endif %}   
-              {% if temp.type == "H"  %}
+              {% if week.type == "H"  %}
                 Hatch
               {% endif %}  
             </td>
             <td>
-              <a href="{% url 'temp_detail' temp.temp_id %}">{{ temp.temp_name  }} </a>          
+              <a href="{% url 'week_detail' week.week_id %}"> {{ week.week  }} </a>          
             </td>
             <td>
-               {% if temp.type == "L"  %}
-                <a href="{% url 'log_detail' temp.log %}">{{ temp.date  }} </a>
+              {% if week.type == "L"  %}
+                <a href="{% url 'log_detail' week.log %}">{{ week.date  }} </a>
               {% endif %}   
-              {% if temp.type == "H"  %}
-                <a href="{% url 'hatch_detail' temp.log %}">{{ temp.date  }} </a>
+              {% if week.type == "H"  %}
+                <a href="{% url 'hatch_detail' week.log %}">{{ week.date  }} </a>
               {% endif %}
             </td>
             <td>

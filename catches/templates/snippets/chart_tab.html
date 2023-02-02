@@ -12,7 +12,7 @@
           {% for c in chart_for_weeks %}
           <tr>
             <th scope="row">
-                <h5>{{ c.bug }}</h5>
+                <h5><a href="{% url 'bug_detail' c.bug_id %}">{{ c.bug }}</a></h5>
             </th>
             <th>
               <h5>{{ c.last }}</h5>

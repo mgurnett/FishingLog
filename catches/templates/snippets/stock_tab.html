@@ -12,7 +12,7 @@
         <tbody>
           {% for stock in stockings %}
           <tr>
-            <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</th>
+            <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a></th>
             <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></td>
             <td>{{ stock.number }}</td>
             <td>{{ stock.full_geno }}</td>

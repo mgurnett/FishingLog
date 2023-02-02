@@ -24,11 +24,29 @@ def collect_tw_from_logs_and_hatches():
     data = []
     for log in logs:
         if log.temp.id > 1:
-            log_data = {'week': log.week.number, 'week_id': log.week.id, 'date': log.catch_date, 'temp': log.temp.deg,'temp_id': log.temp.id, 'temp_name': log.temp.name}
+            log_data = {
+                'week': log.week.number, 
+                'week_id': log.week.id, 
+                'date': log.catch_date, 
+                'temp': log.temp.deg,
+                'temp_id': log.temp.id, 
+                'temp_name': log.temp.name, 
+                'log': log.id,
+                'type': 'L'
+                }
             data.append(log_data)
     for hatch in hatches:
         if hatch.temp.id > 1:
-            log_data = {'week': hatch.week.number, 'week_id': hatch.week.id, 'date': hatch.sight_date, 'temp': hatch.temp.deg,'temp_id': hatch.temp.id, 'temp_name': hatch.temp.name}
+            log_data = {
+                'week': hatch.week.number, 
+                'week_id': hatch.week.id, 
+                'date': hatch.sight_date, 
+                'temp': hatch.temp.deg,
+                'temp_id': hatch.temp.id, 
+                'temp_name': hatch.temp.name, 
+                'log': hatch.id,
+                'type': 'H'
+                }
             data.append(log_data)
     return data
 
@@ -52,6 +70,7 @@ def get_query_set(pk): # get the data for the hatch trends for week detail view
             trend = "falling"
         insect = {
                     'bug': c.bug.name, 
+                    'bug_id': c.bug.id,
                     'last': chart_last[index].strength_name, 
                     'this': c.strength_name,
                     'next': chart_next[index].strength_name,
@@ -73,6 +92,16 @@ def get_temps(pk):
             temps_this_week.append(temp)
     temp_list = sorted (temps_this_week, key=lambda d: d['temp_name'], reverse=True)
     return temp_list
+
+def get_weeks(pk):
+    all_weeks = collect_tw_from_logs_and_hatches()
+    # print (all_weeks)
+    weeks_this_temp = []
+    for week in all_weeks:
+        if week.get("temp_id") == pk:
+            weeks_this_temp.append(week)
+    week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
+    return week_list
 
 def home (request):
     return render (request, 'catches/home.html', {})
@@ -346,6 +375,7 @@ class TempDetailView (DetailView):
         context ['chart_for_weeks'] = get_query_set(self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
+        context ['weeks'] = get_weeks (self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (temp=self.kwargs['pk'])
         return context
 
