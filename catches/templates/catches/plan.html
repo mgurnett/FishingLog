@@ -1,0 +1,114 @@
+{% extends "catches/base/base.html" %}
+<!-- This is the main plan page. -->
+{% load tz %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row"> <!-- Title Row-->
+		<div class="col-md-3">
+            <h2>
+                <b>Fishing plan</b>
+            </h2>
+		</div>
+		<div class="col-md-6">
+            <h2>
+                {% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}
+            </h2>
+		</div>
+		<div class="col-md-3">
+            <h2>
+                <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
+                    {% timezone "America/Edmonton" %} Week:<b>{% now "W" %}</b> {% endtimezone %}
+                </a>
+            </h2>
+		</div>
+	</div>
+    <hr>
+	<div class="row"> <!-- Temperature Row-->
+		<div class="col-md-4">
+            <h4>
+                <a href="{% url 'lake_detail' lake.id %}">
+                    <b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+                </a>
+            </h4>
+		</div>
+		<div class="col-md-4">
+            <h4>
+                Lowest temperate <b></b>
+            </h4>
+		</div>
+		<div class="col-md-4">
+            <h4>
+                Highest temperate <b>12 up</b>
+            </h4>
+		</div>
+	</div>
+    <hr>
+	<div class="row"> <!-- Flys Row-->
+		<div class="col-md-6"> <!-- Best flys based on logs card-->
+			<div class="card">
+				<h5 class="card-header">
+					Card title
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						Card content
+					</p>
+				</div>
+				<div class="card-footer">
+					Card footer
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6"> <!-- suggested flys card-->
+			<div class="card">
+				<h5 class="card-header">
+					Card title
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						Card content
+					</p>
+				</div>
+				<div class="card-footer">
+					Card footer
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row"> <!-- Insects Row-->
+		<div class="col-md-6"> <!-- Hatch card-->
+			<div class="card">
+				<h5 class="card-header">
+					Card title
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						Card content
+					</p>
+				</div>
+				<div class="card-footer">
+					Card footer
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6"> <!-- expected bugs card-->
+			<div class="card">
+				<h5 class="card-header">
+					Card title
+				</h5>
+				<div class="card-body">
+					<p class="card-text">
+						Card content
+					</p>
+				</div>
+				<div class="card-footer">
+					Card footer
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

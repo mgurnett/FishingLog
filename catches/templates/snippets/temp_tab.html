@@ -2,7 +2,7 @@
         <thead>
           <tr>
             <th scope="col">Temperature</th>
-            <th scope="col"></th>
+            <th scope="col">Date</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -10,12 +10,12 @@
           {% for temp in temps %}
           <tr>
             <td scope="row">
-              {{ temp  }}             
+              {{ temp.temp_name  }}             
             </td>
             <td scope="row">
+              {{ temp.date  }}  
             </td>
             <td>
-              
             </td>
           </tr>
           {% endfor %} 

@@ -110,5 +110,6 @@ urlpatterns = [
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
 
-    
+    path ('plan/<int:pk>/', views.Plan.as_view(), name ="plan" ),
+
 ]
