@@ -10,19 +10,25 @@
 			<div class="card">
 				<h5 class="card-header">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-5">
 							Tag: <b> {{ lake.static_tag }}</b>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-7">
 							{% if lake.region %} Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-5">
+							{% if lake.district %} District: <b>{{ lake.district | title  }}</b> {% endif %}
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 text-right">
 							{% if lake.gps_url %} 
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ lake.gps_url }}" 
 								target="_blank" type="submit" >gps</a>
@@ -32,8 +38,8 @@
 								target="_blank" type="submit" >map</a>
 							{% endif %}
 						</div>
-						<div class="col-md-4">
-							{% if lake.district %} District: <b>{{ lake.district | title  }}</b> {% endif %}
+						<div class="col-md-8 text-center">
+							Week: <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan' lake.id 15 %}" type="submit" ><b>PLAN</b></a>
 						</div>
 					</div>
 				</h5>
@@ -49,7 +55,6 @@
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
 							<a class="btn btn-danger    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan' lake.id %}" type="submit" ><b>PLAN</b></a>
 						</div>
                         <div class="col-md-5 text-right">
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>

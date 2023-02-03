@@ -1,25 +1,26 @@
 {% extends "catches/base/base.html" %}
+{% block title %}Plan{% endblock %}
 <!-- This is the main plan page. -->
 {% load tz %}
-
 {% block content %}
-
+ 
 <div class="container">
 	<div class="row"> <!-- Title Row-->
 		<div class="col-md-3">
             <h2>
-                <b>Fishing plan</b>
+                <b>Fishing plan</b> for:
             </h2>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 text-center">
             <h2>
-                {% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}
+                {% timezone "America/Edmonton" %} {% now "D, M j, y" %} {% endtimezone %}
             </h2>
 		</div>
 		<div class="col-md-3">
             <h2>
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
                     {% timezone "America/Edmonton" %} Week:<b>{% now "W" %}</b> {% endtimezone %}
+					{{ week.number }}
                 </a>
             </h2>
 		</div>
