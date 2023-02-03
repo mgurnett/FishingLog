@@ -455,6 +455,7 @@ class WeekDetailView (DetailView):
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
         return context
 
+
 class Plan(TemplateView):
     model = Lake
     template_name = 'catches/plan.html'
@@ -777,12 +778,6 @@ class Graph(TemplateView):
         context= {'graph': fig.to_html()}
         return context
 
-# def LogTestlView(request, **kwargs):
-#     print (f'request is {request} & kwargs is {kwargs}')
-#     log = Log.objects.get(pk=kwargs.get('pk'))
-#     context = { 'log': log, 'kwargs': kwargs }
-#     return render (request, 'catches/log_test.html', context)
-
 class ChartGraph(TemplateView):
     template_name = 'catches/chart_graph.html'
     context_object_name = 'graph'
@@ -810,10 +805,12 @@ class Plan(TemplateView):
     context_object_name = 'lake'
 
     def get_context_data(self, **kwargs): 
+        print (kwargs)
         context = super(Plan, self).get_context_data(**kwargs)
-        context ['lake'] = Lake.objects.get (id=self.kwargs['pk'])
-        context ['week'] = Week.objects.get (id=self.kwargs['pk'])
+        context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
+        if 
+        context ['week'] = Week.objects.get (id=self.kwargs['wpk'])
 
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
         return context
 
