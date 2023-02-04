@@ -805,12 +805,18 @@ class Plan(TemplateView):
     context_object_name = 'lake'
 
     def get_context_data(self, **kwargs): 
-        print (kwargs)
         context = super(Plan, self).get_context_data(**kwargs)
-        context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
-        if 
-        context ['week'] = Week.objects.get (id=self.kwargs['wpk'])
+        current_week = int(timezone.now().strftime("%W"))
+        if (current_week < 14 or current_week > 48):
+            week = Week.objects.get( number = 14 )
+        else:
+            week = Week.objects.get( number = current_week )
 
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
+        context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
+        
+        context ['week'] = Week.objects.get (id= week.id)
+
+        # context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
+        context ['temps'] = Temp.objects.filter (week=week.id).order_by('id')
         return context
 

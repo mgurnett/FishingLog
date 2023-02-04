@@ -13,14 +13,13 @@
 		</div>
 		<div class="col-md-6 text-center">
             <h2>
-                {% timezone "America/Edmonton" %} {% now "D, M j, y" %} {% endtimezone %}
+                {% timezone "America/Edmonton" %} {% now "D, M j, y" %} ({% now "W" %}) {% endtimezone %}
             </h2>
 		</div>
 		<div class="col-md-3">
             <h2>
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
-                    {% timezone "America/Edmonton" %} Week:<b>{% now "W" %}</b> {% endtimezone %}
-					{{ week.number }}
+					Week: <b>{{ week.number }}</b>
                 </a>
             </h2>
 		</div>
