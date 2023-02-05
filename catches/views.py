@@ -469,6 +469,7 @@ class Plan(TemplateView):
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = get_temps(self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
+        context ['chart_for_weeks'] = get_query_set (self.kwargs['pk'])
         return context
 
 
@@ -762,7 +763,7 @@ class Graph(TemplateView):
         data = collect_tw_from_logs_and_hatches()
 
         df = pd.DataFrame.from_dict( data )
-        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name' ]
+        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
         
         df = df.sort_values(by='Week')
 
@@ -797,7 +798,35 @@ class ChartGraph(TemplateView):
 
         context = {'graph': fig.to_html()}
 
-        return context
+        return context    
+        
+def get_hl (id):
+    temp_list = get_temps(id)
+    # print (f'id is {id}   and temp_list is {temp_list}')
+    low = 100
+    high = 0
+    for temp in temp_list:
+        if temp['temp'] < low:
+            low = temp['temp']
+        if temp['temp'] > high:
+            high = temp['temp']
+    # print (f'low: {low} high: {high}')
+    if low == 100:
+        return {"low": '', "high": ''}
+    else:
+        return {"low": low, "high": high}
+
+def fly_list(id):
+    # id = 8
+    logs = Log.objects.filter(week = id)
+    fly_list = []
+    for log in logs:
+        if log.fly:
+            fly_list.append(log.fly)
+    fly_list = list(dict.fromkeys(fly_list))
+    return fly_list
+
+    
 
 class Plan(TemplateView):
     model = Lake
@@ -808,15 +837,21 @@ class Plan(TemplateView):
         context = super(Plan, self).get_context_data(**kwargs)
         current_week = int(timezone.now().strftime("%W"))
         if (current_week < 14 or current_week > 48):
-            week = Week.objects.get( number = 14 )
+            week = Week.objects.get( number = 16 )
         else:
             week = Week.objects.get( number = current_week )
 
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
-        
         context ['week'] = Week.objects.get (id= week.id)
-
-        # context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
         context ['temps'] = Temp.objects.filter (week=week.id).order_by('id')
+        context ['hl'] = get_hl (week.id)
+        context ['fly_list'] = fly_list (week.id)
+        chart_data = get_query_set (week.id)
+        chart_list =[]
+        for c in chart_data:
+            if ( c['this'] == "abundent" or c['this'] == "lots" or c['trend'] == "rising" ):
+                chart_list.append (c)
+        context ['chart_for_weeks'] = chart_list
+        context ['hatches'] = Hatch.objects.filter (week=week.id)
         return context
 

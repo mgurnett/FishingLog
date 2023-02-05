@@ -35,12 +35,12 @@
 		</div>
 		<div class="col-md-4">
             <h4>
-                Lowest temperate <b></b>
+                {% if hl.low %} Lowest temperature <b>{{ hl.low }}&deg;C</b>{% endif %} 
             </h4>
 		</div>
 		<div class="col-md-4">
             <h4>
-                Highest temperate <b>12 up</b>
+                {% if hl.high %} Highest temperature <b>{{ hl.high }}&deg;C</b>{% endif %} 
             </h4>
 		</div>
 	</div>
@@ -49,30 +49,61 @@
 		<div class="col-md-6"> <!-- Best flys based on logs card-->
 			<div class="card">
 				<h5 class="card-header">
-					Card title
+					Flys that have worked duing this week
 				</h5>
 				<div class="card-body">
-					<p class="card-text">
-						Card content
-					</p>
-				</div>
-				<div class="card-footer">
-					Card footer
+					{% if fly_list %}
+						{% for fly in fly_list %} 
+							<p class="card-text">
+								<a href="{% url 'fly_detail' fly.id %}"> <b>{{ fly }}</b> </a>
+							</p>
+						{% endfor %} 
+					{% endif %}
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6"> <!-- suggested flys card-->
+		<div class="col-md-6"> <!-- Insect schedule card-->
 			<div class="card">
 				<h5 class="card-header">
-					Card title
+					Insect schedule
 				</h5>
 				<div class="card-body">
-					<p class="card-text">
-						Card content
-					</p>
-				</div>
-				<div class="card-footer">
-					Card footer
+					<table class="table table-striped table-hover">
+						<thead>
+						  <tr>
+							<th scope="col">Insect</th>
+							<th scope="col">Last week</th>
+							<th scope="col"><b>This week</b></th>
+							<th scope="col">Next week</th>
+							<th scope="col">Trend</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  {% for c in chart_for_weeks %}
+						  <tr>
+							<th scope="row">
+								<a href="{% url 'bug_detail' c.bug_id %}">{{ c.bug }}</a>
+							</th>
+							<th>
+								{{ c.last }}
+							</th>
+							<th>
+								<b>{{ c.this }}</b>
+							</th>
+							<th>
+								{{ c.next }}
+							</th>
+							<th>
+								{% if c.trend == "rising" %}
+									<b>{{ c.trend }}</b>
+							  	{% else %}
+									{{ c.trend }}
+							  	{% endif %}
+							</th>
+						  </tr>
+						  {% endfor %} 
+						</tbody>
+					  </table> 
 				</div>
 			</div>
 		</div>
@@ -81,15 +112,35 @@
 		<div class="col-md-6"> <!-- Hatch card-->
 			<div class="card">
 				<h5 class="card-header">
-					Card title
+					Observed hatches
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						Card content
+						<table class="table table-striped table-hover">
+							<thead>
+							  <tr>
+								<th scope="col">Insect</th>
+								<th scope="col">Lake</th>
+								<th scope="col">Temp</th>
+								<th scope="col">Date</th>
+							  </tr>
+							</thead>
+							<tbody>
+							  {% for hatch in hatches %}
+							  <tr>
+								<td scope="row">
+								  <a href="{% url 'bug_detail' hatch.bug.id %}">{{ hatch.bug.name | title  }} </a>
+								</td>
+								<td scope="row">
+								  <a href="{% url 'lake_detail' hatch.lake.id %}">{{ hatch.lake.name | title  }} </a>
+								</td>
+								<td>{% if hatch.temp %}{{ hatch.temp.name }} {% endif %}</td>
+								<td>{% if hatch.sight_date %} {{ hatch.sight_date | date:'D d M Y' }} {% endif %}</td>
+							  </tr>
+							  {% endfor %} 
+							</tbody>
+						  </table>
 					</p>
-				</div>
-				<div class="card-footer">
-					Card footer
 				</div>
 			</div>
 		</div>
@@ -102,9 +153,6 @@
 					<p class="card-text">
 						Card content
 					</p>
-				</div>
-				<div class="card-footer">
-					Card footer
 				</div>
 			</div>
 		</div>

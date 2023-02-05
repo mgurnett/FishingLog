@@ -1,4 +1,5 @@
 from catches.models import *
+from catches.views import *
 
 def run():
     # temps = Temp.objects.all()
@@ -51,8 +52,8 @@ def run():
     print (bug.insect.all()) #worked  Found all hatches with Mayflies.'''
 
     # Find the strength of the Mayfly during week 30
-    bug = Bug.objects.get(name__contains = "Mayfly")
-    week = Week.objects.get(number=30)
+    # bug = Bug.objects.get(name__contains = "Mayfly")
+    # week = Week.objects.get(number=30)
     # print (week.id)  # > 93
 
     # hatches = Hatch.objects.filter(week=week.id, bug=bug.id)
@@ -71,9 +72,15 @@ def run():
     # hatches = Hatch.objects.filter ( week=week.id )
     # temps = Temp.objects.all()
     # for temp in temps:
-    #     print (f'{week} {temp.name}') 
-    logs = Log.objects.all()
+    # #     print (f'{week} {temp.name}') 
+    # logs = Log.objects.all()
+    # for log in logs:
+    #     if log.temp:
+    #         print (f'temp { log.temp.name } with a date of { log.catch_date.format("Y-m-d") }')
+
+    week = Week.objects.get (number = 21)
+    logs = Log.objects.filter(week = week.id)
     for log in logs:
-        if log.temp:
-            print (f'temp { log.temp.name } with a date of { log.catch_date.format("Y-m-d") }')
+        if log.fly:
+            print (log.fly.name)
 
