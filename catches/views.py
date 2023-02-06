@@ -487,7 +487,7 @@ class LogListView_search (ListView):
     def get_queryset(self):
         index = 0
         query = self.request.GET.get("q")
-        print ('query is: ' + query)
+        # print ('query is: ' + query)
         templist = Temp.objects.all()
         for t in templist:
             if query in t.search_keys:
@@ -827,7 +827,6 @@ def fly_list(id):
     return fly_list
 
     
-
 class Plan(TemplateView):
     model = Lake
     template_name = 'catches/plan.html'

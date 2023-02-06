@@ -1,5 +1,6 @@
 {% extends "catches/base/base.html" %}
 {% load static %}
+{% load catches_tags %}
 {% block title %}Lake: {{ lake.name | title }}{% endblock %}
 {% block content %}
 
@@ -39,7 +40,7 @@
 							{% endif %}
 						</div>
 						<div class="col-md-8 text-center">
-							Week: <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan' lake.id %}" type="submit" ><b>PLAN</b></a>
+							Week: {% week_list %}
 						</div>
 					</div>
 				</h5>
