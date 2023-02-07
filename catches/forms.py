@@ -361,3 +361,21 @@ class New_Log_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
+class Plan_form (forms.ModelForm):
+    class Meta:
+        model = Week
+        fields = ['number']
+        
+    number = forms.ModelChoiceField( queryset=Week.objects.all() )
+
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+
+        self.helper.layout = Layout(
+            Row(
+                Column('number', css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            )
+        )

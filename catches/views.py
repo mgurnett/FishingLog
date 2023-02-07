@@ -363,7 +363,8 @@ class LakeDetailView (DetailView):
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
-        context ['weeks'] = Week.objects.all()
+        planform = Plan_form()
+        context ['form'] = planform
         return context
 
 
@@ -855,3 +856,17 @@ class Plan(TemplateView):
         context ['hatches'] = Hatch.objects.filter (week=week.id)
         return context
 
+
+class MakePlanView(CreateView):
+    model = Week
+    template_name = 'catches/plan_form.html'
+    form_class = Plan_form
+    
+    # def get_initial(self):
+    #     if not self.kwargs:
+    #         return
+    #     tag = self.kwargs['tag']
+    #     return {('tags'): tag}
+    
+    def get_success_url(self):
+        return reverse('plan/36/number')

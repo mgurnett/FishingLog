@@ -111,8 +111,7 @@ urlpatterns = [
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
-    # path ('plan/<int:lpk>/', views.Plan.as_view(), name ="plan" ),
-    # path ('plan/<int:lpk>/', WeekChoiceView.as_view(), name ="plan_choice" ),
+    path ('makeplan/<int:lpk>/', MakePlanView.as_view(), name ="make_plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),
 
 ]
