@@ -40,7 +40,13 @@
 							{% endif %}
 						</div>
 						<div class="col-md-8 text-center">
-							Week: {% week_list %}
+							<label for="week">Week:</label>
+								<select name="weeks" id="weeks">
+									{% for week in weeks %}
+										<option value={{ week.id }}>{{ week }}</option>
+									{% endfor %}
+								</select>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan' lake.id value %}" type="submit" ><b>PLAN</b></a>
 						</div>
 					</div>
 				</h5>

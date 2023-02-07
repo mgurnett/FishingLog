@@ -363,6 +363,7 @@ class LakeDetailView (DetailView):
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
+        context ['weeks'] = Week.objects.all()
         return context
 
 
