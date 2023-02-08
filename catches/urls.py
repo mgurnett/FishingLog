@@ -39,6 +39,7 @@ urlpatterns = [
     
     path ('lakes/', LakeListView.as_view(), name = 'lake_list'), 
     path ('lakes/<int:pk>/', LakeDetailView.as_view(), name = 'lake_detail'), 
+    path ('form/$', PlanFormView.as_view(), name = 'lake_plan'), 
     path ('lakes/new/', LakeCreateView.as_view(), name = 'lake_create'),  
     path ('lakes/update/<int:pk>/', LakeUpdateView.as_view(), name = 'lake_update'), 
     path ('lakes/delete/<int:pk>/', LakeDeleteView.as_view(), name = 'lake_delete'),      

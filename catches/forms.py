@@ -375,7 +375,7 @@ class Plan_form (forms.ModelForm):
 
         self.helper.layout = Layout(
             Row(
-                Column('number', css_class='form-group col-md-2 mb-0'),
+                Column('number'),
                 css_class='form-row'
             )
-        )
+        ) 

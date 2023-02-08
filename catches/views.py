@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.core.management import BaseCommand
 from taggit.models import Tag
@@ -351,7 +352,7 @@ class LakeListView_fav (TemplateView):
 class LakeDetailView (DetailView): 
     model = Lake
     context_object_name = 'lake'
-    
+
     def get_context_data(self, **kwargs): 
         context = super(LakeDetailView, self).get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
@@ -363,9 +364,13 @@ class LakeDetailView (DetailView):
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
-        planform = Plan_form()
-        context ['form'] = planform
+        context ['form'] = Plan_form
         return context
+
+class PlanFormView (FormView):
+    form_class = Plan_form
+    success_url = 'lake_plan'
+    
 
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
