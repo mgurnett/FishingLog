@@ -493,7 +493,7 @@ class LogListView_search (ListView):
         templist = Temp.objects.all()
         for t in templist:
             if query in t.search_keys:
-                print (t.name)
+                # print (t.name)
                 index = t.id
                 break
         if index == 0:

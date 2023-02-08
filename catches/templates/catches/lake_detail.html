@@ -40,10 +40,10 @@
 							{% endif %}
 						</div>
 						<div class="col-md-8 text-right">
-							<form action="{% url 'plan' lake.id 15 %}" method="get" >
+							<form action="{% url 'plan' lake.id w %}" method="get" >
 								{% csrf_token %}
 								week: {{ form.number }}
-								<button class="btn btn-secondary btn-sm mt-1 mb-1" type="submit" ><b>PLAN</b></button>
+								<button class="btn btn-secondary btn-sm mt-1 mb-1" name="w" type="submit" ><b>PLAN</b></button>
 							</form>
 						</div>
 					</div>
