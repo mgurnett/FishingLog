@@ -40,9 +40,9 @@
 							{% endif %}
 						</div>
 						<div class="col-md-8 text-right">
-							<form method="post" action="{% url "my_form_view_url" lake.id 25 %}"> {% csrf_token %}
-								week: {{ form.number }}
-								<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Plan</button>
+							<form method="get">{% csrf_token %}
+								{{ form }}
+								<input type="submit" value="Week">
 							</form>
 						</div>
 					</div>

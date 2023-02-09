@@ -39,7 +39,6 @@ urlpatterns = [
     
     path ('lakes/', LakeListView.as_view(), name = 'lake_list'), 
     path ('lakes/<int:pk>/', LakeDetailView.as_view(), name = 'lake_detail'), 
-    path ('form/$', PlanFormView.as_view(), name = 'lake_plan'), 
     path ('lakes/new/', LakeCreateView.as_view(), name = 'lake_create'),  
     path ('lakes/update/<int:pk>/', LakeUpdateView.as_view(), name = 'lake_update'), 
     path ('lakes/delete/<int:pk>/', LakeDeleteView.as_view(), name = 'lake_delete'),      
@@ -112,7 +111,6 @@ urlpatterns = [
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
-    path ('makeplan/<int:lpk>/', MakePlanView.as_view(), name ="make_plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),
 
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy
 from django.core.management import BaseCommand
 from taggit.models import Tag
@@ -352,7 +352,15 @@ class LakeListView_fav (TemplateView):
 class LakeDetailView (DetailView): 
     model = Lake
     context_object_name = 'lake'
+    form_class = Plan_form
 
+    def get(self, request, *args, **kwargs):
+        # print (self.request.GET)
+        # print (dict(self.request.GET.lists()))
+        for key, value in request.GET.items():
+            print (key, value)
+        return super().get(request, *args, **kwargs)
+        
     def get_context_data(self, **kwargs): 
         context = super(LakeDetailView, self).get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
@@ -364,13 +372,8 @@ class LakeDetailView (DetailView):
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
-        context ['form'] = Plan_form
+        context ['form'] = Plan_form()
         return context
-
-class PlanFormView (FormView):
-    form_class = Plan_form
-    success_url = 'lake_plan'
-    
 
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
@@ -460,23 +463,6 @@ class WeekDetailView (DetailView):
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = get_temps(self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
-        return context
-
-
-class Plan(TemplateView):
-    model = Lake
-    template_name = 'catches/plan.html'
-    context_object_name = 'lake'
-
-    def get_context_data(self, **kwargs): 
-        context = super(Plan, self).get_context_data(**kwargs)
-        context ['lake'] = Lake.objects.get (id=self.kwargs['pk'])
-        context ['week'] = Week.objects.get (id=self.kwargs['pk'])
-        context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
-        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
-        context ['temps'] = get_temps(self.kwargs['pk'])
-        context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
-        context ['chart_for_weeks'] = get_query_set (self.kwargs['pk'])
         return context
 
 
@@ -860,18 +846,3 @@ class Plan(TemplateView):
         context ['chart_for_weeks'] = chart_list
         context ['hatches'] = Hatch.objects.filter (week=week.id)
         return context
-
-
-class MakePlanView(CreateView):
-    model = Week
-    template_name = 'catches/plan_form.html'
-    form_class = Plan_form
-    
-    # def get_initial(self):
-    #     if not self.kwargs:
-    #         return
-    #     tag = self.kwargs['tag']
-    #     return {('tags'): tag}
-    
-    def get_success_url(self):
-        return reverse('plan/36/number')

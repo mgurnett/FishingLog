@@ -372,10 +372,9 @@ class Plan_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
-
         self.helper.layout = Layout(
             Row(
                 Column('number'),
                 css_class='form-row'
             )
-        ) 
+        )  
