@@ -358,9 +358,10 @@ class LakeDetailView (FormMixin, DetailView):
     # context_object_name = 'lake'
 
     def get_success_url(self, **kwargs):
-        wpk = Week.objects.get(number=self.weekpk)
+        # print (f'self.weekpk = {self.weekpk}')
+        # wpk = Week.objects.get(number=self.weekpk)
         # print (f'wpk = {wpk}')
-        return reverse('plan', kwargs={'lpk': self.object.pk, 'wpk': wpk})
+        return reverse('plan', kwargs={'lpk': self.object.pk, 'wpk': self.weekpk})
 
     def get_context_data(self, **kwargs): 
         # context = super(LakeDetailView, self).get_context_data(**kwargs)
