@@ -17,7 +17,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
 from catches.forms import *
 
@@ -349,31 +349,23 @@ class LakeListView_fav (TemplateView):
         context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
         return context
 
-class LakeDetailView (DetailView): 
+# class Plan2_Form(forms.Form):
+#     number = forms.CharField()
+
+class LakeDetailView (FormMixin, DetailView): 
     model = Lake
-    context_object_name = 'lake'
     form_class = Plan_form
+    # context_object_name = 'lake'
 
-    def get(self, request, *args, **kwargs):
-        # print (self.request.GET)
-        # print (dict(self.request.GET.lists()))
-        week = ''
-        for key, value in request.GET.items():
-            # print (key, value)
-            if key == "number":
-                self.week = value
-        return super().get(request, *args, **kwargs)
-        # return week
+    def get_success_url(self, **kwargs):
+        # print (f'self.weekpk = {self.weekpk}')
+        # wpk = Week.objects.get(number=self.weekpk)
+        # print (f'wpk = {wpk}')
+        return reverse('plan', kwargs={'lpk': self.object.pk, 'wpk': self.weekpk})
 
-    def get_success_url(self):
-        lpk = self.kwargs['pk']
-        wpk = self.week
-        print (f'lpk {lpk}  wpk {wpk}')
-        return reverse('plan', kwargs={'lpk': lpk, 'wpk': wpk})
-        
-        
     def get_context_data(self, **kwargs): 
-        context = super(LakeDetailView, self).get_context_data(**kwargs)
+        # context = super(LakeDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
@@ -385,6 +377,17 @@ class LakeDetailView (DetailView):
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        for key, value in request.POST.items():
+            if key == "number":
+                self.weekpk = value
+        return self.form_valid(form)
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
 class LakeCreateView(LoginRequiredMixin, CreateView):
@@ -830,6 +833,9 @@ def fly_list(id):
     fly_list = list(dict.fromkeys(fly_list))
     return fly_list
 
+def plan_setup (request):
+    return render (request, 'catches/plan_setup.html', {})
+
     
 class Plan(TemplateView):
     model = Lake
@@ -839,21 +845,17 @@ class Plan(TemplateView):
     def get_context_data(self, **kwargs): 
         context = super(Plan, self).get_context_data(**kwargs)
         current_week = int(timezone.now().strftime("%W"))
-        if (current_week < 14 or current_week > 48):
-            week = Week.objects.get( number = 16 )
-        else:
-            week = Week.objects.get( number = current_week )
 
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
-        context ['week'] = Week.objects.get (id= week.id)
-        context ['temps'] = Temp.objects.filter (week=week.id).order_by('id')
-        context ['hl'] = get_hl (week.id)
-        context ['fly_list'] = fly_list (week.id)
-        chart_data = get_query_set (week.id)
+        context ['week'] = Week.objects.get (id= self.kwargs['wpk'])
+        context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
+        context ['hl'] = get_hl (self.kwargs['wpk'])
+        context ['fly_list'] = fly_list (self.kwargs['wpk'])
+        chart_data = get_query_set (self.kwargs['wpk'])
         chart_list =[]
         for c in chart_data:
             if ( c['this'] == "abundent" or c['this'] == "lots" or c['trend'] == "rising" ):
                 chart_list.append (c)
         context ['chart_for_weeks'] = chart_list
-        context ['hatches'] = Hatch.objects.filter (week=week.id)
+        context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
         return context

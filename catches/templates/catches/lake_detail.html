@@ -40,7 +40,7 @@
 							{% endif %}
 						</div>
 						<div class="col-md-8 text-right">
-							<form method="get">{% csrf_token %}
+							<form method="post">{% csrf_token %}
 								{{ form }}
 								<input type="submit" value="Week">
 							</form>
