@@ -357,9 +357,20 @@ class LakeDetailView (DetailView):
     def get(self, request, *args, **kwargs):
         # print (self.request.GET)
         # print (dict(self.request.GET.lists()))
+        week = ''
         for key, value in request.GET.items():
-            print (key, value)
+            # print (key, value)
+            if key == "number":
+                self.week = value
         return super().get(request, *args, **kwargs)
+        # return week
+
+    def get_success_url(self):
+        lpk = self.kwargs['pk']
+        wpk = self.week
+        print (f'lpk {lpk}  wpk {wpk}')
+        return reverse('plan', kwargs={'lpk': lpk, 'wpk': wpk})
+        
         
     def get_context_data(self, **kwargs): 
         context = super(LakeDetailView, self).get_context_data(**kwargs)
