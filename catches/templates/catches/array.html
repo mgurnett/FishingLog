@@ -7,28 +7,31 @@
 <div class="container">
 	<div class="row"> <!-- Title Row-->
 		<div class="col-md-12">
-			<table>
-				<tr>
-				  {% for col in df.columns %}
-					<td>
-					  <b>{{col}}</b>
-					</td>
-				  {% endfor %}
-				</tr>
-				  {% for index, row in df.iterrows %}
-					<tr>
-						<td>{{ row.name }}</td>
-
-						<td>{{ row.log_total }}</td>
-
-						<td>{{ row.hatch_total }}</td>
-
-						<td>{{ row.final_total }}</td>
-					</tr>
-				  {% endfor %}
-			  </table>
+			<table class="table table-striped table-hover">
+				<thead>
+				  <tr>
+					<th scope="col">Fly name</th>
+					<th scope="col">Log</th>
+					<th scope="col">Hatch</th>
+					<th scope="col">Chart</th>
+					<th scope="col">Total</th>
+				  </tr>
+				</thead>
+				<tbody>
+					{% for index, row in df.iterrows %}
+				  <tr>
+						<th scope="row">{{ row.name }} </th>
+						<td>{{ row.log_total }}</th>
+						<td>{{ row.hatch_total }}</th>
+						<td>{{ row.chart }}</th>
+						<td>{{ row.final_total }}</th>
+				  </tr>
+				  {% endfor %} 
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
 
 {% endblock content %}
+

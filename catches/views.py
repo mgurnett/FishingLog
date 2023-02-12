@@ -859,6 +859,12 @@ class Plan(TemplateView):
                 chart_list.append (c)
         context ['chart_for_weeks'] = chart_list
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
+        array_list = get_array(
+            week = self.kwargs['wpk'], 
+            lake = self.kwargs['lpk'], 
+            temperature = get_hl (self.kwargs['wpk'])['low']
+        )
+        context ['array'] = array_list
         return context
 
 class FlyArray (TemplateView):
@@ -867,7 +873,7 @@ class FlyArray (TemplateView):
 
     def get_context_data(self, **kwargs): 
         context = super(FlyArray, self).get_context_data(**kwargs)
-        fly_list = get_array_p()
+        fly_list = get_array()
 
         context ['df'] = fly_list
 
