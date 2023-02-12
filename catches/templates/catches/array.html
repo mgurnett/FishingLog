@@ -1,0 +1,34 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Plan{% endblock %}
+<!-- This is the main plan page. -->
+{% load tz %}
+{% block content %}
+ 
+<div class="container">
+	<div class="row"> <!-- Title Row-->
+		<div class="col-md-12">
+			<table>
+				<tr>
+				  {% for col in df.columns %}
+					<td>
+					  <b>{{col}}</b>
+					</td>
+				  {% endfor %}
+				</tr>
+				  {% for index, row in df.iterrows %}
+					<tr>
+						<td>{{ row.name }}</td>
+
+						<td>{{ row.log_total }}</td>
+
+						<td>{{ row.hatch_total }}</td>
+
+						<td>{{ row.final_total }}</td>
+					</tr>
+				  {% endfor %}
+			  </table>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

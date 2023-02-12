@@ -113,5 +113,6 @@ urlpatterns = [
     # path ('plan_petup/<int:lpk>/', plan_setup.as_view(), name ="plan" ),
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),
+    path ('array', FlyArray.as_view(), name = 'array'),
 
 ]

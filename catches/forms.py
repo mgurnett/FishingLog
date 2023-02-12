@@ -366,7 +366,7 @@ class Plan_form (forms.ModelForm):
         model = Week
         fields = ['number']
         
-    number = forms.ModelChoiceField( queryset=Week.objects.all() )
+    number = forms.ModelChoiceField( queryset=Week.objects.all(), label="Week number:" )
 
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -374,7 +374,7 @@ class Plan_form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('number'),
+                Column(''),
                 css_class='form-row'
             )
         )  

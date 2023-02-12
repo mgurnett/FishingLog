@@ -8,6 +8,7 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import simplekml
+from catches.num_array import *
 
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -858,4 +859,16 @@ class Plan(TemplateView):
                 chart_list.append (c)
         context ['chart_for_weeks'] = chart_list
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
+        return context
+
+class FlyArray (TemplateView):
+    model = Fly
+    template_name = 'catches/array.html'
+
+    def get_context_data(self, **kwargs): 
+        context = super(FlyArray, self).get_context_data(**kwargs)
+        fly_list = get_array_p()
+
+        context ['df'] = fly_list
+
         return context
