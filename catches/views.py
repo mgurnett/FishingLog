@@ -866,7 +866,7 @@ class Plan(TemplateView):
         )
         context ['array'] = array_list
         return context
-
+ 
 class FlyArray (TemplateView):
     model = Fly
     template_name = 'catches/array.html'
