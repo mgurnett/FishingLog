@@ -16,13 +16,11 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  {% if user.is_authenticated %}
-                    <a class="dropdown-item" href="{% url 'lake_create' %}">New Lake</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'log_list' %}">Fishing logs</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'stock_list' %}">Stocks</a>
-                  {% endif %}
+                  <a class="dropdown-item" href="{% url 'lake_create' %}">New Lake</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'log_list' %}">Fishing logs</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'stock_list' %}">Stocks</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'temp_list' %}">Temperatures</a>
                 </div>
@@ -67,10 +65,8 @@
                   <a class="dropdown-item" href="{% url 'videos_list' %}">Videos</a>
                   <a class="dropdown-item" href="{% url 'articles_list' %}">Articles</a>
                   <a class="dropdown-item" href="{% url 'pictures_list' %}">Pictures</a>
-                  {% if user.is_authenticated %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'tags_list' %}">tags</a>
-                  {% endif %}
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'tags_list' %}">tags</a>
                 </div>
               </div>
             <!-- Blog --> 
