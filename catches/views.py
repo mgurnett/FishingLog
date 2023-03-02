@@ -11,7 +11,7 @@ import simplekml
 from catches.num_array import *
 
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
 from django.views.generic.base import TemplateView
 from django.views.generic import (
     ListView,
@@ -304,12 +304,24 @@ class FlyDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_
     success_url = "/flys/"
 
 
-class LakeListView (ListView):
+class LakeListView (PermissionRequiredMixin, ListView):
+    raise_exception = False
+    permission_required = 'lakes.view_lake'
+    permission_denied_message = "Sorry, but you don't have access to this"
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     model = Lake
     context_object_name = 'lakes' 
     paginate_by = 72
 
-class LakeListView_search (ListView):
+class LakeListView_search (PermissionRequiredMixin, ListView):
+    raise_exception = False
+    permission_required = 'lakes.view_lake'
+    permission_denied_message = "Sorry, but you don't have access to this"
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
@@ -322,7 +334,13 @@ class LakeListView_search (ListView):
         )
         return object_list
 
-class LakeListView_regions (TemplateView):
+class LakeListView_regions (PermissionRequiredMixin, TemplateView):
+    raise_exception = False
+    permission_required = 'lakes.view_lake'
+    permission_denied_message = "Sorry, but you don't have access to this"
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
@@ -334,7 +352,13 @@ class LakeListView_regions (TemplateView):
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
         return context
 
-class LakeListView_fav (TemplateView):
+class LakeListView_fav (PermissionRequiredMixin, TemplateView):
+    raise_exception = False
+    permission_required = 'lakes.view_lake'
+    permission_denied_message = "Sorry, but you don't have access to this"
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 15
@@ -350,10 +374,14 @@ class LakeListView_fav (TemplateView):
         context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
         return context
 
-# class Plan2_Form(forms.Form):
-#     number = forms.CharField()
 
-class LakeDetailView (FormMixin, DetailView): 
+class LakeDetailView (PermissionRequiredMixin, FormMixin, DetailView): 
+    raise_exception = False
+    permission_required = 'lakes.view_lake'
+    permission_denied_message = "Sorry, but you don't have access to this"
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     model = Lake
     form_class = Plan_form
     # context_object_name = 'lake'
@@ -391,17 +419,17 @@ class LakeDetailView (FormMixin, DetailView):
         return super().form_valid(form)
 
 
-class LakeCreateView(LoginRequiredMixin, CreateView):
+class LakeCreateView(PermissionRequiredMixin, CreateView):
     model = Lake
     form_class = New_Lake_Form
     success_message = "New Lake saved"
 
-class LakeUpdateView(LoginRequiredMixin, UpdateView):
+class LakeUpdateView(PermissionRequiredMixin, UpdateView):
     model = Lake
     form_class = New_Lake_Form
     success_message = "Lake fixed"
 
-class LakeDeleteView (LoginRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
+class LakeDeleteView (PermissionRequiredMixin, DeleteView):    #https://youtu.be/-s7e_Fy6NRU?t=2344
     model = Lake
     success_url = "/lakes/"
 
