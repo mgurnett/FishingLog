@@ -11,7 +11,8 @@ import simplekml
 from catches.num_array import *
 
 from django.db.models import Q
-from django.contrib.auth.mixins import PermissionRequiredMixin,  PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
 from django.views.generic.base import TemplateView
 from django.views.generic import (
     ListView,
@@ -21,6 +22,19 @@ from django.views.generic import (
     DeleteView,
 )
 from catches.forms import *
+
+class UserAccessMixin (PermissionRequiredMixin):
+    def dispatch (self, request, *args, **kwargs):
+        if (not self.request.user.is_authenticated):
+            return redirect_to_login (
+                self.request.get_full_path(),
+                self.get_login_url(),
+                self.get_redirect_field_name()
+            )
+        if not self.has_permission():
+            return redirect('home/')
+        return super(UserAccessMixin, self).dispatch (request, *args, **kwargs)
+
 
 def collect_tw_from_logs_and_hatches():
     logs = Log.objects.all()
@@ -354,14 +368,14 @@ class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
     success_url = "/flys/"
 
 
-class LakeListView (PermissionRequiredMixin, ListView):
+class LakeListView (UserAccessMixin, ListView):
     permission_required = 'catches.view_lake'
 
     model = Lake
     context_object_name = 'lakes' 
     paginate_by = 72
 
-class LakeListView_search (PermissionRequiredMixin, ListView):
+class LakeListView_search (UserAccessMixin, ListView):
     permission_required = 'lakes.view_lake'
     
     model = Lake
@@ -376,7 +390,7 @@ class LakeListView_search (PermissionRequiredMixin, ListView):
         )
         return object_list
 
-class LakeListView_regions (PermissionRequiredMixin, TemplateView):
+class LakeListView_regions (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
     
     model = Lake
@@ -390,7 +404,7 @@ class LakeListView_regions (PermissionRequiredMixin, TemplateView):
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
         return context
 
-class LakeListView_fav (PermissionRequiredMixin, TemplateView):
+class LakeListView_fav (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
     
     model = Lake
@@ -409,7 +423,7 @@ class LakeListView_fav (PermissionRequiredMixin, TemplateView):
         return context
 
 
-class LakeDetailView (PermissionRequiredMixin, FormMixin, DetailView): 
+class LakeDetailView (UserAccessMixin, FormMixin, DetailView): 
     permission_required = 'catches.view_lake'
     
     model = Lake
