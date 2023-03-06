@@ -1031,7 +1031,7 @@ class Plan(TemplateView):
             temperature = get_hl (self.kwargs['wpk'])['low']
         )
         context ['array'] = array_list
-        print ('array worked')
+        print ('array  worked')
         return context
  
 class FlyArray (TemplateView):
