@@ -615,6 +615,7 @@ class LogListView_search (PermissionRequiredMixin,  ListView):
         return object_list
 
 class LogDetailView (PermissionRequiredMixin,  DetailView): 
+    permission_required = 'catches.view_log'
     model = Log
     context_object_name = 'log'
 
@@ -1006,23 +1007,31 @@ class Plan(TemplateView):
         current_week = int(timezone.now().strftime("%W"))
 
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
+        # print ('Lake worked')
         context ['week'] = Week.objects.get (id= self.kwargs['wpk'])
+        # print ('Week worked')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
+        # print ('temps worked')
         context ['hl'] = get_hl (self.kwargs['wpk'])
+        # print ('hl worked')
         context ['fly_list'] = fly_list (self.kwargs['wpk'])
+        # print ('fly worked')
         chart_data = get_query_set (self.kwargs['wpk'])
         chart_list =[]
         for c in chart_data:
             if ( c['this'] == "abundent" or c['this'] == "lots" or c['trend'] == "rising" ):
                 chart_list.append (c)
         context ['chart_for_weeks'] = chart_list
+        # print ('chart_for_weeks worked')
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
+        # print ('hatches worked')
         array_list = get_array(
             week = self.kwargs['wpk'], 
             lake = self.kwargs['lpk'], 
             temperature = get_hl (self.kwargs['wpk'])['low']
         )
         context ['array'] = array_list
+        print ('array worked')
         return context
  
 class FlyArray (TemplateView):

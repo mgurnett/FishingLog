@@ -16,7 +16,7 @@ def get_array(week, lake, temperature):
     if not temperature:
         temperature = TEMPERATURE
     df = pd.DataFrame(list(Fly.objects.all().order_by('id').values('id','name','bug')))
-    # print (df.loc[1]['id'])
+    print (df.loc[1]['id'])
 
     logs_L = []; logs_W = []; logs_T = []; logs_LW = []; logs_LT = []
     for index, row in df.iterrows():
