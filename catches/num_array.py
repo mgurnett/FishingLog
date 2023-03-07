@@ -98,7 +98,7 @@ def get_array(week, lake, temperature):
     hatchs_L = []; hatchs_W = []; hatchs_T = []; hatchs_LW = []; hatchs_LT = []; hatchs_total = []; chart = []
     for index, row in df.iterrows():
         bug_id = row.loc['bug']
-        print (f"#2.1 and bug_id is {bug_id}")
+        # print (f"#2.1 and bug_id is {bug_id}")
         # The issue here is that there are bugs that are not in the chart.
         if ( pd.notna(bug_id) and (bug_id in [6,5,11,8,7,10,4,9,12])): # this is the bugs in the chart
             hatchs_L.append (row.loc['HL']/sumL*HATCH_L)
@@ -114,7 +114,7 @@ def get_array(week, lake, temperature):
                 row.loc['HLT']/sumLT*HATCH_LT
                 ))
 
-            print (f" week = {week} and bug = {bug_id}")
+            # print (f" week = {week} and bug = {bug_id}")
             chart.append ( Chart.objects.get(week = week, bug = bug_id).strength * 2)
 
         else:
