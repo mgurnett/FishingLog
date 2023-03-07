@@ -16,11 +16,12 @@ def get_array(week, lake, temperature):
     if not temperature:
         temperature = TEMPERATURE
     df = pd.DataFrame(list(Fly.objects.all().order_by('id').values('id','name','bug')))
-    print (df.loc[1]['id'])
+    # print (df.loc[1]['id'])
 
     logs_L = []; logs_W = []; logs_T = []; logs_LW = []; logs_LT = []
     for index, row in df.iterrows():
         fly_id = row.loc['id']
+        # print (f'fly_id =  {fly_id}')
         logs_L.append (Log.objects.filter(lake = lake, fly = fly_id).count() )
         logs_T.append (Log.objects.filter(temp = temperature, fly = fly_id).count() )
         logs_W.append (Log.objects.filter(week = week, fly = fly_id).count() )
@@ -28,6 +29,7 @@ def get_array(week, lake, temperature):
         logs_LT.append (Log.objects.filter(lake = lake, temp = temperature, fly = fly_id).count() )
 
     df['L'] = pd.DataFrame(list(logs_L))
+    # print (f"df['L'] =  {df['L']}")
     df['T'] = pd.DataFrame(list(logs_T))
     df['W'] = pd.DataFrame(list(logs_W))
     df['LT'] = pd.DataFrame(list(logs_LT))
@@ -96,7 +98,9 @@ def get_array(week, lake, temperature):
     hatchs_L = []; hatchs_W = []; hatchs_T = []; hatchs_LW = []; hatchs_LT = []; hatchs_total = []; chart = []
     for index, row in df.iterrows():
         bug_id = row.loc['bug']
-        if pd.notna(bug_id): 
+        print (f"#2.1 and bug_id is {bug_id}")
+        # The issue here is that there are bugs that are not in the chart.
+        if ( pd.notna(bug_id) and (bug_id in [6,5,11,8,7,10,4,9,12])): # this is the bugs in the chart
             hatchs_L.append (row.loc['HL']/sumL*HATCH_L)
             hatchs_T.append (row.loc['HT']/sumT*HATCH_T )
             hatchs_W.append (row.loc['HW']/sumW*HATCH_W )
@@ -109,7 +113,10 @@ def get_array(week, lake, temperature):
                 row.loc['HLW']/sumLW*HATCH_LW +
                 row.loc['HLT']/sumLT*HATCH_LT
                 ))
+
+            print (f" week = {week} and bug = {bug_id}")
             chart.append ( Chart.objects.get(week = week, bug = bug_id).strength * 2)
+
         else:
             hatchs_L.append (0)
             hatchs_T.append (0)
@@ -119,7 +126,6 @@ def get_array(week, lake, temperature):
             hatchs_total.append (0)
             chart.append ( 0 )
 
-
     df['HLW'] = pd.DataFrame(list(hatchs_L))
     df['HTW'] = pd.DataFrame(list(hatchs_T))
     df['HWW'] = pd.DataFrame(list(hatchs_W))
@@ -127,7 +133,6 @@ def get_array(week, lake, temperature):
     df['HLWW'] = pd.DataFrame(list(hatchs_LW))
     df['hatch_total'] = pd.DataFrame(list(hatchs_total))
     df['chart'] = pd.DataFrame(list(chart))
-
 
     final_total =[]
     for index, row in df.iterrows():
