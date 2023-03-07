@@ -8,7 +8,7 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import simplekml
-from catches.num_array import *
+from catches.num_array import get_array
 
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
@@ -1034,14 +1034,14 @@ class Plan(TemplateView):
         # print ('array  worked')
         return context
  
-class FlyArray (TemplateView):
-    model = Fly
-    template_name = 'catches/array.html'
+# class FlyArray (TemplateView):
+#     model = Fly
+#     template_name = 'catches/array.html'
 
-    def get_context_data(self, **kwargs): 
-        context = super(FlyArray, self).get_context_data(**kwargs)
-        fly_list = get_array()
+#     def get_context_data(self, **kwargs): 
+#         context = super(FlyArray, self).get_context_data(**kwargs)
+#         fly_list = get_array()
 
-        context ['df'] = fly_list
+#         context ['df'] = fly_list
 
-        return context
+#         return context
