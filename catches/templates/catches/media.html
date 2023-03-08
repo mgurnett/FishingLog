@@ -1,0 +1,47 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Library{% endblock %}
+<!-- This is the media page. -->
+{% load tz %}
+{% block content %}
+ 
+<div class="row">
+    <div class="col-md-8 text-center">
+        <h1>Library</h1> 
+    </div>
+    <div class="col-md-4"></div>
+</div>   
+<div class="album py-5 ">
+    <div class="container">
+        <div class = "row">
+            {% for il in info_list %}
+            <div class="col-md-4">
+                <div class="card mb-2 box-shadow">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>
+								<a href="{% url 'library' il.tag  %}"> {{ il.title }} </a>
+							</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            {% if il.image %}
+								<a href="{% url 'library' il.tag  %}">
+									<img src="{{ il.image }}" class="img-thumbnail"style="height:75%" >
+								</a>
+                            {% endif %}
+						</p>
+                        <p>{{ il.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div> 
+<div class="container">
+    <div class = "row">
+    </div>
+</div>
+
+{% endblock content %}

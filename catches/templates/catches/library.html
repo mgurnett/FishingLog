@@ -1,0 +1,70 @@
+{% extends "catches/base/base.html" %}
+{% load static %}
+{% load catches_tags %}
+{% block title %}Library: {% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="row"><!-- Top card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10">
+			<div class="card">
+				<h5 class="card-header">
+					<div class="row">
+						<div class="col-md-7">{{ tag.title }}</div>
+						<div class="col-md-5"></div>
+					</div>
+					<hr>
+				</h5>
+				<div class="card-body"></div>
+				<div class="card-footer">
+					<div class="row"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div><!-- Top card-->
+
+	<div class="row mb-3"><!-- Bottom card-->
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+                        <li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+                            href="#VIDS"><b>Videos</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" 
+                            href="#ARTS"><b>Articles</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab"
+                            href="#PICS"><b>Pictures</b></a>
+						</li>
+					</ul>
+				</h5>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+                        <div class="tab-pane container fade" id="VIDS">
+							{% include 'snippets/video_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="ARTS">
+							{% include 'snippets/article_list.html' %}
+						</div>
+						<div class="tab-pane container fade" id="PICS">
+							{% include 'snippets/picture_list.html' %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div><!-- Bottom card-->
+</div>
+
+{% endblock content %}

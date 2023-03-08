@@ -110,9 +110,9 @@ urlpatterns = [
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
     path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
 
-    # path ('plan_petup/<int:lpk>/', plan_setup.as_view(), name ="plan" ),
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),
-    # path ('array', FlyArray.as_view(), name = 'array'),
+    path ('media/', views.Media.as_view(), name ="media" ),
+    path ('library/<str:tag>/', views.Library.as_view(), name ="library" ),
 
 ]

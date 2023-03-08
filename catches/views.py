@@ -993,9 +993,6 @@ def fly_list(id):
     fly_list = list(dict.fromkeys(fly_list))
     return fly_list
 
-def plan_setup (request):
-    return render (request, 'catches/plan_setup.html', {})
-
     
 class Plan(TemplateView):
     model = Lake
@@ -1033,15 +1030,53 @@ class Plan(TemplateView):
         context ['array'] = array_list
         # print ('array  worked')
         return context
- 
-# class FlyArray (TemplateView):
-#     model = Fly
-#     template_name = 'catches/array.html'
 
-#     def get_context_data(self, **kwargs): 
-#         context = super(FlyArray, self).get_context_data(**kwargs)
-#         fly_list = get_array()
+INFO_LIST = [
+    {'tag': 'how-to', 'title': 'How To', 'description': 'How to information', 
+     'image': '/media/pictures/Cardiff.jpeg'},
+    {'tag': 'equipment', 'title': 'Equipment', 'description': 'Equipment specific information', 
+     'image': '/media/pictures/fly_rods.jpeg'},
+    {'tag': 'technique', 'title': 'Technique', 'description': 'Different Techniques', 
+     'image': '/media/pictures/Cardiff_May_2022.jpeg'},
+    {'tag': 'ice-out', 'title': 'Ice out', 'description': 'Fishing right after ice out', 
+     'image': '/media/pictures/Cardiff_April_2022.jpeg'},
+    {'tag': 'spring', 'title': 'Spring fishing', 'description': 'Fishing in the spring', 
+     'image': '/media/pictures/Cardiff_May_2022_3.jpeg'},
+    {'tag': 'fall', 'title': 'Fall fishing', 'description': 'Fall fishing', 
+     'image': '/media/pictures/Cardiff_May_2022_2.jpeg'},
+    {'tag': 'heat', 'title': 'Fishing in the heat', 'description': 'How to fish in the heat', 
+     'image': '/media/pictures/Hay_lakes.jpeg'},
+    {'tag': 'misc', 'title': 'Miscellaneous', 'description': 'Miscellaneous information', 
+     'image': '/media/pictures/Cardiff.jpeg'},
+]
+    
+class Media(TemplateView):
+    model = Tag
+    template_name = 'catches/media.html'
+    context_object_name = 'tag'
 
-#         context ['df'] = fly_list
+    def get_context_data(self, **kwargs): 
+        context = super(Media, self).get_context_data(**kwargs)
+        context ['info_list'] = INFO_LIST
+        return context
+    
+class Library(TemplateView):
+    model = Tag
+    template_name = 'catches/library.html'
+    context_object_name = 'tag'
 
-#         return context
+    def get_context_data(self, **kwargs): 
+        context = super(Library, self).get_context_data(**kwargs)
+        tag_to_use = self.kwargs['tag']
+        print (tag_to_use)
+        tag_info = list(filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST))
+        print (tag_info)
+        context ['tag'] = tag_info
+        context ['videos_list'] = Video.objects.filter (tags__name__contains = tag_to_use )
+        context ['articles_list'] = Article.objects.filter (tags__name__contains = tag_to_use )
+        context ['pictures_list'] = Picture.objects.filter (tags__name__contains = tag_to_use )
+        return context
+    
+
+
+        
