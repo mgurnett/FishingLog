@@ -6,14 +6,15 @@
                 <div class="col-5">
                     <h3>Fishing logs</h3>
                 </div> 
-                <div class="col-5">
+                <div class="col-4">
                     <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'log_search_list' %}" method="get">
                         {% csrf_token %}
                         <input class="form-control mr-sm-2" name="q" type="search" placeholder="Water Temp search">
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'hatch_create' %}">New Hatch</a>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create' %}">New log</a>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
                 </div> 
