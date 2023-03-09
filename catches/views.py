@@ -1069,8 +1069,8 @@ class Library(TemplateView):
         context = super(Library, self).get_context_data(**kwargs)
         tag_to_use = self.kwargs['tag']
         print (tag_to_use)
-        tag_info = list(filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST))
-        print (tag_info)
+        tag_info = filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST)
+        print (type(tag_info))
         context ['tag'] = tag_info
         context ['videos_list'] = Video.objects.filter (tags__name__contains = tag_to_use )
         context ['articles_list'] = Article.objects.filter (tags__name__contains = tag_to_use )
