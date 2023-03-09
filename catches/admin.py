@@ -40,7 +40,7 @@ class FlyAdmin (admin.ModelAdmin):
 
 @admin.register (Temp)
 class TempAdmin (admin.ModelAdmin):
-    list_display = ['name', 'deg', 'direction', 'search_keys']
+    list_display = ['name', 'notes', 'deg', 'direction', 'search_keys']
 
 @admin.register (Log)
 class TempAdmin (admin.ModelAdmin):
