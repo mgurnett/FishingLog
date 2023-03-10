@@ -1060,7 +1060,8 @@ class Media(TemplateView):
         context ['info_list'] = INFO_LIST
         return context
     
-class Library(TemplateView):
+class Library(PermissionRequiredMixin, TemplateView):
+    
     model = Tag
     template_name = 'catches/library.html'
     context_object_name = 'tag'
