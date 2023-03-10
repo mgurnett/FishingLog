@@ -1050,24 +1050,23 @@ INFO_LIST = [
      'image': '/media/pictures/Cardiff.jpeg'},
 ]
     
-class Media(TemplateView):
+class LibraryListView(TemplateView):
     model = Tag
-    template_name = 'catches/media.html'
+    template_name = 'catches/library_list.html'
     context_object_name = 'tag'
 
     def get_context_data(self, **kwargs): 
-        context = super(Media, self).get_context_data(**kwargs)
+        context = super(LibraryListView, self).get_context_data(**kwargs)
         context ['info_list'] = INFO_LIST
         return context
     
-class Library(PermissionRequiredMixin, TemplateView):
-    
+class LibraryDetailView(TemplateView):
     model = Tag
-    template_name = 'catches/library.html'
+    template_name = 'catches/library_detail.html'
     context_object_name = 'tag'
 
     def get_context_data(self, **kwargs): 
-        context = super(Library, self).get_context_data(**kwargs)
+        context = super(LibraryDetailView, self).get_context_data(**kwargs)
         tag_to_use = self.kwargs['tag']
         tag_info = list(filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST))
         tag_detail = tag_info[0].get('tag')
