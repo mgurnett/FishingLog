@@ -15,11 +15,17 @@
             {% for temp in temps %}
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                    <a href="{% url 'temp_detail' temp.id %}" class="card-link"><b>{{ temp.name }}</b> </a>
+                    <div class = "row">
+                        <div class="col-md-6">
+                            <a href="{% url 'temp_detail' temp.id %}">
+                                <b>{{ temp.name }}</b>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            {% if temp.notes %}{{ temp.notes | safe }}{% endif %} 
+                        </div>
+                    </div>
                     <div class="card-body">
-                        {% if temp.notes %}
-                            <p class="card-text">Temperature notes: <b>{{ temp.notes | safe }}</b></p>
-                        {% endif %}
                         <p class="card-text">Search keys:<b>{{ temp.search_keys }}</b></p>
                         <p class="card-text">Number of logs: <b>{{ temp.log_count }}</b></p>
                     </div>
