@@ -112,7 +112,7 @@ urlpatterns = [
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),
-    path ('media/', views.Media.as_view(), name ="media" ),
-    path ('library/<str:tag>/', views.Library.as_view(), name ="library" ),
+    path ('library/', views.LibraryListView.as_view(), name ="library_list" ),
+    path ('library/<str:tag>/', views.LibraryDetailView.as_view(), name ="library_detail" ),
 
 ]

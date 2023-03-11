@@ -19,14 +19,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>
-								<a href="{% url 'library' il.tag  %}"> {{ il.title }} </a>
+								<a href="{% url 'library_detail' il.tag  %}"> {{ il.title }} </a>
 							</h4>
                         </div>
                     </div>
                     <div class="card-body">
                         <p>
                             {% if il.image %}
-								<a href="{% url 'library' il.tag  %}">
+								<a href="{% url 'library_detail' il.tag  %}">
 									<img src="{{ il.image }}" class="img-thumbnail"style="height:75%" >
 								</a>
                             {% endif %}
