@@ -15,7 +15,7 @@ admin.site.register (Fly_type)
 
 @admin.register (Video)
 class VideoAdmin (admin.ModelAdmin):
-    list_display = ['name', 'get_tags']
+    list_display = ['name', 'get_tags', 'url']
 
     def get_tags (self, obj):
         return ", ".join(o for o in obj.tags.names())

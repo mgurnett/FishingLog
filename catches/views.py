@@ -563,14 +563,12 @@ class HatchDeleteView (PermissionRequiredMixin,  DeleteView):
 
 class WeekListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_week'
-    
     model = Week
     context_object_name = 'weeks' 
     paginate_by = 20
 
 class WeekDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_week'
-    
     model = Week
     context_object_name = 'week'
     
@@ -585,14 +583,12 @@ class WeekDetailView (PermissionRequiredMixin,  DetailView):
 
 class LogListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_log'
-    
     model = Log
     context_object_name = 'logs' 
     paginate_by = 6
 
 class LogListView_search (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_log'
-    
     model = Log
     context_object_name = 'logs' # this is the name that we are passing to the template
     paginate_by = 9
@@ -621,14 +617,12 @@ class LogDetailView (PermissionRequiredMixin,  DetailView):
 
 class LogCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
-
     model = Log
     form_class = New_Log_Form
     success_message = "New Log saved"
 
 class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
-
     model = Log
     form_class = New_Log_Form
     success_message = "New Log saved"
@@ -639,7 +633,6 @@ class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
 
 class LogDuplicateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
-
     model = Log
     form_class = New_Log_Form
     success_message = "New Log saved"
@@ -666,7 +659,6 @@ class LogDuplicateView(PermissionRequiredMixin,  CreateView):
 
 class LogCreateView_from_temp(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
-
     model = Log
     form_class = New_Log_Form
     success_message = "New Log saved"
@@ -677,67 +669,57 @@ class LogCreateView_from_temp(PermissionRequiredMixin,  CreateView):
 
 class LogUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_log'
-
     model = Log
     form_class = New_Log_Form
     success_message = "Log fixed"
 
 class LogDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_log'
-    
     model = Log
     success_url = "/log/"
 
  
 class StockListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_stock'
-    
     model = Stock
     context_object_name = 'stocks' 
     paginate_by = 12
 
 class StockDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_stock'
-    
     model = Stock
     context_object_name = 'stock'
 
 class StockCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_stock'
-
     model = Stock
     form_class = New_Stock_Form
     success_message = "New Stock saved"
 
 class StockUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_stock'
-
     model = Stock
     form_class = New_Stock_Form
     success_message = "Stock fixed"
 
 class StockDeleteView (PermissionRequiredMixin,  DeleteView): 
     permission_required = 'catches.delete_stock'
-    
     model = Stock
     success_url = "/stock/"
 
 
 class VideoListView(PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_video'
-    
     model = Video
     paginate_by = 12
     context_object_name = 'videos_list' 
  
 class VideoDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_video'
-    
     model = Video
 
 class VideoCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_video'
-
     model = Video
     # form_class = Video_Form
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
@@ -764,7 +746,6 @@ class VideoCreateView(PermissionRequiredMixin,  CreateView):
 
 class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_video'
-
     model = Video
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
 
@@ -778,26 +759,22 @@ class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
 
 class VideoDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_video'
-    
     model = Video
     success_url = reverse_lazy('videos_list')
 
 
 class ArticleListView(PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_article'
-    
     model = Article
     paginate_by = 12
     context_object_name = 'articles_list' 
  
 class ArticleDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_article'
-    
     model = Article
 
 class ArticleCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_article'
-
     model = Article
     # form_class = Article_Form
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
@@ -824,7 +801,6 @@ class ArticleCreateView(PermissionRequiredMixin,  CreateView):
 
 class ArticleUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_article'
-
     model = Article
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
 
@@ -838,26 +814,22 @@ class ArticleUpdateView(PermissionRequiredMixin,  UpdateView):
 
 class ArticleDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_article'
-    
     model = Article
     success_url = reverse_lazy('articles_list')
 
 
 class PictureListView(PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_picture'
-    
     model = Picture
     paginate_by = 2
     context_object_name = 'pictures_list'
  
 class PictureDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_picture'
-    
     model = Picture
 
 class PictureCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_picture'
-
     model = Picture
     # form_class = Picture_Form
     fields = ('name', 'notes', 'tags', 'image', 'snippet')
@@ -884,7 +856,6 @@ class PictureCreateView(PermissionRequiredMixin,  CreateView):
 
 class PictureUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_picture'
-
     model = Picture
     fields = ('name', 'notes', 'tags', 'image', 'snippet')
 
@@ -898,7 +869,6 @@ class PictureUpdateView(PermissionRequiredMixin,  UpdateView):
  
 class PictureDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_picture'
-    
     model = Picture
     success_url = reverse_lazy('pictures_list')
 
