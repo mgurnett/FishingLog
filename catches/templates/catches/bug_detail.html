@@ -48,7 +48,7 @@
 					<div class="row">
                         <div class="col-md-12 text-right">
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_list' %}" type="submit" >back</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_create' %}" type="submit" >new</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_create' %}" type="submit" >new</a> 
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'bug_delete' bug.id %}" type="submit" >delete</a>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='bug' pk=bug.id %}" type="submit" >new {{ bug.name | title }} fly </a>

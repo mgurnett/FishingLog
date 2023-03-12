@@ -6,8 +6,7 @@
 
 <div class="container">
 	<div class="row"><!-- Top card-->
-		<div class="col-md-1"> </div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="card">
 				<h5 class="card-header">
 					<div class="row">
@@ -18,14 +17,12 @@
 				</h5>
 			</div>
 		</div>
-		<div class="col-md-1"> </div>
 	</div><!-- Top card-->
 
 	<div class="row mb-3"><!-- Bottom card-->
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="row">
-				<h5 class="col-12"><!-- Nav tabs -->
+				<h5 class="col-8"><!-- Nav tabs -->
 					<ul class="nav nav-tabs ">
                         <li class="nav-item">
 							<a class="nav-link active" data-toggle="tab" 
@@ -41,6 +38,14 @@
 						</li>
 					</ul>
 				</h5>
+				<div class="col-4"><!-- Nav tabs -->
+					<a class="btn btn-secondary btn-sm mt-1 mb-1" 
+						href="{% url 'video_create'   field='video' pk=0 tag=tag.title|slugify %}">New video</a>
+					<a class="btn btn-secondary btn-sm mt-1 mb-1" 
+						href="{% url 'article_create' field='video' pk=0 tag=tag.title|slugify %}">New article</a>
+					<a class="btn btn-secondary btn-sm mt-1 mb-1" 
+						href="{% url 'picture_create' field='video' pk=0 tag=tag.title|slugify %}">New picture</a>
+				</div>
 			</div>
 
 			<div class="row">
@@ -59,7 +64,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
 	</div><!-- Bottom card-->
 </div>
 

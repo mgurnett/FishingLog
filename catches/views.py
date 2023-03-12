@@ -438,9 +438,27 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
 
     def get_context_data(self, **kwargs): 
         # context = super(LakeDetailView, self).get_context_data(**kwargs)
+        stock_list = Stock.objects.filter (lake=self.kwargs['pk'])
+        year_list = []
+        for x in stock_list:
+            if not x.date_stocked.year in year_list:
+                year_list.append(x.date_stocked.year)
+        subtotals = []
+        total = 0
+        for years in year_list:
+            sub_t = 0
+            for x in stock_list:
+                if years == x.date_stocked.year:
+                    sub_t += x.number
+            subtotals.append({'year': years, 'subt': sub_t})
+            total += sub_t
+        subtotals.append({'year': 'total', 'subt': total})
+        print (subtotals)
+
         context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
-        context ['stockings'] = Stock.objects.filter (lake=self.kwargs['pk'])
+        context ['stockings'] = stock_list
+        context ['subts'] = subtotals
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
@@ -1002,7 +1020,7 @@ class Plan(TemplateView):
         return context
 
 INFO_LIST = [
-    {'tag': 'how-to', 'title': 'How To', 'description': 'How to information', 
+    {'tag': 'how-to-fish', 'title': 'How To Fish', 'description': 'How-to information', 
      'image': '/media/pictures/Cardiff.jpeg'},
     {'tag': 'equipment', 'title': 'Equipment', 'description': 'Equipment specific information', 
      'image': '/media/pictures/fly_rods.jpeg'},
