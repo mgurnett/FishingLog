@@ -453,7 +453,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
             subtotals.append({'year': years, 'subt': sub_t})
             total += sub_t
         subtotals.append({'year': 'total', 'subt': total})
-        print (subtotals)
+        # print (subtotals)
 
         context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
@@ -1009,7 +1009,8 @@ class Plan(TemplateView):
     def get_context_data(self, **kwargs): 
         context = super(Plan, self).get_context_data(**kwargs)
         current_week = int(timezone.now().strftime("%W"))
-
+        # check to see tht everyting we need is passed in and is correct.  
+        # Then get the approperate data an dput it in the contect list
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
         # print ('Lake worked')
         context ['week'] = Week.objects.get (id= self.kwargs['wpk'])
@@ -1018,15 +1019,19 @@ class Plan(TemplateView):
         # print ('temps worked')
         context ['hl'] = get_hl (self.kwargs['wpk'])
         # print ('hl worked')
+        # send the flys list to the context list
         context ['fly_list'] = fly_list (self.kwargs['wpk'])
         # print ('fly worked')
+        # grab all the chart data
         chart_data = get_query_set (self.kwargs['wpk'])
         chart_list =[]
         for c in chart_data:
             if ( c['this'] == "abundent" or c['this'] == "lots" or c['trend'] == "rising" ):
                 chart_list.append (c)
+        # send all chart data that passed filter to context list
         context ['chart_for_weeks'] = chart_list
         # print ('chart_for_weeks worked')
+        # send all hatch data for that week to contect list.
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
         # print ('hatches worked')
         array_list = get_array(

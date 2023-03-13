@@ -1,3 +1,4 @@
+{% load tz %}
 <!-- log tab - start -->
 <div class="album py-1 ">
     <div class="container">
@@ -13,6 +14,7 @@
                                     </div>
                                     <div class="col-6">
                                         <a href="{% url 'log_detail' log.id%}"><b>{{ log.catch_date|date:"D, N j, y" }}</a></b>
+                                        Week:{{ log.week }}
                                     </div>
                                 </div>
                             </h5>
