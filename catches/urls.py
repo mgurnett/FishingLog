@@ -53,6 +53,8 @@ urlpatterns = [
     path ('hatch/', HatchListView.as_view(), name = 'hatch_list'), 
     path ('hatch/<int:pk>/', HatchDetailView.as_view(), name = 'hatch_detail'), 
     path ('hatch/new/', HatchCreateView.as_view(), name = 'hatch_create'),  
+    path ('hatch/newl/<int:pk>/', HatchCreateView_from_lake.as_view(), name = 'hatch_create_from_lake'),
+    path ('hatch/newb/<int:pk>/', HatchCreateView_from_bug.as_view(), name = 'hatch_create_from_bug'),
     path ('hatch/update/<int:pk>/', HatchUpdateView.as_view(), name = 'hatch_update'), 
     path ('hatch/delete/<int:pk>/', HatchDeleteView.as_view(), name = 'hatch_delete'),    
     

@@ -6,8 +6,7 @@
 
 <div class="container">
 	<div class="row"><!-- Top card-->
-		<div class="col-md-1"> </div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="card">
 				<h5 class="card-header">
 					<div class="row">
@@ -54,13 +53,16 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-7 text-centre">
+                        <div class="col-md-5 text-centre">
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
 							<a class="btn btn-danger    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
 						</div>
-                        <div class="col-md-5 text-right">
+                        <div class="col-md-7 text-right">
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">New Hatch</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">New log</a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
@@ -69,12 +71,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1"> </div>
 	</div><!-- Top card-->
 
 	<div class="row mb-3"><!-- Bottom card-->
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="row">
 				<h5 class="col-12"><!-- Nav tabs -->
 					<ul class="nav nav-tabs ">
@@ -138,7 +138,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
 	</div><!-- Bottom card-->
 </div>
 

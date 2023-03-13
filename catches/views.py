@@ -554,20 +554,38 @@ class HatchListView (PermissionRequiredMixin,  ListView):
 
 class HatchDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_hatch'
-    
     model = Hatch
     context_object_name = 'hatch'
 
 class HatchCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_hatch'
-
     model = Hatch
     form_class = New_Hatch_Form
     success_message = "New Hatch saved"
 
+class HatchCreateView_from_lake(PermissionRequiredMixin,  CreateView):
+    permission_required = 'catches.add_hatch'
+    model = Hatch
+    form_class = New_Hatch_Form
+    success_message = "New Hatch saved"
+
+    def get_initial(self):
+        lake = Lake.objects.get(pk=self.kwargs['pk'])
+        return {'lake': lake}
+
+class HatchCreateView_from_bug(PermissionRequiredMixin,  CreateView):
+    permission_required = 'catches.add_hatch'
+    model = Hatch
+    form_class = New_Hatch_Form
+    success_message = "New Hatch saved"
+
+    def get_initial(self):
+        bug = Bug.objects.get(pk=self.kwargs['pk'])
+        return {'bug': bug}
+
+
 class HatchUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_hatch'
-
     model = Hatch
     form_class = New_Hatch_Form
     success_message = "Hatch fixed"
@@ -952,6 +970,7 @@ class ChartGraph(TemplateView):
         fig = px.area( table )
 
         context = {'graph': fig.to_html()}
+        # context = {'bug': Bug.objects.filter(pk = kwargs['pk'])}
 
         return context    
         

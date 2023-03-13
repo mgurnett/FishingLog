@@ -52,6 +52,7 @@
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'bug_delete' bug.id %}" type="submit" >delete</a>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='bug' pk=bug.id %}" type="submit" >new {{ bug.name | title }} fly </a>
+							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_bug' pk=bug.id %}">New Hatch</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='bug' pk=bug.id tag=bug.static_tag %}">New video</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='bug' pk=bug.id tag=bug.static_tag %}">New article</a>
 							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='bug' pk=bug.id tag=bug.static_tag %}">New picture</a>
