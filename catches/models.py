@@ -473,7 +473,8 @@ class Video(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
     author = models.CharField (max_length = 100, blank=True)
-    url = models.URLField(max_length = 200)
+    url = models.URLField(max_length = 200, 
+                    unique = True)
     date_added = models.DateField(default=timezone.now)
     tags = TaggableManager(blank=True)
     snippet = models.CharField (max_length = 255, blank=True)
