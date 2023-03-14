@@ -7,8 +7,9 @@ LAKE = 103
 WEEK = 5
 TEMPERATURE = 14
 #weights that everyting gets multiplied by
-LOG_L = 5; LOG_T = 5; LOG_W = 5; LOG_LW = 15; LOG_LT = 15; 
-HATCH_L = 5; HATCH_T = 5; HATCH_W = 5; HATCH_LW = 15; HATCH_LT = 15; 
+LOG_L = 5;   LOG_T = 5;   LOG_W = 5;   LOG_LW = 15;   LOG_LT = 15;      #max = 45%
+HATCH_L = 5; HATCH_T = 5; HATCH_W = 5; HATCH_LW = 15; HATCH_LT = 15;    #max = 45%
+CATCH_WEIGHT = 2                                                        #max = 10%
 
 def get_array(week, lake, temperature):
     if not week:
@@ -52,15 +53,15 @@ def get_array(week, lake, temperature):
         logs_W.append (math.ceil(row.loc['W']/sumW*LOG_W ))
         logs_LW.append (math.ceil(row.loc['LW']/sumLW*LOG_LW))
         logs_LT.append (math.ceil(row.loc['LT']/sumLT*LOG_LT ))
-        logs_total.append (
+        logs_total.append (int(
             math.ceil(row.loc['L']/sumL*LOG_L) +
             math.ceil(row.loc['LT']/sumLT*LOG_T) +
             math.ceil(row.loc['W']/sumW*LOG_W)  +
             math.ceil(row.loc['LW']/sumLW*LOG_LW) +
             math.ceil(row.loc['LW']/sumLW*LOG_LW) +
             row.loc['LT']/sumLT*LOG_LT
-            )
-    print (f'logs_L - {logs_L} | logs_T - {logs_T} | logs_W - {logs_W} | logs_LW - {logs_LW} | logs_LT - {logs_LT} | logs_total - {logs_total}' )
+            ))
+    # print (f'logs_L - {logs_L} | logs_T - {logs_T} | logs_W - {logs_W} | logs_LW - {logs_LW} | logs_LT - {logs_LT} | logs_total - {logs_total}' )
     df['LLW'] = pd.DataFrame(list(logs_L))
     df['LTW'] = pd.DataFrame(list(logs_T))
     df['LWW'] = pd.DataFrame(list(logs_W))
@@ -120,7 +121,7 @@ def get_array(week, lake, temperature):
                 ))
 
             # print (f" week = {week} and bug = {bug_id}")
-            chart.append ( Chart.objects.get(week = week, bug = bug_id).strength * 2)
+            chart.append ( int (Chart.objects.get(week = week, bug = bug_id).strength * CATCH_WEIGHT ))
 
         else:
             hatchs_L.append (0)

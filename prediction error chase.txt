@@ -1,0 +1,61 @@
+fly name =  Alfred's Boatman/1/6.0
+fly name =  BRIAN'S SIMPLE SCUD/2/10.0
+fly name =  Anti-Static Bag Chironomid/5/9.0
+fly name =  Scud/6/10.0
+fly name =  DLT Micro Leech – Damsel Leach Thing/7/8.0
+fly name =  Stimulator/8/5.0
+fly name =  Gold Ribbed Hares Ear/9/8.0
+fly name =  Micro Leech/10/4.0
+fly name =  Parachute Adams/11/5.0
+fly name =  ELK HAIR CADDIS/12/5.0
+fly name =  Attractor/14/nan
+fly name =  Fab/15/nan
+fly name =  Kazakawich/16/nan
+fly name =  Doc Spratley/17/nan
+fly name =  Cormorant/18/nan
+fly name =  Chironomid/19/11.0
+fly name =  Prince Nymph/21/9.0
+fly name =  Mosquito/22/9.0
+fly name =  Pheasant Tail/23/nan
+fly name =  Grizzly Damsel/24/8.0
+fly name =  Green Drake/25/nan
+fly name =  Dragon Fly/26/7.0
+fly name =  Emerger/27/9.0
+fly name =  Pumpkin Snatcher/28/10.0
+fly name =  Ruby Eyed Leech/29/4.0
+fly name =  Peacock Water Boatman/30/6.0
+fly name =  Mayfly nymph/31/9.0
+fly name =  Baby Damsel/32/8.0
+fly name =  Vampire Leech/33/4.0
+fly name =  Parachute Adams/34/9.0
+fly name =  Fathead Minnow/35/nan
+fly name =  San Juan Worm/36/14.0
+fly name =  Fathead Minnow/37/15.0
+fly name =  Brian Chan Maribou Micro Leech/38/4.0
+fly name =  Balanced Leech-Bruised/39/4.0
+fly name =  Slush Jelly or Slush Blob/40/12.0
+fly name =  Modified Zucchini Chironomid Pupa Fly/41/11.0
+fly name =  Black Olive/42/11.0
+fly name =  Pale Olive Chironomid/43/11.0
+fly name =  Reaper Midge Fly Tying Tutorial | The Fly Fiend./44/9.0
+
+
+
+
+logs_L -  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] | 
+logs_T -  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] | 
+logs_W -  [0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] | 
+logs_LW - [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] | 
+logs_LT - [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+sumL - 2 | sumT - 1 | sumW - 7 | sumLT - 1 |  sumLW - 2
+LOG_L = 5; LOG_T = 5; LOG_W = 5; LOG_LW = 15; LOG_LT = 15; 
+
+
+
+logs_L - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] | 
+logs_T - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] | 
+logs_W - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.5714285714285716, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7142857142857142, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] | 
+logs_LW - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] | 
+logs_LT - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] | 
+logs_total - [0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+

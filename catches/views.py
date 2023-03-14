@@ -769,6 +769,8 @@ class VideoCreateView(PermissionRequiredMixin,  CreateView):
     def get_success_url(self):
         if not self.kwargs:
             return reverse('videos_list')
+        if self.kwargs.get('field') == 'video':
+            return reverse ('library_list')
         model_to_use = f"{self.kwargs.get('field')}_detail"
         return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
         
@@ -1078,7 +1080,7 @@ class LibraryListView(TemplateView):
 class LibraryDetailView(TemplateView):
     model = Tag
     template_name = 'catches/library_detail.html'
-    context_object_name = 'tag'
+    context_object_name = 'tag'  
 
     def get_context_data(self, **kwargs): 
         context = super(LibraryDetailView, self).get_context_data(**kwargs)
