@@ -771,6 +771,7 @@ class VideoCreateView(PermissionRequiredMixin,  CreateView):
             return reverse('videos_list')
         model_to_use = f"{self.kwargs.get('field')}_detail"
         return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+        
 
     def form_valid (self, form):
         messages.add_message(
