@@ -155,7 +155,7 @@
 								{% for index, row in array.iterrows %}
 								<tr>
 									<th scope="row">
-										<a href="{% url 'fly_detail' row.id %}"> <b>{{ row.name }}</b> </a>
+										<a href="{% url 'fly_detail' row.id %}"> <b>{{ row.name | title }}</b> </a>
 									</th>
 									<td>{{ row.log_total }}</th>
 									<td>{{ row.hatch_total }}</th>
