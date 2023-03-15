@@ -787,6 +787,14 @@ class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_video'
     model = Video
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+    
+    def get_success_url(self):
+        if not self.kwargs:
+            return reverse('videos_list')
+        if self.kwargs.get('field') == 'video':
+            return reverse ('library_list')
+        model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
@@ -827,6 +835,8 @@ class ArticleCreateView(PermissionRequiredMixin,  CreateView):
     def get_success_url(self):
         if not self.kwargs:
             return reverse('articles_list')
+        if self.kwargs.get('field') == 'article':
+            return reverse ('library_list')
         model_to_use = f"{self.kwargs.get('field')}_detail"
         return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
@@ -842,6 +852,14 @@ class ArticleUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_article'
     model = Article
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
+    
+    def get_success_url(self):
+        if not self.kwargs:
+            return reverse('articles_list')
+        if self.kwargs.get('field') == 'article':
+            return reverse ('library_list')
+        model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
