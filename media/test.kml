@@ -2,66 +2,24 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
     <Document id="1">
         <Placemark id="3">
-            <name>Cardiff Park Pond*</name>
+            <name>Gap Lake</name>
             <description>test</description>
             <Point id="2">
-                <coordinates>-113.5840730000,53.7632660000,0.0</coordinates>
+                <coordinates>-115.2337000000,51.0545000000,0.0</coordinates>
             </Point>
         </Placemark>
         <Placemark id="5">
-            <name>Fort Lions Park Pond (West Rivers Edge Pond*)</name>
+            <name>Grotto Mountain Pond</name>
             <description>test</description>
             <Point id="4">
-                <coordinates>-113.2741360000,53.6832190000,0.0</coordinates>
+                <coordinates>-115.2024020000,51.0657610000,0.0</coordinates>
             </Point>
         </Placemark>
         <Placemark id="7">
-            <name>Hermitage Park Pond*</name>
+            <name>Quarry Lake</name>
             <description>test</description>
             <Point id="6">
-                <coordinates>-113.3713370000,53.5817020000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="9">
-            <name>Beaumont Pond</name>
-            <description>test</description>
-            <Point id="8">
-                <coordinates>-113.4305120000,53.3464820000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="11">
-            <name>Black Nugget Mine Pit</name>
-            <description>test</description>
-            <Point id="10">
-                <coordinates>-112.5326620000,53.2176850000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="13">
-            <name>Chickakoo Lake (Chickako Lake)</name>
-            <description>test</description>
-            <Point id="12">
-                <coordinates>-114.0743390000,53.6186280000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="15">
-            <name>Cottage (Spring Lake)</name>
-            <description>test</description>
-            <Point id="14">
-                <coordinates>-114.1388080000,53.5178610000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="17">
-            <name>Sauer Lake</name>
-            <description>test</description>
-            <Point id="16">
-                <coordinates>-114.0781520000,53.6128750000,0.0</coordinates>
-            </Point>
-        </Placemark>
-        <Placemark id="19">
-            <name>Star Lake</name>
-            <description>test</description>
-            <Point id="18">
-                <coordinates>-114.2730860000,53.5100570000,0.0</coordinates>
+                <coordinates>-115.3730267800,51.0741948729,0.0</coordinates>
             </Point>
         </Placemark>
     </Document>

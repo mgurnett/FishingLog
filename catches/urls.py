@@ -108,7 +108,6 @@ urlpatterns = [
     path ('tags/', views.TagsListView, name ="tags_list" ),
     path ('tags/<int:pk>/', views.TagsDetailView, name ="tag_detail" ),
 
-    # path ('search/', LakeListView_search.as_view(), name = 'search_list'),
     path ('search/', views.searchview, name = 'search_list'),
 
     path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),

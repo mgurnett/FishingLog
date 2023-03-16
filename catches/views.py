@@ -375,20 +375,6 @@ class LakeListView (UserAccessMixin, ListView):
     context_object_name = 'lakes' 
     paginate_by = 72
 
-class LakeListView_search (UserAccessMixin, ListView):
-    permission_required = 'lakes.view_lake'
-    model = Lake
-    context_object_name = 'lakes' # this is the name that we are passing to the template
-    paginate_by = 30
-    template_name = 'lake_list.html'
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        object_list = Lake.objects.filter(
-            Q(name__icontains=query) | Q(other_name__icontains=query) | Q(district__icontains=query)
-        )
-        return object_list
-
 class LakeListView_regions (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
     
@@ -1119,7 +1105,7 @@ def searchview (request):
     query = request.GET.get("q",'')
     # print (f'query = {query}')
 
-    lake_results = Lake.objects.filter(
+    lake_results = Lake.objects.filter( 
         Q(name__icontains=query) | Q(other_name__icontains=query) | Q(district__icontains=query)
     )
     region_results = Region.objects.filter( Q(name__icontains=query) )

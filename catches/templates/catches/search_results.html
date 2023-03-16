@@ -28,6 +28,11 @@
 							</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#REGION">Region
+								<span class="badge badge-dark badge-pill">{{ regions_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab"  href="#FISH">Fish
 								<span class="badge badge-dark badge-pill">{{ fishes_count }}</span>
 							</a>
@@ -70,13 +75,36 @@
 									{% for lake in lakes %}
 										<tr>
 											<th scope="row">
-												<a href="{% url 'lake_detail' lake.id %}"><h5>{{lake}}</h5></a>
+												<a href="{% url 'lake_detail' lake.id %}">
+													<h5>
+														<b>
+															{{lake.lake_info}}
+															{% if lake.favourite %}
+																<i class="fas fa-check-circle"></i>
+															{% endif %}
+														</b> 
+														logs:{{ lake.log_set.count }}
+													</h5>
+												</a>
 											</th>
 										</tr>
 									{% endfor %} 
 								</tbody>
 							</table>
                         </div>
+                        <div class="tab-pane container fade" id="REGION">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for region in regions %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'region_detail' region.id %}"><h5><b>{{region}}</b> - lake count: {{region.lake_count}} </h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+                        </div> 
                         <div class="tab-pane container fade" id="FISH">
 							<table class="table table-striped table-hover">
 								<tbody>
@@ -110,7 +138,7 @@
 									{% for bug in bugs %}
 										<tr>
 											<th scope="row">
-												<a href="{% url 'bug_detail' bug.id %}"><h5>{{bug}}</h5></a>
+												<a href="{% url 'bug_detail' bug.id %}"><h5><b>{{bug}}</b> - Fly count: {{bug.fly_ent_count}}</h5></a>
 											</th>
 										</tr>
 									{% endfor %} 
