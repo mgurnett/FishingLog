@@ -1,0 +1,169 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Search: {{ query | title }}{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="row"><!-- Top card-->
+		<div class="col-md-12">
+			<div class="card">
+				<h5 class="card-header">
+					<div class="row">
+						<div class="col-md-7">
+							Search for: <b>{{ query | title  }}</b>
+						</div>
+						<div class="col-md-5"></div>
+				</h5>
+			</div>
+		</div>
+	</div><!-- Top card-->
+
+	<div class="row mb-3"><!-- Bottom card-->
+		<div class="col-md-12">
+			<div class="row">
+				<h5 class="col-12"><!-- Nav tabs -->
+					<ul class="nav nav-tabs ">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#LAKES">Lakes
+								<span class="badge badge-dark badge-pill">{{ lakes_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#FISH">Fish
+								<span class="badge badge-dark badge-pill">{{ fishes_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#FLYS">Flys
+								<span class="badge badge-dark badge-pill">{{ flys_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#BUGS">Bugs
+								<span class="badge badge-dark badge-pill">{{ bugs_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#VIDEO">Videos
+								<span class="badge badge-dark badge-pill">{{ videos_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#ARTICLE">Articles
+								<span class="badge badge-dark badge-pill">{{ articles_count }}</span>
+							</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab"  href="#PICTURES">Pictures
+								<span class="badge badge-dark badge-pill">{{ pictures_count }}</span>
+							</a>
+                        </li>
+					</ul>
+				</h5>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12  ">               <!-- Tab panes -->
+					<div class="tab-content ">
+                        <div class="tab-pane container active" id="LAKES">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for lake in lakes %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'lake_detail' lake.id %}"><h5>{{lake}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+                        </div>
+                        <div class="tab-pane container fade" id="FISH">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for fish in fishes %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'fish_detail' fish.id %}"><h5>{{fish}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+                        </div>  
+                        <div class="tab-pane container fade" id="FLYS">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for fly in flys %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'fly_detail' fly.id %}"><h5>{{fly}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+                            
+                        </div>   
+						<div class="tab-pane container fade" id="BUGS">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for bug in bugs %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'bug_detail' bug.id %}"><h5>{{bug}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+							
+						</div>   
+						<div class="tab-pane container fade" id="VIDEO">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for video in videos %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'video_detail' video.id %}"><h5>{{video}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+						</div>
+						<div class="tab-pane container fade" id="ARTICLE">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for article in articles %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'article_detail' article.id %}"><h5>{{article}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+							
+						</div>
+						<div class="tab-pane container fade" id="PICTURES">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for picture in pictures %}
+										<tr>
+											<th scope="row">
+												<a href="{% url 'picture_detail' picture.id %}"><h5>{{picture}}</h5></a>
+											</th>
+										</tr>
+									{% endfor %} 
+								</tbody>
+							</table>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- Bottom card-->
+</div>
+
+{% endblock content %}

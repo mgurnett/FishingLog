@@ -377,7 +377,6 @@ class LakeListView (UserAccessMixin, ListView):
 
 class LakeListView_search (UserAccessMixin, ListView):
     permission_required = 'lakes.view_lake'
-    
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
@@ -1112,5 +1111,35 @@ class LibraryDetailView(TemplateView):
         return context
     
 
+def searchview (request):
+    # paginate_by = 30
+    template_name = 'catches/search_results.html'
 
-        
+    # request = self.request
+    query = request.GET.get("q",'')
+    # print (f'query = {query}')
+
+    lake_results = Lake.objects.filter(
+        Q(name__icontains=query) | Q(other_name__icontains=query) | Q(district__icontains=query)
+    )
+    region_results = Region.objects.filter( Q(name__icontains=query) )
+    fish_results = Fish.objects.filter( Q(name__icontains=query)  | Q(abbreviation__icontains=query) )
+    bug_results = Bug.objects.filter( Q(name__icontains=query)  | Q(description__icontains=query) )
+    fly_results = Fly.objects.filter( Q(name__icontains=query) )
+    video_results = Video.objects.filter( Q(name__icontains=query)  | Q(url__icontains=query) )
+    picture_results = Picture.objects.filter( Q(name__icontains=query) )
+    article_results = Article.objects.filter( Q(name__icontains=query) )
+
+    context = {'lakes': lake_results, 'lakes_count': lake_results.count(),
+               'regions': region_results, 'regions_count': region_results.count(),
+               'fishes': fish_results, 'fishes_count': fish_results.count(),
+               'bugs': bug_results, 'bugs_count': bug_results.count(),
+               'flys': fly_results, 'flys_count': fly_results.count(),
+               'videos': video_results, 'videos_count': video_results.count(),
+               'pictures': picture_results, 'pictures_count': picture_results.count(),
+               'articles': article_results, 'articles_count': article_results.count(),
+               'query': query
+               }
+
+    return render( request, 'catches/search_results.html', context )
+    # return context
