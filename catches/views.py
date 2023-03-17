@@ -53,6 +53,7 @@ def collect_tw_from_logs_and_hatches():
                 'type': 'L'
                 }
             data.append(log_data)
+
     for hatch in hatches:
         if hatch.temp.id > 1:
             log_data = {
@@ -70,7 +71,12 @@ def collect_tw_from_logs_and_hatches():
 
 def get_query_set(pk): # get the data for the hatch trends for week detail view
 
-    week_data = Week.objects.get(id=pk)
+    try:
+        week_data = Week.objects.get(id=pk)
+    except:
+        allcharts = []
+        return allcharts
+
     last_week = week_data.prev_num
     next_week = week_data.next_num
     
@@ -113,7 +119,6 @@ def get_temps(pk):
 
 def get_weeks(pk):
     all_weeks = collect_tw_from_logs_and_hatches()
-    # print (all_weeks)
     weeks_this_temp = []
     for week in all_weeks:
         if week.get("temp_id") == pk:
