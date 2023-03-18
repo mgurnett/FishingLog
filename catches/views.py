@@ -389,7 +389,7 @@ class LakeListView_regions (UserAccessMixin, TemplateView):
     template_name = 'catches/templates/catches/lake_list.html'
  
     def get_context_data(self, *args, **kwargs):
-        print (self.kwargs)
+        # print (self.kwargs)
         context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
         return context
@@ -412,6 +412,16 @@ class LakeListView_fav (UserAccessMixin, TemplateView):
         context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
         return context
 
+
+# def distance (lat, long):
+#     # Requires API key
+#     gmaps = googlemaps.Client(key='AIzaSyB-oms0UbhKCb8Cla7_M64Zq54BO8p5LOo')
+    
+#     # Requires cities name
+#     my_dist = gmaps.distance_matrix('Edmonton', 'Calgary')['rows'][0]['elements'][0]
+    
+#     # Printing the result
+#     return my_dist
 
 class LakeDetailView (UserAccessMixin, FormMixin, DetailView): 
     permission_required = 'catches.view_lake'
@@ -444,7 +454,8 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
             total += sub_t
         subtotals.append({'year': 'total', 'subt': total})
         # print (subtotals)
-
+        # lake_dist = Lake.objects.get(id=self.kwargs['pk'])
+        # distance_to_lake = distance (lake_dist.lat, lake_dist.long)
         context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = stock_list
@@ -457,6 +468,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
+        # context ['distance'] = distance_to_lake
         return context
 
     def post(self, request, *args, **kwargs):
