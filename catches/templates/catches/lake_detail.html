@@ -23,7 +23,7 @@
 							{% if lake.region %} Region: <a href="{% url 'lake_list_reg' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
 						</div>
 						<div class="col-md-5">
-							{% if lake.district %} District: <b>{{ lake.district | title  }}</b> {% endif %}
+							{% if lake.district %}  District: <b>{{ lake.district | title  }}</b>  {% endif %}
 						</div>
 					</div>
 					<hr>
