@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from PIL import Image
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
+import pandas as pd
 
 ''' blank talks about being required!!!!!!!  
     # 
@@ -79,6 +80,20 @@ class Week(models.Model):
     @property 
     def hatch_count (self):
         return self.hatch_set.count
+    
+    @property 
+    def dates_in_week(self):
+        yearnum = int(timezone.now().strftime("%Y"))
+        start_date = f'{yearnum}/01/01'; end_date = f'{yearnum}/12/31'; 
+        week_of_sundays = pd.date_range(start_date, end_date, freq='W-SUN')
+        for wofs in week_of_sundays:
+            week_num = wofs.strftime("%W")
+            # print (f'yearnum is {yearnum} / Wnumber is {Wnumber} /week_num is {week_num} /')
+            if int(week_num) == int(self.number):
+                end_date = wofs + pd.DateOffset(6)
+                week_info = {'week_num': week_num, 'start_date': wofs.strftime("%b %d"), 'end_date': end_date.strftime("%b %d")}
+                return week_info
+        return
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
