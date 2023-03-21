@@ -13,6 +13,9 @@
         <button type="button" class="btn btn-primary">
             <a href="{% url 'fly_create' %}">New fly</a>
         </button> 
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'fly_type_create' %}">New fly type</a>
+        </button>
     </div>
 </div>   
 <div class="album py-5 ">
@@ -45,11 +48,4 @@
         </div>
     </div>
 </div> 
-<div class="container">
-    <div class = "row">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'fly_type_create' %}">New fly type</a>
-        </button>
-    </div>
-</div>
 {% endblock content %}

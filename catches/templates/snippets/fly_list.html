@@ -4,8 +4,8 @@
             {% for fly in flys %}
                 <div class="card col-6">
                     <div class="row">
-                        <p class="card-header col-4">
-                            <a href="{% url 'fly_detail' fly.id %}" class="card-link"><b>{{ fly.name | title }}</b> </a>
+                        <p class="card-header card-link col-4">
+                            <a href="{% url 'fly_detail' fly.id %}"><b>{{ fly.name | title }}</b> </a>
                         </p>
                         <p class="card-header col-4">
                             {% if not fly.fly_type == "" %} 
@@ -20,7 +20,9 @@
                     </div>
                     <div class="card-body">
                         <p class="card text-center">
-                            {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+                            <a href="{% url 'fly_detail' fly.id %}">
+                                {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
+                            </a>    
                         </p>
                         <p>
                             {{ fly.description }}
