@@ -459,7 +459,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = stock_list
-        context ['subts'] = subtotals
+        context ['subts'] = subtotals 
         context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]

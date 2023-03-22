@@ -1,4 +1,5 @@
 {% extends "catches/base/base.html" %}
+{% block title %} Fly:{{ fly.name | title }} {% endblock %}
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -32,8 +33,11 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                                    <div class="col-6">
-                                        size range: <b> {{ fly.size_range }}</b>
+                                    <div class="col-2">
+                                        {% if fly.size_range %}size range: <b> {{ fly.size_range }}</b>{% endif %}
+                                    </div>
+                                    <div class="col-4">
+                                        Tag: <b>{{ fly.static_tag }}</b>
                                     </div>
                                     <div class="col-6 text-right">
                                         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" >edit</a>
@@ -50,16 +54,12 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
                         <div class="card-body">
-                            Tag: <b>{{ fly.static_tag }}</b>
-                            <div class="col-6">
-                                {% for vid in videos %}
-                                <ul>
-                                    <li><a href="{{ vid.url }}" target="_blank" >{{ vid.name }}</a></li>
-                                </ul> 
-                                {% endfor %}
-                            </div>
+                            {% for vid in videos %}
+                            <ul>
+                                <li><a href="{{ vid.url }}" target="_blank" >{{ vid.name | title }}</a></li>
+                            </ul> 
+                            {% endfor %}
                         </div>
-                        
                     </div>
                     <div class="col-md-1"></div>
                 </div>
