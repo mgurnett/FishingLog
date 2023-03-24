@@ -91,7 +91,7 @@ class Week(models.Model):
             # print (f'yearnum is {yearnum} / Wnumber is {Wnumber} /week_num is {week_num} /')
             if int(week_num) == int(self.number):
                 end_date = wofs + pd.DateOffset(6)
-                week_info = {'week_num': week_num, 'start_date': wofs.strftime("%b %d"), 'end_date': end_date.strftime("%b %d")}
+                week_info = {'week_num': week_num, 'start_date': wofs.strftime("%b %-d"), 'end_date': end_date.strftime("%b %-d")}
                 return week_info
         return
               

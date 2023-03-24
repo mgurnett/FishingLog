@@ -1,32 +1,38 @@
 {% extends "catches/base/base.html" %}
+{% block title %} Hatch:{{ hatch.bug | title }} {% endblock %}
 {% block content %}
 <div class="container">
 	<div class="row">
-		<div class="col-md-1"> </div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="card">
 				<h5 class="card-header">
 					<div class="row">
-						<div class="col-md-5"> 
-							Lake observed: <b>{{ hatch.lake.lake_info }}</b>
+						<div class="col-md-6"> 
+							<a href="{% url 'lake_detail' hatch.lake.id %}" class="card-link">
+								Lake observed: <b>{{ hatch.lake.lake_info }}</b>
+							</a>
 						</div>
-						<div class="col-md-4">
-							Insect: <b>{{ hatch.bug }}</b>
-						</div>
-						<div class="col-md-3">
-							{% if hatch.temp.name %}Temperature: <b>{{ hatch.temp.name }}</b>{% endif %}
+						<div class="col-md-6">
+							<a href="{% url 'bug_detail' hatch.bug.id %}" class="card-link">
+								Insect: <b>{{ hatch.bug }}</b>
+							</a>
 						</div>
 					</div>
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
 						<div class="row">
-							<div class="col-md-5"> 
-								Date observed: <b>{{ hatch.sight_date }}</b> (week: <b>{{ hatch.week.number }}</b>)
+							<div class="col-md-6"> 
+								<a href="{% url 'week_detail' hatch.week_id %}">
+									Date observed: <b>{{ hatch.sight_date }}</b> (week: <b>{{ hatch.week.number }}</b>)
+								</a>
 							</div>
-							<div class="col-md-2"> </div>
-							<div class="col-md-5"> 
-								Tag: <b>{{ hatch.static_tag }}</b>
+							<div class="col-md-6">
+								{% if hatch.temp.name %}
+									<a href="{% url 'temp_detail' hatch.temp.id %}" class="card-link">
+										Temperature: <b>{{ hatch.temp.name }}</b>
+									</a>
+								{% endif %}
 							</div>
 						</div>
 					</p>
@@ -36,7 +42,9 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8"> </div>
+                        <div class="col-md-8">
+							Tag: <b>{{ hatch.static_tag }}</b> 
+						</div>
                         <div class="col-md-4">
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'hatch_update' hatch.id %}" type="submit" >edit</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'hatch_delete' hatch.id %}" type="submit" >delete</a>
@@ -45,7 +53,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1"> </div>
 	</div>
 </div>
 {% endblock content %}

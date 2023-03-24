@@ -6,19 +6,19 @@
  
 <div class="container">
 	<div class="row"> <!-- Title Row-->
-		<div class="col-md-9 text-left">
-            <h2>
+		<div class="col-md-8 text-left">
+            <h2> 
 				<b>Fishing plan</b> for: <a href="{% url 'lake_detail' lake.id %}">
                     <b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                 </a>
             </h2>
 		</div>
-		<div class="col-md-3 text-right">
-            <h2>
+		<div class="col-md-4 text-right">
+            <h3>
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
-					Week: <b>{{ week.number }}</b>
+					Week: <b>{{ week.number }}</b> ({{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }})
                 </a>
-            </h2>
+            </h3>
 		</div>
 	</div>
     <hr>
