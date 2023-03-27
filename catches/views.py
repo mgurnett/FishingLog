@@ -376,7 +376,6 @@ class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
 
 class LakeListView (UserAccessMixin, ListView):
     permission_required = 'catches.view_lake'
-
     model = Lake
     context_object_name = 'lakes' 
     paginate_by = 72
