@@ -55,18 +55,19 @@ def collect_tw_from_logs_and_hatches():
             data.append(log_data)
 
     for hatch in hatches:
-        if hatch.temp.id > 1:
-            log_data = {
-                'week': hatch.week.number, 
-                'week_id': hatch.week.id, 
-                'date': hatch.sight_date, 
-                'temp': hatch.temp.deg,
-                'temp_id': hatch.temp.id, 
-                'temp_name': hatch.temp.name, 
-                'log': hatch.id,
-                'type': 'H'
-                }
-            data.append(log_data)
+        if hatch.temp:
+            if hatch.temp.id > 1:
+                log_data = {
+                    'week': hatch.week.number, 
+                    'week_id': hatch.week.id, 
+                    'date': hatch.sight_date, 
+                    'temp': hatch.temp.deg,
+                    'temp_id': hatch.temp.id, 
+                    'temp_name': hatch.temp.name, 
+                    'log': hatch.id,
+                    'type': 'H'
+                    }
+                data.append(log_data)
     return data
 
 def get_query_set(pk): # get the data for the hatch trends for week detail view
