@@ -135,10 +135,6 @@ class New_Bug_Form (forms.ModelForm):
                 Column('image', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
-            Row(
-                Column('tags', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
             Submit('submit', 'Save')
         )
 
