@@ -209,15 +209,25 @@ class Fly_typeCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_fly_type'
 
     model = Fly_type
-    form_class = New_Fly_type_Form
-    success_message = "New Fly type saved"
+    fields = '__all__'    
+    # form_class = New_Fly_type_Form
+    # success_message = "New Fly type saved"
+
+    def form_valid (self, form):
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The fly type was added'
+        )
+        return super().form_valid (form)
 
 class Fly_typeUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_fly_type'
 
     model = Fly_type
-    form_class = New_Fly_type_Form
-    success_message = "Fly type fixed"
+    fields = '__all__'  
+    # form_class = New_Fly_type_Form
+    # success_message = "Fly type fixed"
 
 class Fly_typeDeleteView (PermissionRequiredMixin,  DeleteView): 
     permission_required = 'catches.delete_fly_type'
@@ -251,14 +261,17 @@ class FishCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_fish'
 
     model = Fish
-    form_class = New_Fish_Form
+
+    fields = '__all__' 
+    # form_class = New_Fish_Form
     success_message = "New Fish saved"
 
 class FishUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_fish'
 
     model = Fish
-    form_class = New_Fish_Form
+    fields = '__all__' 
+    # form_class = New_Fish_Form
     success_message = "Fish fixed"
 
 class FishDeleteView (PermissionRequiredMixin,  DeleteView): 
@@ -294,14 +307,16 @@ class BugCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_bug'
 
     model = Bug
-    form_class = New_Bug_Form
+    fields = '__all__' 
+    # form_class = New_Bug_Form
     success_message = "New Bug saved"
 
 class BugUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_bug'
 
     model = Bug
-    form_class = New_Bug_Form
+    fields = '__all__' 
+    # form_class = New_Bug_Form
     success_message = "Bug fixed"
 
 class BugDeleteView (PermissionRequiredMixin,  DeleteView): 

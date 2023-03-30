@@ -300,7 +300,7 @@ class Temp(models.Model):
 
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField(blank=True)
+    notes = RichTextField (blank=True, null=True)
     image = models.ImageField ('Picture of fly type', 
         default=None, 
         upload_to='fly_type/', 

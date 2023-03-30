@@ -15,7 +15,7 @@
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
-						{{ fish.notes }}
+						{{ fish.notes | safe }}
 						Tag: <b>{{ fish.static_tag }}</b>
 					</p>
 				</div>

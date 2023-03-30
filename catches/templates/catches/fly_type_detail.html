@@ -13,7 +13,7 @@
 						{% if fly_type.image %}<img src="{{ fly_type.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
 					</p>
 					<p>
-						{{ fly_type.notes }}
+						{{ fly_type.notes | safe }}
 					</p>
 				
 					<div class="col-md-12">

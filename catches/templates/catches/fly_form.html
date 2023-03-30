@@ -3,7 +3,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block content %} 
 {{ form.media }}
     <form method="post" novalidate enctype="multipart/form-data">
       {% for hidden_field in form.hidden_fields %}
