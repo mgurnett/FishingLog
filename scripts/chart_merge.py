@@ -1,4 +1,4 @@
-from catches.models import *
+from catches/models import *
 
 def get_query_set(*args, **kwargs): 
 
