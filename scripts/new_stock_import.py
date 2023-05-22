@@ -1,3 +1,11 @@
+'''
+Alford Lake SW4-36-8-W5 RNTR Campbell Lake 3N 22.1 3,000 16-May-22 
+Bear Pond NW36-14-4-W5 TGTR Beitty/Bow River 3N 16.5 750 1-Jun-22 
+Beauvais Lake SW29-5-1-W5 RNTR Trout Lodge/Jumpers AF3N 18.2 23,000 23-Apr-22 
+Beaver Lake NE16-35-6-W5 RNTR Trout Lodge/Jumpers AF3N 19.4 2,500 18-May-22 
+Beaver Lake NE16-35-6-W5 TGTR Beitty/Bow River 3N 21.3 1,000 20-Sep-22
+'''
+
 from catches.models import *
 import re
 
@@ -21,63 +29,79 @@ STRAIN_lookup = [
     ('Job Lake', 'JBL')
  ]
 
-with open('static/stock_reports/2022_raw.txt') as file:
-    file_contents = file.read()
+def get_data():
+    with open('static/stock_reports/2022_raw.txt') as file:
+        file_contents = file.read()
 
-lines = []
-new_end = 0
-for x in re.finditer ('[0-9][-][A-Z][a-z][a-z]-22', file_contents):  #find where the line ends as the date is aways the end
-    start, end = x.span()
-    row = str(file_contents[new_end:end]) #get the whole row
+    lines = []
+    new_end = 0
+    for x in re.finditer ('[0-9][-][A-Z][a-z][a-z]-22', file_contents):  #find where the line ends as the date is aways the end
+        start, end = x.span()
+        stock_date = x.group()
+        row = str(file_contents[new_end:end]) #get the whole row
 
-    location = re.search ('[NS][EW](\d{1,2})-(\d+)-(\d{1,2})-W[0-9]', row)  #search for the ATS
-    if location:
-        try:
-            lake_id = Lake.objects.get(ats=location.group())
-        except:
-            print (location.group()," was not found lake database!")  #ats not found in database
-    else:
-        print (row, "******", location) #ats not found in row
+        location = re.search ('[NS][EW](\d{1,2})-(\d+)-(\d{1,2})-W[0-9]', row)  #search for the ATS
+        if location:
+            try:
+                lake_id = Lake.objects.get(ats=location.group())
+            except:
+                print (location.group()," was not found lake database!")  #ats not found in database
+        else:
+            print (row, "******", location) #ats not found in row
 
-    fish_group = re.search ('[A-Z][A-Z][A-Z][A-Z]', row)
-    fish = fish_group.group()
-    if fish_group:
-        fish_start, fish_end = fish_group.span()
-        try:
-            fish_id = Fish.objects.get(abbreviation=fish)
-        except:
-            print (fish," was not found in fish database!")  #ats not found in database
-    else:
-        print (row, "******", fish) #fish not found in row
+        fish_group = re.search ('[A-Z][A-Z][A-Z][A-Z]', row)
+        fish = fish_group.group()
+        if fish_group:
+            fish_start, fish_end = fish_group.span()
+            try:
+                fish_id = Fish.objects.get(abbreviation=fish)
+            except:
+                print (fish," was not found in fish database!")  #ats not found in database
+        else:
+            print (row, "******", fish) #fish not found in row
 
-    genotype_group = re.search ('[A][F][2-3][N]', row)
-    if genotype_group:
-        genotype = genotype_group.group()
-        geno_start, geno_end = genotype_group.span()
-    else:
-        genotype_group = re.search ('[2-3][N]', row)
-        genotype = genotype_group.group()
-        geno_start, geno_end = genotype_group.span()
-    # print (genotype)
+        genotype_group = re.search ('[A][F][2-3][N]', row)
+        if genotype_group:
+            genotype = genotype_group.group()
+            geno_start, geno_end = genotype_group.span()
+        else:
+            genotype_group = re.search ('[2-3][N]', row)
+            genotype = genotype_group.group()
+            geno_start, geno_end = genotype_group.span()
+        # print (genotype)
 
-    strain = str(row[fish_end:geno_start])
+        strain = str(row[fish_end:geno_start]).strip()
 
-    found=0
-    strain_short = ""
-    for index, str_look in enumerate(STRAIN_lookup):
-        if strain == str_look[0]:
-            found=index
-    if found == 0:
-        # print (f'We are going to look for {strain} in lake {lake_id} with fish {fish_id}')
-        pass
-    else:
-        strain_short = STRAIN_lookup[found][1]
-        print ('found one')
-    # print (row, "  ", fish_end, "  ", geno_start, "  ", strain_short)
+        found=0
+        strain_short = ""
+        for index, str_look in enumerate(STRAIN_lookup):
+            if strain == str_look[0]:
+                found=index
+        if found == 0:
+            print (f'We are going to look for {strain} in lake {lake_id} with fish {fish_id}')
+            pass
+        else:
+            strain_short = STRAIN_lookup[found][1]
+        # print (row, "  ", fish_end, "  ", geno_start, "  ", strain_short)
 
+        length_string = str(row[geno_end:])
+        
+        fish_length = re.search ("\d*\.?\d", length_string)
+        # print (fish_length, " ", row, " ", length_string)
+        fish_len = fish_length.group()
+        len_start, len_end = fish_length.span()
+        # print (f'len_start = {len_start} len_end = {len_end} and fish_len is {fish_len} of length_string {length_string}')
 
+        raw_number = str(length_string[len_end:])
+        number_fish = re.search ("\d*\,?\d+", raw_number)
+        number_of_fish = int(number_fish.group().replace(",", ""))
+        # print (f'number of fish is {number_of_fish} of row {row}')
 
-    new_end = end + 1 #get set to read the next row
+        new_end = end + 1 #get set to read the next row
 
-    lines.append ([row, lake_id, fish_id, genotype])
-# print (lines)
+        lines.append ([row, stock_date, lake_id, fish_id, genotype, strain, fish_len, number_of_fish])
+    return lines
+
+def run():
+    data = get_data()
+    print (data)
