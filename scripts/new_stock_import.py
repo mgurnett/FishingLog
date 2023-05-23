@@ -40,7 +40,7 @@ def get_data():
             try:
                 lake_id = Lake.objects.get(ats=location.group())
             except:
-                print (location.group()," was not found lake database!")  #ats not found in database
+                print (location.group()," was not found lake database!", row)  #ats not found in database
         else:
             print (row, "******", location) #ats not found in row
 
