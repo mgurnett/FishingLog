@@ -14,6 +14,7 @@ STRAIN_lookup = [
     ('Trout Lodge/Jumpers', 'TLTLJ'),
     ('Trout Lodge / Kamloops', 'TLTLK'),
     ('Trout Lodge/Kamloops', 'TLTLK'),
+    ('Trout Lodge/Kamloops', 'TLTLK'),
     ('Trout Lodge / Silvers', 'TLTLS'),
     ("Trout Lodge/Silver's", 'TLTLS'),
     ('Bow River', 'BRBE'),
@@ -23,17 +24,19 @@ STRAIN_lookup = [
  ]
 
 def get_data():
-    with open('static/stock_reports/2021_raw.txt') as file:
+    with open('static/stock_reports/2020_raw.txt') as file:
         file_contents = file.read()
 
     lines = []
     new_end = 0
-    for x in re.finditer ('(\d{1,2})[/][A-Z][a-z][a-z]/21', file_contents):  #find where the line ends as the date is aways the end
+    for x in re.finditer ('(\d{1,2})[-][A-Z][a-z][a-z]-20', file_contents):  #find where the line ends as the date is aways the end
         start, end = x.span()
         date_obj = x.group()
-        stock_date = datetime.strptime(date_obj, "%d/%b/%y")
+        # stock_date = datetime.strptime(date_obj, "%d/%b/%y") #for 2021
+        stock_date = datetime.strptime(date_obj, "%d-%b-%y") #for 2022 & 3
 
         row = str(file_contents[new_end:end]) #get the whole row
+        # print (row)
 
         location = re.search ('[NS][EW](\d{1,2})-(\d+)-(\d{1,2})-W[0-9]', row)  #search for the ATS
         if location:
@@ -44,14 +47,15 @@ def get_data():
         else:
             print (row, "******", location) #ats not found in row
 
-        fish_group = re.search ('[A-Z][A-Z][A-Z][A-Z]', row)
-        fish = fish_group.group()
+        fish_group = re.search (' [A-Z][A-Z][A-Z][A-Z] ', row)
+        fish = fish_group.group().strip()
         if fish_group:
             fish_start, fish_end = fish_group.span()
             try:
                 fish_id = Fish.objects.get(abbreviation=fish)
             except:
                 print (fish," was not found in fish database!")  #ats not found in database
+                fish_id = ""
         else:
             print (row, "******", fish) #fish not found in row
 
