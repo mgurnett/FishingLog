@@ -1,13 +1,6 @@
-'''
-Alford Lake SW4-36-8-W5 RNTR Campbell Lake 3N 22.1 3,000 16-May-22 
-Bear Pond NW36-14-4-W5 TGTR Beitty/Bow River 3N 16.5 750 1-Jun-22 
-Beauvais Lake SW29-5-1-W5 RNTR Trout Lodge/Jumpers AF3N 18.2 23,000 23-Apr-22 
-Beaver Lake NE16-35-6-W5 RNTR Trout Lodge/Jumpers AF3N 19.4 2,500 18-May-22 
-Beaver Lake NE16-35-6-W5 TGTR Beitty/Bow River 3N 21.3 1,000 20-Sep-22
-'''
-
 from catches.models import *
 import re
+from datetime import datetime
 
 STRAIN_lookup = [
     ('Beitty x Beitty', 'BEBE'),
@@ -30,14 +23,16 @@ STRAIN_lookup = [
  ]
 
 def get_data():
-    with open('static/stock_reports/2022_raw.txt') as file:
+    with open('static/stock_reports/2021_raw.txt') as file:
         file_contents = file.read()
 
     lines = []
     new_end = 0
-    for x in re.finditer ('[0-9][-][A-Z][a-z][a-z]-22', file_contents):  #find where the line ends as the date is aways the end
+    for x in re.finditer ('(\d{1,2})[/][A-Z][a-z][a-z]/21', file_contents):  #find where the line ends as the date is aways the end
         start, end = x.span()
-        stock_date = x.group()
+        date_obj = x.group()
+        stock_date = datetime.strptime(date_obj, "%d/%b/%y")
+
         row = str(file_contents[new_end:end]) #get the whole row
 
         location = re.search ('[NS][EW](\d{1,2})-(\d+)-(\d{1,2})-W[0-9]', row)  #search for the ATS
@@ -78,7 +73,7 @@ def get_data():
             if strain == str_look[0]:
                 found=index
         if found == 0:
-            print (f'We are going to look for {strain} in lake {lake_id} with fish {fish_id}')
+            print (f'{strain} was not found in {row}')
             pass
         else:
             strain_short = STRAIN_lookup[found][1]
@@ -86,10 +81,11 @@ def get_data():
 
         length_string = str(row[geno_end:])
         
-        fish_length = re.search ("\d*\.?\d", length_string)
+        fish_str = re.search ("\d*\.?\d", length_string)
         # print (fish_length, " ", row, " ", length_string)
-        fish_len = fish_length.group()
-        len_start, len_end = fish_length.span()
+        fish_len = fish_str.group()
+        fish_length = float(fish_len)
+        len_start, len_end = fish_str.span()
         # print (f'len_start = {len_start} len_end = {len_end} and fish_len is {fish_len} of length_string {length_string}')
 
         raw_number = str(length_string[len_end:])
@@ -99,9 +95,9 @@ def get_data():
 
         new_end = end + 1 #get set to read the next row
 
-        lines.append ([row, stock_date, lake_id, fish_id, genotype, strain, fish_len, number_of_fish])
+        lines.append ([row, stock_date, lake_id, fish_id, genotype, strain, fish_length, number_of_fish])
     return lines
 
 def run():
     data = get_data()
-    print (data)
+    # print (data)

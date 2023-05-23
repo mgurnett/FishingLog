@@ -1,0 +1,68 @@
+Beaver Mines Lake NE11-5-3-W5 RNTR Campbell Lake 3N 9.5 10,000 26-Apr-23
+Beaver Mines Lake NE11-5-3-W5 RNTR Trout Lodge/Kamloops AF3N 17.1 10,902 26-Apr-23
+Emerson Lake SW5-19-28-W4 RNTR Trout Lodge/Jumpers AF3N 20.9 1,400 24-Apr-23
+Emerson Lake SW5-19-28-W4 BNTR Bow River 3N 18.7 200 24-Apr-23
+Lees Lake SW8-7-2-W5 RNTR Trout Lodge/Jumpers AF3N 20.7 5,020 24-Apr-23
+Lees Lake SW8-7-2-W5 RNTR Trout Lodge/Kamloops AF3N 17.2 4,740 24-Apr-23
+Lees Lake SW8-7-2-W5 BNTR Bow River 3N 18.7 1,000 24-Apr-23
+Lees Lake SW8-7-2-W5 RNTR Campbell Lake 3N 9.5 10,000 26-Apr-23
+Payne Lake Mami Lake NE10-2-28-W4 RNTR Trout Lodge/Jumpers AF3N 21.7 8,455 25-Apr-23
+Payne Lake Mami Lake NE10-2-28-W4 RNTR Trout Lodge/Jumpers AF3N 20.0 581 25-Apr-23
+Payne Lake Mami Lake NE10-2-28-W4 RNTR Trout Lodge/Kamloops AF3N 17.3 14,220 25-Apr-23
+Unnamed
+Brooks
+Aquaduct Pond
+NE15-18-14-W4 RNTR Campbell Lake 2N 20.2 3,990 26-Apr-23
+Unnamed
+Brooks
+Aquaduct Pond
+NE15-18-14-W4 RNTR Campbell Lake 2N 7.4 10,000 26-Apr-23
+Unnamed Corner Lake NW4-6-20-W4 RNTR Trout Lodge/Jumpers AF3N 20.5 2,510 18-Apr-23
+Unnamed Enchant Pond
+NW8-14-18-W4 TGTR Beitty/Bow River 3N 19.3 200 21-Apr-23
+Unnamed
+Lacombe Park
+Pond
+NW5-54-25-W4 BKTR Beitty Resort 3N 21.0 600 25-Apr-23
+Unnamed
+McQuillan
+Reservoir SW13-8-19-W4 RNTR Trout Lodge/Jumpers AF3N 21.6 2,225 21-Apr-23
+Unnamed
+McVinnie
+Reservoir
+SW33-12-21-W4 RNTR Trout Lodge/Jumpers AF3N 21.6 1,155 21-Apr-23
+Unnamed
+McVinnie
+Reservoir
+SW33-12-21-W4 TGTR Beitty/Bow River 3N 19.3 400 21-Apr-23
+Unnamed
+Nicholas Sheran
+Park Pond SE26-8-22-W4 BKTR Beitty Resort 2N 45.0 236 17-Apr-23
+Unnamed
+Nicholas Sheran
+Park Pond SE26-8-22-W4 BNTR Bow River 3N 18.2 1,000 18-Apr-23
+Unnamed
+Nicholas Sheran
+Park Pond SE26-8-22-W4 BKTR Beitty Resort 3N 18.9 1,000 18-Apr-23
+Unnamed
+Nicholas Sheran
+Park Pond SE26-8-22-W4 RNTR Campbell Lake 2N 20.1 798 18-Apr-23
+Unnamed
+Nicholas Sheran
+Park Pond SE26-8-22-W4 BKTR Beitty Resort 2N 45.0 235 24-Apr-23
+Unnamed
+Pine Coulee
+Reservoir
+NE15-14-28-W4 RNTR Trout Lodge/Jumpers AF3N 20.9 3,765 24-Apr-23
+Unnamed Riverstone Pond SW24-8-22-W4 RNTR Trout Lodge/Jumpers AF3N 21.1 919 18-Apr-23
+Unnamed
+Severn Creek
+Reservoir
+NW12-26-22-W4 RNTR Trout Lodge/Jumpers AF3N 20.2 2,811 26-Apr-23
+Unnamed
+Spring Coulee
+Park Pond NE12-5-24-W4 RNTR Trout Lodge/Jumpers AF3N 21.6 1,255 25-Apr-23
+Unnamed
+Strathmore
+Children's Pond
+SW14-24-25-W4 TGTR Beitty/Bow River 3N 19.6 150 26-Apr-23
