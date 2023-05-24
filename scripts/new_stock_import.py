@@ -14,7 +14,6 @@ STRAIN_lookup = [
     ('Trout Lodge/Jumpers', 'TLTLJ'),
     ('Trout Lodge / Kamloops', 'TLTLK'),
     ('Trout Lodge/Kamloops', 'TLTLK'),
-    ('Trout Lodge/Kamloops', 'TLTLK'),
     ('Trout Lodge / Silvers', 'TLTLS'),
     ("Trout Lodge/Silver's", 'TLTLS'),
     ('Bow River', 'BRBE'),
