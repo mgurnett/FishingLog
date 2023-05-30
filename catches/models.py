@@ -251,7 +251,7 @@ class Stock(models.Model):
         return round (self.length * .393701,1)
 
     def __str__(self):
-        return f'Stocking report: On {self.date_stocked} at {self.lake}, {self.number} ({self.length}cm or {self.inch}inch) {self.fish} were stocked'
+        return f'Stocking report: On {self.date_stocked} at {self.lake}, {self.number} ({self.length}cm or {self.inch}inch) {self.fish} ({self.strain}/{self.gentotype}) were stocked'
 
 # https://docs.djangoproject.com/en/4.1/ref/models/fields/#model-field-types
 #https://youtu.be/-HuTlmEVOgU - viedo on mant to many relationship

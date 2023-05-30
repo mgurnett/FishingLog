@@ -21,6 +21,18 @@ STRAIN_lookup = [
     ('Lac Ste. Anne', 'LSE'),
     ('Job Lake', 'JBL')
  ]
+STRAIN = (
+    ("BEBE", "Beitty x Beitty"),
+    ("BRBE", "Bow River x Beitty"),
+    ("CLCL", "Campbell Lake"),
+    ("LYLY", "Lyndon"),
+    ("PLPL", "Pit Lake"),
+    ("TLTLJ", "Trout Lodge / Jumpers"),
+    ("TLTLK", "Trout Lodge / Kamloops"),
+    ("TLTLS", "Trout Lodge / Silvers"),
+    ("LSE", "Lac Ste. Anne"),
+    ("JBL", "Job Lake"),
+)
 
 def get_data(file_name, year):
     stock_num = 0
@@ -110,7 +122,7 @@ def get_data(file_name, year):
 
         new_end = end + 1 #get set to read the next row
 
-        lines.append ([row, stock_date, lake_id, fish_id, genotype, strain, fish_length, number_of_fish])
+        lines.append ([row, stock_date, lake_id, fish_id, genotype, strain_short, fish_length, number_of_fish])
         stock_num += 1
     print (stock_num)
     return lines
@@ -129,17 +141,31 @@ def run():
 
     # print (total_data)
 
-    with open(r'stock_inputs.txt', 'w') as fp:
+    # with open(r'stock_inputs.txt', 'w') as fp:
 
-        for row in total_data:
-            stock = Stock (
-                date_stocked = row[1],
-                number = row[7],
-                length = row[6],
-                lake = row[2],
-                fish = row[3],
-                strain = row[5],
-                gentotype = row[4],
-            )
-            # print (stock)
-            fp.write("%s\n" % stock)
+    #     for row in total_data:
+    #         stock = Stock (
+    #             date_stocked = row[1],
+    #             number = row[7],
+    #             length = row[6],
+    #             lake = row[2],
+    #             fish = row[3],
+    #             strain = row[5],
+    #             gentotype = row[4],
+    #         )
+    #         print (stock)
+    #         fp.write("%s\n" % stock)
+
+    Stock.objects.all().delete()
+
+    for row in total_data:
+        stock = Stock (
+            date_stocked = row[1],
+            number = row[7],
+            length = row[6],
+            lake = row[2],
+            fish = row[3],
+            strain = row[5],
+            gentotype = row[4],
+        )
+        stock.save()
