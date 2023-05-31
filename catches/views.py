@@ -1036,7 +1036,7 @@ def fly_list(id):
         if log.fly:
             fly_list.append(log.fly)
     fly_list = list(dict.fromkeys(fly_list))
-    return fly_list
+    return fly_list  
 
     
 class Plan(TemplateView):
