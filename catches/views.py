@@ -976,7 +976,7 @@ class Graph(TemplateView):
         df = pd.DataFrame.from_dict( data )
         df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
         
-        df = df.sort_values(by='Week')
+        df = df.sort_values(by='temp_id')
 
         fig = px.scatter(df, 
             x='Week',
