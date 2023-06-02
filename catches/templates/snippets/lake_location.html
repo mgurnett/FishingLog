@@ -1,16 +1,37 @@
-<div class="row mt-5">
+<div class="row mt-2">
   <div class="col-md-1"></div>      
   <div class="col-md-10">
     <div class="row">
       <div class="col-md-6">{% if lake.ats %} Location: <b> {{ lake.ats }}</b> {% endif %}</div>      
       <div class="col-md-6">{% if not lake.waterbody_id == None %} Government of Alberta waterbody ID: <b>{{ lake.waterbody_id }} </b>{% endif %}</div> 
     </div>
-    <hr>
+
     <div class="row">
       <div class="col-md-6">{% if lake.long %} Longitute: <b> {{ lake.long }}</b> {% endif %}</div>      
       <div class="col-md-6">{% if lake.long %} Latitute: <b> {{ lake.lat }}</b> {% endif %}</div> 
     </div>
   </div>
+  <div class="col-md-1"></div> 
+</div> 
+<hr>
+
+<div class="row mt-2">
+  <div class="col-md-1"></div>      
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-12">
+        <b>Current conditions</b></br>
+        {% for key, value in weather.items %} 
+            {{key}} - <b>{{value}}</b>
+          {% endfor %}
+      </div> 
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <b>5 hour forcast</b></br>
+      </div>      
+    </div>
   <div class="col-md-1"></div> 
 </div> 
 

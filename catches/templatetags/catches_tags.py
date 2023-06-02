@@ -7,4 +7,3 @@ register = template.Library()
 def week_list():
     weeks = Week.objects.all()
     return {'weeks': weeks}
-    

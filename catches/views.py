@@ -8,6 +8,10 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import simplekml
+import asyncio
+from env_canada import ECWeather
+from zoneinfo import ZoneInfo
+
 from catches.num_array import get_array
 
 from django.db.models import Q
@@ -438,6 +442,28 @@ class LakeListView_fav (UserAccessMixin, TemplateView):
 #     # Printing the result
 #     return my_dist
 
+def weather_data (lake):
+    ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
+    # ec_en = ECWeather(coordinates=(53.53, -113.49))
+    localtz = ZoneInfo('America/Edmonton')
+    utc = ZoneInfo('UTC')
+    asyncio.run(ec_en.update())
+    current_conditions = {}
+
+    for measurement in ec_en.conditions:  #go through all lines of the current condition
+        label = str(ec_en.conditions[measurement].get('label')).lower() #grab the lables.
+        # print (label)
+        try:
+            value = ec_en.conditions.get(label).get('value') #see if you can get the value for that label
+        except:
+            value = "" # if not, disreguard 
+        else:
+            # print (type(value))
+            if value != None: #as long as its not a Classtype None
+                current_conditions [label] = value  #add the lable and the value to the current conditions
+    return current_conditions #<class 'dict'>
+
+
 class LakeDetailView (UserAccessMixin, FormMixin, DetailView): 
     permission_required = 'catches.view_lake'
     
@@ -483,6 +509,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
+        context ['weather'] = weather_data (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         # context ['distance'] = distance_to_lake
         return context
 
