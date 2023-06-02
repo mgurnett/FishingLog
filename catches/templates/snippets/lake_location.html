@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-12">
         <b>Current conditions</b></br>
-        {% for key, value in weather.items %} 
+        {% for key, value in current.items %} 
             {{key}} - <b>{{value}}</b>
           {% endfor %}
       </div> 
@@ -30,6 +30,12 @@
     <div class="row">
       <div class="col-md-12">
         <b>5 hour forcast</b></br>
+          {% for hour in forecast%}
+            Forecast hour: <b>{{ hour.fore_time }}</b>
+            Conditions: <b>{{ hour.conditions }}</b>
+            Temperature: <b>{{ hour.temperature }}C</b>
+            Probability of Precipitation: <b>{{ hour.pop }}%</b></br>
+          {% endfor %}
       </div>      
     </div>
   <div class="col-md-1"></div> 
