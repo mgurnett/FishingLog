@@ -21,14 +21,14 @@
     <div class="row">
       <div class="col-md-12 text-center">
         <b>Current conditions</b></br>
-          {% if current.temperature %} Temperature: <b>{{ current.temperature }}&#8451;</b>{% endif %}
-          {% if current.humidex %} humidex: <b>{{ current.humidex }}&#8451;</b>{% endif %}</br>
-          {% if current.pressure %} pressure: <b>{{ current.pressure }} kPa</b>{% endif %}
-          {% if current.tendency %}  and <b>{{ current.tendency }}</b>{% endif %}
-          {% if current.humidity %} humidity: <b>{{ current.humidity }}%</b>{% endif %}
+        {% if current.temperature %} Temperature: <b>{{ current.temperature }}&#8451;</b>{% endif %}
+        {% if current.humidex %} humidex: <b>{{ current.humidex }}&#8451;</b>{% endif %}</br>
+        {% if current.pressure %} pressure: <b>{{ current.pressure }} kPa</b>{% endif %}
+        {% if current.tendency %}  and <b>{{ current.tendency }}</b>{% endif %}
+        {% if current.humidity %} humidity: <b>{{ current.humidity }}%</b>{% endif %}
       </div> 
     </div>
- 
+
     <div class="row">
       <div class="col-md-12">
         <b>5 hour forcast</b></br>
@@ -43,25 +43,26 @@
           </thead>
           <tbody>
             {% for hour in forecast%}
-            <tr>
-              <td scope="row">
-                {{ hour.fore_time }}
-              </td>
-              <td scope="row">
-                <img src="https://meteo.gc.ca/weathericons/{{ hour.icon }}.gif" >  {{ hour.conditions }}
-              </td>
-              <td>
-                {{ hour.temperature }}&#8451;
-              </td>
-              <td>
-                {{ hour.pop }}%
-              </td>
-            </tr>
+              <tr>
+                <td scope="row">
+                  {{ hour.fore_time }}
+                </td>
+                <td scope="row">
+                  <img src="https://meteo.gc.ca/weathericons/{{ hour.icon }}.gif" >  {{ hour.conditions }}
+                </td>
+                <td>
+                  {{ hour.temperature }}&#8451;
+                </td>
+                <td>
+                  {{ hour.pop }}%
+                </td>
+              </tr>
             {% endfor %} 
           </tbody>
         </table>
-      </div>      
-    </div>
+      </div>     
+    </div>  
+  </div>
   <div class="col-md-1"></div> 
 </div> 
 
