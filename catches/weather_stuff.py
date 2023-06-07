@@ -5,6 +5,40 @@ from zoneinfo import ZoneInfo
 localtz = ZoneInfo('America/Edmonton')
 utc = ZoneInfo('UTC')
 
+def get_alerts(data):
+    print (data)
+    title = ""
+    alert_type = ""
+    date = ""
+    warnings = data.get('warnings')
+    if warnings.get('value'):
+        print (f"This is a warning {warnings}")
+        title = warnings.get('value')[0].get('title')
+        alert_type = "warning"
+        date = warnings.get('value')[0].get('date')
+    watches = data.get('watches')
+    if watches.get('watches'):
+        title = watches.get('value')[0].get('title')
+        alert_type = "warning"
+        date = watches.get('value')[0].get('date')
+    advisories = data.get('advisories')
+    if advisories.get('value'):
+        title = advisories.get('value')[0].get('title')
+        alert_type = "advisory"
+        date = advisories.get('value')[0].get('date')
+    statements = data.get('statements')
+    if statements.get('value'):
+        title = statements.get('value')[0].get('title')
+        alert_type = "statement"
+        date = statements.get('value')[0].get('date')
+    endings = data.get('endings')
+    if endings.get('value'):
+        title = endings.get('value')[0].get('title')
+        alert_type = "ending"
+        date = endings.get('value')[0].get('date')
+        
+    return f"Alert type: {alert_type} with a title of {title} and a date of {date}"
+
 def weather_data (lake):
     ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
     # ec_en = ECWeather(coordinates=(53.53, -113.49))
@@ -30,6 +64,8 @@ def weather_data (lake):
     current_conditions ["pressure"] = current_dict.get("pressure")
     current_conditions ["tendency"] = current_dict.get("tendency")
     current_conditions ["humidity"] = current_dict.get("humidity")
+    alert_string = get_alerts (ec_en.alerts)
+    print (alert_string)
     # print (current_conditions)
     return current_conditions #<class 'dict'>
 
