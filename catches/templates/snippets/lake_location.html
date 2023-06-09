@@ -21,11 +21,14 @@
     <div class="row">
       <div class="col-md-12 text-center">
         <b>Current conditions</b></br>
+        {% if current.alerts.alert_type %} 
+          CURRENT ALERTS: <b style="color: {{ current.alerts.colour }}">{{ current.alerts.alert_type | title }}: {{ current.alerts.title }}</b> issued: {{ current.alerts.date }}</br>
+        {% endif %}
         {% if current.temperature %} Temperature: <b>{{ current.temperature }}&#8451;</b>{% endif %}
-        {% if current.humidex %} humidex: <b>{{ current.humidex }}&#8451;</b>{% endif %}</br>
-        {% if current.pressure %} pressure: <b>{{ current.pressure }} kPa</b>{% endif %}
-        {% if current.tendency %}  and <b>{{ current.tendency }}</b>{% endif %}
-        {% if current.humidity %} humidity: <b>{{ current.humidity }}%</b>{% endif %}
+        {% if current.humidex %} Humidex: <b>{{ current.humidex }}&#8451;</b>{% endif %}</br>
+        {% if current.pressure %} Pressure: <b>{{ current.pressure }} kPa</b>{% endif %}
+        {% if current.tendency %} and <b>{{ current.tendency }}</b>{% endif %}
+        {% if current.humidity %} Humidity: <b>{{ current.humidity }}%</b>{% endif %}
       </div> 
     </div>
 
