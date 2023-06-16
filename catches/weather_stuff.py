@@ -17,7 +17,7 @@ def get_alerts(data):
         title = endings.get('value')[0].get('title')
         alert_type = "ending"
         date = endings.get('value')[0].get('date')
-        colour = "#4C1187"
+        colour = "#66CC66"
 
     statements = data.get('statements')
     if statements.get('value'):
