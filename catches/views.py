@@ -70,7 +70,7 @@ def collect_tw_from_logs_and_hatches():
                     'type': 'H'
                     }
                 data.append(log_data)
-    return data
+    return data  #  list of dictionaries
 
 def get_query_set(pk): # get the data for the hatch trends for week detail view
 
@@ -982,6 +982,8 @@ class Graph(TemplateView):
         df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
         
         df = df.sort_values(by='temp_id')
+        # df = df.groupby(df.Date.dt.year)
+        df.to_csv('graph_data.csv')
 
         fig = px.scatter(df, 
             x='Week',
@@ -992,7 +994,7 @@ class Graph(TemplateView):
             text='Date'
             )
 
-        context= {'graph': fig.to_html()}
+        context = {'graph': fig.to_html()}
         return context
 
 class ChartGraph(TemplateView):
