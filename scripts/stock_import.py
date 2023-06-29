@@ -49,30 +49,31 @@ GENTOTYPE = (
 )
 
 def run():
-    with open('fish stock/stocking2020-2022.csv') as file:
+    with open('static/stock_reports/epa-alberta-fish-stocking-report-2023.csv') as file:
         reader = csv.reader(file)
-        next(reader)  # Advance past the header
+        # next(reader)  # Advance past the header
 
-        Stock.objects.all().delete()
+        # Stock.objects.all().delete()
 
         for row in reader:
+            print (row)
             try:  # check to see if we have the lake in the database already
-                lake_id = Lake.objects.get(ats=row[8])
+                lake_id = Lake.objects.get(ats=row[2])
             except:
                 print (f'We have a missing lake for {row[3]} ({row[4]})')
 
             try:  # check to see if we have the fish in the database already
-                fish_id = Fish.objects.get(abbreviation=row[9])
+                fish_id = Fish.objects.get(abbreviation=row[4])
             except:
-                print (f'We are looking for {row[9]} and we failed')
+                print (f'We are looking for {row[4]} and we failed')
 
             found=0
             strain = ""
             for index, str_look in enumerate(STRAIN_lookup):
-                if row[15] == str_look[0]:
+                if row[5] == str_look[0]:
                     found=index
             if found == 0:
-                print (f'We are going to look for {row[15]} in lake {lake_id} with fish {fish_id}')
+                print (f'We are going to look for {row[5]} in lake {lake_id} with fish {fish_id}')
             else:
                 strain = STRAIN_lookup[found][1]
 
@@ -90,8 +91,8 @@ def run():
                 strain = strain,
                 gentotype = geo,
                 )
-            # print (stock)
-            stock.save()
+            print (stock)
+            # stock.save()
 
     # print (all_stock.order_by(date_stocked))
     # lake = models.ForeignKey(Lake, on_delete=models.CASCADE)

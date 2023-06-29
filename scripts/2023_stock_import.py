@@ -38,12 +38,14 @@ def get_data(file_name):
     stock_num = 0
     with open(file_name) as file:
         file_contents = file.read()
+        # print ('file open')
     
     pattern = '(\d{1,2})[-][A-Z][a-z][a-z]-23'
 
     lines = []
     new_end = 0
     for x in re.finditer (pattern, file_contents):  #find where the line ends as the date is aways the end
+        print (x)
         start, end = x.span()
         date_obj = x.group()
         stock_date = datetime.strptime(date_obj, "%d-%b-%y") #for 2022 & 3
@@ -138,15 +140,15 @@ def run():
     #         print (stock)
     #         fp.write("%s\n" % stock)
 
-    count = 1
-    for all_stocks in Stock.objects.filter(date_stocked__year=2023):
-        print (f'Initial data: {count} - {all_stocks}')
-        count += 1
+    # count = 1
+    # for all_stocks in Stock.objects.filter(date_stocked__year=2023):
+    #     print (f'Initial data: {count} - {all_stocks}')
+    #     count += 1
 
-    Stock.objects.filter(date_stocked__year=2023).delete()
+    # Stock.objects.filter(date_stocked__year=2023).delete()
 
     count = 1
-    total_data = get_data('static/stock_reports/2023_raw.txt')
+    total_data = get_data('static/stock_reports/epa-alberta-fish-stocking-report-2023.txt')
     for row in total_data:
         stock = Stock (
             date_stocked = row[1],
@@ -159,9 +161,9 @@ def run():
         )
         print (f'Stock added data: {count} - {stock}')
         count += 1
-        stock.save()
+        # stock.save()
     
-    count = 1
-    for all_stocks in Stock.objects.filter(date_stocked__year=2023):
-        print (f'Post data: {count} - {all_stocks}')
-        count += 1
+    # count = 1
+    # for all_stocks in Stock.objects.filter(date_stocked__year=2023):
+    #     print (f'Post data: {count} - {all_stocks}')
+    #     count += 1
