@@ -26,7 +26,9 @@ STRAIN_lookup = [
     ('Bow River', 'BRBE'),
     ('Beitty/Bow River', 'BRBE'),
     ('Lac Ste. Anne', 'LSE'),
-    ('Job Lake', 'JBL')
+    ('Job Lake', 'JBL'),
+    ('Marie Creek', 'MC'),
+    ('Rock Island', 'RI'),
  ]
 STRAIN = (
     ("BEBE", "Beitty x Beitty"),
@@ -39,6 +41,8 @@ STRAIN = (
     ("TLTLS", "Trout Lodge / Silvers"),
     ("LSE", "Lac Ste. Anne"),
     ("JBL", "Job Lake"),
+    ("MC", 'Marie Creek'),
+    ("RI", 'Rock Island'),
 )
 
 GENTOTYPE = (
@@ -51,41 +55,42 @@ GENTOTYPE = (
 def run():
     with open('static/stock_reports/epa-alberta-fish-stocking-report-2023.csv') as file:
         reader = csv.reader(file)
-        # next(reader)  # Advance past the header
+        next(reader)  # Advance past the header
 
         # Stock.objects.all().delete()
 
         for row in reader:
-            print (row)
+            # print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
+                # print (lake_id)
             except:
-                print (f'We have a missing lake for {row[3]} ({row[4]})')
+                print (f'We have a missing lake for {row[0]} ({row[1]})')
 
             try:  # check to see if we have the fish in the database already
-                fish_id = Fish.objects.get(abbreviation=row[4])
+                fish_id = Fish.objects.get(abbreviation=row[3])
             except:
-                print (f'We are looking for {row[4]} and we failed')
+                print (f'We are looking for {row[3]} and we failed')
 
             found=0
             strain = ""
             for index, str_look in enumerate(STRAIN_lookup):
-                if row[5] == str_look[0]:
+                if row[4] == str_look[0]:
                     found=index
             if found == 0:
-                print (f'We are going to look for {row[5]} in lake {lake_id} with fish {fish_id}')
+                print (f'We are going to look for {row[4]} in lake {lake_id} with fish {fish_id}')
             else:
                 strain = STRAIN_lookup[found][1]
 
-            if row[14] in ("2N", "3N", "AF2N", "AF3N"):
-                geo = row[14]
+            if row[5] in ("2N", "3N", "AF2N", "AF3N"):
+                geo = row[5]
             else:
                 geo = ""
             
             stock = Stock (
-                date_stocked = row[0],
-                number = row[11],
-                length = row[12],
+                date_stocked = row[7],
+                number = row[6],
+                length = row[5],
                 lake = lake_id,
                 fish = fish_id,
                 strain = strain,

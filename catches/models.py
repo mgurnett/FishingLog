@@ -248,7 +248,7 @@ class Stock(models.Model):
 
     @property 
     def inch (self):
-        return round (self.length * .393701,1)
+        return round (float(self.length) * .393701,1)
 
     def __str__(self):
         return f'Stocking report: On {self.date_stocked} at {self.lake}, {self.number} ({self.length}cm or {self.inch}inch) {self.fish} ({self.strain}/{self.gentotype}) were stocked'
