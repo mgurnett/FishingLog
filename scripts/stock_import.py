@@ -59,7 +59,7 @@ def run():
 
         # Stock.objects.all().delete()
 
-        for row in reader:
+        for stock_count, row in enumerate(reader):
             # print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
@@ -88,15 +88,15 @@ def run():
                 geo = ""
             
             stock = Stock (
-                date_stocked = row[7],
-                number = row[6],
-                length = row[5],
+                date_stocked = row[8],
+                number = row[7],
+                length = row[6],
                 lake = lake_id,
                 fish = fish_id,
                 strain = strain,
                 gentotype = geo,
                 )
-            print (stock)
+            print (f'{stock_count+2} - {stock}')
             # stock.save()
 
     # print (all_stock.order_by(date_stocked))
