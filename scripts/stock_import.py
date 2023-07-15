@@ -97,7 +97,7 @@ def run():
                 gentotype = geo,
                 )
             print (f'{stock_count+2} - {stock}')
-            # stock.save()
+            stock.save()
 
     # print (all_stock.order_by(date_stocked))
     # lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
