@@ -27,6 +27,8 @@ STRAIN = (
     ("TLTLS", "Trout Lodge / Silvers"),
     ("LSE", "Lac Ste. Anne"),
     ("JBL", "Job Lake"),
+    ("MC", 'Marie Creek'),
+    ("RI", 'Rock Island'),
 )
 
 GENTOTYPE = (
