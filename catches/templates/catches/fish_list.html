@@ -24,7 +24,7 @@
                         <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}>
                         </a>
                         <div class="card-body">
-                            <p class="card-text">{{ fish.notes }}</p>
+                            <p class="card-text">{{ fish.notes | safe }} </p>
                         </div>
                     </div>
                 </div>
