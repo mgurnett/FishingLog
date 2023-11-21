@@ -1,0 +1,9 @@
+first option is to:
+./update.sh
+
+git reset --hard
+This will force the Linode site to be the same as Github.  You have to git pull to then update.
+
+You then need to change the group of db.sqlite to www-data
+ls -al shows ownership.
+sudo chgrp www-data db.sqlite3
