@@ -1,3 +1,5 @@
+To update FROM Github
+
 first option is to:
 ./update.sh
 
@@ -7,3 +9,12 @@ This will force the Linode site to be the same as Github.  You have to git pull 
 You then need to change the group of db.sqlite to www-data
 ls -al shows ownership.
 sudo chgrp www-data db.sqlite3
+
+To update TO Github
+
+git add .
+git commit -am "notes"
+git push
+
+
+All of this should work as it has been tested.
