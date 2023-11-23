@@ -24,6 +24,7 @@ from django.views.generic import (
 )
 from catches.forms import *
 from .weather_stuff import *
+from .distance import *
 
 class UserAccessMixin (PermissionRequiredMixin):
     def dispatch (self, request, *args, **kwargs):
@@ -430,17 +431,6 @@ class LakeListView_fav (UserAccessMixin, TemplateView):
         return context
 
 
-# def distance (lat, long):
-#     # Requires API key
-#     gmaps = googlemaps.Client(key='AIzaSyB-oms0UbhKCb8Cla7_M64Zq54BO8p5LOo')
-    
-#     # Requires cities name
-#     my_dist = gmaps.distance_matrix('Edmonton', 'Calgary')['rows'][0]['elements'][0]
-    
-#     # Printing the result
-#     return my_dist
-
-
 class LakeDetailView (UserAccessMixin, FormMixin, DetailView): 
     permission_required = 'catches.view_lake'
     
@@ -488,7 +478,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['form'] = Plan_form()
         context ['current'] = weather_data (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
-        # context ['distance'] = distance_to_lake
+        context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         return context
 
     def post(self, request, *args, **kwargs):
