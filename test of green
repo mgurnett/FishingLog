@@ -1,0 +1,40 @@
+navitem_bh {
+	background-color: #4C9C8F;
+}
+
+navitem_th {
+	color: #CCCCCC;
+}
+
+content_t {
+	color: #1A1A1A;
+}
+
+sidebar_b {
+	background-color: #A3C3BF;
+}
+
+footer_b {
+	background-color: #578D7F;
+}
+
+navitem_t {
+	color: #CCCCCC;
+}
+
+header_t {
+	color: #FFFFFF;
+}
+
+header_b {
+	background-color: #578D7F;
+}
+
+navitem_b {
+	background-color: #578D7F;
+}
+
+content_b {
+	background-color: #A3C3BF;
+}
+
