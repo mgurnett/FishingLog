@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_extensions',
     "taggit",
     'ckeditor',
+    'crispy_bootstrap4',
     
 ]
 
