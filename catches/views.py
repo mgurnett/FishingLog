@@ -464,6 +464,8 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         # print (subtotals)
         # lake_dist = Lake.objects.get(id=self.kwargs['pk'])
         # distance_to_lake = distance (lake_dist.lat, lake_dist.long)
+        current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
+        
         context = super().get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = stock_list
@@ -476,8 +478,9 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
-        context ['current'] = weather_data (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
-        context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+        if current_weather != "":
+            context ['current'] = current_weather  #<class 'dict'>
+            context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         return context
 

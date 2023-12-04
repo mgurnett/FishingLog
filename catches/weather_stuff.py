@@ -53,35 +53,52 @@ def get_alerts(data):
     return data_dict
 
 def weather_data (lake):
-    ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
-    # ec_en = ECWeather(coordinates=(53.53, -113.49))
-    asyncio.run(ec_en.update())
-    current_dict = {}
-
-    for measurement in ec_en.conditions:  #go through all lines of the current condition
-        label = str(ec_en.conditions[measurement].get('label')).lower() #grab the lables.
-        # print (label)
-        try:
-            value = ec_en.conditions.get(label).get('value') #see if you can get the value for that label
-        except:
-            value = "" # if not, disreguard 
-        else:
-            # print (type(value))
-            if value != None: #as long as its not a Classtype None
-                current_dict [label] = value  #add the lable and the value to the current conditions
-    # print (current_conditions)
-
+    # print ("starting weather")
     current_conditions = {}
-    current_conditions ["temperature"] = current_dict.get("temperature")
-    current_conditions ["humidex"] = current_dict.get("humidex")
-    current_conditions ["pressure"] = current_dict.get("pressure")
-    current_conditions ["tendency"] = current_dict.get("tendency")
-    current_conditions ["humidity"] = current_dict.get("humidity")
-    current_conditions ["alerts"] = get_alerts (ec_en.alerts)
-    # alert_string = get_alerts (ec_en.alerts)
-    # print (alert_string)
-    # print (current_conditions)
-    return current_conditions #<class 'dict'>
+    ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
+    try:
+        asyncio.run(ec_en.update())
+    except:
+        # print ("Reading the EC Failed.")
+        # current_conditions ["temperature"] = ""
+        # current_conditions ["humidex"] = ""
+        # current_conditions ["pressure"] = ""
+        # current_conditions ["tendency"] = ""
+        # current_conditions ["humidity"] = ""
+        # current_conditions ["alerts"] = ""
+        current_conditions = ""
+    else:
+        # ec_en = ECWeather(coordinates=(53.53, -113.49))
+        print ("Weather was read but there was an error")
+        
+        current_dict = {}
+        # print (ec_en.conditions)
+
+        for measurement in ec_en.conditions:  #go through all lines of the current condition
+            label = str(ec_en.conditions[measurement].get('label')).lower() #grab the lables.
+            # print (label)
+            try:
+                value = ec_en.conditions.get(label).get('value') #see if you can get the value for that label
+            except:
+                value = "" # if not, disreguard 
+            else:
+                # print (type(value))
+                if value != None: #as long as its not a Classtype None
+                    current_dict [label] = value  #add the lable and the value to the current conditions
+        # print (current_conditions)
+
+        current_conditions ["temperature"] = current_dict.get("temperature")
+        current_conditions ["humidex"] = current_dict.get("humidex")
+        current_conditions ["pressure"] = current_dict.get("pressure")
+        current_conditions ["tendency"] = current_dict.get("tendency")
+        current_conditions ["humidity"] = current_dict.get("humidity")
+        current_conditions ["alerts"] = get_alerts (ec_en.alerts)
+        # alert_string = get_alerts (ec_en.alerts)
+        # print (alert_string)
+        # print (current_conditions)
+    finally:
+        print ("Current conditions" + current_conditions)
+        return current_conditions #<class 'dict'>
 
 def five_day_forcast (lake):   
 

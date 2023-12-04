@@ -27,12 +27,12 @@
                 <ul class="list-unstyled card-columns" >
                     {% for lake in lakes %}
                         <li>
+                            {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                             <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
-                                {% if not lake.other_name == "" %} ({{ lake.other_name | title }}) {% endif %}
-                                {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                                {% if lake.log_set.count %}
-                                    <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
-                                {% endif %}
+                            {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
+                            {% if lake.log_set.count %}
+                                <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                            {% endif %}
                         </li>
                     {% endfor %} 
                 </ul> 

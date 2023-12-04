@@ -4,7 +4,7 @@ from django.utils import timezone
 from ckeditor.fields import RichTextField
 from PIL import Image
 from taggit.managers import TaggableManager
-from django.utils.text import slugify
+# from django.utils.text import slugify
 import pandas as pd
 
 ''' blank talks about being required!!!!!!!  
