@@ -1,19 +1,40 @@
+:root {
+  /* colours */
+  --cool_grey:  #A3C3BF;   /* background */
+  --dusty_teal: #4C9C8F;   /* buttons */
+  --grey_teal: #578D7F;   /* button hovers */
+  --navy_blue: #0C1446;   /* headers */
+  --navy_blue_l: #161B4E;   /* headers sub */
+  --stormy_blue: #175873;   /* links */
+  --deep_aqua: #2B7C85;   /* hovers */
+  --grey_blue: #5F788A;   /* text muted */
+  --greyish_teal: #87ACA3;   /* text muted */
+
+  /* uses */
+  --back_ground: var(--cool_grey); 
+  --main_text: black;
+  --link: var(--stormy_blue);
+  --link_hover: var(--deep_aqua);
+  --button: var(--dusty_teal);
+  --button_hover: var(--grey_teal);
+}
+
 body {
-  background: #fafafa;
-  color: #333333;
+  background: var(--back_ground);
+  color: var(--main_text);
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+  color: var(--main_text);
 }
 
 a {
-  color: #444444;
+  color: var(--link);
 }
 
 a:hover {
-  color: #428bca;
+  color: var(--link_hover);
   text-decoration: none;
 }
 
@@ -22,15 +43,15 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: var(--back_ground);
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+  color: var(--link);
 }
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+  color: var(--link_hover);
 }
 
 .site-header .navbar-nav .nav-link.active {
@@ -38,7 +59,7 @@ ul {
 }
 
 .content-section {
-  background: #ffffff;
+  background: var(--back_ground);
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -96,29 +117,41 @@ a.article-title:hover {
 .btn-primary:active,
 .btn-primary:visited,
 .btn-primary:focus {
-    background-color: #5f788a !important;
-    border-color: #5f788a !important;
-    color: #cbd5db;
+    background-color: var(--back_ground);
+    border-color: var(--back_ground);
+    color: var(--link);
     box-shadow: none !important;
 }
 
 .btn-primary:hover {
-    background-color: #5f788a !important;
-    border-color: #5f788a !important;
-    color: #ffffff;
+  background-color: var(--button_hover);
+  border-color: var(--button_hover);
+  color: var(--link_hover);
 }
 /* https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/ */
 .dropdown-toggle,
 .dropdown-toggle:active,
 .dropdown-toggle:visited,
 .dropdown-toggle:focus {
-  background-color: #5f788a !important;
-  border-color: #5f788a !important;
-  color: #cbd5db;
+  background-color: var(--back_ground);
+  border-color: var(--back_ground);
+  color: var(--link);
 }
 
 .dropdown-toggle:hover {
-    background-color: #5f788a !important;
-    border-color: #5f788a !important;
-    color: #ffffff;
+    background-color: var(--button_hover);
+    border-color: var(--button_hover);
+    color: var(--link_hover);
+}
+
+.card {
+  background-color: var(--back_ground);
+ }
+
+.card-header {
+  background-color: #5f788a; 
+}
+
+.card-footer {
+  background-color: #5f788a; 
 }
