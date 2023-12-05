@@ -97,7 +97,7 @@ def weather_data (lake):
         # print (alert_string)
         # print (current_conditions)
     finally:
-        print ("Current conditions" + current_conditions)
+        # print ("Current conditions" + current_conditions)
         return current_conditions #<class 'dict'>
 
 def five_day_forcast (lake):   
