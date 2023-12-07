@@ -1,0 +1,44 @@
+:root {
+
+    /* base back ground */
+    --cool_grey:  #A3C3BF;   /* background */
+
+    /* text */
+    --navy_blue: #0C1446;   /* headings */
+    --navy_blue_l: #161B4E;   /* headings sub */
+    --stormy_blue: #175873;   /* links */
+    --deep_aqua: #2B7C85;   /* link hover */
+    --grey_blue: #5F788A;   /* text muted */
+    --greyish_teal: #87ACA3;   /* text muted */
+
+    /* buttons */
+    --grey_teal: #578D7F;   /* buttons */
+    --dusty_teal: #4C9C8F;   /* button hovers */
+  
+/* ============================================== */
+
+    /* inherited */
+    --primary: #578D7F;
+    --secondary: var(--dusty_teal);
+
+  /* --secondary: #4C9C8F; */
+
+    /* base back ground */
+    --back_ground: var(--cool_grey); 
+
+    /* text */
+        /* headings */          --main_text: black;
+        /* headings sub */      --muted_header: var(--grey_blue);
+        /* links */             --link: var(--stormy_blue);
+        /* link hover */        --link_hover: var(--deep_aqua);
+        /* text muted #1*/      --muted_text_1: var(--grey_blue);
+        /* text muted #2*/      --muted_text_2: var(--greyish_teal);
+
+    /* buttons */
+        /* button */            --button: var(--grey_teal);
+        /* button_hover */      --button_hover: var(--dusty_teal);
+
+    /* Navbar */
+        /* nav_bar_bg */        --nav_bar: var(--grey_teal);
+  }
+  /* https://bootstrap.build/app/project/qJJCIZNKSASl */
