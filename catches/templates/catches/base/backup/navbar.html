@@ -1,0 +1,93 @@
+{% load static %}   
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{% url 'catch_home' %}">
+          <img src="{% static 'catches/site/fly_image.jpg' %}" alt="FLY" width="45" height="36" class="d-inline-block align-text-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <!-- Lakes -->
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary"><a href="{% url 'lake_list' %}">Lakes</a></button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'lake_create' %}">New Lake</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'log_list' %}">Fishing logs</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'stock_list' %}">Stocks</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'temp_list' %}">Temperatures</a>
+                </div>
+              </div>
+            <!-- Fish -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary"><a href="{% url 'fish_list' %}">Fish</a></button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'fish_create' %}">New fish</a>
+                  <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="#"></a>
+                  <a class="dropdown-item" href="#"></a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#"></a>
+                </div>
+              </div>
+            <!-- Flys -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary"><a href="{% url 'fly_type_list' %}">Flys</a></button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'fly_create' %}">New Fly</a>
+                  <a class="dropdown-item" href="{% url 'fly_list' %}">All flies</a>
+                  <a class="dropdown-item" href="{% url 'bug_list' %}">Insect groups</a>
+                  <a class="dropdown-item" href="#"></a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'hatch_list' %}">Hatch</a>
+                </div>
+              </div>
+            <!-- Media -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary"><a href="{% url 'library_list' %}">Library</a></button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'videos_list' %}">Videos</a>
+                  <a class="dropdown-item" href="{% url 'articles_list' %}">Articles</a>
+                  <a class="dropdown-item" href="{% url 'pictures_list' %}">Pictures</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'tags_list' %}">tags</a>
+                </div>
+              </div>
+            <!-- Blog --> 
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'search_list' %}" method="get">
+                <input class="form-control mr-sm-2" name="q" type="search" placeholder="search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form> 
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              <a class="nav-item nav-link" href="{% url 'admin:index' %}">ADMIN</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+              <!-- <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> -->
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
