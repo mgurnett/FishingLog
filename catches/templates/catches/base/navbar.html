@@ -11,6 +11,11 @@
         </h2>
     </span>
 
+    <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'search_list' %}" method="get">
+        <input class="form-control mr-sm-2" name="q" type="search" placeholder="search">
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form> 
+
     <!-- Navbar Right Side -->
     <div class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
@@ -22,10 +27,5 @@
             <!-- <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> -->
         {% endif %}
     </div>
-
-    <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
 
 </nav>

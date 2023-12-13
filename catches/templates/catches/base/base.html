@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
 
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,21 +23,35 @@
     {% include "catches/base/navbar.html" %}
 
     <!-- Begin page content -->
-    <main role="main" class="container" style="padding-top: 65px;">
+    <main role="main" class="container-fluid" style="padding-top: 65px;">
         {% block content %}
         {% endblock %}
         {% include 'catches/base/pagein.html' %} 
     </main>
 
     <!-- Stick footer -->
+
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-7">
-                    <h3 class="text-muted">Where water temp is king</h3>
+                <div class="col-4">
+                    <p class="text-center">
+                        <h5 class="text-muted">Where water temp is king</h5>
+                    </p>
                 </div>
-                <div class="col-5">
-                    <h5>&copy 2023</h5>
+                <div class="col-4">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    <p class="text-left">
+                        <h5 class="text-muted">&copy 2023</h5>
+                    </p>
                 </div>
             </div>
         </div>
