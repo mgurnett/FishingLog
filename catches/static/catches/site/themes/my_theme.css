@@ -8,6 +8,15 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
+
+  /* my theme colours */
+
+  --cool_grey:  #A3C3BF;   /* background */
+  --grey_teal: #578D7F;   /* navbar back ground */
+
+  --back_ground: var(--cool_grey); 
+  --nav_bar: var(--grey_teal);
+
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -19,7 +28,7 @@
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
-  --gray: #6c757d;card
+  --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #528078;
   --secondary: #eed75a;
@@ -28,7 +37,6 @@
   --warning: #FFE869;
   --danger: #703B3B;
   --light: #FDFBF7;
-  --dark: #555555;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -64,7 +72,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff; }
+  background-color: var(--back_ground);  }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -1227,8 +1235,8 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #555555;
-  border-color: #555555; }
+  background-color: var(--nav_bar);
+  border-color: var(--nav_bar); }
   .btn-dark:hover {
     color: #fff;
     background-color: #424242;
@@ -1237,8 +1245,8 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(85, 85, 85, 0.5); }
   .btn-dark.disabled, .btn-dark:disabled {
     color: #fff;
-    background-color: #555555;
-    border-color: #555555; }
+    background-color: var(--nav_bar);
+    border-color: var(--nav_bar); }
   .btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,
   .show > .btn-dark.dropdown-toggle {
     color: #fff;
@@ -1410,24 +1418,24 @@ fieldset:disabled a.btn {
       box-shadow: 0 0 0 0.2rem rgba(253, 251, 247, 0.5); }
 
 .btn-outline-dark {
-  color: #555555;
+  color: var(--nav_bar);
   background-color: transparent;
   background-image: none;
-  border-color: #555555; }
+  border-color: var(--nav_bar); }
   .btn-outline-dark:hover {
     color: #fff;
-    background-color: #555555;
-    border-color: #555555; }
+    background-color: var(--nav_bar);
+    border-color: var(--nav_bar); }
   .btn-outline-dark:focus, .btn-outline-dark.focus {
     box-shadow: 0 0 0 0.2rem rgba(85, 85, 85, 0.5); }
   .btn-outline-dark.disabled, .btn-outline-dark:disabled {
-    color: #555555;
+    color: var(--nav_bar);
     background-color: transparent; }
   .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
   .show > .btn-outline-dark.dropdown-toggle {
     color: #fff;
-    background-color: #555555;
-    border-color: #555555; }
+    background-color: var(--nav_bar);
+    border-color: var(--nav_bar); }
     .btn-outline-dark:not(:disabled):not(.disabled):active:focus, .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-dark.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(85, 85, 85, 0.5); }
@@ -2816,7 +2824,7 @@ input[type="button"].btn-block {
 
 .badge-dark {
   color: #fff;
-  background-color: #555555; }
+  background-color: var(--nav_bar); }
   .badge-dark[href]:hover, .badge-dark[href]:focus {
     color: #fff;
     text-decoration: none;
@@ -3719,7 +3727,7 @@ button.bg-light:focus {
   background-color: #f3e7ce !important; }
 
 .bg-dark {
-  background-color: #555555 !important; }
+  background-color: var(--nav_bar) !important; }
 
 a.bg-dark:hover, a.bg-dark:focus,
 button.bg-dark:hover,
@@ -3784,7 +3792,7 @@ button.bg-dark:focus {
   border-color: #FDFBF7 !important; }
 
 .border-dark {
-  border-color: #555555 !important; }
+  border-color: var(--nav_bar) !important; }
 
 .border-white {
   border-color: #fff !important; }
@@ -5609,7 +5617,7 @@ a.text-light:hover, a.text-light:focus {
   color: #f3e7ce !important; }
 
 .text-dark {
-  color: #555555 !important; }
+  color: var(--nav_bar) !important; }
 
 a.text-dark:hover, a.text-dark:focus {
   color: #3c3c3c !important; }
