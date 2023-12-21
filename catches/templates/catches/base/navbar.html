@@ -11,10 +11,12 @@
         </h2>
     </span>
 
-    <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'search_list' %}" method="get">
-        <input class="form-control mr-sm-2" name="q" type="search" placeholder="search">
-        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-    </form> 
+    <div class="container-fluid">
+        <form class="d-flex" role="search" action="{% url 'search_list' %}" method="get">
+        <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
 
     <!-- Navbar Right Side -->
     <div class="navbar-nav ml-auto">

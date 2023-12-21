@@ -21,7 +21,7 @@
   $cool_grey:  #A3C3BF;   /* background */
 
   $custom-colors:(
-    "dark_green": $grey_teal,   /* buttons */
+    "dark_green": grey_blue,
   );
 
   $theme-colors: map-merge($theme-colors, $custom-colors);
