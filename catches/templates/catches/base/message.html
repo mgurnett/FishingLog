@@ -1,17 +1,18 @@
 {% load tz %}
 <!-- messages -->
 <div class="row pt-3">
-	<div class="col-9 mx-auto">
-		<div class="alert alert-primary" role="alert">
-			<!-- Please note that nothing will be saved on this site while it is being upgraded |    |  As the site is upgraded it will be documented in blogs -->
-			{% if messages %}
+	<div class="col-2 mx-auto"></div>
+	<div class="col-7 mx-auto">
+		{% if messages %}
+			<div class="alert alert-primary" role="alert">
+				<!-- Please note that nothing will be saved on this site while it is being upgraded |    |  As the site is upgraded it will be documented in blogs -->
 				<ul class="messages">
 					{% for message in messages %}
-					<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+						<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 					{% endfor %}
 				</ul>
-			{% endif %}
-		</div>
+			</div>
+		{% endif %}
 	</div>
 	<div class="col-2 mx-auto">
 		<p class="text-center">
