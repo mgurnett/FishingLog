@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django_extensions',
     "taggit",
     'ckeditor',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
     
 ]
 
@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 LOGIN_REDIRECT_URL = 'catch_home'
 LOGIN_URL = 'login'
