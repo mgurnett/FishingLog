@@ -1,33 +1,37 @@
 {% load static %} 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{% url 'catch_home' %}">
-        <img src="{% static 'catches/site/fly_image.jpg' %}" alt="FLY" width="45" height="36" class="d-inline-block align-text-top">
-    </a>
-
-    <span class="navbar-text">
-        <h2>
-            Fishing Logs
-
-        </h2>
-    </span>
-
     <div class="container-fluid">
-        <form class="d-flex" role="search" action="{% url 'search_list' %}" method="get">
-        <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary" type="submit">Search</button>
-        </form>
+        <div class="col-1"></div>
+        <div class="col-1">  <!-- Navbar logo -->
+            <a class="navbar-brand" href="{% url 'catch_home' %}">
+                <img src="{% static 'catches/site/fly_image.jpg' %}" alt="FLY" width="45" height="36" class="d-inline-block">
+            </a>
+        </div>
+        <div class="col-3">  <!-- Navbar title -->
+            <span class="navbar-text">
+                <h2>Fishing Logs</h2>
+            </span>
+        </div>
+        <div class="col-3">  <!-- Navbar search -->
+            <div class="container-fluid">
+                <form class="d-flex" role="search" action="{% url 'search_list' %}" method="get">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-3 d-flex justify-content-center">  <!-- Navbar login buttons -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    <a class="nav-item nav-link" href="{% url 'admin:index' %}">ADMIN</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <!-- <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> -->
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-1"></div>
     </div>
-
-    <!-- Navbar Right Side -->
-    <div class="navbar-nav ml-auto">
-        {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-            <a class="nav-item nav-link" href="{% url 'admin:index' %}">ADMIN</a>
-        {% else %}
-            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-            <!-- <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> -->
-        {% endif %}
-    </div>
-
 </nav>

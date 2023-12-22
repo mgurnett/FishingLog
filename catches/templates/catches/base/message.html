@@ -1,8 +1,8 @@
 {% load tz %}
 <!-- messages -->
 <div class="row pt-3">
-	<div class="col-2 mx-auto"></div>
-	<div class="col-7 mx-auto">
+	<div class="col-1 mx-auto"></div>
+	<div class="col-7 mx-auto">  <!-- message message-bar -->
 		{% if messages %}
 			<div class="alert alert-primary" role="alert">
 				<!-- Please note that nothing will be saved on this site while it is being upgraded |    |  As the site is upgraded it will be documented in blogs -->
@@ -14,16 +14,17 @@
 			</div>
 		{% endif %}
 	</div>
-	<div class="col-2 mx-auto">
+	<div class="col-2 mx-auto">  <!-- message date and time -->
 		<p class="text-center">
 			{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}
 		</p>
 	</div>
-	<div class="col-1 mx-auto">
+	<div class="col-1 mx-auto">  <!-- message WEEK link -->
 		<p class="text-center ">
 			<a href="{% url 'week_list' %}">
 				<b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
 			</a>
 		</p>
 	</div>
+	<div class="col-1 mx-auto"></div>
 </div>
