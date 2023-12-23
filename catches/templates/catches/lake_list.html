@@ -1,31 +1,32 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<!-- messages -->
-{% include "catches/base/message.html" %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-1"></div>
+    <div class="col-6">  <!-- Title -->
         <h1>Lakes</h1> 
     </div>
-    <div class="col-md-1">   
+    <div class="col-1">  <!-- favorites button -->
             <button type="button" class="btn btn-dark_green">
                 <a href="{% url 'lake_list_fav' 'True' %}">Favourites</a>
             </button>  
     </div>
-    <div class="col-md-1">        
+    <div class="col-1">  <!-- region button -->    
             <button type="button" class="btn btn-primary">
                 <a href="{% url 'region_list' %}">Regions</a>
             </button> 
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-2 text-center">  <!-- favorites count -->
         {% if fav_count %}favourites: <b>{{ fav_count }}</b> {% endif %}
     </div>
+    <div class="col-1"></div>
 </div>
  
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-1"></div>
+    <div class="col-10">
         <div class="card border-0 bg-transparent" >
-            <div class="card-body" style="column-count: 1;">                                
+            <div class="card-body" style="column-count: 3;">                                
                 <ul class="list-unstyled card-columns" >
                     {% for lake in lakes %}
                         <li>
@@ -41,6 +42,7 @@
             </div>
         </div>
     </div>
+    <div class="col-1"></div>
 </div>
 
 {% endblock content %}

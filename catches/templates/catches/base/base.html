@@ -22,6 +22,8 @@
 
     <!-- Begin page content -->
     <main role="main" class="container-fluid" style="padding-top: 65px;">
+        <!-- messages -->
+        {% include "catches/base/message.html" %}
         {% block content %}
         {% endblock %}
         {% include 'catches/base/pagein.html' %} 
@@ -45,13 +47,12 @@
                 <div class="col-3">
                     <!-- Instagram -->
                     <a href="http://instagram.com/_u/edmontonflyfisherman/" target="_blank">
-                        <img src="static/catches/site/instagram_logo.svg" width="35" height="35" alt="Instagram" >
+                        <img src="{% static 'catches/site/instagram_logo.svg' %}" alt="Instagram" width="35" height="35" class="d-inline-block">
                     </a>
                 </div>
             </div>
         </nav>
     </footer>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
