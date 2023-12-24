@@ -3,15 +3,17 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from .models import *
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 
 class New_Regions_Form (forms.ModelForm): 
     class Meta:
         model = Region
         fields = '__all__'
-    name = forms.CharField ( required = True )       
-    notes = forms.CharField ( required = False )
+    name = forms.CharField(required=True)       
+    notes = forms.CharField(required=False)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -373,4 +375,4 @@ class Plan_form (forms.ModelForm):
                 Column(''),
                 css_class='form-row'
             )
-        )  
+        )

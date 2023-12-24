@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-1"> </div>
         <div class="col-10">
-            <div class="card">
+            <div class="card border-0 bg-transparent">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-5">
@@ -19,12 +19,14 @@
                 <p class="card-text"></p>
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-3"></div>
+                        <div class="col-3">
                             <a href="{% url 'week_detail' week.prev_num %}"><b>Previous week</b></a> 
                         </div>
-                        <div class="col-6 text-right ">
+                        <div class="col-3">
                             <a href="{% url 'week_detail' week.next_num %}"><b>Next week</b></a> 
                         </div>
+                        <div class="col-3"></div>
                     </div>
                 </div>
             </div>

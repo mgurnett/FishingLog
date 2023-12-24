@@ -19,7 +19,7 @@
         <div class = "row">
             {% for bug in bugs %}
             <div class="col-md-4">
-                <div class="card mb-2 box-shadow">
+                <div class="card mb-2 border-0 bg-transparent">
                     <div class="row">
                         <div class="col-md-8">
                             <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a>
@@ -44,8 +44,5 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class = "row">
-    </div>
-</div>
+
 {% endblock content %}

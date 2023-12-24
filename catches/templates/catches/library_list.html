@@ -3,8 +3,6 @@
 <!-- This is the media page. -->
 {% load tz %}
 {% block content %}
-<!-- messages -->
-{% include "catches/base/message.html" %}
  
 <div class="row">
     <div class="col-md-8 text-center">
@@ -17,7 +15,7 @@
         <div class = "row">
             {% for il in info_list %}
             <div class="col-md-4">
-                <div class="card mb-2 ">
+                <div class="card mb-2 border-0 bg-transparent">
                     <div class="row">
                         <div class="col-md-12">
                             <h4>
