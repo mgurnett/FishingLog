@@ -48,7 +48,19 @@ STRENGTH = (
     (4, "lots"),
     (5, "abundent"),
 )
-        
+
+DISTRICTS = (
+    (0,"Athabasca"),(1,"Barrhead"),(2,"Blairmore"),(3,"Bonnyville"),(4,"Brooks"),(5,"Calgary"),(6,"Camrose"),(7,"Canmore"),
+    (8,"Cardston"),(9,"Cd Grande Prairie"),(10,"Claresholm"),(11,"Cochrane"),(12,"Cold Lake"),(13,"Coronation"),(14,"Drayton Valley"),
+    (15,"Drumheller"),(16,"Edmonton"),(17,"Edson"),(18,"Evansburg"),(19,"Fairview"),(20,"Foremost"),(21,"Fort Mcmurray"),
+    (22,"Fort Vermilion"),(23,"Fox Creek"),(24,"Grande Cache"),(25,"Grande Prairie"),(26,"Hanna"),(27,"High Level"),
+    (28,"High Prairie"),(29,"High River"),(30,"Hinton"),(31,"Lac La Biche"),(32,"Lethbridge"),(33,"Lloydminster"),(34,"Manning"),
+    (35,"Medicine Hat"),(36,"Nordegg"),(37,"Olds"),(38,"Oyen"),(39,"Peace River"),(40,"Pincher Creek"),(41,"Ponoka"),(42,"Provost"),
+    (43,"Red Deer"),(44,"Rocky Mountain House"),(45,"Slave Lake"),(46,"Smoky Lake"),(47,"Spirit River"),(48,"St. Paul"),(49,"Stettler"),
+    (50,"Stony Plain"),(51,"Strathmore"),(52,"Sundre"),(53,"Swan Hills"),(54,"Valleyview"),(55,"Vegreville"),(56,"Vermilion"),
+    (57,"Vulcan"),(58,"Wetaskiwin"),(59,"Whitecourt"),(60,"unknown"),
+)
+
 class Region(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
@@ -182,7 +194,8 @@ class Lake(models.Model):
     ats = models.CharField (max_length=100, blank=True)
     lat = models.DecimalField (max_digits = 15, decimal_places=10, blank=True, null=True)
     long = models.DecimalField (max_digits = 15, decimal_places=10, blank=True, null=True)
-    district = models.CharField (max_length=100, blank=True)
+    district = models.CharField (max_length=100, blank=True, choices = DISTRICTS)
+    # district = models.CharField (max_length=100, blank=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
     static_tag = models.SlugField()
@@ -218,9 +231,9 @@ class Lake(models.Model):
         else:
             fav=""
         if self.other_name == "":
-            return f'{self.name}{fav} at {self.ats}'
+            return f'{self.name}{fav} at {self.ats} of {self.district}'
         else:
-            return f'{self.name} ({self.other_name}{fav}) at {self.ats}'  # used in the admin to set the name of the model
+            return f'{self.name} ({self.other_name}{fav}) at {self.ats} of {self.district}'  # used in the admin to set the name of the model
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.

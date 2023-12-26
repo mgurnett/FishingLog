@@ -1,41 +1,106 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
 
-<div class="row">
+<div class="row">  <!-- Title -->
     <div class="col-1"></div>
-    <div class="col-6">  <!-- Title -->
+    <div class="col-2">
+        <h1>Favourites</h1> 
+    </div>
+    <div class="col-8">
         <h1>Lakes</h1> 
-    </div>
-    <div class="col-1">  <!-- favorites button -->
-            <button type="button" class="btn btn-dark_green">
-                <a href="{% url 'lake_list_fav' 'True' %}">Favourites</a>
-            </button>  
-    </div>
-    <div class="col-1">  <!-- region button -->    
-            <button type="button" class="btn btn-primary">
-                <a href="{% url 'region_list' %}">Regions</a>
-            </button> 
-    </div>
-    <div class="col-2 text-center">  <!-- favorites count -->
-        {% if fav_count %}favourites: <b>{{ fav_count }}</b> {% endif %}
     </div>
     <div class="col-1"></div>
 </div>
  
-<div class="row">
+<div class="row">  <!-- Favourite data -->
     <div class="col-1"></div>
     <div class="col-10">
         <div class="card border-0 bg-transparent" >
             <div class="card-body" style="column-count: 3;">                                
                 <ul class="list-unstyled card-columns" >
-                    {% for lake in lakes %}
+                    {% for lake in favs %}
                         <li>
-                            {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                             <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
                             {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
                             {% if lake.log_set.count %}
-                                <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                                <span class="badge badge-dark badge-pill"> ( logs: {{ lake.log_set.count }} )</span>
                             {% endif %}
+                        </li>
+                    {% endfor %} 
+                </ul> 
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="container-fluid">  <!-- horizantal line -->
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-md-10">
+            <hr size="2px" color="#175873" noshade />
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<div class="row">  <!-- Regions title -->
+    <div class="col-1"></div>
+    <div class="col-2">
+        <h1>Regions</h1>
+    </div>
+    <div class="col-8"> 
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="row">  <!-- Regions data -->
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card border-0 bg-transparent" >
+            <div class="card-body" style="column-count: 3;">                                
+                <ul class="list-unstyled card-columns" >
+                    {% for reg in regions %}
+                        <li>
+                            <a href="{% url 'region_detail' reg.id %}">{{ reg.name | title }}  ( Lakes: {{ reg.lake_count }} )</a>
+                        </li>
+                    {% endfor %} 
+                </ul> 
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="container-fluid">  <!-- horizantal line -->
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-md-10">
+            <hr size="2px" color="#175873" noshade />
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<div class="row">  <!-- District title -->
+    <div class="col-1"></div>
+    <div class="col-2">
+        <h1>Districts</h1>
+    </div>
+    <div class="col-8"> 
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="row">  <!-- Districts data -->
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card border-0 bg-transparent" >
+            <div class="card-body" style="column-count: 3;">                                
+                <ul class="list-unstyled card-columns" >
+                    {% for dist in districts %}
+                        <li>
+                            <a href="#"> {{ dist.0 | title }}  ( Lakes: {{ dist.1 }} )</a>
                         </li>
                     {% endfor %} 
                 </ul> 
