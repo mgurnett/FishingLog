@@ -222,7 +222,8 @@ class Fly_typeCreateView(PermissionRequiredMixin,  CreateView):
             messages.SUCCESS,
             'The fly type was added'
         )
-        return super().form_valid (form)
+        return super().form_valid(form)
+
 
 class Fly_typeUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_fly_type'
@@ -398,6 +399,7 @@ class LakeListView (UserAccessMixin, ListView):
     context_object_name = 'lakes' 
     paginate_by = 72
 
+
 class LakeListView_regions (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
     
@@ -407,10 +409,11 @@ class LakeListView_regions (UserAccessMixin, TemplateView):
     template_name = 'catches/templates/catches/lake_list.html'
  
     def get_context_data(self, *args, **kwargs):
-        # print (self.kwargs)
+        # print (self.kwargs)   
         context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
         return context
+
 
 class LakeListView_fav (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
