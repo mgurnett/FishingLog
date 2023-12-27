@@ -396,6 +396,7 @@ class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
 class LakeListView (UserAccessMixin, ListView):
     permission_required = 'catches.view_lake'
     model = Lake
+    paginate_by = 5
     context_object_name = 'lakes' 
 
     def get_context_data(self, *args, **kwargs):
@@ -404,7 +405,7 @@ class LakeListView (UserAccessMixin, ListView):
         dists = []
         for d in dists_list:
             dist_count = Lake.objects.filter ( district = d[1] ).count()
-            di = (d[1], dist_count )
+            di = (d[0], d[1], dist_count )
             dists.append(di)
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
@@ -414,37 +415,18 @@ class LakeListView (UserAccessMixin, ListView):
         return context
 
 
-class LakeListView_regions (UserAccessMixin, TemplateView):
+class LakeListView_districts (UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
-    
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
-    template_name = 'catches/templates/catches/lake_list.html'
+    template_name = 'catches/templates/catches/lake_list_dist.html'
  
     def get_context_data(self, *args, **kwargs):
-        # print (self.kwargs)   
-        context = super (LakeListView_regions, self).get_context_data (*args, **kwargs)
-        context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
-        return context
-
-
-class LakeListView_fav (UserAccessMixin, TemplateView):
-    permission_required = 'catches.view_lake'
-    
-    model = Lake
-    context_object_name = 'lakes' # this is the name that we are passing to the template
-    paginate_by = 15
-    template_name = 'catches/templates/catches/lake_list.html'
-
-    def get_context_data(self, *args, **kwargs):
-        favourite = False
-        if self.kwargs['favourite'] == 'True':
-            favourite = True
-
-        context = super (LakeListView_fav, self).get_context_data (*args, **kwargs)
-        context ['lakes'] = Lake.objects.filter (favourite=favourite)
-        context ['fav_count'] = Lake.objects.filter (favourite=favourite).count()
+        dist = DISTRICTS[self.kwargs['pk']]  
+        context = super (LakeListView_districts, self).get_context_data (*args, **kwargs)
+        context ['lakes'] = Lake.objects.filter (district = dist[1])
+        context ['district'] = dist[1]
         return context
 
 

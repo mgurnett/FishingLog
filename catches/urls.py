@@ -110,8 +110,7 @@ urlpatterns = [
 
     path ('search/', views.searchview, name = 'search_list'),
 
-    path ('lakes/region/<int:pk>/', LakeListView_regions.as_view(), name = 'lake_list_reg'),
-    path ('favourite/<str:favourite>/', LakeListView_fav.as_view(), name = 'lake_list_fav'),
+    path ('lakes/district/<int:pk>/', LakeListView_districts.as_view(), name = 'lake_list_dist'),
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     path ('button/<int:pk>/', make_kml_file, name ='make_kml' ),

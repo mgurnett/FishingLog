@@ -100,7 +100,7 @@
                 <ul class="list-unstyled card-columns" >
                     {% for dist in districts %}
                         <li>
-                            <a href="#"> {{ dist.0 | title }}  ( Lakes: {{ dist.1 }} )</a>
+                            <a href="{% url 'lake_list_dist' dist.0 %}"> {{ dist.1 | title }}  ( Lakes: {{ dist.2 }} )</a>
                         </li>
                     {% endfor %} 
                 </ul> 

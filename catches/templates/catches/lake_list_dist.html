@@ -1,0 +1,37 @@
+{% extends "catches/base/base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-6">  <!-- Title -->
+        <h1>Lakes for the district of: {{ district }}</h1>
+    </div>
+    <div class="col-2 text-center">
+    </div>
+    <div class="col-1"></div>
+</div>
+ 
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card border-0 bg-transparent" >
+            <div class="card-body" style="column-count: 3;">                                
+                <ul class="list-unstyled card-columns" >
+                    {% for lake in lakes %}
+                        <li>
+                            {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+                            <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
+                            {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
+                            {% if lake.log_set.count %}
+                                <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %} 
+                </ul> 
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+{% endblock content %}
