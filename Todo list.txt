@@ -31,14 +31,13 @@ https://www.youtube.com/watch?v=cpEfYD51Oyw
 Good video about Many to Many
 https://www.youtube.com/watch?v=2KqhBkMv7aM&t=124s
 
-                <li class="list-group-item list-group-item-light"><a href="https://github.com/mgurnett" target="_blank" >Github</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://www.layoutit.com/build?#" target="_blank" >Bootstrap builder</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://getbootstrap.com/docs/4.6/getting-started/introduction/" target="_blank" >Bootstrap 4.X</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://bootswatch.com/darkly/" target="_blank" >Theme</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://www.w3schools.com/bootstrap4/default.asp" target="_blank" >Bootstrap 4 Tutorial</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://www.pythonanywhere.com/user/mgurnett/" target="_blank" >Python Anywhere</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://mycyberuniverse.com/how-fix-fatal-authentication-failed-for-https-github-com.html" target="_blank" >Github clone</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://medium.com/swlh/django-forms-for-many-to-many-fields-d977dec4b024" target="_blank" >Many to many</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://www.codesnail.com/adding-the-tagging-functionality-in-the-blog-django-blog-7/" target="_blank" >Adding the Tagging Functionality in the Blog</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://webapp.navionics.com/?lang=en#boating@8&key=m%7BwiI~gbmT" target="_blank" >Navionics lake maps</a></li>
-                <li class="list-group-item list-group-item-light"><a href="https://fishing-app.gpsnauticalcharts.com/i-boating-fishing-web-app/fishing-marine-charts-navigation.html?title=Cow+Lake+boating+app#10.26/53.8607/-114.2421" target="_blank" >GPS maps</a></li>
+https://github.com/mgurnett" target="_blank" >Github</a></li>
+https://www.layoutit.com/build?#" target="_blank" >Bootstrap builder</a></li>
+https://bootswatch.com/darkly/" target="_blank" >Theme</a></li>
+https://www.w3schools.com/bootstrap4/default.asp" target="_blank" >Bootstrap 4 Tutorial</a></li>
+https://www.pythonanywhere.com/user/mgurnett/" target="_blank" >Python Anywhere</a></li>
+https://mycyberuniverse.com/how-fix-fatal-authentication-failed-for-https-github-com.html" target="_blank" >Github clone</a></li>
+https://medium.com/swlh/django-forms-for-many-to-many-fields-d977dec4b024" target="_blank" >Many to many</a></li>
+https://www.codesnail.com/adding-the-tagging-functionality-in-the-blog-django-blog-7/" target="_blank" >Adding the Tagging Functionality in the Blog</a></li>
+https://webapp.navionics.com/?lang=en#boating@8&key=m%7BwiI~gbmT" target="_blank" >Navionics lake maps</a></li>
+https://fishing-app.gpsnauticalcharts.com/i-boating-fishing-web-app/fishing-marine-charts-navigation.html?title=Cow+Lake+boating+app#10.26/53.8607/-114.2421" target="_blank" >GPS maps</a></li>

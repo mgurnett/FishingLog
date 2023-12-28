@@ -386,7 +386,6 @@ class FlyUpdateView(PermissionRequiredMixin,  UpdateView):
 
 class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_fly'
-    
     model = Fly
     success_url = "/flys/"
 

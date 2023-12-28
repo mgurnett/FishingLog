@@ -153,7 +153,7 @@ class New_Lake_Form (forms.ModelForm):
     ats = forms.CharField ( max_length = 100, required = False ) 
     lat = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
     long = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
-    district = forms.CharField( max_length = 100, required = False )
+    district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
     static_tag = forms.CharField( max_length = 100, required = False )
     gps_url = forms.CharField( max_length = 100, required = False )
     waterbody_id = forms.IntegerField( required = False )
@@ -167,30 +167,30 @@ class New_Lake_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('other_name', css_class='form-group col-md-4 mb-0'),
-                Column('favourite', css_class='form-group col-md-2 mb-0'),
+                Column('name',          css_class='form-group col-md-4 mb-0'),
+                Column('other_name',    css_class='form-group col-md-4 mb-0'),
+                Column('favourite',     css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('district', css_class='form-group col-md-3 mb-0'),
-                Column('static_tag', css_class='form-group col-md-3 mb-0'),
-                Column('region', css_class='form-group col-md-3 mb-0'),
+                Column('district',      css_class='form-group col-md-3 mb-0'),
+                Column('static_tag',    css_class='form-group col-md-3 mb-0'),
+                Column('region',        css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('ats', css_class='form-group col-md-2 mb-0'),
-                Column('lat', css_class='form-group col-md-2 mb-0'),
-                Column('long', css_class='form-group col-md-2 mb-0'),
-                Column('waterbody_id', css_class='form-group col-md-2 mb-0'),
+                Column('ats',           css_class='form-group col-md-2 mb-0'),
+                Column('lat',           css_class='form-group col-md-2 mb-0'),
+                Column('long',          css_class='form-group col-md-2 mb-0'),
+                Column('waterbody_id',  css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('notes', css_class='form-group col-md-6 mb-0'),
+                Column('notes',         css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('gps_url', css_class='form-group col-md-6 mb-0'),
+                Column('gps_url',       css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -298,28 +298,22 @@ class New_Log_Form (forms.ModelForm):
         # fields = '__all__' 
         fields = ['catch_date', 'notes', 'lake', 'location', 
         'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed']  
-
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=DateInput )
-
     notes = forms.CharField ( required = False )
-
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all())
     location = forms.CharField ( required = False ) 
-
     temp = forms.ModelChoiceField(
         label='Water Temperature',
         queryset=Temp.objects.all(),
         required = False )
-
     fly = forms.ModelChoiceField(
         queryset=Fly.objects.all(),
         required = False )
     fly_size = forms.CharField ( required = False ) 
     fly_colour = forms.CharField ( required = False ) 
-
     fish = forms.ModelChoiceField(
         queryset=Fish.objects.all(), required = False )
     length = forms.CharField ( required = False, initial=0.0 ) 
@@ -332,28 +326,28 @@ class New_Log_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('lake', css_class='form-group col-md-3 mb-0'),
-                Column('location', css_class='form-group col-md-3 mb-0'),
-                Column('temp', css_class='form-group col-md-2 mb-0'),
-                Column('catch_date', css_class='form-group col-md-2 mb-0'),
-                Column('fish_swami', css_class='form-group col-md-2 mb-0'),
+                Column('lake',          css_class='form-group col-md-3 mb-0'),
+                Column('location',      css_class='form-group col-md-3 mb-0'),
+                Column('temp',          css_class='form-group col-md-2 mb-0'),
+                Column('catch_date',    css_class='form-group col-md-2 mb-0'),
+                Column('fish_swami',    css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('fish', css_class='form-group col-md-4 mb-0'),
-                Column('length', css_class='form-group col-md-3 mb-0'),
-                Column('weight', css_class='form-group col-md-3 mb-0'),
-                Column('num_landed', css_class='form-group col-md-2 mb-0'),
+                Column('fish',          css_class='form-group col-md-4 mb-0'),
+                Column('length',        css_class='form-group col-md-3 mb-0'),
+                Column('weight',        css_class='form-group col-md-3 mb-0'),
+                Column('num_landed',    css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('fly', css_class='form-group col-md-4 mb-0'),
-                Column('fly_size', css_class='form-group col-md-4 mb-0'),
-                Column('fly_colour', css_class='form-group col-md-4 mb-0'),
+                Column('fly',           css_class='form-group col-md-4 mb-0'),
+                Column('fly_size',      css_class='form-group col-md-4 mb-0'),
+                Column('fly_colour',    css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('notes', css_class='form-group col-md-12 mb-0'),
+                Column('notes',         css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
