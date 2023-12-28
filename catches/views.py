@@ -263,9 +263,7 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
 
 class FishCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_fish'
-
     model = Fish
-
     fields = '__all__' 
     # form_class = New_Fish_Form
     success_message = "New Fish saved"
@@ -396,17 +394,19 @@ class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
 class LakeListView (UserAccessMixin, ListView):
     permission_required = 'catches.view_lake'
     model = Lake
-    paginate_by = 5
     context_object_name = 'lakes' 
 
     def get_context_data(self, *args, **kwargs):
 
         dists_list = list(DISTRICTS)
         dists = []
+        lake_num = 0
         for d in dists_list:
             dist_count = Lake.objects.filter ( district = d[1] ).count()
             di = (d[0], d[1], dist_count )
             dists.append(di)
+            lake_num = lake_num + dist_count
+        # print (f"Total lakes is: {lake_num}")
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
         context ['favs'] = Lake.objects.filter (favourite=True)

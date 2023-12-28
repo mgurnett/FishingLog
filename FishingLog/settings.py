@@ -44,11 +44,10 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'catches.apps.CatchesConfig',
     'crispy_forms',
+    'crispy_bootstrap5',
     'django_extensions',
     "taggit",
-    'ckeditor',
-    'crispy_bootstrap5',
-    
+    'ckeditor',    
 ]
 
 MIDDLEWARE = [
@@ -135,7 +134,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = 'catch_home'
 LOGIN_URL = 'login'

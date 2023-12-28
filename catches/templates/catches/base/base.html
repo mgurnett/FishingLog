@@ -14,14 +14,20 @@
     <!-- Themes are from https://bootstrap.themes.guide/ -->
     <link rel="stylesheet" type="text/css" href="{% static 'catches/site/main.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'catches/site/favicon.png' %}" >
-</head>
+</head> 
+<style>
+    body { 
+        padding-bottom: 65px; 
+        padding-top: 65px; 
+    }
+</style>
 
 <body>
     <!-- Fixed navbar -->
     {% include "catches/base/navbar.html" %}
 
     <!-- Begin page content -->
-    <main role="main" class="container-fluid" style="padding-top: 65px;">
+    <main role="main" class="container-fluid"">
         <!-- messages -->
         {% include "catches/base/message.html" %}
         {% block content %}
@@ -32,7 +38,7 @@
     <!-- Stick footer -->
     <footer class="footer">
         <nav class="navbar navbar-dark fixed-bottom bg-dark">
-            <div class="container-fluid" style="padding-bottom: 5px;">
+            <div class="container-fluid">
                 <div class="col-2"></div>
                 <div class="col-4">
                     <span class="navbar-text">
@@ -53,6 +59,7 @@
             </div>
         </nav>
     </footer>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
