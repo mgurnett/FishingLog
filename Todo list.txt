@@ -1,17 +1,16 @@
 Todo list.
 
-Change navbar 
-change navbar colours
-change home page layout  - add message bar and date time bar
-set colours for that 
-
-
 look into icecream for replaceing print for debugging
 look at adding coloram for added colors to debugging.
 
 
-
 -change the media models to create tags.
+
+- do a better job of images
+
+- work on validations
+
+- 
 
 Update and rethink tags.
 
