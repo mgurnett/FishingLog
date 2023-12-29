@@ -161,6 +161,7 @@ def run():
         )
         print (f'Stock added data: {count} - {stock}')
         count += 1
+        # if you add stock.full_clean() it runs the validators first.  VERY useful.
         # stock.save()
     
     # count = 1
