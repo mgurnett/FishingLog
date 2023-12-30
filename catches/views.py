@@ -401,7 +401,7 @@ class LakeListView (UserAccessMixin, ListView):
         dists = []
         lake_num = 0
         for d in dists_list:
-            dist_count = Lake.objects.filter ( district = d[1] ).count()
+            dist_count = Lake.objects.filter ( district = d[0] ).count()
             di = (d[0], d[1], dist_count )
             dists.append(di)
             lake_num = lake_num + dist_count
@@ -424,7 +424,7 @@ class LakeListView_districts (UserAccessMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         dist = DISTRICTS[self.kwargs['pk']]  
         context = super (LakeListView_districts, self).get_context_data (*args, **kwargs)
-        context ['lakes'] = Lake.objects.filter (district = dist[1])
+        context ['lakes'] = Lake.objects.filter (district = dist[0])
         context ['district'] = dist[1]
         return context
 

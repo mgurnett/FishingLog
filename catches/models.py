@@ -192,10 +192,10 @@ class Lake(models.Model):
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
     ats = models.CharField (max_length=100, blank=True)
-    lat = models.DecimalField (max_digits = 15, decimal_places=10, blank=True, null=True)
-    long = models.DecimalField (max_digits = 15, decimal_places=10, blank=True, null=True)
-    district = models.CharField (max_length=100, blank=True, choices = DISTRICTS)
-    # district = models.CharField (max_length=100, blank=True)
+    lat = models.DecimalField (max_digits = 25, decimal_places=20, blank=True, null=True)
+    long = models.DecimalField (max_digits = 25, decimal_places=20, blank=True, null=True)
+    # district = models.CharField (max_length=100, blank=True, choices = DISTRICTS)
+    district = models.IntegerField (blank=True, null=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
     static_tag = models.SlugField()
@@ -222,7 +222,12 @@ class Lake(models.Model):
             output = f'{self.name} ({self.other_name}{fav})' 
         else:
             output = f'{self.name}{fav}' 
-        return output    
+        return output   
+
+    @property 
+    def dist_name (self):
+        dist = DISTRICTS[self.district][1]
+        return dist 
 
 # https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
     def __str__(self):
@@ -231,9 +236,9 @@ class Lake(models.Model):
         else:
             fav=""
         if self.other_name == "":
-            return f'{self.name}{fav} at {self.ats} of {self.district}'
+            return f'{self.name}{fav} at {self.ats} of {self.dist_name}'
         else:
-            return f'{self.name} ({self.other_name}{fav}) at {self.ats} of {self.district}'  # used in the admin to set the name of the model
+            return f'{self.name} ({self.other_name}{fav}) at {self.ats} of {self.dist_name}'  # used in the admin to set the name of the model
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.

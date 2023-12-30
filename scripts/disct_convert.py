@@ -21,6 +21,11 @@ def run():
     # for d in dists:
     #     print (d[1])
 
+    # for l in lakes:
+    #     loc = find_dist_num(dists, l.district)
+    #     print (f"{l} + {l.district} + {loc}")
+    #     l.district_int = loc
+    #     l.save()
+
     for l in lakes:
-        loc = find_dist_num(dists, l.district)
-        print (f"{l} + {l.district} + {loc}")
+        print (l.dist_name)
