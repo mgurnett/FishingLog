@@ -1,37 +1,42 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-6">  <!-- Title -->
-        <h1>Lakes for the district of: {{ district }}</h1>
-    </div>
-    <div class="col-md-2 text-center">
-    </div>
-    <div class="col-md-1"></div>
+<div class="container">
+	<div class="row"> <!--  Top card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10"> 
+			<div class="card border-0 bg-transparent">	
+				<div class="card-header">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-4"> 
+							<h5>
+								District: <b>{{ district | title }}</b>
+							</h5>
+						</div>
+						<div class="col-md-6 text-end">
+							Lakes in the district: <b></b>
+						</div>
+						<div class="col-md-1"></div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+                        <div class="col-md-8"> 
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'make_kml' id "D" %}" type="submit" >Make KML file</a>
+						</div>
+                        <div class="col-md-4 text-end"></div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div> <!--  Top card-->
+	<div class="row"> <!--  Bottom card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10"> 
+			{% include 'snippets/lake_list.html' %}
+		</div>
+		<div class="col-md-1"> </div>
+	</div> <!--  Bottom card-->
 </div>
- 
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div class="card border-0 bg-transparent" >
-            <div class="card-body" style="column-count: 3;">                                
-                <ul class="list-unstyled card-columns" >
-                    {% for lake in lakes %}
-                        <li>
-                            {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
-                            <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
-                            {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
-                            {% if lake.log_set.count %}
-                                <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
-                            {% endif %}
-                        </li>
-                    {% endfor %} 
-                </ul> 
-            </div>
-        </div>
-    </div>
-    <div class="col-md-1"></div>
-</div>
-
 {% endblock content %}

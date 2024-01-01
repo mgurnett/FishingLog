@@ -20,21 +20,23 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-7">
-							{% if lake.region %} Region: <a href="{% url 'region_detail' lake.region.id %}"><b>{{ lake.region | title }}</b></a>{% endif %}
+							{% if lake.region %} 
+								Region: <a href="{% url 'region_detail' lake.region.id %}"><b>{{ lake.region | title }}</b></a>
+							{% endif %}
 						</div>
-						<div class="col-md-5">
-							{% if lake.district %}  District: <b>{{ lake.dist_name| title  }}</b>  {% endif %}
+						<div class="col-md-5"> 
+							District: <a href="{% url 'lake_list_dist' lake.district %}"> <b>{{ lake.dist_name | title  }}</b></a>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 						<div class="col-md-4 text-right">
 							{% if lake.gps_url %} 
-								<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ lake.gps_url }}" 
+								<a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ lake.gps_url }}" 
 									target="_blank" type="submit" >gps</a>
 							{% endif %}
 							{% if lake.lat %} 
-								<a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" 
+								<a class="btn btn-primary btn-sm mt-1 mb-1" href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" 
 									target="_blank" type="submit" >map</a>
 								{{ distance.distance_text }} or {{ distance.time_text }}
 							{% endif %}
@@ -55,18 +57,18 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-5 text-centre">
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
-							<a class="btn btn-danger    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
+							<a class="btn btn-primary    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
 						</div>
                         <div class="col-md-7 text-right">
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">New Hatch</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">New log</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">New Hatch</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">New log</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
                         </div>
                     </div>
 				</div>

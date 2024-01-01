@@ -7,7 +7,7 @@
             {% for reg in regions %}
             <div class="col-md-4">
                 <div class="card mb-4 border-0 bg-transparent"> 
-                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name}} </a> 
+                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name }} </a> 
                     Lakes in the region: {{ reg.lake_count }}
                     <div class="card-body">
                         <p class="card-text">{{ reg.notes }}</p>
@@ -17,7 +17,7 @@
             {% endfor %}
         </div>
     </div>
-</div>
+</div> 
 <div class="container">
     <div class = "row">
         <button type="button" class="btn btn-primary">

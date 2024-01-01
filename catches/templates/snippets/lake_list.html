@@ -2,11 +2,13 @@
     <div class="container">
         <div class="list-group">
             {% for lake in lakes %}
-                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item list-group-item-action">
+                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item list-group-item-primary">
                     {{ lake.lake_info }}
-                    {% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+                    {% if lake.favourite %}
+                        <i class="fas fa-check-circle"></i>
+                    {% endif %}
                     {% if lake.log_set.count %}
-                    <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                        <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
                     {% endif %}
                 </a>
             {% endfor %}

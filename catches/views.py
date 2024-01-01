@@ -131,22 +131,30 @@ def get_weeks(pk):
     return week_list
 
 def make_kml_file (request, *args, **kwargs):
-    # print (kwargs)
-    # region_id=kwargs['pk']
-    # region_id = pk
-    lakes = Lake.objects.filter (region=kwargs['pk'])
-    # region_name = Region.objects.get(pk=kwargs).name
-    region_name = 'test'
+    # print (kwargs)  {'pk': '8', 'model': 'R'}
+    id = kwargs['pk']
+    model = kwargs['model']
+    # print (f"model = {model} and id is {id}")
+    if model == "R":
+        lakes = Lake.objects.filter (region=id)
+        name = Region.objects.get(pk=id).name
+        return_to_page = "region_detail"
+    if model == "D":
+        lakes = Lake.objects.filter (district=id)
+        name = DISTRICTS[int(id)][1]
+        # return_to_page = "catches/lake_list.html"
+        return_to_page = "lake_list_dist"         
     kml = simplekml.Kml()
     for lake in lakes:
         kml.newpoint(
             name = lake.lake_info, 
-            description = region_name,
+            description = name,
             coords=[(lake.long,lake.lat)]
         )  # lon, lat optional height
-        file_name = f'media/{region_name}.kml'
+        file_name = f'media/{name}.kml'
     kml.save(file_name)
-    return render (request, 'catches/region_list.html', {})
+    # return render (request, return_to_page, {})
+    return redirect (return_to_page, id)
 
 def home (request):
     return render (request, 'catches/home.html', {})
@@ -426,6 +434,7 @@ class LakeListView_districts (UserAccessMixin, TemplateView):
         context = super (LakeListView_districts, self).get_context_data (*args, **kwargs)
         context ['lakes'] = Lake.objects.filter (district = dist[0])
         context ['district'] = dist[1]
+        context ['id'] = dist[0]
         return context
 
 
