@@ -4,35 +4,25 @@
 	<div class="row">
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
-			<div class="card">
+			<div class="card border-0 bg-transparent">
 				<h5 class="card-header">
 					{{ fly_type.name | title }}
 				</h5>
 				<div class="card-body">
-					<p class="card text-center">
+					<p class="card  border-0 bg-transparent text-center">
 						{% if fly_type.image %}<img src="{{ fly_type.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
 					</p>
 					<p>
 						{{ fly_type.notes | safe }}
 					</p>
-				
-					<div class="col-md-12">
-						<div class="row">
-							<div class="col-md-1"></div>
-							<div class="col-md-10">
-															
-							</div>
-							<div class="col-md-1"></div>
-						</div>
-					</div>
 				</div>
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> </div>
                         <div class="col-md-4">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_type_update' fly_type.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'fly_type_delete' fly_type.id %}" type="submit" >delete</a>
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='fly_type' pk=fly_type.id %}" type="submit" >new {{ fly_type.name | title }} </a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_type_update' fly_type.id %}" type="submit" >edit</a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_type_delete' fly_type.id %}" type="submit" >delete</a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='fly_type' pk=fly_type.id %}" type="submit" >new {{ fly_type.name | title }} </a>
                         </div>
                     </div>
 				</div>
@@ -47,7 +37,7 @@
 				<div class="container">
 					<div class="row">
 						{% for fly in flys %}
-							<div class="card col-6">
+							<div class="card col-6 border-0 bg-transparent">
 								<div class="row">
 									<p class="card-header card-link col-4">
 										<a href="{% url 'fly_detail' fly.id %}" ><b>{{ fly.name | title }}</b> </a>
@@ -64,7 +54,7 @@
 									</p>
 								</div>
 								<div class="card-body">
-									<p class="card text-center">
+									<p class="card text-center border-0 bg-transparent">
 										<a href="{% url 'fly_detail' fly.id %}" ></a>
 											{% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
 										</a>
