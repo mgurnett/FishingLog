@@ -1,18 +1,24 @@
 <div class="album py-1 ">
     <div class="container">
-        <div class="list-group">
-            {% for lake in lakes %}
-                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item list-group-item-primary">
-                    {{ lake.lake_info }}
-                    {% if lake.favourite %}
-                        <i class="fas fa-check-circle"></i>
-                    {% endif %}
-                    {% if lake.log_set.count %}
-                        <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
-                    {% endif %}
-                </a>
-            {% endfor %}
-        </div>
+        <table class="table table-striped table-hover">
+            <tbody>
+                {% for lake in lakes %}
+                    <tr>
+                        <th scope="row">   
+                            <a href="{% url 'lake_detail' lake.id %}" class="list-group-item">
+                                {{ lake.lake_info }}
+                                {% if lake.favourite %}
+                                    <i class="fas fa-check-circle"></i>
+                                {% endif %}
+                                {% if lake.log_set.count %}
+                                    <span class="badge badge-dark badge-pill">{{ lake.log_set.count }}</span>
+                                {% endif %}
+                            </a>
+                        </th>
+                    </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
     </div>
 </div>
   

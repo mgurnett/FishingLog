@@ -1,26 +1,26 @@
 <table class="table table-striped table-hover">
-    <thead>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Snippit</th>
+      <th scope="col">Date</th>
+      <th scope="col">tags</th>
+      <th scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for video in videos_list %}
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Author</th>
-        <th scope="col">Snippit</th>
-        <th scope="col">Date</th>
-        <th scope="col">tags</th>
-        <th scope="col">Link</th>
+        <th scope="row">
+          <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name | title }} </a>
+        </th>
+        <td>{{ video.author | title }}</th>
+        <td>{{ video.snippet }}</th>
+        <td>{{ video.date_added }}</th>
+        <td>{{ video.tag_list }}</th>
+        <td><a href="{{ video.url }}" target="_blank" >Youtube</a></th>
       </tr>
-    </thead>
-    <tbody>
-        {% for video in videos_list %}
-      <tr>
-            <th scope="row">
-                <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name | title }} </a>
-                </th>
-            <td>{{ video.author | title }}</th>
-            <td>{{ video.snippet }}</th>
-            <td>{{ video.date_added }}</th>
-            <td>{{ video.tag_list }}</th>
-            <td><a href="{{ video.url }}" target="_blank" >Youtube</a></th>
-      </tr>
-      {% endfor %} 
-    </tbody>
-  </table>
+    {% endfor %} 
+  </tbody>
+</table>
