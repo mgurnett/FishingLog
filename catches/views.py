@@ -427,7 +427,7 @@ class LakeListView_districts (UserAccessMixin, TemplateView):
     model = Lake
     context_object_name = 'lakes' # this is the name that we are passing to the template
     paginate_by = 30
-    template_name = 'catches/templates/catches/lake_list_dist.html'
+    template_name = 'catches/lake_list_dist.html'
  
     def get_context_data(self, *args, **kwargs):
         dist = DISTRICTS[self.kwargs['pk']]  

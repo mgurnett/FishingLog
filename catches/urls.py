@@ -41,7 +41,8 @@ urlpatterns = [
     path ('lakes/<int:pk>/', LakeDetailView.as_view(), name = 'lake_detail'), 
     path ('lakes/new/', LakeCreateView.as_view(), name = 'lake_create'),  
     path ('lakes/update/<int:pk>/', LakeUpdateView.as_view(), name = 'lake_update'), 
-    path ('lakes/delete/<int:pk>/', LakeDeleteView.as_view(), name = 'lake_delete'),      
+    path ('lakes/delete/<int:pk>/', LakeDeleteView.as_view(), name = 'lake_delete'),   
+    path ('lakes/district/<int:pk>/', LakeListView_districts.as_view(), name = 'lake_list_dist'),   
     
     path ('temp/', TempListView.as_view(), name = 'temp_list'), 
     path ('temp/<int:pk>/', TempDetailView.as_view(), name = 'temp_detail'), 
@@ -109,8 +110,6 @@ urlpatterns = [
     path ('tags/<int:pk>/', views.TagsDetailView, name ="tag_detail" ),
 
     path ('search/', views.searchview, name = 'search_list'),
-
-    path ('lakes/district/<int:pk>/', LakeListView_districts.as_view(), name = 'lake_list_dist'),
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     # path ('kml/<int:pk>/', make_kml_file, name ='make_kml' ),
