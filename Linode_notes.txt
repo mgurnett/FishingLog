@@ -16,10 +16,10 @@ git add .
 git commit -am "notes"
 git push
 
-
+=====================
 All of this should work as it has been tested.
 Here is the proof of the test - this line was written at Linode
-
+======================
 Permission information
 
 sudo chown :www-data FishingLog/db.sqlite3
@@ -40,3 +40,32 @@ sudo chown -R :www-data FishingLog/media/
     Change all in the media file to the group of apache or www-data
 
 sudo chmod -R 775 FishingLog/media
+====================
+
+To know which user you are logged on to:
+
+$ whoami
+ubuntu
+And adding to your solution, if you are using an AWS Instance, you should add your user to the group to be able to access that folder:
+
+Making a group for webservices users (varwwwusers)
+$ sudo groupadd varwwwusers
+Change the www folder and make it belong to varwwwusers
+$ sudo chgrp -R varwwwusers /var/www/
+www-data is the server making django requests, add that to the group
+$ sudo adduser www-data varwwwusers
+Change folder policy
+$ sudo chmod -R 770 /var/www/
+Add ubuntu to the group of varwwwusers
+$ usermod -a -G varwwwusers ubuntu
+Hope this helps!
+===================
+
+systemctl restart apache2
+==============================
+
+Current status:
+Everything is Owner: michael  Group: www-data  Permissions: 770
+db.sqlite3 is 664
+/media is 775
+
