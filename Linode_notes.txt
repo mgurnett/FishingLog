@@ -39,4 +39,4 @@ sudo chown -R :www-data FishingLog/media/
     -R is recursive
     Change all in the media file to the group of apache or www-data
 
-sudo chmod 775 FishingLog/media
+sudo chmod -R 775 FishingLog/media
