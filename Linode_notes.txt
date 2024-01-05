@@ -19,3 +19,24 @@ git push
 
 All of this should work as it has been tested.
 Here is the proof of the test - this line was written at Linode
+
+Permission information
+
+sudo chown :www-data FishingLog/db.sqlite3
+    :www-data - tells linux to change the group of the file
+    www-data is the user name of apache
+
+sudo chmod 664 FishingLog/db.sqlite3
+    664 is owner then group then everyone else
+    7 is execute
+    6 is write
+    4 is read
+
+sudo chown :www-data FishingLog
+    change the group for the whole FishingLog
+
+sudo chown -R :www-data FishingLog/media/
+    -R is recursive
+    Change all in the media file to the group of apache or www-data
+
+sudo chmod 775 FishingLog/media
