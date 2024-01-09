@@ -137,21 +137,20 @@ def make_kml_file (request, *args, **kwargs):
     # print (f"model = {model} and id is {id}")
     if model == "R":
         lakes = Lake.objects.filter (region=id)
-        name = Region.objects.get(pk=id).name
+        file_name = f'media/{Region.objects.get(pk=id).name}.kml'
         return_to_page = "region_detail"
     if model == "D":
         lakes = Lake.objects.filter (district=id)
-        name = DISTRICTS[int(id)][1]
+        file_name = f'media/{DISTRICTS[int(id)][1]}.kml'
         # return_to_page = "catches/lake_list.html"
         return_to_page = "lake_list_dist"         
     kml = simplekml.Kml()
     for lake in lakes:
         kml.newpoint(
-            name = lake.lake_info, 
-            description = name,
+            name = lake.name, 
+            description = lake.lake_info,
             coords=[(lake.long,lake.lat)]
-        )  # lon, lat optional height
-        file_name = f'media/{name}.kml'
+        )
     kml.save(file_name)
     # return render (request, return_to_page, {})
     return redirect (return_to_page, id)
