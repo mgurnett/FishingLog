@@ -8,6 +8,8 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import simplekml
+# import requests
+from django.http import HttpResponse
 
 from catches.num_array import get_array
 
@@ -129,6 +131,23 @@ def get_weeks(pk):
             weeks_this_temp.append(week)
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
+    
+def download_file(filename, kml_file):  #https://stackoverflow.com/questions/76962002/download-file-from-url-in-django
+    # Create an HttpResponse with the file content and appropriate headers
+    response = HttpResponse(
+        # response.content,
+        kml_file,
+        content_type='text/plain'
+    )
+    response = HttpResponse(
+...     kml_file,
+...     headers={
+...         "Content-Type": "application/vnd.kml",
+...         "Content-Disposition": 'attachment; filename="{filename}"',
+...     },
+... )
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
 
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
@@ -151,9 +170,11 @@ def make_kml_file (request, *args, **kwargs):
             description = lake.lake_info,
             coords=[(lake.long,lake.lat)]
         )
-    kml.save(file_name)
+    # kml.save(file_name)
+    response = download_file(file_name, kml)
     # return render (request, return_to_page, {})
-    return redirect (return_to_page, id)
+    # return redirect (return_to_page, id)
+    return response
 
 def home (request):
     return render (request, 'catches/home.html', {})
