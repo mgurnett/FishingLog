@@ -139,13 +139,6 @@ def download_file(filename, kml_file):  #https://stackoverflow.com/questions/769
         kml_file,
         content_type='text/plain'
     )
-    response = HttpResponse(
-...     kml_file,
-...     headers={
-...         "Content-Type": "application/vnd.kml",
-...         "Content-Disposition": 'attachment; filename="{filename}"',
-...     },
-... )
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
 
