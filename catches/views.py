@@ -132,8 +132,6 @@ def get_weeks(pk):
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
 
-# re_path(r'^kml/(?P<pk>[0-9]+)/(?P<model>[D,R]+)/$', make_kml_file, name ='make_kml' ),
-
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
     id = kwargs['pk']
@@ -152,13 +150,9 @@ def make_kml_file (request, *args, **kwargs):
             description = lake.lake_info,
             coords=[(lake.long,lake.lat)]
         )
-    # kml.save(file_name)
-    # response = HttpResponse(content_type='text/plain')
     response = HttpResponse(kml.kml())
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'
     response.write(kml)
-    # return render (request, return_to_page, {})
-    # return redirect (return_to_page, id)
     return response
 
 def home (request):
