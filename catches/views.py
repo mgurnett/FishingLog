@@ -131,16 +131,8 @@ def get_weeks(pk):
             weeks_this_temp.append(week)
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
-    
-def download_file(filename, kml_file):  #https://stackoverflow.com/questions/76962002/download-file-from-url-in-django
-    # Create an HttpResponse with the file content and appropriate headers
-    response = HttpResponse(
-        # response.content,
-        kml_file,
-        content_type='text/plain'
-    )
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-    return response
+
+# re_path(r'^kml/(?P<pk>[0-9]+)/(?P<model>[D,R]+)/$', make_kml_file, name ='make_kml' ),
 
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
@@ -149,13 +141,10 @@ def make_kml_file (request, *args, **kwargs):
     # print (f"model = {model} and id is {id}")
     if model == "R":
         lakes = Lake.objects.filter (region=id)
-        file_name = f'media/{Region.objects.get(pk=id).name}.kml'
-        return_to_page = "region_detail"
+        file_name = f'{Region.objects.get(pk=id).name}.kml'
     if model == "D":
         lakes = Lake.objects.filter (district=id)
-        file_name = f'media/{DISTRICTS[int(id)][1]}.kml'
-        # return_to_page = "catches/lake_list.html"
-        return_to_page = "lake_list_dist"         
+        file_name = f'{DISTRICTS[int(id)][1]}.kml'        
     kml = simplekml.Kml()
     for lake in lakes:
         kml.newpoint(
@@ -164,7 +153,10 @@ def make_kml_file (request, *args, **kwargs):
             coords=[(lake.long,lake.lat)]
         )
     # kml.save(file_name)
-    response = download_file(file_name, kml)
+    # response = HttpResponse(content_type='text/plain')
+    response = HttpResponse(kml.kml())
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+    response.write(kml)
     # return render (request, return_to_page, {})
     # return redirect (return_to_page, id)
     return response
