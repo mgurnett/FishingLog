@@ -9,7 +9,7 @@ import pandas as pd
 import plotly.express as px
 import simplekml
 # import requests
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 
 from catches.num_array import get_array
 
@@ -131,6 +131,9 @@ def get_weeks(pk):
             weeks_this_temp.append(week)
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
+
+def kml_help(request):
+    return FileResponse("media/How to use the kml file.pdf", as_attachment=True, filename="KML help.pdf")
 
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}

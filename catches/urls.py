@@ -114,6 +114,7 @@ urlpatterns = [
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
     # path ('kml/<int:pk>/', make_kml_file, name ='make_kml' ),
     re_path(r'^kml/(?P<pk>[0-9]+)/(?P<model>[D,R]+)/$', make_kml_file, name ='make_kml' ),
+    path ('kml_help/', kml_help, name ="kml_help" ),
     path ('library/', views.LibraryListView.as_view(), name ="library_list" ),
     path ('library/<str:tag>/', views.LibraryDetailView.as_view(), name ="library_detail" ),
 
