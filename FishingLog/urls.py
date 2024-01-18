@@ -39,3 +39,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
             static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+admin.site.site_header = 'FishingLog administration'              # default: "Django Administration"
+admin.site.index_title = 'Welcome to the FishingLog admin area'   # default: "Site administration"  browser title
+admin.site.site_title = 'FishingLog admin'                        # default: "Django site admin"
