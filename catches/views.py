@@ -1020,7 +1020,25 @@ class ChartGraph(TemplateView):
         # context = {'bug': Bug.objects.filter(pk = kwargs['pk'])}
 
         return context    
+    
+class Weather (TemplateView):
+    template_name = 'catches/weather.html'
+    context_object_name = 'weather'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Weather, self).get_context_data(**kwargs)
+        current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
+
+        context ['current'] = current_weather  #<class 'dict'>
+        context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+        print (current_weather )
+        if current_weather != "":
+            context ['current'] = current_weather  #<class 'dict'>
+            context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+
+        return context
         
+
 def get_hl (id):
     temp_list = get_temps(id)
     # print (f'id is {id}   and temp_list is {temp_list}')
