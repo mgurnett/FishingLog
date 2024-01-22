@@ -59,20 +59,9 @@ def weather_data (lake):
     try:
         asyncio.run(ec_en.update())
     except:
-        # print ("Reading the EC Failed.")
-        # current_conditions ["temperature"] = ""
-        # current_conditions ["humidex"] = ""
-        # current_conditions ["pressure"] = ""
-        # current_conditions ["tendency"] = ""
-        # current_conditions ["humidity"] = ""
-        # current_conditions ["alerts"] = ""
         current_conditions = ""
-    else:
-        # ec_en = ECWeather(coordinates=(53.53, -113.49))
-        print ("Weather was read but there was an error")
-        
+    else:  
         current_dict = {}
-        # print (ec_en.conditions)
 
         for measurement in ec_en.conditions:  #go through all lines of the current condition
             label = str(ec_en.conditions[measurement].get('label')).lower() #grab the lables.
@@ -85,17 +74,17 @@ def weather_data (lake):
                 # print (type(value))
                 if value != None: #as long as its not a Classtype None
                     current_dict [label] = value  #add the lable and the value to the current conditions
-        # print (current_conditions)
+            # if value !="" and value != None:
+            #     print (f'{label}: {value}')
 
         current_conditions ["temperature"] = current_dict.get("temperature")
         current_conditions ["humidex"] = current_dict.get("humidex")
         current_conditions ["pressure"] = current_dict.get("pressure")
         current_conditions ["tendency"] = current_dict.get("tendency")
         current_conditions ["humidity"] = current_dict.get("humidity")
+        current_conditions ["sunrise"] = current_dict.get("sunrise")
+        current_conditions ["sunset"] = current_dict.get("sunset")
         current_conditions ["alerts"] = get_alerts (ec_en.alerts)
-        # alert_string = get_alerts (ec_en.alerts)
-        # print (alert_string)
-        # print (current_conditions)
     finally:
         # print ("Current conditions" + current_conditions)
         return current_conditions #<class 'dict'>
