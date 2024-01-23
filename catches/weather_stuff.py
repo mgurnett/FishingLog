@@ -76,21 +76,29 @@ def weather_data (lake):
                     current_dict [label] = value  #add the lable and the value to the current conditions
             # if value !="" and value != None:
             #     print (f'{label}: {value}')
+        
+        sunrise_time = current_dict.get("sunrise")
+        utctime = sunrise_time.replace(tzinfo=utc)
+        sunrise_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
+        # print (f'sunrise_time is: {sunrise_time.strftime("%-I:%M %p")} and sunrise_time_local is {sunrise_time_local}')
+
+        sunset_time = current_dict.get("sunset")
+        utctime = sunset_time.replace(tzinfo=utc)
+        sunset_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
 
         current_conditions ["temperature"] = current_dict.get("temperature")
         current_conditions ["humidex"] = current_dict.get("humidex")
         current_conditions ["pressure"] = current_dict.get("pressure")
         current_conditions ["tendency"] = current_dict.get("tendency")
         current_conditions ["humidity"] = current_dict.get("humidity")
-        current_conditions ["sunrise"] = current_dict.get("sunrise")
-        current_conditions ["sunset"] = current_dict.get("sunset")
+        current_conditions ["sunrise"] = sunrise_time_local
+        current_conditions ["sunset"] = sunset_time_local
         current_conditions ["alerts"] = get_alerts (ec_en.alerts)
     finally:
         # print ("Current conditions" + current_conditions)
         return current_conditions #<class 'dict'>
 
-def five_day_forcast (lake):   
-
+def five_day_forcast (lake):
     ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
     # ec_en = ECWeather(coordinates=(53.53, -113.49))
     asyncio.run(ec_en.update())
