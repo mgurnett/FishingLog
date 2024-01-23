@@ -151,7 +151,8 @@ def make_kml_file (request, *args, **kwargs):
         kml.newpoint(
             name = lake.name, 
             description = lake.lake_info,
-            coords=[(lake.long,lake.lat)]
+            coords = [(lake.long,lake.lat)],
+            # atomlink = str(f'www.ontheflys.com/lakes/{lake.id}/')
         )
     response = HttpResponse(kml.kml())
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'

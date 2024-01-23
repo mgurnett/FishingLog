@@ -59,15 +59,17 @@
   <div class="col-md-1"></div> 
 </div> 
 
-<div class="row">
-    <div class="col-md-5 text-end">
-      Sunrise is at  <b>{{ current.sunrise }}</b>
-    </div> 
-    <div class="col-md-2"> </div> 
-    <div class="col-md-5 text-start">
-        Sunset is at  <b>{{ current.sunset }}</b>
-    </div> 
-</div>
+{% if current.sunrise %}
+  <div class="row">
+      <div class="col-md-5 text-end">
+        Sunrise is at  <b>{{ current.sunrise }}</b>
+      </div> 
+      <div class="col-md-2"> </div> 
+      <div class="col-md-5 text-start">
+          Sunset is at  <b>{{ current.sunset }}</b>
+      </div> 
+  </div>
+{% endif %}
 
 <div class = "row">
     {% for picture in pictures_list_bath %}
