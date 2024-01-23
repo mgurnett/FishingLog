@@ -155,7 +155,6 @@ def make_kml_file (request, *args, **kwargs):
         )
     response = HttpResponse(kml.kml())
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'
-    response.write(kml)
     return response
 
 def home (request):
