@@ -1,12 +1,13 @@
 # importing googlemaps module
 import googlemaps
+from django.conf import settings
 # https://python-gmaps.readthedocs.io/en/latest/gmaps.html#gmaps.directions.Directions.directions
 # Requires API key
 
 def find_dist (lake):
-    gmaps = googlemaps.Client(key='AIzaSyB-oms0UbhKCb8Cla7_M64Zq54BO8p5LOo')
+    gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
 
-    # Requires cities name
+    # Requires cities name 
     # my_dist = gmaps.distance_matrix('Calgary, AB','Edmonton, AB')
     # my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB','53.6832190000, -113.2741360000')
     my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB', str (lake.lat) + "," + str (lake.long) )
@@ -17,9 +18,6 @@ def find_dist (lake):
         'minutes': my_dist['rows'][0]['elements'][0]['duration']['value'],
     }
     return (my_dist_dict)
-
-
-
 
 if __name__ == "__main__":
     Lat = 53.6832190000

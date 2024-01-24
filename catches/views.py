@@ -26,6 +26,7 @@ from django.views.generic import (
 )
 from catches.forms import *
 from .weather_stuff import *
+from .open_weather import *
 from .distance import *
 
 class UserAccessMixin (PermissionRequiredMixin):
@@ -1034,6 +1035,18 @@ class Weather (TemplateView):
             context ['current'] = current_weather  #<class 'dict'>
             context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         context ['lake'] = Lake.objects.get (id=self.kwargs['pk'])
+        return context
+    
+class Weather2 (TemplateView):
+    template_name = 'catches/weather2.html'
+    context_object_name = 'weather'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Weather2, self).get_context_data(**kwargs)
+        lake = Lake.objects.get (id=self.kwargs['pk'])
+        # current_weather = current (lake)
+        context ['lake'] = lake
+        context ['current'] = current (lake)  #<class 'dict'>
         return context
         
 

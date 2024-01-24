@@ -17,6 +17,8 @@ SECRET_KEY = config ['SECRET_KEY']
 
 GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 
+OW_API_KEY = config ['OW_api_key']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config ['DEBUG']
 

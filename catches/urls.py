@@ -119,5 +119,6 @@ urlpatterns = [
     path ('library/<str:tag>/', views.LibraryDetailView.as_view(), name ="library_detail" ),
 
     path ('weather/<int:pk>/', views.Weather.as_view(), name ="weather" ),
+    path ('weather2/<int:pk>/', views.Weather2.as_view(), name ="weather2" ),
 
 ]

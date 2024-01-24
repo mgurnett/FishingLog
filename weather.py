@@ -1,9 +1,7 @@
 import requests
 from datetime import datetime
 
-api_key = 'b0c00848fbb4cb7f70bf7c20d1738246'
-
-lat = 53.5659479
+lat = 53.5659479 
 lon = -113.4243562
 
 url = f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={api_key}'
