@@ -26,7 +26,7 @@ from django.views.generic import (
 )
 from catches.forms import *
 from .weather_stuff import *
-from .open_weather import *
+from .Open_Weather import *
 from .distance import *
 
 class UserAccessMixin (PermissionRequiredMixin):
@@ -1018,7 +1018,6 @@ class ChartGraph(TemplateView):
         fig = px.area( table )
 
         context = {'graph': fig.to_html()}
-        # context = {'bug': Bug.objects.filter(pk = kwargs['pk'])}
 
         return context    
     
@@ -1044,9 +1043,10 @@ class Weather2 (TemplateView):
     def get_context_data(self, **kwargs): 
         context = super(Weather2, self).get_context_data(**kwargs)
         lake = Lake.objects.get (id=self.kwargs['pk'])
-        # current_weather = current (lake)
+        data = get_data (lake)
         context ['lake'] = lake
-        context ['current'] = current (lake)  #<class 'dict'>
+        context ['current'] = current (data)  #<class 'dict'>
+        context ['pop'] = pop (data)  #<class 'dict'>
         return context
         
 
