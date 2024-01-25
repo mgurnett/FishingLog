@@ -1045,8 +1045,9 @@ class Weather2 (TemplateView):
         lake = Lake.objects.get (id=self.kwargs['pk'])
         data = get_data (lake)
         context ['lake'] = lake
-        context ['current'] = current (data)  #<class 'dict'>
-        context ['pop'] = pop (data)  #<class 'dict'>
+        context ['current']     = current (data)  #<class 'dict'>
+        # context ['pop']         = pop (data)  #<class 'dict'>
+        context ['temp_graph']  = temp_graph (data)  #<class 'graph'>
         return context
         
 

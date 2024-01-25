@@ -3,106 +3,62 @@
 {% load catches_tags %}
 {% block content %}
 
-<div class="album bg-light">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="container">
+  <div class="row">  <!-- Current conditions-->
 
-      <div class="col"> <!-- left current card-->
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-            <p class="card-text text-center">
-              Temperature: <b>{{ current.temp }}&#8451;</b> or feels like <b>{{ current.feels_like }}&#8451;</b>
-            </p>
-            <p class="card-text text-center">
-              Pressure: <b>{{ current.pressure }}kPa</b>    Humidity: <b>{{ current.humidity}}%</b>
-            </p>
-            <p class="card-text text-center">
-              Cloud cover: <b>{{ current.clouds }}% {{ current.description }}</b>
-            </p>
-            <hr>
-            <p class="card-text text-center">
-              Sunrise: <b>{{ current.sunrise }}</b>
-            </p>
-          </div>
+    <div class="col">  <!-- Temperature-->
+      <div class="card border-1 bg-transparent">
+        <div class="card-body">
+          <p class="card-text text-center">
+            Temperature: <b>{{ current.temp }}&#8451;</b> or feels like <b>{{ current.feels_like }}&#8451;</b>
+          </p>
+          <p class="card-text text-center">
+            Pressure: <b>{{ current.pressure }}kPa</b>    Humidity: <b>{{ current.humidity}}%</b>
+          </p>
         </div>
       </div>
+    </div>
 
-      <div class="col"> <!-- wind make a calm, gusty, windy thing here.-->   <!-- left current card-->
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-            <p class="card-text text-center">
-              Wind is: <b>{{ current.wind_speed }}km</b> from the <b>{{ current.wind_direction }} ({{ current.wind_deg }}&deg;)</b>
-            </p>
-            <p class="card-text text-center">
-                Gusting to: <b>{{ current.wind_gust }}km</b>
-            </p>
-            <p class="card-text text-center">
-              Pressure: <b>{{ current.pressure }}kPa</b>    Humidity: <b>{{ current.humidity}}%</b>
-            </p>
-            <hr>
-            <p class="card-text text-center">
-              Sunset: <b>{{ current.sunset }}</b>
-            </p>
-          </div>
+    <div class="col">  <!-- Cloud-->
+      <div class="card border-1 bg-transparent">
+        <div class="card-body">
+          <p class="card-text text-center">
+            Cloud cover: <b>{{ current.clouds }}% {{ current.description }}</b>
+          </p>
+          <p class="card-text text-center">
+            Sunrise: <b>{{ current.sunrise }}</b> and Sunset: <b>{{ current.sunset }}</b>
+          </p>
         </div>
       </div>
+    </div>
 
-      <div class="col"> 
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-            <p class="card-text text-center">
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Time</th>
-                    <th scope="col">PoP</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for minute in pop %}
-                    <tr>
-                      <td scope="row">
-                        {{ minute.time }} 
-                      </td>
-                      <td>
-                        {{ minute.precipitation }}%
-                      </td>
-                    </tr>
-                  {% endfor %} 
-                </tbody>
-              </table>
-            </p>
-          </div>
+    <div class="col">  <!-- Wind-->
+      <div class="card border-1 bg-transparent">
+        <div class="card-body">
+          <p class="card-text text-center">
+            Wind is: <b>{{ current.wind_speed }}km</b> from the <b>{{ current.wind_direction }} ({{ current.wind_deg }}&deg;)</b>
+          </p>
+          <p class="card-text text-center">
+              Gusting to: <b>{{ current.wind_gust }}km</b>
+          </p>
         </div>
       </div>
-
-
-
-      <div class="col"> <!-- -->
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-
-      <div class="col"> <!-- -->
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-
-      <div class="col"> <!-- -->
-        <div class="card border-0 bg-transparent">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
 
-<hr>
+  <div class="row">  <!-- Temp graph-->
+  
+      <div class="col">
+        <div class="card border-1 bg-transparent">
+          <div class="card-body">
+            <div class="container">
+              {{ temp_graph | safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
 
 {% endblock content %}

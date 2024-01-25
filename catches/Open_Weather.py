@@ -2,6 +2,8 @@ import requests
 from zoneinfo import ZoneInfo
 from datetime import datetime
 from django.conf import settings
+import pandas as pd
+import plotly.express as px
     
 localtz = ZoneInfo('America/Edmonton')
 utc = ZoneInfo('UTC')
@@ -45,15 +47,38 @@ def current (response):
         current['wind_gust'] =          float(round(data['current']['wind_gust'],1))
     return current
 
-def pop (response):
+def temp_graph (response):
     pofp = []
 
     if response.status_code == 200:
         data = response.json()
         timezone_offset = data['timezone_offset']
         for minute in data['minutely']:
-            minutes = {}
-            minutes['time'] = time_convert ( minute['dt'], timezone_offset ).strftime("%-I:%M %p")
-            minutes['precipitation'] = minute['precipitation']
-            pofp.append (minutes)
-    return pofp
+            pop_time = time_convert ( minute['dt'], timezone_offset ).strftime("%-I:%M %p")
+            pop_precipitation = minute['precipitation']
+            pofp.append (
+                {'minutes': pop_time, 
+                 'precipitation': pop_precipitation}
+                 )
+        df = pd.DataFrame(pofp)
+
+        fig = px.line(
+            df, 
+            x='minutes', 
+            y='precipitation', 
+            # title='percentage of precipitation', 
+            markers=True,
+            )
+        fig.update_layout(
+            height=200,
+            paper_bgcolor='#A3C3BF',
+            plot_bgcolor='#A3C3BF',
+            )
+        fig.update_xaxes(
+            gridcolor='#A3C3BF',
+            )
+        fig.update_yaxes(
+            gridcolor='#A3C3BF',
+            )
+# https://plotly.com/python/reference/layout/yaxis/
+    return fig.to_html()
