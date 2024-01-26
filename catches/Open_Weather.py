@@ -44,7 +44,10 @@ def current (response):
         current['wind_speed'] =         float(round(data['current']['wind_speed'],1))
         current['wind_deg'] =           data['current']['wind_deg']
         current['wind_direction'] =     degToCompass (data['current']['wind_deg'])
-        current['wind_gust'] =          float(round(data['current']['wind_gust'],1))
+        try:
+            current['wind_gust'] =          float(round(data['current']['wind_gust'],1))
+        except:
+            current['wind_gust'] = 0
     return current
 
 def temp_graph (response):
@@ -61,6 +64,9 @@ def temp_graph (response):
                  'precipitation': pop_precipitation}
                  )
         df = pd.DataFrame(pofp)
+        first_time = df['minutes'].iloc[0]
+        last_time = df['minutes'].iloc[-1]
+        print (f'{first_time} and {last_time}')
 
         fig = px.line(
             df, 
@@ -73,12 +79,20 @@ def temp_graph (response):
             height=200,
             paper_bgcolor='#A3C3BF',
             plot_bgcolor='#A3C3BF',
+            # xaxis_tickformat = '%-I:%-M',
             )
         fig.update_xaxes(
             gridcolor='#A3C3BF',
+            tickformat="%-I:%-M",
+            # xaxis = dict(
+            #     tickmode = 'linear',
+            #     tick0 = first_time,
+            #     dtick = (last_time-first_time)/6   
+            #     )      
             )
         fig.update_yaxes(
             gridcolor='#A3C3BF',
+            range = [0, 100],
             )
 # https://plotly.com/python/reference/layout/yaxis/
     return fig.to_html()
