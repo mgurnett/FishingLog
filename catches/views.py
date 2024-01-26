@@ -1046,8 +1046,19 @@ class Weather2 (TemplateView):
         data = get_data (lake)
         context ['lake'] = lake
         context ['current']     = current (data)  #<class 'dict'>
-        # context ['pop']         = pop (data)  #<class 'dict'>
-        context ['temp_graph']  = temp_graph (data)  #<class 'graph'>
+        try:
+            context ['temp_graph']  = temp_graph (data)  #<class 'graph'>
+        except:
+            context ['temp_graph'] = ""
+        try:
+            context ['forcast']     = hourly_forcast (data)  #<class 'dict'>
+        except:
+            context ['forcast'] = ""
+        context ['daily']     = daily_forcast (data)  #<class 'dict'>
+        # try:
+        #     context ['daily']     = daily_forcast (data)  #<class 'dict'>
+        # except:
+        #     context ['daily'] = ""
         return context
         
 
