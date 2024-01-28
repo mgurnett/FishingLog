@@ -103,7 +103,7 @@
                 <th>Date</th>
                 <th>High</th>
                 <th>Low</th>
-                <th>Wind</th>
+                <th>Wind and PoP</th>
                 <th>Pressure</th>
                 <th>Notes</th>
                 <th>Sunrise/Sunset/moon</th>
@@ -115,7 +115,7 @@
                         <td scope="row">{{ day.temp_hi }}&#8451; or feels like {{ day.feels_like }}&#8451;</td>
                         <td scope="row">{{ day.temp_low }}&#8451;</td>
                         <td scope="row">
-                          {{ day.wind_speed }}km from the {{ day.wind_direction }} gusting to {{ day.wind_gust }}km
+                          {{ day.wind_speed }}km from the {{ day.wind_direction }} gusting to {{ day.wind_gust }}km and a PoP of {{ day.pop }}%
                         </td>
                         <td scope="row">{{ day.pressure }}kPa</td>
                         <td scope="row">{{ day.summary }}</td>

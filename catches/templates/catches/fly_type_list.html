@@ -2,45 +2,41 @@
 {% block content %}
 
 <div class="row">
+    <div class="col-md-2"></div>
     <div class="col-md-4">
         <h1>Catagories of flys</h1> 
     </div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4 text-right">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'bug_list' %}">Insect types</a>
-        </button> 
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'fly_create' %}">New fly</a>
-        </button> 
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'fly_type_create' %}">New fly type</a>
-        </button>
+    <div class="col-md-4 text-end">
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_list' %}">Insect types</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_create' %}">New fly</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_type_create' %}">New fly type</a>
+        <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
     </div>
+    <div class="col-md-2"></div>
 </div>   
+
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
             {% for type in fly_types %}
             <div class="col-md-4">
-                <div class="card mb-2 border-0 bg-transparent">
+                <div class="card border-0 bg-transparent">
                     <div class="row">
-                        <div class="col-md-8">
-                            <a href="{% url 'fly_type_detail' type.id %}" class="card-link">{{ type.name }} </a>
-                        </div>
-                        <div class="col-md-4">
-                            Fly count: {{ type.fly_kind_count }}
+                        <div class="col-md-12 text-center">
+                            <a href="{% url 'fly_type_detail' type.id %}" class="card-link"><h4>{{ type.name | title }} </h4></a>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <p>
                             {% if type.image %}
                                 <a href="{% url 'fly_type_detail' type.id %}" >
-                                    <img src="{{ type.image.url }}" class="img-thumbnail"style="width:75%" > 
+                                    <img src="{{ type.image.url }}" class="img-thumbnail" style="width:75%" > 
                                 </a>
                             {% endif %}
                         </p>
-                        <p>{{ type.notes | safe }}</p>
+                        <p>Fly count: {{ type.fly_kind_count }}
+                            {% if type.notes %} Notes: {{ type.notes | safe }} {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -48,4 +44,5 @@
         </div>
     </div>
 </div> 
+
 {% endblock content %}

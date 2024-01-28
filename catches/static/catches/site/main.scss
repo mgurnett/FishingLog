@@ -44,6 +44,10 @@
     "dark": $deep_aqua,
     "light": $cool_grey,
   );
+
+  $thumbnail-border-width:                1px; /* easy way to fix thumbnail boarders */
+  $thumbnail-border-color:                $cool_grey; 
+  $thumbnail-bg:                          $cool_grey; 
 /* -------end customization-------- */  
 /* finally, import Bootstrap to set the changes! */
 @import "scss/bootstrap.scss";

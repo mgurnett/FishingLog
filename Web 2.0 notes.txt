@@ -1,0 +1,8 @@
+cards
+<div class="card border-0 bg-transparent">
+
+pictures
+class="card-img-top border-0 rounded"
+
+button
+<a class="btn btn-primary btn-sm mt-1 mb-1" 

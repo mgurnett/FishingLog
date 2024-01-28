@@ -94,7 +94,7 @@ def temp_graph (response):
             gridcolor='#A3C3BF',
             range = [0, 100],
             )
-# https://plotly.com/python/reference/layout/yaxis/
+    # https://plotly.com/python/reference/layout/yaxis/
     else:
         return ""
     return fig.to_html()

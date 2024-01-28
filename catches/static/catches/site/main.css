@@ -17,6 +17,7 @@
 /* -------begin customization-------- */
 /* simply assign the value */
 /* use a variable to override primary */
+/* easy way to fix thumbnail boarders */
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */
 /*!
@@ -619,8 +620,8 @@ progress {
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #fff;
-  border: 1px solid var(--bs-border-color);
+  background-color: #A3C3BF;
+  border: 1px solid #A3C3BF;
   border-radius: 0.375rem;
   max-width: 100%;
   height: auto;

@@ -1,42 +1,42 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h1>Bug</h1> 
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-primary">
-                <a href="{% url 'bug_create' %}">New Bug</a>
-            </button> 
-        </div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <h1>All the bugs</h1> 
     </div>
-</div>
+    <div class="col-md-4 text-end">
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_type_list' %}">Fly types</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_create' %}">New bug</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_create' %}">New fly</a>
+        <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>  
   
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
             {% for bug in bugs %}
             <div class="col-md-4">
-                <div class="card mb-2 border-0 bg-transparent">
+                <div class="card border-0 bg-transparent">
                     <div class="row">
-                        <div class="col-md-8">
-                            <a href="{% url 'bug_detail' bug.id %}" >{{ bug.name}} </a>
-                        </div>
-                        <div class="col-md-4">
-                            Fly count: {{ bug.fly_ent_count }}
+                        <div class="col-md-12 text-center">
+                            <a href="{% url 'bug_detail' bug.id %}" ><h4>{{ bug.name | title }}</h4> </a>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <p>
                             {% if bug.image %}
                                 <a href="{% url 'bug_detail' bug.id %}" >
-                                    <img src="{{ bug.image.url }}" class="img-thumbnail"style="width:75%" >
+                                    <img src="{{ bug.image.url }}" class="img-thumbnail" style="width:75%" >
                                 </a>
                             {% endif %}
                         </p>
-                        <p>{{ bug.notes | safe }}</p>
+                        <p>Fly count: {{ bug.fly_ent_count }} 
+                            {% if bug.notes %} Notes: {{ bug.notes | safe }} {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
