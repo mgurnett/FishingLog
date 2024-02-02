@@ -20,6 +20,8 @@ def make_url (lat, lon):
 def get_data (lake):
     # print (make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
     return requests.get( make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
+    # You can download all ECCC weather icons from the following URL: https://meteo.gc.ca/weathericons/NN.gif, where NN is a number between 00 and 48.
+    #https://api.openweathermap.org/data/3.0/onecall?lat=53.6247&lon=-113.9564&units=metric&appid=[api key]
 
 def time_convert (time, offset):
     return datetime.fromtimestamp( time + offset )
