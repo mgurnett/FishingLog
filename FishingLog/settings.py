@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     "taggit",
     'ckeditor',    
     'easyaudit',
+    'blacklist',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'blacklist.middleware.BlacklistMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
