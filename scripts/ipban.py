@@ -86,7 +86,7 @@ def run():
 
     ip_list_sorted = get_ips()   # get the data directly from the database
     # for q in ip_list_sorted:  # Test
-    #     print (f'{q[4]= }')
+    #     print (f'{q = }')
 
-    # list_of_ip = check_ip_list (ip_list_sorted)
-    # print (f'{list_of_ip=}')
+    list_of_ip = check_ip_list (ip_list_sorted)
+    print (f'{list_of_ip=}')
