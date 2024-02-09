@@ -18,7 +18,7 @@ def make_url (lat, lon):
     return f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={OW_API_KEY}'
 
 def get_data (lake):
-    # print (make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
+    print (make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
     return requests.get( make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
     # You can download all ECCC weather icons from the following URL: https://meteo.gc.ca/weathericons/NN.gif, where NN is a number between 00 and 48.
     #https://api.openweathermap.org/data/3.0/onecall?lat=53.6247&lon=-113.9564&units=metric&appid=[api key]
@@ -62,19 +62,22 @@ def temp_graph (response):
         percent = 0
         for minute in data['minutely']:
             index += 1
-            percent += minute['precipitation']
+            percent += minute['precipitation']*100
+            print (f'{percent = }')
             if index == 9:
                 pofp.append (
                     {'minutes': time_convert ( minute['dt'], timezone_offset ).strftime("%-I:%M %p"), 
                     'precipitation': percent/10}
                     )
+                print_time = time_convert ( minute['dt'], timezone_offset )
+                print (f'{print_time.strftime("%-I:%M %p")} {percent/10}')
                 percent = 0
                 index = -1
             
         df = pd.DataFrame(pofp)
         first_time = df['minutes'].iloc[0]
         last_time = df['minutes'].iloc[-1]
-        print (f'{first_time} and {last_time}')
+        # print (f'{first_time} and {last_time}')
 
         fig = px.area(
             df, 
@@ -145,7 +148,7 @@ def daily_forcast (response):
             daily_forcast['pressure'] =           day['pressure']/10
             daily_forcast['humidity'] =           day['humidity']
             daily_forcast['clouds'] =             day['clouds']
-            daily_forcast['pop'] =                day['pop']
+            daily_forcast['pop'] =                int(day['pop']*100)
             daily_forcast['description'] =        day['weather'][0]['description']
             daily_forcast['wind_speed'] =         float(round(day['wind_speed'],1))
             daily_forcast['wind_deg'] =           day['wind_deg']
