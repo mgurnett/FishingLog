@@ -1,13 +1,14 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from crispy_forms.bootstrap import FormActions
 from .models import *
 
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-
+ 
 class New_Regions_Form (forms.ModelForm): 
     class Meta:
         model = Region
@@ -24,7 +25,12 @@ class New_Regions_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             'notes',
-            Submit('submit', 'Save')
+            Submit('submit', 'Save'),
+        )
+        self.helper.layout.append(
+            FormActions(
+                HTML('<a class="btn btn-primary" onclick="window.history.back()">Cancel</a>')
+            )
         )
 
 class New_Temp_Form (forms.ModelForm): 

@@ -62,10 +62,10 @@ DISTRICTS = (
 )
 
 class Region(models.Model):
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length=100, unique=True)
     notes = models.TextField (blank=True)
     
-    class Meta:
+    class Meta: 
         ordering = ['name']
 
     def __str__ (self):

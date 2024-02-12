@@ -186,6 +186,16 @@ class RegionCreateView(PermissionRequiredMixin,  CreateView):
     model = Region
     form_class = New_Regions_Form
     success_message = "New region saved"
+    success_url = reverse_lazy('region_list')  # Replace with your desired redirect URL
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.object.save()  # Assuming you haven't saved the object in super().form_valid()
+        messages.success(self.request, self.success_message)  # Display success message
+        return response
+
+    def form_invalid(self, form):
+        return self.render_to_response({'form': form})  # Re-render form with errors
 
 class RegionUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_region'
