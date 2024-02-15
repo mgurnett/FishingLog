@@ -3,10 +3,11 @@ from datetime import datetime
 #            <A HREF="https://app.sketchup.com/app?hl=en" ADD_DATE="1667000298" TAGS="bookmarks bar, woodworking, import-2023-05-07" NOTES="">SketchUp
 
 class Bookmark:
-    def __init__ (self, catagory, sub_catagory, line):
+    def __init__ (self, catagory, sub_catagory, line, indent):
         self.catagory = catagory
         self.sub_catagory = sub_catagory
         self.line = line
+        self.indent = indent
 
     @property
     def bookmark (self):
@@ -26,7 +27,8 @@ class Bookmark:
             date_line = self.line [find_location+10:find_location+20:]
             date_time = datetime.fromtimestamp( int(date_line) ) 
             # print (f'{date_time:%d-%m-%Y }')
-            return f'{date_time:%d-%m-%Y }'
+            # return f'{date_time:%d-%m-%Y }'
+            return f'{date_line}'
         else:
             return ""
     
@@ -67,26 +69,34 @@ class Bookmark:
         else:
             return ""
 
-
     def __repr__(self) -> str:
-        return f"{self.name} \nwith {self.catagory} / {self.sub_catagory} --> \t{self.bookmark} on {self.bm_date} \nNotes: {self.notes} with tags {self.tags}\n\n"
+        date_time = datetime.fromtimestamp( int(self.bm_date) ) 
+        return f"{self.name} \nwith {self.catagory} / {self.sub_catagory} --> \t{self.bookmark} on {date_time:%d-%m-%Y} \nNotes: {self.notes} with tags {self.tags}\n\n"
         # return f"{self.tags}"
+    
+    def __str__ (self) -> str:
+        spaces = " "*self.indent
+        return f'{spaces}<DT><A HREF"{self.bookmark}" TAGS="{self.tags}" ADD_DATE={self.bm_date}">{self.name}</A>\n'
     
 if __name__ == "__main__":
 
     catagory = ""
     sub_cat = ""
 
-    with open ("/home/michael/Desktop/ninja.txt", "r") as file:
+    with open ("/home/michael/Desktop/super_temp/ninja.txt", "r") as file:
+        output_lines = []
         tag_list = []
+        indent = 0
         for line in file:
             find_location = line.find ("<H3>")
             # print (f'{find_location = }')
             if find_location == 4:
                 catagory = line[8:-1:]
+                indent = 4
             
             if find_location == 8:
                 sub_cat = line[12:-1:]
+                indent = 8
 
                 # cat = Bookmark (line)
                 # print (f'{line = } {find_location = }')
@@ -95,23 +105,29 @@ if __name__ == "__main__":
             
             find_location = line.find ("<A")
             if find_location > 0:
-                cat = Bookmark (catagory, sub_cat, line)
+                cat = Bookmark (catagory, sub_cat, line, indent)
+                # print (f'{str(cat)}')
+                output_lines.append (f'{str(cat)}')
+                # print (f'Class output -->{repr(cat)}')
+
             
                 # print (f'{cat.tags = }')
-                index = 0
-                for t in cat.tags:
-                    index +=1
-                    if t in tag_list:
-                        pass
-                    else:
-                        if len(t) > 10:
-                            print (f'{t = } {index = }')
-                            pass
-                        else:
-                            tag_list.append(t)
-    tag_list.sort()
+    #             index = 0
+    #             for t in cat.tags:
+    #                 index +=1
+    #                 if t in tag_list:
+    #                     pass
+    #                 else:
+    #                     if len(t) > 10:
+    #                         print (f'{t = } {index = }')
+    #                         pass
+    #                     else:
+    #                         tag_list.append(t)
+    # tag_list.sort()
     # print (f'{tag_list = }')
     # print (*tag_list, sep='\n')
                 
 
+    with open('output.html', 'w') as outfile:
+        outfile.writelines(output_lines)
 
