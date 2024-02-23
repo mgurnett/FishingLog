@@ -1156,7 +1156,7 @@ INFO_LIST = [
      'image': '/media/pictures/Cardiff_May_2022_2.jpeg'},
     {'tag': 'heat', 'title': 'Fishing in the heat', 'description': 'How to fish in the heat', 
      'image': '/media/pictures/Hay_lakes.jpeg'},
-    {'tag': 'hatch', 'title': 'Hatch and Entimology', 'description': 'Hatch and Entimology', 
+    {'tag': 'hatch', 'title': 'Hatch and Entomology', 'description': 'Hatch and Entomology', 
      'image': '/media/bug/dragon_nymph.jpeg'},
     {'tag': 'misc', 'title': 'Miscellaneous', 'description': 'Miscellaneous information', 
      'image': '/media/pictures/Cardiff.jpeg'},
