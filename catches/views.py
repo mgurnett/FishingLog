@@ -823,13 +823,16 @@ class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     model = Video
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
     
+    # def get_success_url(self):
+    #     if not self.kwargs:
+    #         return reverse('videos_list')
+    #     if self.kwargs.get('field') == 'video':
+    #         return reverse ('library_list')
+    #     model_to_use = f"{self.kwargs.get('field')}_detail"
+    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+    
     def get_success_url(self):
-        if not self.kwargs:
-            return reverse('videos_list')
-        if self.kwargs.get('field') == 'video':
-            return reverse ('library_list')
-        model_to_use = f"{self.kwargs.get('field')}_detail"
-        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+        return reverse('videos_list')
 
     def form_valid (self, form):
         messages.add_message(
@@ -867,13 +870,17 @@ class ArticleCreateView(PermissionRequiredMixin,  CreateView):
         tag = self.kwargs['tag']
         return {('tags'): tag}
     
+    # def get_success_url(self):
+    #     if not self.kwargs:
+    #         return reverse('articles_list')
+    #     if self.kwargs.get('field') == 'article':
+    #         return reverse ('library_list')
+    #     model_to_use = f"{self.kwargs.get('field')}_detail"
+    #     print (model_to_use)
+    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+    
     def get_success_url(self):
-        if not self.kwargs:
-            return reverse('articles_list')
-        if self.kwargs.get('field') == 'article':
-            return reverse ('library_list')
-        model_to_use = f"{self.kwargs.get('field')}_detail"
-        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+        return reverse ('library_list')
 
     def form_valid (self, form):
         messages.add_message(
@@ -889,11 +896,13 @@ class ArticleUpdateView(PermissionRequiredMixin,  UpdateView):
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
     
     def get_success_url(self):
+        print (f"kwarge = {self.kwargs }")
         if not self.kwargs:
             return reverse('articles_list')
         if self.kwargs.get('field') == 'article':
             return reverse ('library_list')
         model_to_use = f"{self.kwargs.get('field')}_detail"
+        print (f'{model_to_use = }')
         return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
@@ -932,11 +941,14 @@ class PictureCreateView(PermissionRequiredMixin,  CreateView):
         tag = self.kwargs['tag']
         return {('tags'): tag}
     
+    # def get_success_url(self):
+    #     if not self.kwargs:
+    #         return reverse('pictures_list')
+    #     model_to_use = f"{self.kwargs.get('field')}_detail"
+    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+    
     def get_success_url(self):
-        if not self.kwargs:
-            return reverse('pictures_list')
-        model_to_use = f"{self.kwargs.get('field')}_detail"
-        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+        return reverse('pictures_list')
 
     def form_valid (self, form):
         messages.add_message(
