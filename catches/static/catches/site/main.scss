@@ -48,6 +48,10 @@
   $thumbnail-border-width:                1px; /* easy way to fix thumbnail boarders */
   $thumbnail-border-color:                $cool_grey; 
   $thumbnail-bg:                          $cool_grey; 
+
+  $nav-pills-link-active-bg:              $deep_aqua;
+  $nav-tabs-link-active-bg:               $deep_aqua;
+  $nav-tabs-link-active-color:            $cool_grey;
 /* -------end customization-------- */  
 /* finally, import Bootstrap to set the changes! */
 @import "scss/bootstrap.scss";

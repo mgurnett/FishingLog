@@ -24,19 +24,18 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <a href="{% url 'bug_detail' bug.id %}" ><h4>{{ bug.name | title }}</h4> </a>
+                            <p>Fly count: {{ bug.fly_ent_count }} </p>
                         </div>
                     </div>
-                    <div class="card-body text-center">
+                    <div class="card-body">
                         <p>
                             {% if bug.image %}
                                 <a href="{% url 'bug_detail' bug.id %}" >
-                                    <img src="{{ bug.image.url }}" class="img-thumbnail" style="width:75%" >
+                                    <img src="{{ bug.image.url }}" class="img-thumbnail mx-auto d-block" style="width:75%" >
                                 </a>
                             {% endif %}
                         </p>
-                        <p>Fly count: {{ bug.fly_ent_count }} 
-                            {% if bug.notes %} Notes: {{ bug.notes | safe }} {% endif %}
-                        </p>
+                        {% if bug.notes %} {{ bug.notes | safe }} {% endif %}
                     </div>
                 </div>
             </div>

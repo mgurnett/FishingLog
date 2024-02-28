@@ -43,5 +43,5 @@ class TempAdmin (admin.ModelAdmin):
     list_display = ['name', 'notes', 'deg', 'direction', 'search_keys']
 
 @admin.register (Log)
-class TempAdmin (admin.ModelAdmin):
+class LogAdmin (admin.ModelAdmin):
     list_display = ['lake', 'fish', 'temp', 'week']

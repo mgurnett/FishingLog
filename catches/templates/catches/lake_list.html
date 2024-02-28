@@ -6,9 +6,11 @@
     <div class="col-md-3">
         <h1>Favourite lakes</h1> 
     </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
+    <div class="col-md-4"></div>
+    <div class="col-md-3 text-start">
         <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new lake</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" >temp list</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'week_list' %}" type="submit" >week list</a>
         <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
     </div>
     <div class="col-md-1"></div>

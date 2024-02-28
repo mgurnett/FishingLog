@@ -165,6 +165,7 @@ GRAPH_MODELS = {
 #   'arrow_shape': True,
 #   'hide_edge_labels': True,
 }   
+#may need: sudo apt install graphviz
 #to run: python3 manage.py graph_models -o fish_log_models.png
 
 # CRISPY_FAIL_SILENTLY = not DEBUG
