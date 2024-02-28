@@ -528,7 +528,7 @@ class LakeUpdateView(PermissionRequiredMixin, UpdateView):
     
     model = Lake
     form_class = New_Lake_Form
-    success_message = "Lake fixed"
+    success_message = "Lake edited"
 
 class LakeDeleteView (PermissionRequiredMixin, DeleteView):
     permission_required = 'catches.delete_lake'
@@ -801,13 +801,14 @@ class VideoCreateView(PermissionRequiredMixin,  CreateView):
         tag = self.kwargs['tag']
         return {('tags'): tag}
     
-    def get_success_url(self):
+    # def get_success_url(self):
         # if not self.kwargs:
         #     return reverse('videos_list')
         # if self.kwargs.get('field') == 'video':
         #     return reverse ('library_list')
         # model_to_use = f"{self.kwargs.get('field')}_detail"
-        return reverse("video_detail", kwargs={'pk': self.kwargs.get('pk')})
+        # return reverse("video_detail", kwargs={'pk': self.kwargs.get('pk')})
+    # I got rid of this to see if the absolute_url in the model works better.
         
 
     def form_valid (self, form):

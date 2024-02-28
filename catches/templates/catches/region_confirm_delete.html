@@ -1,16 +1,24 @@
 {% extends "catches/base/base.html" %}
 {% block content %}
     <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Delete region</legend>
-                <h2> Are you sure? {{ object.title }}</h2>
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">DELETE</button>
-                <a class="btn btn-outline-secondary" href="{% url 'region_detail' object.id %}" >Cancel</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Delete region: <h2>{{ object.name }}</h2></legend>
+                            <h2> Are you sure? </h2>
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-primary" type="submit">DELETE</button>
+                            <a class="btn btn-primary" href="{% url 'region_detail' object.id %}" >Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock content %}

@@ -157,10 +157,10 @@ class New_Lake_Form (forms.ModelForm):
     other_name = forms.CharField ( max_length = 100, required = False )      
     notes = forms.CharField ( max_length = 100, required = False )      
     ats = forms.CharField ( max_length = 100, required = False ) 
-    lat = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
-    long = forms.DecimalField( max_digits = 20, decimal_places=10, required = False )  
+    lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
+    long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
     district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
-    static_tag = forms.CharField( max_length = 100, required = False )
+    static_tag = forms.CharField( max_length = 100, required = True )
     gps_url = forms.CharField( max_length = 100, required = False )
     waterbody_id = forms.IntegerField( required = False )
     favourite = forms.BooleanField( required = False )
@@ -173,30 +173,30 @@ class New_Lake_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name',          css_class='form-group col-md-4 mb-0'),
+                Column('name',          css_class='form-group col-md-5 mb-0'),
                 Column('other_name',    css_class='form-group col-md-4 mb-0'),
                 Column('favourite',     css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
                 Column('district',      css_class='form-group col-md-3 mb-0'),
-                Column('static_tag',    css_class='form-group col-md-3 mb-0'),
+                Column('static_tag',    css_class='form-group col-md-4 mb-0'),
                 Column('region',        css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
                 Column('ats',           css_class='form-group col-md-2 mb-0'),
-                Column('lat',           css_class='form-group col-md-2 mb-0'),
-                Column('long',          css_class='form-group col-md-2 mb-0'),
+                Column('lat',           css_class='form-group col-md-3 mb-0'),
+                Column('long',          css_class='form-group col-md-3 mb-0'),
                 Column('waterbody_id',  css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('notes',         css_class='form-group col-md-6 mb-0'),
+                Column('notes',         css_class='form-group col-md-10 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('gps_url',       css_class='form-group col-md-6 mb-0'),
+                Column('gps_url',       css_class='form-group col-md-10 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
