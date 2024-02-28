@@ -802,12 +802,12 @@ class VideoCreateView(PermissionRequiredMixin,  CreateView):
         return {('tags'): tag}
     
     def get_success_url(self):
-        if not self.kwargs:
-            return reverse('videos_list')
-        if self.kwargs.get('field') == 'video':
-            return reverse ('library_list')
-        model_to_use = f"{self.kwargs.get('field')}_detail"
-        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+        # if not self.kwargs:
+        #     return reverse('videos_list')
+        # if self.kwargs.get('field') == 'video':
+        #     return reverse ('library_list')
+        # model_to_use = f"{self.kwargs.get('field')}_detail"
+        return reverse("video_detail", kwargs={'pk': self.kwargs.get('pk')})
         
 
     def form_valid (self, form):
@@ -832,7 +832,8 @@ class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
     
     def get_success_url(self):
-        return reverse('videos_list')
+        # return reverse('videos_list')
+        return reverse('video_detail', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
@@ -895,21 +896,21 @@ class ArticleUpdateView(PermissionRequiredMixin,  UpdateView):
     model = Article
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
     
-    def get_success_url(self):
-        print (f"kwarge = {self.kwargs }")
-        if not self.kwargs:
-            return reverse('articles_list')
-        if self.kwargs.get('field') == 'article':
-            return reverse ('library_list')
-        model_to_use = f"{self.kwargs.get('field')}_detail"
-        print (f'{model_to_use = }')
-        return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
+    def get_success_url(self, **kwargs):
+        # print (f"kwarg = {self.kwargs }")
+        # if not self.kwargs:
+        #     return reverse('articles_list')
+        # if self.kwargs.get('field') == 'article':
+        #     return reverse ('library_list')
+        # model_to_use = f"{self.kwargs.get('field')}_detail"
+        # print (f'{model_to_use = }')
+        return reverse('article_detail', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
         messages.add_message(
             self.request, 
             messages.SUCCESS,
-            'Article fixed'
+            'Article changed'
         )
         return super().form_valid (form)
 
