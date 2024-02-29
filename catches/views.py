@@ -365,7 +365,9 @@ class FlyDetailView (PermissionRequiredMixin,  DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super (FlyDetailView, self).get_context_data (*args, **kwargs)
         data = Fly.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
-        context ['videos'] = Video.objects.filter (tags__name__contains=data)
+        context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
+        context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
+        context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         return context
 
 class FlyCreateView(PermissionRequiredMixin,  CreateView):

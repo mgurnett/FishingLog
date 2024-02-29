@@ -1,69 +1,92 @@
 {% extends "catches/base/base.html" %}
 {% block title %} Fly:{{ fly.name | title }} {% endblock %}
 {% block content %}
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <div class="card">
-                            <div class="row">
-                                <h4 class="card-header col-4">
-                                    {{ fly.name | title }}
-                                </h4>
-                                <h5 class="card-header col-4">
-                                    {% if not fly.fly_type == "" %} 
-                                        Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
-                                    {% endif %}
-                                </h5>
-                                <h5 class="card-header col-4">
-                                    {% if fly.bug %} 
-                                        Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
-                                    {% endif %}
-                                </h5>
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="card border-0 bg-transparent">
+                    <div class="row">
+                        <h4 class="card-header col-4">
+                            {{ fly.name | title }}
+                        </h4>
+                        <h5 class="card-header col-4">
+                            {% if not fly.fly_type == "" %} 
+                                Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
+                            {% endif %}
+                        </h5>
+                        <h5 class="card-header col-4">
+                            {% if fly.bug %} 
+                                Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
+                            {% endif %}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card  border-0 bg-transparent">
+                            {% if fly.image %}
+                                <img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" style="width:50%" >
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-2">
+                                {% if fly.size_range %}
+                                    size range: <b> {{ fly.size_range }}</b>
+                                {% endif %}
                             </div>
-                            <div class="card-body">
-                                <p class="card text-center">
-                                    {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail"style="width:50%" >{% endif %}
-                                </p>
-                                <p>
-                                    {{ fly.notes | safe }}
-                                </p>
+                            <div class="col-7 text-center">
+                                Tag: <b>{{ fly.static_tag }}</b>
                             </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-2">
-                                        {% if fly.size_range %}size range: <b> {{ fly.size_range }}</b>{% endif %}
-                                    </div>
-                                    <div class="col-4">
-                                        Tag: <b>{{ fly.static_tag }}</b>
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" >edit</a>
-                                        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_delete' fly.id %}" type="submit" >delete</a>
-                                    </div>
-                                </div>
+                            <div class="col-3 text-end">
+                                <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" >edit</a>
+                                <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_delete' fly.id %}" type="submit" >delete</a>
+                                <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
                             </div>
-                        </div>
-                    <div class="col-md-1"></div>
-                </div>
-            </div> 
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            {% for vid in videos %}
-                            <ul>
-                                <li><a href="{{ vid.url }}" target="_blank" >{{ vid.name | title }}</a></li>
-                            </ul> 
-                            {% endfor %}
                         </div>
                     </div>
-                    <div class="col-md-1"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ fly.notes | safe }}</b>
+                        </div>
+                </div>
+            <div class="col-md-1"></div>
+        </div>
+
+    <div class="card-footer"> <!-- card footer for snippets -->
+        <div class="row"> <!-- tabs -->
+            <h5 class="col-12"><!-- Nav tabs -->
+                <ul class="nav nav-tabs ">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" 
+                        href="#VIDS">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" 
+                        href="#ARTS">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                        href="#PICS">Pictures</a>
+                    </li>
+                </ul>
+            </h5>
+        </div> <!-- tabs -->
+        <div class="row"> <!-- slides -->
+            <div class="col-md-12  ">               <!-- Tab panes -->
+                <div class="tab-content "> 
+                    <div class="tab-pane container fade" id="VIDS">
+                        {% include 'snippets/video_list.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="ARTS">
+                        {% include 'snippets/article_list.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="PICS">
+                        {% include 'snippets/picture_tab.html' %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-{% endblock content %}
+        </div> <!-- slides -->
+    </div> <!-- card footer for snippets -->
+</div>
+{% endblock content %} 
