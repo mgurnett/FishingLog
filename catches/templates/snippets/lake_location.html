@@ -7,8 +7,8 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6">{% if lake.long %} Longitute: <b> {{ lake.long }}</b> {% endif %}</div>      
-      <div class="col-md-6">{% if lake.long %} Latitute: <b> {{ lake.lat }}</b> {% endif %}</div> 
+      <div class="col-md-6">{% if lake.long %} Longitute: <b> {{ lake.long |floatformat:8 }}</b> {% endif %}</div>      
+      <div class="col-md-6">{% if lake.long %} Latitute: <b> {{ lake.lat |floatformat:8 }}</b> {% endif %}</div> 
     </div>
   </div>
   <div class="col-md-1"></div> 
