@@ -1,0 +1,31 @@
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for picture in pictures_list %}
+        <div class="col">
+            <div class="card h-100 bg-transparent">
+                <h5 class="card-title">{{ picture.name | title }}</h5>
+                <a href="{% url 'picture_detail' picture.id %}" >
+                    <img src="{{ picture.image.url }}" class="img-thumbnail mx-auto d-block" style="width:50%" >
+                </a>
+                <div class="card-footer">
+                    <div class = "row">
+                        <div class="col-md-6 test-start">
+                            date added: <b>{{ picture.date_added }}</b>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            tags: <b>{{ picture.tag_list }}</b>
+                        </div>
+                    </div>
+                    {% if picture.snippet %}
+                        <div class = "row">
+                            <div class="col-md-12">
+                                {{ picture.snippet }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+ 

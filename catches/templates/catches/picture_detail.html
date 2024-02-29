@@ -3,49 +3,32 @@
 
 {% block content %}
 
-<div class="container">   <!-- Message -->
-	<div class="row">
-	  <div class="col-md-12">
-		{% if messages  %}
-		  <ul class="messages">
-			{% for message in messages %}
-			  <div class="alert alert-info" role="alert">
-				{{ message }}
-			  </div>
-			{% endfor %}
-		  </ul>
-		{% endif %}
-	  </div>
-	</div>
-  </div><!-- Message -->
-  
 <div class="container">
 	<div class="row">
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
-			<div class="card">
+			<div class="card border-0 bg-transparent">
 				<h5 class="card-header"><b>{{ picture.name | title }}</b> - {{ picture.snippet }}</h5>
 				<div class="card-body">
-
 					<p>
-						<img class='img-responsive thumbnail' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
+						<img class='img-responsive thumbnail mx-auto d-block' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
 						{{ picture.notes|safe }}
 					</p>
-				
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
 							Tags: <b>{{ picture.tag_list }}</b>
 						</div>
                         <div class="col-md-3">
-                            {{ picture.date_added }}
+                            Picture added: <b>{{ picture.date_added }}</b>
                         </div>
                         <div class="col-md-3">
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_update' picture.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'picture_delete' picture.id %}" type="submit" >delete</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'picture_create' %}" type="submit" >new</a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_update' picture.id %}" type="submit" >edit</a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_delete' picture.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' %}" type="submit" >new</a>
+							<button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
                         </div>
                     </div>
 				</div>

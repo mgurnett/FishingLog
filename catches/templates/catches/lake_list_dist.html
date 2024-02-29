@@ -22,10 +22,12 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> 
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >Make KML file</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >Make KML file</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
 						</div>
-                        <div class="col-md-4 text-end"></div>
+                        <div class="col-md-4 text-end">
+							<button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
+						</div>
                     </div>
 				</div>
 			</div>

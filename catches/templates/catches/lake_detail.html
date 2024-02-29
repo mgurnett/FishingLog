@@ -17,10 +17,10 @@
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
 							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
 							<a class="btn btn-primary    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 						</div>
 					</div> <!-- Title line -->
 					<hr>
@@ -154,7 +154,7 @@
 									{% include 'snippets/article_list.html' %}
 								</div>
 								<div class="tab-pane container fade" id="PICS">
-									{% include 'snippets/picture_list.html' %}
+									{% include 'snippets/picture_tab.html' %}
 								</div>
 							</div>
 						</div>

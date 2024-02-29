@@ -25,14 +25,15 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> 
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >Make KML file</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >Make KML file</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
 							<!-- This is how you make a download button: https://youtu.be/1x_ACMFzGYM?si=8xMlwoIQ4chCkhHV -->
 						</div>
                         <div class="col-md-4 text-end">
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >New region</a>
-							<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >New region</a>
+							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
+                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
+							<button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
                         </div>
                     </div>
 				</div>
