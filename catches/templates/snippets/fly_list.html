@@ -1,49 +1,42 @@
-<div class="row">  <!--   list of bug flys  -->
-    <div class="col-md-1"> </div>
-    <div class="col-md-10">
-        <div class="album py-1 ">
-            <div class="container">
+<div class="album py-1 ">
+    <div class="row">
+        {% for fly in flys %}
+            <div class="card col-6 border-1 bg-transparent">
                 <div class="row">
-                    {% for fly in flys %}
-                        <div class="card col-6 border-1 bg-transparent">
-                            <div class="row">
-                                <p class="card-body card-link col-12">
-                                    <a href="{% url 'fly_detail' fly.id %}" ><b>{{ fly.name | title }}</b> </a>
+                    <p class="card-body card-link col-12">
+                        <a href="{% url 'fly_detail' fly.id %}" ><b>{{ fly.name | title }}</b> </a>
 
-                                    {% if not fly.fly_type == "" %} 
-                                        </br>
-                                        Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
-                                    {% endif %}
+                        {% if not fly.fly_type == "" %} 
+                            </br>
+                            Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
+                        {% endif %}
 
-                                    {% if fly.bug %} 
-                                        </br>
-                                        Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="card-body text-center">
-                                <p class="card text-center border-0 bg-transparent">
-                                    <a href="{% url 'fly_detail' fly.id %}" >
-                                        {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" style="width:50%" >{% endif %}
-                                    </a>
-                                </p>
-                                <p>
-                                    {{ fly.description }}
-                                </p>
-                            </div>
-                            {% if fly.size_range %}
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            size range: <b> {{ fly.size_range }}</b>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                        {% if fly.bug %} 
+                            </br>
+                            Bug type: <a href="{% url 'bug_detail' fly.bug.id %}" class="card-link"><b>{{ fly.bug.name | title  }}</b> </a>
+                        {% endif %}
+                    </p>
                 </div>
+                <div class="card-body text-center">
+                    <p class="card text-center border-0 bg-transparent">
+                        <a href="{% url 'fly_detail' fly.id %}" >
+                            {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" style="width:50%" >{% endif %}
+                        </a>
+                    </p>
+                    <p>
+                        {{ fly.description }}
+                    </p>
+                </div>
+                {% if fly.size_range %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                size range: <b> {{ fly.size_range }}</b>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-        </div>
-    <div class="col-md-1"> </div>
+        {% endfor %}
+    </div>
 </div>

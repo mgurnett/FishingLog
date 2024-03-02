@@ -18,7 +18,6 @@
 							Tag: <b>{{ bug.static_tag }}</b>
 						</div>
 					</div>
-					
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
@@ -43,50 +42,44 @@
 						</div>
                     </div>
 				</div>
-				<div class="card-footer">
-					<div class="row"> <!-- tabs -->
-						<h5 class="col-12"><!-- Nav tabs -->
-							<ul class="nav nav-tabs ">
-								<li class="nav-item">
-									<a class="nav-link active" data-toggle="tab" 
-									href="#FLYS">Flys</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" 
-									href="#VIDS">Videos</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" 
-									href="#ARTS">Articles</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab"
-									href="#PICS">Pictures</a>
-								</li>
-							</ul>
-						</h5>
-					</div> <!-- tabs -->
-					<div class="row"> <!-- slides -->
-						<div class="col-md-12  ">               <!-- Tab panes -->
-							<div class="tab-content "> 
-								<div class="tab-pane container active" id="FLYS">
-									{% include 'snippets/fly_list.html' %}
-								</div>
-								<div class="tab-pane container fade" id="VIDS">
-									{% include 'snippets/video_list.html' %}
-								</div>
-								<div class="tab-pane container fade" id="ARTS">
-									{% include 'snippets/article_list.html' %}
-								</div>
-								<div class="tab-pane container fade" id="PICS">
-									{% include 'snippets/picture_tab.html' %}
-								</div>
-							</div>
-						</div>
-					</div> <!-- slides -->
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<h5 class="col-12"><!-- Nav tabs -->
+			<ul class="nav nav-tabs ">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#FLYS"><b>Flys</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
+				</li>
+			</ul>
+		</h5>
+	</div>
+	<div class="row">
+		<div class="col-md-12  ">               <!-- Tab panes -->
+			<div class="tab-content ">
+				<div class="tab-pane container active" id="FLYS">
+					{% include 'snippets/fly_list.html' %}
+				</div>
+				<div class="tab-pane container fade" id="VIDS">
+					{% include 'snippets/video_list.html' %}
+				</div>
+				<div class="tab-pane container fade" id="ARTS">
+					{% include 'snippets/article_list.html' %}
+				</div>
+				<div class="tab-pane container fade" id="PICS">
+					{% include 'snippets/picture_tab.html' %}
 				</div>
 			</div>
 		</div>
-	</div><!-- Top card-->
+	</div>
 </div>	
 {% endblock content %} 
