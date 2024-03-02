@@ -1,0 +1,49 @@
+/* import the necessary Bootstrap files */
+@import "scss/functions";
+@import "scss/variables";
+
+/* CUSTOM COLOURS */
+    /* text */
+    $navy_blue: #0C1446;   /* headings */
+    $navy_blue_l: #161B4E;   /* headings sub */
+    $stormy_blue: #175873;   /* links */
+    $deep_aqua: #2B7C85;   /* link hover */
+    $grey_blue: #5F788A;   /* text muted */
+    $greyish_teal: #87ACA3;   /* text muted */
+
+    /* buttons */
+    $grey_teal: #578D7F;   /* buttons */
+    $dusty_teal: #4C9C8F;   /* button hovers */
+
+/* custom.scss */   
+
+  /* base back ground */
+  $cool_grey:  #A3C3BF;   /* background */
+
+  $custom-colors:(
+    "dark_green": grey_blue,
+  );
+
+  $theme-colors: map-merge($theme-colors, $custom-colors);
+
+/* -------begin customization-------- */   
+
+  /* simply assign the value */ 
+  $body-bg: $cool_grey;
+  $link-color:  $navy_blue;
+  $link-hover-color:  $navy_blue_l;
+
+  /* use a variable to override primary */
+  $theme-colors: (
+    "primary": $stormy_blue,
+    "secondary": $grey_teal,
+    "success":  $grey_teal,
+    "info": $grey_teal,
+    "warning": $grey_teal,
+    "danger": $grey_teal,
+    "dark": $deep_aqua,
+    "light": $cool_grey,
+  );
+/* -------end customization-------- */  
+/* finally, import Bootstrap to set the changes! */
+@import "scss/bootstrap.scss";
