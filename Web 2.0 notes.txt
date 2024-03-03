@@ -16,4 +16,4 @@ back button
 <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
 
 good tabs page is: catches/templates/snippets/picture_tab.html
- 
+  

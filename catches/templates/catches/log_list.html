@@ -3,26 +3,27 @@
     <div class="album py-5 ">
         <div class="container">
             <div class = "row">
-                <div class="col-5">
+                <div class="col-3">
                     <h3>Fishing logs</h3>
                 </div> 
-                <div class="col-4">
+                <div class="col-6">
                     <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'log_search_list' %}" method="get">
                         {% csrf_token %}
                         <input class="form-control mr-sm-2" name="q" type="search" placeholder="Water Temp search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
                 <div class="col-3">
                     <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'hatch_create' %}">New Hatch</a>
                     <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_create' %}">New log</a>
                     <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
+                    <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
                 </div> 
             </div> 
             <div class = "row">
                 {% for log in logs %}
                     <div class="col-md-6">
-                        <div class="card mb-4 box-shadow">
+                        <div class="card mb-4 border-1 bg-transparent text-centre">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <div class="row">

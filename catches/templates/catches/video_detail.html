@@ -13,7 +13,7 @@
 				</h5>
 				<div class="card-body">
 					<p>
-						{{ video.notes|safe }}
+						{{ video.notes | safe }}
 					</p>
 					<p>
 						Tags: <b>{{ video.tag_list }}</b>
@@ -22,7 +22,7 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-3"> 
-							Author: {{ video.author|title}}
+							Author: {{ video.author | title}}
 						</div>
                         <div class="col-md-3">
 							<a href="{{ video.url }}" target="_blank" >Youtube link</a>

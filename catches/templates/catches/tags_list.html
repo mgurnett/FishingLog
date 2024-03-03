@@ -2,31 +2,36 @@
 {% block title %}Tags{% endblock %}
 
 {% block content %}
-
-    <h1 class="h3">Tags</h1>
-    <table class="table table-striped table-hover">
+<div class="row">
+    <div class="col-md-1"> </div>
+    <div class="col-md-10">
+      <h1 class="h3">Tags</h1>
+      <table class="table table-striped table-hover">
         <thead>
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Slug</th>
-          </tr>
+            </tr>
         </thead>
         <tbody>
-            {% for tag in tags_list %}
-          <tr>
-                <td><a href="{% url 'tag_detail' tag.id %}">{{ tag.name }}</a></th>
-                <td>{{ tag.slug }}</th>
-          </tr>
+          {% for tag in tags_list %}
+            <tr>
+              <td><a href="{% url 'tag_detail' tag.id %}">{{ tag.name }}</a></th>
+              <td>{{ tag.slug }}</th>
+            </tr>
           {% endfor %} 
         </tbody>
       </table>
-
-
-    <div class="row">
-        <div class="col-md-8"> </div>
-        <div class="col-md-4">
-            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
-        </div>
     </div>
+    <div class="col-md-1"> </div>
+</div>
+
+
+      <div class="row">
+          <div class="col-md-8"> </div>
+          <div class="col-md-4">
+              <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
+          </div>
+      </div>
 
 {% endblock content %}

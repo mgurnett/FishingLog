@@ -12,6 +12,7 @@
             <div class="col-md-2"> 
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' %}" type="submit" >new</a>
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
+                <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
             </div>
         </div>
         {% include 'snippets/picture_tab.html' %}

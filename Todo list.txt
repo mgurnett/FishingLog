@@ -10,7 +10,7 @@ look at adding coloram for added colors to debugging.
 
 - work on validations
 
-- 
+- How to use Django Messages Framework
 
 Update and rethink tags.
 

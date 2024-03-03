@@ -638,7 +638,7 @@ class WeekListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_week'
     model = Week
     context_object_name = 'weeks' 
-    paginate_by = 20
+    paginate_by = 12
 
 class WeekDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_week'
@@ -784,7 +784,7 @@ class StockDeleteView (PermissionRequiredMixin,  DeleteView):
 class VideoListView(PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_video'
     model = Video
-    paginate_by = 12
+    paginate_by = 8
     context_object_name = 'videos_list' 
  
 class VideoDetailView(PermissionRequiredMixin,  DetailView):
@@ -855,7 +855,7 @@ class VideoDeleteView (PermissionRequiredMixin,  DeleteView):
 class ArticleListView(PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_article'
     model = Article
-    paginate_by = 12
+    paginate_by = 8
     context_object_name = 'articles_list' 
  
 class ArticleDetailView(PermissionRequiredMixin,  DetailView):
@@ -928,6 +928,12 @@ class PictureListView(PermissionRequiredMixin,  ListView):
     model = Picture
     paginate_by = 2
     context_object_name = 'pictures_list'
+
+# class Car(PermissionRequiredMixin,  ListView):
+#     permission_required = 'catches.view_picture'
+#     model = Picture
+#     paginate_by = 2
+#     context_object_name = 'pictures_list'
  
 class PictureDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_picture'
@@ -1012,13 +1018,13 @@ class Graph(TemplateView):
         
         df = df.sort_values(by='temp_id')
         # df = df.groupby(df.Date.dt.year)
-        df.to_csv('graph_data.csv')
+        # df.to_csv('graph_data.csv')
 
         fig = px.scatter(df, 
             x='Week',
             y='Temperature',
             trendline="rolling", 
-            trendline_options=dict(window=5),
+            trendline_options=dict(window=10),
             height = 750,
             text='Date'
             )
@@ -1112,7 +1118,7 @@ def fly_list(id):
         if log.fly:
             fly_list.append(log.fly)
     fly_list = list(dict.fromkeys(fly_list))
-    return fly_list  
+    return fly_list
 
     
 class Plan(TemplateView):

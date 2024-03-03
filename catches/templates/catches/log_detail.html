@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body"> 
                         <div class="row">
-                            <div class="card col-6">
+                            <div class="card  border-0 bg-transparent col-6">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-6">
@@ -47,7 +47,7 @@
                                     {% if log.num_landed %}<p>Number of fish caught: <b>{{ log.num_landed }}</b></p>{% endif %}
                                 </div>
                             </div>
-                            <div class="card col-6">
+                            <div class="card  border-0 bg-transparent col-6">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-4">
@@ -81,6 +81,7 @@
                                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_duplicate' log.id %}" type="submit" >duplicate log</a>
                                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_update' log.id %}" type="submit" >edit</a>
                                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_delete' log.id %}" type="submit" >delete</a>
+                                <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
                             </div>
                         </div>
                     </div>

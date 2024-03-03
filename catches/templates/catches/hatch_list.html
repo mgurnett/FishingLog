@@ -7,9 +7,8 @@
             <h1>Insect hatchs</h1>  
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary">
-                <a href="{% url 'hatch_create' %}">New hatch observed</a>
-            </button>
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create' %}">New hatch observed</a>
+            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
         </div>
     </div>
 </div>
@@ -18,7 +17,7 @@
         <div class = "row">
             {% for h in hatchs %}
             <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
+                <div class="card mb-4 border-1 bg-transparent text-centre">
                     <a href="{% url 'hatch_detail' h.id %}" class="card-link">
                         Bug:<b>{{ h.bug.name | title }}</b> <br>
                         Lake:<b>{{ h.lake.lake_info | title }}</b> 

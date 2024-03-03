@@ -77,7 +77,7 @@ urlpatterns = [
     path ('stock/<int:pk>/', StockDetailView.as_view(), name = 'stock_detail'), 
     path ('stock/new/', StockCreateView.as_view(), name = 'stock_create'),  
     path ('stock/update/<int:pk>/', StockUpdateView.as_view(), name = 'stock_update'), 
-    path ('stock/delete/<int:pk>/', StockDeleteView.as_view(), name = 'stock_delete'),
+    path ('stock/delete/<int:pk>/', StockDeleteView.as_view(), name = 'stock_delete'), 
 
     path ('videos/',                  views.VideoListView.as_view(),    name ="videos_list" ),
     re_path(r'^videos/new/$', VideoCreateView.as_view(), name = 'video_create'),# this is same as normal
@@ -97,6 +97,7 @@ urlpatterns = [
     path ('articles/update/<int:pk>/',  views.ArticleUpdateView.as_view(),  name ='article_update'), 
     path ('articles/delete/<int:pk>/',  views.ArticleDeleteView.as_view(),  name ='article_delete'),
     
+    # path ('car/',              views.Car.as_view(),    name ="pictures_list_car" ),
     path ('pictures/',                  views.PictureListView.as_view(),    name ="pictures_list" ),
     re_path(r'^pictures/new/$', PictureCreateView.as_view(), name = 'picture_create'),# this is same as normal
     #This allows to add a model name with id to set initial data.

@@ -2,14 +2,20 @@
 {% block title %}Articles{% endblock %}
 
 {% block content %}
-
-    {% include 'snippets/article_list.html' %}
+    <div class="row">
+        <div class="col-md-1"> </div>
+        <div class="col-md-10">
+            {% include 'snippets/article_list.html' %}
+        </div>
+        <div class="col-md-1"> </div>
+    </div>
 
     <div class="row">
         <div class="col-md-8"> </div>
         <div class="col-md-4">
             <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'article_create' %}" type="submit" >new</a>
             <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
+            <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
         </div>
     </div>
 

@@ -152,7 +152,7 @@ def get_array(week, lake, temperature):
     
     df_prune = df.loc[df["final_total"] > 5 ]
 
-    df_sort = df_prune.sort_values(by=['final_total'], ascending=False)
+    df_sort = df_prune.sort_values(by=['final_total'], ascending=False).head(10)
 
     return df_sort
 
