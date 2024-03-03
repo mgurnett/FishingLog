@@ -29,20 +29,20 @@
 /* -------begin customization-------- */   
 
   /* simply assign the value */ 
-  $body-bg: $cool_grey;
-  $link-color:  $navy_blue;
+  $body-bg:           $cool_grey;
+  $link-color:        $navy_blue;
   $link-hover-color:  $navy_blue_l;
 
   /* use a variable to override primary */
   $theme-colors: (
-    "primary": $stormy_blue,
-    "secondary": $grey_teal,
-    "success":  $grey_teal,
-    "info": $grey_teal,
-    "warning": $grey_teal,
-    "danger": $grey_teal,
-    "dark": $deep_aqua,
-    "light": $cool_grey,
+    "primary":        $stormy_blue,
+    "secondary":      $grey_teal,
+    "success":        $grey_teal,
+    "info":           $grey_teal,
+    "warning":        $grey_teal,
+    "danger":         $grey_teal,
+    "dark":           $deep_aqua,
+    "light":          $cool_grey,
   );
 
   $thumbnail-border-width:                1px; /* easy way to fix thumbnail boarders */
