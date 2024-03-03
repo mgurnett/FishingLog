@@ -7,13 +7,13 @@ class="card-img-top border-0 rounded"
 class="img-thumbnail mx-auto d-block"
 
 button
-<a class="btn btn-primary btn-sm mt-1 mb-1" 
+<a class="btn btn-primary btn-md mt-1 mb-1" 
 
 column: 
 <div class="col-md-8"> </div>
 
 back button
-<button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">back</button>
+<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
 
 good tabs page is: catches/templates/snippets/picture_tab.html
   

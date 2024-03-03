@@ -25,20 +25,20 @@
 					</p>
 					<div class="row">
                         <div class="col-md-8 text-start">
-                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fly_create' field='bug' pk=bug.id %}" type="submit" >new {{ bug.name | title }} fly </a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_bug' pk=bug.id %}">New Hatch</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'video_create' field='bug' pk=bug.id tag=bug.static_tag %}">New video</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'article_create' field='bug' pk=bug.id tag=bug.static_tag %}">New article</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='bug' pk=bug.id tag=bug.static_tag %}">New picture</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fly_create' field='bug' pk=bug.id %}" type="submit" >new {{ bug.name | title }} fly </a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_bug' pk=bug.id %}">New Hatch</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='bug' pk=bug.id tag=bug.static_tag %}">New video</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='bug' pk=bug.id tag=bug.static_tag %}">New article</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='bug' pk=bug.id tag=bug.static_tag %}">New picture</a>
                         </div>
                         <div class="col-md-1 text-center">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'chart_graph' pk=bug.id %}">Chart</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'chart_graph' pk=bug.id %}">Chart</a>
 						</div>
                         <div class="col-md-3 text-end">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_create' %}" type="submit" >new</a> 
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
-                            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_delete' bug.id %}" type="submit" >delete</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'bug_list' %}" type="submit" >back</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'bug_create' %}" type="submit" >new</a> 
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'bug_update' bug.id %}" type="submit" >edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'bug_delete' bug.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'bug_list' %}" type="submit" >back</a>
 						</div>
                     </div>
 				</div>

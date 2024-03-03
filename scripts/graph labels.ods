@@ -1597,7 +1597,7 @@
       <li>
   <div class="float-left" data-test-selector="pin-repo-button">
     <!-- '"` --><!-- </textarea></xmp> --></option></form><form data-turbo="false" action="/mgurnett/FishingLog/profile_pin" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="MnCX2fCXYVuOB6hDDKmJUFPYa1A-yLdIM0sy8Hc8yOml32aXFxjBsc8UH078NJNH4_YWeUhtH0Pbpuh_4QDPTA" autocomplete="off" />
-        <button title="Pin this repository to your profile" type="submit" data-view-component="true" class="btn-sm btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
+        <button title="Pin this repository to your profile" type="submit" data-view-component="true" class="btn-md btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
     <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
 </svg>Pin
 </button></form>  </div>
@@ -1615,7 +1615,7 @@
         data-action="toggle:notifications-list-subscription-form#detailsToggled"
       >
 
-        <summary data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="629645fa997fd1a15f7bb3775489c1e14caaf48a5f24596c6b49d3e930cd4478" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notification settings" data-view-component="true" class="btn-sm btn">    <span data-menu-button>
+        <summary data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="629645fa997fd1a15f7bb3775489c1e14caaf48a5f24596c6b49d3e930cd4478" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notification settings" data-view-component="true" class="btn-md btn">    <span data-menu-button>
             <span
               
               
@@ -1926,10 +1926,10 @@
                   </div>
               </fieldset>
               <div class="pt-2 pb-3 px-3 d-flex flex-justify-start flex-row-reverse">
-                  <button name="do" value="custom" data-target="notifications-list-subscription-form.customSubmit" disabled="disabled" type="submit" data-view-component="true" class="btn-primary btn-sm btn ml-2">    Apply
+                  <button name="do" value="custom" data-target="notifications-list-subscription-form.customSubmit" disabled="disabled" type="submit" data-view-component="true" class="btn-primary btn-md btn ml-2">    Apply
 </button>
 
-                  <button data-action="click:notifications-list-subscription-form#resetForm" data-close-dialog="" type="button" data-view-component="true" class="btn-sm btn">    Cancel
+                  <button data-action="click:notifications-list-subscription-form#resetForm" data-close-dialog="" type="button" data-view-component="true" class="btn-md btn">    Cancel
 </button>
               </div>
 </form>          </div>
@@ -1947,14 +1947,14 @@
   <li>
         <div data-view-component="true" class="d-flex">
         <div data-view-component="true" class="position-relative d-inline-block">
-    <button icon="repo-forked" id="fork-button" aria-disabled="true" type="button" data-view-component="true" class="btn-sm btn BtnGroup-item border-right-0">      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
+    <button icon="repo-forked" id="fork-button" aria-disabled="true" type="button" data-view-component="true" class="btn-md btn BtnGroup-item border-right-0">      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
     <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
 </svg>Fork
         <span id="repo-network-counter" data-pjax-replace="true" data-turbo-replace="true" title="0" data-view-component="true" class="Counter">0</span>
 </button>    <tool-tip for="fork-button" data-direction="s" data-type="description" data-view-component="true" class="sr-only position-absolute">Cannot fork because you own this repository and are not a member of any organizations.</tool-tip>
 </div>
       <details group_item="true" id="my-forks-menu-576062839" data-view-component="true" class="details-reset details-overlay BtnGroup-parent d-inline-block position-relative">
-              <summary aria-label="See your forks of this repository" data-view-component="true" class="btn-sm btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
+              <summary aria-label="See your forks of this repository" data-view-component="true" class="btn-md btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
     <path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>
 </svg>
 </summary>
@@ -2017,13 +2017,13 @@
       <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-social-form BtnGroup-parent flex-auto js-deferred-toggler-target" data-turbo="false" action="/mgurnett/FishingLog/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="CfHOyZ6M6vKL7taeWul-Syfj7fnp2AzMsee8aXRdrhEm1WBIH0_3Z2mcGvneF99B3cLyUqKKAOxCTR_9tID6FA" autocomplete="off" />
           <input type="hidden" value="58GV60vbt06M9Az_y2gPm45CjRLw6bZ7Uvtdx_M34SDI5Ttqyhiq226GwJhPlq6RdGOSubu7uluhUf5TM-q1JQ" data-csrf="true" class="js-confirm-csrf-token" />
         <input type="hidden" name="context" value="repository">
-          <button data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="4cfd14ce6b2dbc0e238bea7081bf9346687d05a0f8b3c88a1170089900440efd" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar" aria-label="Unstar this repository (1)" type="submit" data-view-component="true" class="rounded-left-2 btn-sm btn BtnGroup-item">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill starred-button-icon d-inline-block mr-2">
+          <button data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="4cfd14ce6b2dbc0e238bea7081bf9346687d05a0f8b3c88a1170089900440efd" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar" aria-label="Unstar this repository (1)" type="submit" data-view-component="true" class="rounded-left-2 btn-md btn BtnGroup-item">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star-fill starred-button-icon d-inline-block mr-2">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
 </svg><span data-view-component="true" class="d-inline">
             Starred
 </span>            <span id="repo-stars-counter-unstar" aria-label="1 user starred this repository" data-singular-suffix="user starred this repository" data-plural-suffix="users starred this repository" data-turbo-replace="true" title="1" data-view-component="true" class="Counter js-social-count">1</span>
 </button></form>        <details id="details-user-list-576062839" data-view-component="true" class="details-reset details-overlay BtnGroup-parent js-user-list-menu d-inline-block position-relative">
-        <summary aria-label="Add this repository to a list" data-view-component="true" class="btn-sm btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
+        <summary aria-label="Add this repository to a list" data-view-component="true" class="btn-md btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
     <path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>
 </svg>
 </summary>
@@ -2064,13 +2064,13 @@
     <div data-view-component="true" class="unstarred BtnGroup flex-1">
       <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-social-form BtnGroup-parent flex-auto" data-turbo="false" action="/mgurnett/FishingLog/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="3m5aSi2pAY-F6O66IIwGgL8PG4LXnd3-SXs7EIkFjpuPaJ1t4MZEHewqWBviMbA6QmpT7x2kh1L7Yb0NbAJJvQ" autocomplete="off" />
         <input type="hidden" name="context" value="repository">
-          <button data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="3ffd7d6e62d58c571b0b2dff1727ad322331c2f1d61dd4976ac08ab541d152a1" data-ga-click="Repository, click star button, action:blob#show; text:Star" aria-label="Star this repository (1)" type="submit" data-view-component="true" class="js-toggler-target rounded-left-2 btn-sm btn BtnGroup-item">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
+          <button data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:576062839,&quot;originating_url&quot;:&quot;https://github.com/mgurnett/FishingLog/blob/master/scripts/graph%20labels.ods&quot;,&quot;user_id&quot;:4943032}}" data-hydro-click-hmac="3ffd7d6e62d58c571b0b2dff1727ad322331c2f1d61dd4976ac08ab541d152a1" data-ga-click="Repository, click star button, action:blob#show; text:Star" aria-label="Star this repository (1)" type="submit" data-view-component="true" class="js-toggler-target rounded-left-2 btn-md btn BtnGroup-item">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
 </svg><span data-view-component="true" class="d-inline">
             Star
 </span>            <span id="repo-stars-counter-star" aria-label="1 user starred this repository" data-singular-suffix="user starred this repository" data-plural-suffix="users starred this repository" data-turbo-replace="true" title="1" data-view-component="true" class="Counter js-social-count">1</span>
 </button></form>        <details id="details-user-list-576062839" data-view-component="true" class="details-reset details-overlay BtnGroup-parent js-user-list-menu d-inline-block position-relative">
-        <summary aria-label="Add this repository to a list" data-view-component="true" class="btn-sm btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
+        <summary aria-label="Add this repository to a list" data-view-component="true" class="btn-md btn BtnGroup-item px-2 float-none">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-triangle-down">
     <path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>
 </svg>
 </summary>
@@ -2625,7 +2625,7 @@
       
 
     <div class="BtnGroup">
-        <a data-permalink-href="/mgurnett/FishingLog/raw/32bb6101fe3f0d47e2becc07bfc4b0e231afbde1/scripts/graph%20labels.ods" href="/mgurnett/FishingLog/raw/master/scripts/graph%20labels.ods" id="raw-url" data-view-component="true" class="js-permalink-replaceable-link btn-sm btn BtnGroup-item">    Download
+        <a data-permalink-href="/mgurnett/FishingLog/raw/32bb6101fe3f0d47e2becc07bfc4b0e231afbde1/scripts/graph%20labels.ods" href="/mgurnett/FishingLog/raw/master/scripts/graph%20labels.ods" id="raw-url" data-view-component="true" class="js-permalink-replaceable-link btn-md btn BtnGroup-item">    Download
 </a>    </div>
 
     <div class="d-flex">

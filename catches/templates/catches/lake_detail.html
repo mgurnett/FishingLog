@@ -17,26 +17,26 @@
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
-							<a class="btn btn-primary    btn-sm mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 						</div>
 					</div> <!-- Title line -->
 					<hr>
 					<div class="row"> <!-- Districts line -->
 						<div class="col-md-4"> 
-							District: <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'lake_list_dist' lake.district %}"> {{ lake.dist_name | title  }}</a>
+							District: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list_dist' lake.district %}"> {{ lake.dist_name | title  }}</a>
 						</div>
 						<div class="col-md-4 ">
 							{% if lake.region %} 
-								Region: <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'region_detail' lake.region.id %}">{{ lake.region | title }}</a>
+								Region: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_detail' lake.region.id %}">{{ lake.region | title }}</a>
 							{% endif %}
 						</div>
 						<div class="col-md-4 text-end">
 							<form method="post">{% csrf_token %}
 								{{ form }}
-								<input class="btn btn-primary btn-sm mt-1 mb-1" type="submit" value="Plan">
+								<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="Plan">
 							</form>
 						</div>
 					</div> <!-- Districts line -->
@@ -47,11 +47,11 @@
 						</div>
 						<div class="col-md-2 text-start">
 							{% if lake.gps_url %} 
-								<a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ lake.gps_url }}" 
+								<a class="btn btn-primary btn-md mt-1 mb-1" href="{{ lake.gps_url }}" 
 									target="_blank" type="submit" >Bathymetric</a>
 							{% endif %}
 							{% if lake.lat %} 
-								<a class="btn btn-primary btn-sm mt-1 mb-1" 
+								<a class="btn btn-primary btn-md mt-1 mb-1" 
 									href="https://www.google.com/maps/search/?api=1&query={{ lake.lat }},{{ lake.long }}" 
 									target="_blank" type="submit" >Location
 								</a>
@@ -61,10 +61,10 @@
 							Google maps: <b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
 						</div>
 						<div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
 						</div>
 						<div class="col-md-1">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
 						</div>
 						<div class="col-md-3 text-end">
 							Tag: <b> {{ lake.static_tag }}</b>
@@ -74,19 +74,19 @@
 					<div class="row"> <!-- new content line -->
                         <div class="col-md-1"></div>	
                         <div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
 						</div>	
                         <div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
 						</div>	
                         <div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
 						</div>	
                         <div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
 						</div>	
                         <div class="col-md-2">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
                         </div>
                         <div class="col-md-1"></div>
                     </div>

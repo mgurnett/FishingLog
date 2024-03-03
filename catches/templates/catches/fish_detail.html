@@ -23,15 +23,15 @@
 					<div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-6 text-right">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fish_list' %}" type="submit" >back</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fish_create' %}" type="submit" >new</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'fish_update' fish.id %}" type="submit" >edit</a>
-							<a class="btn btn-primary    btn-sm mt-1 mb-1" href="{% url 'fish_delete' fish.id %}" type="submit" >delete</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fish_list' %}" type="submit" >back</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fish_create' %}" type="submit" >new</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fish_update' fish.id %}" type="submit" >edit</a>
+							<a class="btn btn-primary    btn-md mt-1 mb-1" href="{% url 'fish_delete' fish.id %}" type="submit" >delete</a>
 						</div>
                         <div class="col-md-4 text-left">
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'video_create' field='fish' pk=fish.id tag=fish.static_tag %}">New video</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'article_create' field='fish' pk=fish.id tag=fish.static_tag %}">New article</a>
-							<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'picture_create' field='fish' pk=fish.id tag=fish.static_tag %}">New picture</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='fish' pk=fish.id tag=fish.static_tag %}">New video</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='fish' pk=fish.id tag=fish.static_tag %}">New article</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='fish' pk=fish.id tag=fish.static_tag %}">New picture</a>
                         </div>
                     </div>
 				</div>

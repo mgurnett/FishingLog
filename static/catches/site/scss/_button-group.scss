@@ -64,7 +64,7 @@
 //
 // Remix the default button sizing classes into new ones for easier manipulation.
 
-.btn-group-sm > .btn { @extend .btn-sm; }
+.btn-group-sm > .btn { @extend .btn-md; }
 .btn-group-lg > .btn { @extend .btn-lg; }
 
 
@@ -87,7 +87,7 @@
   }
 }
 
-.btn-sm + .dropdown-toggle-split {
+.btn-md + .dropdown-toggle-split {
   padding-right: $btn-padding-x-sm * .75;
   padding-left: $btn-padding-x-sm * .75;
 }
