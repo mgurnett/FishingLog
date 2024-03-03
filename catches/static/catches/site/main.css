@@ -3659,8 +3659,8 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-color: #dee2e6;
   --bs-nav-tabs-border-radius: 0.375rem;
   --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
-  --bs-nav-tabs-link-active-color: #A3C3BF;
-  --bs-nav-tabs-link-active-bg: #2B7C85;
+  --bs-nav-tabs-link-active-color: #fff;
+  --bs-nav-tabs-link-active-bg: #175873;
   --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #fff;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
 }
