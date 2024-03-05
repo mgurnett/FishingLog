@@ -13,23 +13,27 @@
       {% csrf_token %}
       <div class="container">
         <div class="row">
-          <div class="col-6">
+          <div class="col-1"> </div>
+          <div class="col-4">
             {{ form.name|as_crispy_field }}
           </div>
           <div class="col-6">
             {{ form.snippet|as_crispy_field }}
           </div>
+          <div class="col-1"> </div>
         </div>
         <div class="row">
+          <div class="col-1"> </div>
           <div class="col-3">
             {{ form.author|as_crispy_field }}
           </div>
-          <div class="col-4">
+          <div class="col-3">
             {{ form.url|as_crispy_field }}
           </div>
-          <div class="col-5">
+          <div class="col-4">
             {{ form.file|as_crispy_field }}
           </div>
+          <div class="col-1"> </div>
         </div>
         <div class="row">
           <div class="col-1"> </div>
@@ -45,9 +49,10 @@
               {{ form.tags|as_crispy_field }}
             </div>
           <div class="col-2"> </div>
-            <div class="col-4">
-              <button type="submit" class="btn btn-success">Save article</button>
-            </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary mt-4">Save article</button>
+            <button class="btn btn-primary btn-sm mt-4" onclick="window.history.back()">back</button>
+          </div>
         </div>
       </div>
     </form>

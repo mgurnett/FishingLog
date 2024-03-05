@@ -1,5 +1,4 @@
 {% extends "catches/base/base.html" %}
-{% block title %}New picture{% endblock %}
 
 {% load crispy_forms_tags %}
 
@@ -13,21 +12,22 @@
       {% csrf_token %}
       <div class="container">
         <div class="row">
+          <div class="col-2"></div>
           <div class="col-3">
             {{ form.name|as_crispy_field }}
           </div>
-          <div class="col-9">
+          <div class="col-7">
             {{ form.snippet|as_crispy_field }}
           </div>
         </div>
         <div class="row">
-          <div class="col-1"></div>
-          <div class="col-11">
+          <div class="col-2"></div>
+          <div class="col-10">
             {{ form.image|as_crispy_field }}
           </div>
         </div>
         <div class="row">
-          <div class="col-1"> </div>
+          <div class="col-2"> </div>
           <div class="col-10 text-truncate">
             <p class="text-center">
               {{ form.notes|as_crispy_field }}</p>
@@ -36,14 +36,14 @@
         </div>
         <div class="row">
           <div class="col-2"> </div>
-            <div class="col-4">
-              {{ form.tags|as_crispy_field }}
-            </div>
+          <div class="col-4">
+            {{ form.tags|as_crispy_field }}
+          </div>
           <div class="col-2"> </div>
-            <div class="col-4">
+          <div class="col-4">
             <button type="submit" class="btn btn-primary">save picture</button>
-            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">cancel</button>
-            </div>
+            <button class="btn btn-primary btn-sm mt-1 mb-1" onclick="window.history.back()">cancel</button>
+          </div>
         </div>
       </div>
     </form>
