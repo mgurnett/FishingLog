@@ -1,10 +1,9 @@
 {% load tz %}
 <!-- messages -->
-<div class="row pt-3">
-	<div class="col-7 mx-auto">  <!-- message message-bar -->
+<div class="row">
+	<div class="col-md-7">  <!-- message message-bar -->
 		{% if messages %}
 			<div class="alert alert-primary" role="alert">
-				<!-- Please note that nothing will be saved on this site while it is being upgraded |    |  As the site is upgraded it will be documented in blogs -->
 				<ul class="messages">
 					{% for message in messages %}
 						<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
@@ -12,18 +11,42 @@
 				</ul>
 			</div>
 		{% endif %}
+		{% if announcment and not message and 'catches.view_lake' in perms %}
+			<div class="row">
+				<div class="col-md-3"> </div>
+				<div class="col-md-8">
+					<div class="alert alert-dark" role="alert">
+						{% if type == 'p' %}
+							The next trip will be to: <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b></a> {{ plan | safe }}
+						{% else %}
+							{{ announcment | safe }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		{% if announcment and not message and not 'catches.view_lake' in perms %}
+			<div class="row">
+				<div class="col-md-3"> </div>
+				<div class="col-md-8">
+					<div class="alert alert-dark" role="alert">
+						{{ announcment | safe }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
 	</div>
-	<div class="col-2 mx-auto">  <!-- message date and time -->
+	<div class="col-md-2  pt-3">  <!-- message date and time -->
 		<p class="text-center">
-			{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}
+			<b>{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}</b>
 		</p>
 	</div>
-	<div class="col-1 mx-auto">  <!-- message WEEK link -->
+	<div class="col-md-1 pt-3">  <!-- message WEEK link -->
 		<p class="text-center ">
 			<a href="{% url 'week_list' %}">
 				<b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
 			</a>
 		</p>
 	</div>
-	<div class="col-2 mx-auto"></div>
+	<div class="col-md-2 pt-3"></div>
 </div>

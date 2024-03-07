@@ -28,6 +28,7 @@ from catches.forms import *
 from .weather_stuff import *
 from .Open_Weather import *
 from .distance import *
+from .announcments import *
 
 class UserAccessMixin (PermissionRequiredMixin):
     def dispatch (self, request, *args, **kwargs):
@@ -159,8 +160,8 @@ def make_kml_file (request, *args, **kwargs):
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'
     return response
 
-def home (request):
-    return render (request, 'catches/home.html', {})
+def home (request):  # Gets all its info from announcment.py
+    return render (request, 'catches/home.html', announce)
 
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
