@@ -69,6 +69,9 @@
                         <a class="nav-link" data-toggle="tab"
                         href="#PICS">Pictures</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+                    </li>
                 </ul>
             </h5>
         </div> <!-- tabs -->
@@ -83,6 +86,9 @@
                     </div>
                     <div class="tab-pane container fade" id="PICS">
                         {% include 'snippets/picture_tab.html' %}
+                    </div>
+                    <div class="tab-pane container fade" id="BLOGS">
+                        {% include 'snippets/blog_list.html' %}
                     </div>
                 </div>
             </div>

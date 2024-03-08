@@ -14,7 +14,8 @@
         {% endif %}
       </div>
       <h2 class="article-title">{{ object.title }}</h2>
-      <p class="article-content">{{ object.content }}</p>
+      <p class="article-content">{{ object.content | safe}}</p>
+      <p>Tags: {% for tag in object.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
     </div>
   </article>
 {% endblock content %}

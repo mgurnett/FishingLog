@@ -114,20 +114,19 @@
 									href="#STOCKS">Stock report <span class="badge badge-dark badge-pill">{{ lake.num_of_stock }}</span></a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" 
-									href="#LOC">Details</a>
+									<a class="nav-link" data-toggle="tab"  href="#LOC">Details</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" 
-									href="#VIDS">Videos</a>
+									<a class="nav-link" data-toggle="tab"  href="#VIDS">Videos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" 
-									href="#ARTS">Articles</a>
+									<a class="nav-link" data-toggle="tab"  href="#ARTS">Articles</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab"
-									href="#PICS">Pictures</a>
+									<a class="nav-link" data-toggle="tab" href="#PICS">Pictures</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
 								</li>
 							</ul>
 						</h5>
@@ -155,6 +154,9 @@
 								</div>
 								<div class="tab-pane container fade" id="PICS">
 									{% include 'snippets/picture_tab.html' %}
+								</div>
+								<div class="tab-pane container fade" id="BLOGS">
+									{% include 'snippets/blog_list.html' %}
 								</div>
 							</div>
 						</div>

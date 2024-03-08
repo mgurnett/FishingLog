@@ -1,0 +1,20 @@
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Date</th>
+        <th scope="col">tags</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+      <tr>
+          <td><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></th>
+          <td>{{ post.author | title }}</th>
+          <td>{{ post.date_posted|date:"F d, Y" }}</th>
+          <td>{% for tag in post.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</th>
+      </tr>
+    {% endfor %} 
+    </tbody>
+  </table>

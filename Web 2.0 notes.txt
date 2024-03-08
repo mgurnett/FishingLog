@@ -17,3 +17,16 @@ back button
 
 good tabs page is: catches/templates/snippets/picture_tab.html
   
+
+blog tags
+views:
+context ['posts'] = Post.objects.filter (tags__name__contains = data)
+
+detail templates:
+<li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+</li>
+
+<div class="tab-pane container fade" id="BLOGS">
+    {% include 'snippets/blog_list.html' %}
+</div>

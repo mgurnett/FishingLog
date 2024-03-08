@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from blog.models import *
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy
@@ -281,6 +282,7 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
+        context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 
 class FishCreateView(PermissionRequiredMixin,  CreateView):
@@ -325,6 +327,7 @@ class BugDetailView (PermissionRequiredMixin,  DetailView):
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
+        context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 
 class BugCreateView(PermissionRequiredMixin,  CreateView):
@@ -369,6 +372,7 @@ class FlyDetailView (PermissionRequiredMixin,  DetailView):
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
+        context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 
 class FlyCreateView(PermissionRequiredMixin,  CreateView):
@@ -505,6 +509,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+        context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -1003,6 +1008,7 @@ def TagsDetailView(request, pk):
     context ['lakes'] = Lake.objects.filter (static_tag=tag[0].name)
     context ['bugs'] = Bug.objects.filter (static_tag=tag[0].name)
     context ['fishes'] = Fish.objects.filter (static_tag=tag[0].name)
+    context ['posts'] = Post.objects.filter (tags__name__contains=tag[0].name)
     return render (request, 'catches/tags_detail.html', context)
 
 class Graph(TemplateView):
@@ -1209,6 +1215,7 @@ class LibraryDetailView(TemplateView):
         context ['videos_list'] = Video.objects.filter (tags__name__contains = tag_detail )
         context ['articles_list'] = Article.objects.filter (tags__name__contains = tag_detail )
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains = tag_detail )
+        context ['posts'] = Post.objects.filter (tags__name__contains = tag_detail)
         return context
     
 
