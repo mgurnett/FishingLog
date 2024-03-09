@@ -16,13 +16,9 @@ Update and rethink tags.
 
 In the tags list, show how many media, lakes, fish, flys.....
 
-Add tags to blog posts
-
 make temp to week chart PER lake
 
 Break insects down to specific ones.
-
-Add RTF to bugs and fly_types and blog posts
 
 Good model.CASCADE
 https://www.youtube.com/watch?v=cpEfYD51Oyw
