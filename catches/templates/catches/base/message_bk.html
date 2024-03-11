@@ -1,0 +1,53 @@
+{% load tz %}
+<!-- messages -->
+<div class="row">
+	<div class="col-md-2 pt-3"></div>
+	<div class="col-md-5 pt-3">  <!-- message message-bar -->
+		{% if messages %}
+			<div class="alert alert-primary" role="alert">
+				<ul class="messages">
+					{% for message in messages %}
+						<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		{% if announcment and not message and 'catches.view_lake' in perms %}
+			<div class="row">
+				<div class="col-md-3"> </div>
+				<div class="col-md-8">
+					<div class="alert alert-dark" role="alert">
+						{% if type == 'p' %}
+							The next trip will be to: <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b></a> {{ plan | safe }}
+						{% else %}
+							{{ announcment | safe }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		{% if announcment and not message and not 'catches.view_lake' in perms %}
+			<div class="row">
+				<div class="col-md-3"> </div>
+				<div class="col-md-8">
+					<div class="alert alert-dark" role="alert">
+						{{ announcment | safe }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	<div class="col-md-2 pt-3">  <!-- message date and time -->
+		<p class="text-center">
+			<b>{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}</b>
+		</p>
+	</div>
+	<div class="col-md-1 pt-3">  <!-- message WEEK link -->
+		<p class="text-center ">
+			<a href="{% url 'week_list' %}">
+				<b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
+			</a>
+		</p>
+	</div>
+	<div class="col-md-2 pt-3"></div>
+</div>

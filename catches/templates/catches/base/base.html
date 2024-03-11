@@ -39,23 +39,37 @@
     <footer class="footer">
         <nav class="navbar navbar-dark fixed-bottom bg-dark">
             <div class="container-fluid">
-                <div class="col-2"></div>
-                <div class="col-4">
+                <div class="col-md-2 "></div>
+                <div class="col-md-2 ">
                     <span class="navbar-text">
-                        <h4>Where water temp is king</h4>
+                        <h5>Where water temp is king</h5>
                     </span>
                 </div>
-                <div class="col-3">
+                <div class="col-md-5">
+                    <span class="navbar-text">
+                        {% if messages %}
+                            <div class="alert alert-primary" role="alert">
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="col-md-1">
                     <span class="navbar-text">
                         <p>&copy 2024</p>
                     </span>
                 </div>
-                <div class="col-3">
+                <div class="col-md-1">
                     <!-- Instagram -->
                     <a href="http://instagram.com/_u/edmontonflyfisherman/" target="_blank">
                         <img src="{% static 'catches/site/instagram_logo.svg' %}" alt="Instagram" width="35" height="35" class="d-inline-block">
                     </a>
                 </div>
+                <div class="col-md-1 "></div>
             </div>
         </nav>
     </footer>

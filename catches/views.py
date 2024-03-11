@@ -162,7 +162,7 @@ def make_kml_file (request, *args, **kwargs):
     return response
 
 def home (request):  # Gets all its info from announcment.py
-    return render (request, 'catches/home.html', announce)
+    return render (request, 'catches/home.html', top_messages)
 
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
