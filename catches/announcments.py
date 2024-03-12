@@ -34,3 +34,6 @@ top_messages = {
     'second_slide': second_slide,
     'third_slide': third_slide,
 }
+
+# <b>{{ first_slide.lake.name | title }}</b>{{ first_slide.plan | safe }}
+# <a href="{% url 'lake_detail' first_slide.lake.id %}"</a> 
