@@ -28,8 +28,28 @@
 
     <!-- Begin page content -->
     <main role="main" class="container-fluid">
-        <!-- messages -->
-        {% include "catches/base/message.html" %}
+        {% load tz %}
+        
+        <div class="row">  <!-- messages -->
+            <div class="col-md-2 pt-3"></div>
+            <div class="col-md-5 pt-3">  <!-- message message-bar -->
+                {% block message_bar %}
+                {% endblock message_bar %}
+            </div>
+            <div class="col-md-2 pt-3">  <!-- message date and time -->
+                <p class="text-center">
+                    <b>{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}</b>
+                </p>
+            </div>
+            <div class="col-md-1 pt-3">  <!-- message WEEK link -->
+                <p class="text-center ">
+                    <a href="{% url 'week_list' %}">
+                        <b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-2 pt-3"></div>
+        </div>
         {% block content %}
         {% endblock %}
         {% include 'catches/base/pagein.html' %} 

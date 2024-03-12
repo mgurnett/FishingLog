@@ -3,7 +3,8 @@
 <div class="row">
 	<div class="col-md-2 pt-3"></div>
 	<div class="col-md-5 pt-3">  <!-- message message-bar -->
-        {% include "catches/base/carousel.html" %}
+		{% block message_bar %}
+		{% endblock message_bar %}
 	</div>
 	<div class="col-md-2 pt-3">  <!-- message date and time -->
 		<p class="text-center">

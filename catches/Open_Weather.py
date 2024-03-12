@@ -18,7 +18,7 @@ def make_url (lat, lon):
     return f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={OW_API_KEY}'
 
 def get_data (lake):
-    print (make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
+    # print (make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
     return requests.get( make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
     # You can download all ECCC weather icons from the following URL: https://meteo.gc.ca/weathericons/NN.gif, where NN is a number between 00 and 48.
     #https://api.openweathermap.org/data/3.0/onecall?lat=53.6247&lon=-113.9564&units=metric&appid=[api key]
@@ -63,14 +63,14 @@ def temp_graph (response):
         for minute in data['minutely']:
             index += 1
             percent += minute['precipitation']*100
-            print (f'{percent = }')
+            # print (f'{percent = }')
             if index == 9:
                 pofp.append (
                     {'minutes': time_convert ( minute['dt'], timezone_offset ).strftime("%-I:%M %p"), 
                     'precipitation': percent/10}
                     )
                 print_time = time_convert ( minute['dt'], timezone_offset )
-                print (f'{print_time.strftime("%-I:%M %p")} {percent/10}')
+                # print (f'{print_time.strftime("%-I:%M %p")} {percent/10}')
                 percent = 0
                 index = -1
             
