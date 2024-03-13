@@ -6,6 +6,7 @@ from PIL import Image
 from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd
+from django.contrib.auth.models import User
 
 ''' blank talks about being required!!!!!!!  
     # 
@@ -400,7 +401,7 @@ class Fly(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path) 
 
-class Log(models.Model):
+class Log(models.Model): 
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE) 
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
@@ -416,6 +417,8 @@ class Log(models.Model):
     notes = RichTextField (blank=True, null=True)
     fish_swami = models.IntegerField (blank=True)
     num_landed = models.IntegerField (default=0)
+    angler = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    private = models.BooleanField (default = False)
      
     class Meta:
         ordering = ['temp']
@@ -480,6 +483,7 @@ class Log(models.Model):
         if not self.week:
             week_num = Week.objects.get(number = int(self.catch_date.strftime('%U')))
             self.week = week_num
+        self.angler = User.objects.get(user=request.user)
         super().save (*args, **kwargs)
 
 class Hatch(models.Model):

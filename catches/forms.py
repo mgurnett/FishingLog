@@ -307,7 +307,7 @@ class New_Log_Form (forms.ModelForm):
         model = Log
         # fields = '__all__' 
         fields = ['catch_date', 'notes', 'lake', 'location', 
-        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed']  
+        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed', 'private']  
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=DateInput )
@@ -330,6 +330,7 @@ class New_Log_Form (forms.ModelForm):
     weight = forms.CharField ( required = False, initial=0.0 ) 
     fish_swami = forms.IntegerField ( required = False, initial=0 ) 
     num_landed= forms.IntegerField ( required = False, initial=0 ) 
+    private = forms.BooleanField( required = False, initial=False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -345,9 +346,10 @@ class New_Log_Form (forms.ModelForm):
             ),
             Row(
                 Column('fish',          css_class='form-group col-md-4 mb-0'),
-                Column('length',        css_class='form-group col-md-3 mb-0'),
-                Column('weight',        css_class='form-group col-md-3 mb-0'),
+                Column('length',        css_class='form-group col-md-2 mb-0'),
+                Column('weight',        css_class='form-group col-md-2 mb-0'),
                 Column('num_landed',    css_class='form-group col-md-2 mb-0'),
+                Column('private',       css_class='form-group col-md-2 mt-8'),
                 css_class='form-row'
             ),
             Row(

@@ -458,7 +458,7 @@ class LakeListView_districts (UserAccessMixin, TemplateView):
         return context
 
 
-class LakeDetailView (UserAccessMixin, FormMixin, DetailView): 
+class LakeDetailView (UserAccessMixin, FormMixin, DetailView):  
     permission_required = 'catches.view_lake'
     
     model = Lake
