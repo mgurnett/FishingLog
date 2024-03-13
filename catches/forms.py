@@ -2,6 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
+from ckeditor.widgets import CKEditorWidget
 from .models import *
 
 
@@ -155,7 +156,7 @@ class New_Lake_Form (forms.ModelForm):
 
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
-    notes = forms.CharField ( max_length = 100, required = False )      
+    notes = forms.CharField ( widget = CKEditorWidget(), max_length = 100, required = False )      
     ats = forms.CharField ( max_length = 100, required = False ) 
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
@@ -207,7 +208,7 @@ class New_Hatch_Form (forms.ModelForm):
     class Meta:
         model = Hatch
         fields = '__all__'     
-    notes = forms.CharField ( required = False )  
+    notes = forms.CharField ( widget = CKEditorWidget(), required = False )  
     static_tag = forms.CharField ( required = False )
     sight_date = forms.DateField(
         initial=timezone.now,
@@ -234,22 +235,25 @@ class New_Hatch_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('bug', css_class='form-group col-md-6 mb-0'),
-                Column('lake', css_class='form-group col-md-6 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('bug', css_class='form-group col-md-3 mb-0'),
+                Column('lake', css_class='form-group col-md-3 mb-0'),
+                Column('sight_date', css_class='form-group col-md-3 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('week', css_class='form-group col-md-6 mb-0'),
-                Column('temp', css_class='form-group col-md-6 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('week', css_class='form-group col-md-3 mb-0'),
+                Column('temp', css_class='form-group col-md-3 mb-0'),
+                Column('static_tag', css_class='form-group col-md-3 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('notes', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('static_tag', css_class='form-group col-md-5 mb-0'),
-                Column('sight_date', css_class='form-group col-md-5 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('notes', css_class='form-group col-md-8 mb-0'),
+                Column('', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save')
@@ -297,7 +301,7 @@ class New_Stock_Form (forms.ModelForm):
             Submit('submit', 'Save')
         )
         
-class New_Log_Form (forms.ModelForm):
+class New_Log_Form (forms.ModelForm): 
     
     class Meta:
         model = Log
@@ -307,7 +311,7 @@ class New_Log_Form (forms.ModelForm):
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=DateInput )
-    notes = forms.CharField ( required = False )
+    notes = forms.CharField ( widget = CKEditorWidget(), required = False )
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all())
     location = forms.CharField ( required = False ) 

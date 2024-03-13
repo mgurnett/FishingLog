@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <p class="card-text">
-                        {% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}
+                        {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
                     </p>
                     <div class="card-footer">
                         <div class="row">
