@@ -718,6 +718,7 @@ class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
     def form_valid(self, form):
         form.instance.angler = self.request.user  # Assign logged-in user
         return super().form_valid(form)
+    
 
 class LogDuplicateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
@@ -744,6 +745,10 @@ class LogDuplicateView(PermissionRequiredMixin,  CreateView):
         initial['fish_swami'] = log.fish_swami
         initial['pk'] = None
         return initial
+
+    def form_valid(self, form):
+        form.instance.angler = self.request.user  # Assign logged-in user
+        return super().form_valid(form)
 
 class LogCreateView_from_temp(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'

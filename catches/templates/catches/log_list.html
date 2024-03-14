@@ -25,16 +25,19 @@
                     <div class="col-md-6">
                         <div class="card mb-4 border-1 bg-transparent text-centre">
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h6 class="card-title">
                                     <div class="row">
-                                        <div class="col-5">
+                                        <div class="col-4">
                                             Water temp: <b>{{ log.temp.name }}</b>
                                         </div>
-                                        <div class="col-7">
+                                        <div class="col-5">
                                             <a href="{% url 'log_detail' log.id %}">{{ log.catch_date | date:"D, N j, y" }}</a> (week: {{ log.catch_date | date:"W" }})
                                         </div>
+                                        <div class="col-3 text-small">
+                                            Angler: <b>{{ log.angler | title }}</b>
+                                        </div>
                                     </div>
-                                </h5>
+                                </h6>
                                 <h6>
                                     Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{ log.lake.lake_info | title }}</a> 
                                 </h6>

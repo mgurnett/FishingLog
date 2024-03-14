@@ -20,6 +20,9 @@ make temp to week chart PER lake
 
 Break insects down to specific ones.
 
+If I want to make a full backend,then follow this:  Django Admin User Model Permission Overrides & Performing Extra Operations
+https://youtu.be/WVSEcfAvlfc?si=xD14quMZufcOvTJw
+
 Good model.CASCADE
 https://www.youtube.com/watch?v=cpEfYD51Oyw
 
