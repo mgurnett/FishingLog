@@ -329,7 +329,7 @@ class New_Log_Form (forms.ModelForm):
     length = forms.CharField ( required = False, initial=0.0 ) 
     weight = forms.CharField ( required = False, initial=0.0 ) 
     fish_swami = forms.IntegerField ( required = False, initial=0 ) 
-    num_landed= forms.IntegerField ( required = False, initial=0 ) 
+    num_landed = forms.IntegerField ( required = False, initial=0 ) 
     private = forms.BooleanField( required = False, initial=False )
     
     def __init__(self, *args, **kwargs):

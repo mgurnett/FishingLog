@@ -417,7 +417,7 @@ class Log(models.Model):
     notes = RichTextField (blank=True, null=True)
     fish_swami = models.IntegerField (blank=True)
     num_landed = models.IntegerField (default=0)
-    angler = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    angler = models.ForeignKey(User, on_delete=models.CASCADE)
     private = models.BooleanField (default = False)
      
     class Meta:
@@ -479,12 +479,11 @@ class Log(models.Model):
             return self.fly.name
         return self.fly.name
 
-    def save (self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.week:
-            week_num = Week.objects.get(number = int(self.catch_date.strftime('%U')))
+            week_num = Week.objects.get(number=int(self.catch_date.strftime('%U')))
             self.week = week_num
-        self.angler = User.objects.get(user=request.user)
-        super().save (*args, **kwargs)
+        super().save(*args, **kwargs)
 
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)

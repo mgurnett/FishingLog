@@ -704,7 +704,6 @@ class LogCreateView(PermissionRequiredMixin, CreateView):
         form.instance.angler = self.request.user  # Assign logged-in user
         return super().form_valid(form)
 
-
 class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_log'
     model = Log
@@ -716,6 +715,7 @@ class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
         return {'lake': lake}
 
     def form_valid(self, form):
+        print (f'{self.request.user = }')
         form.instance.angler = self.request.user  # Assign logged-in user
         return super().form_valid(form)
 
