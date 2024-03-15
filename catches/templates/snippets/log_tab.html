@@ -9,15 +9,25 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         Water temp: <b>{{ log.temp.name }}</b>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6 text-end">
                                         <a href="{% url 'log_detail' log.id%}"><b>{{ log.catch_date|date:"D, N j, y" }}</a></b>
                                         Week:{{ log.week }}
                                     </div>
                                 </div>
                             </h5>
+                            <h6 class="card-title">
+                                <div class="row">
+                                    <div class="col-md-12 text-end">
+                                        <p>
+                                            Angler:{{ log.angler | title }}
+                                            {% if private %}<i class="fas fa-eye-slash"></i>{% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </h6>
                             <h6>
                                 {% if log.fish %}
                                     Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish_info | title}}</a>  </b>

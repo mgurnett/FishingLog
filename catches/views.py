@@ -672,6 +672,7 @@ class LogListView_search (PermissionRequiredMixin,  ListView):
     context_object_name = 'logs' # this is the name that we are passing to the template
     paginate_by = 9
     template_name = 'log_list.html'
+    I need to sort all the data to see of any of it is private.
 
     def get_queryset(self):
         index = 0
