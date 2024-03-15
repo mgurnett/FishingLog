@@ -554,7 +554,7 @@ class WeekListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_week'
     model = Week
     context_object_name = 'weeks' 
-    paginate_by = 12
+    paginate_by = 16
 
 class WeekDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_week'

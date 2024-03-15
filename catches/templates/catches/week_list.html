@@ -21,20 +21,25 @@
                 {% for week in weeks %}
                     <div class="col-md-3">
                         <div class="card mb-4 bg-transparent"> 
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <a href="{% url 'week_detail' week.id %}">Week : <b>#{{ week.number }}</b></a> </br>
-                                            <small>{{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }}</small></br>
-                                            <small>log count: {{ week.log_count }}     hatch count: {{ week.hatch_count }}</small>
-                                        </div>
+                            <div class="card-header">
+                                <div class = "row">
+                                    <div class="col-md-6 text-start">
+                                        <a href="{% url 'week_detail' week.id %}">Week : <b>#{{ week.number }}</b></a>
                                     </div>
-                                </h5>
-                                <h6></h6>
-                                <h6></h6>
-                                <h6></h6>
-                                <p class="card-text"></p>
+                                    <div class="col-md-6 text-end">
+                                        {{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        log count: {{ week.log_count }}
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        hatch count: {{ week.hatch_count }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
