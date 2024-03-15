@@ -23,7 +23,7 @@
                                     <div class="col-md-12 text-end">
                                         <p>
                                             Angler:{{ log.angler | title }}
-                                            {% if private %}<i class="fas fa-eye-slash"></i>{% endif %}
+                                            {% if log.private %}<i class="fas fa-eye-slash"></i>{% endif %}
                                         </p>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                 {% endif %}
                             </h6>
                             <p class="card-text">
-                                {% if log.notes %}<p>Notes: {{ log.notes }}</p>{% endif %}
+                                {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
                             </p>
                         </div>
                     </div>

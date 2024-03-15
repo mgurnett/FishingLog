@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from blog.models import *
 from django.contrib import messages
+from django.http import HttpResponse, FileResponse
 from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy
 from django.core.management import BaseCommand
@@ -9,8 +10,6 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import simplekml
-# import requests
-from django.http import HttpResponse, FileResponse
 
 from catches.num_array import get_array
 
@@ -30,113 +29,8 @@ from .weather_stuff import *
 from .Open_Weather import *
 from .distance import *
 from .announcments import *
+from .queries import *
 
-class UserAccessMixin (PermissionRequiredMixin):
-    def dispatch (self, request, *args, **kwargs):
-        if (not self.request.user.is_authenticated):
-            return redirect_to_login (
-                self.request.get_full_path(),
-                self.get_login_url(),
-                self.get_redirect_field_name()
-            )
-        if not self.has_permission():
-            return redirect('home/')
-        return super(UserAccessMixin, self).dispatch (request, *args, **kwargs)
-
-
-def collect_tw_from_logs_and_hatches():
-    logs = Log.objects.all()
-    hatches = Hatch.objects.all()
-    data = []
-    for log in logs:
-        if log.temp.id > 1:
-            log_data = {
-                'week': log.week.number, 
-                'week_id': log.week.id, 
-                'date': log.catch_date, 
-                'temp': log.temp.deg,
-                'temp_id': log.temp.id, 
-                'temp_name': log.temp.name, 
-                'log': log.id,
-                'type': 'L'
-                }
-            data.append(log_data)
-
-    for hatch in hatches:
-        if hatch.temp:
-            if hatch.temp.id > 1:
-                log_data = {
-                    'week': hatch.week.number, 
-                    'week_id': hatch.week.id, 
-                    'date': hatch.sight_date, 
-                    'temp': hatch.temp.deg,
-                    'temp_id': hatch.temp.id, 
-                    'temp_name': hatch.temp.name, 
-                    'log': hatch.id,
-                    'type': 'H'
-                    }
-                data.append(log_data)
-    return data  #  list of dictionaries
-
-def get_query_set(pk): # get the data for the hatch trends for week detail view
-
-    try:
-        week_data = Week.objects.get(id=pk)
-    except:
-        allcharts = []
-        return allcharts
-
-    last_week = week_data.prev_num
-    next_week = week_data.next_num
-    
-    chart_now = Chart.objects.filter (week=week_data.id)
-    chart_last = Chart.objects.filter (week=last_week)
-    chart_next = Chart.objects.filter (week=next_week)
-    
-    three_charts = []
-    for index, c in enumerate(chart_now):
-        if chart_last[index].strength + c.strength < c.strength + chart_next[index].strength:
-            trend = "rising"
-        elif chart_last[index].strength + c.strength == c.strength + chart_next[index].strength:
-            trend = "flat"
-        elif chart_last[index].strength + c.strength > c.strength + chart_next[index].strength:
-            trend = "falling"
-        insect = {
-                    'bug': c.bug.name, 
-                    'bug_id': c.bug.id,
-                    'last': chart_last[index].strength_name, 
-                    'this': c.strength_name,
-                    'next': chart_next[index].strength_name,
-                    'trend': trend,
-                    'strength': c.strength
-                }
-
-        three_charts.append(insect)
-    allcharts = sorted(three_charts, key=lambda d: d['strength'], reverse=True)
-    allcharts = sorted(allcharts, key=lambda d: d['trend'], reverse=True)
-
-    return allcharts
-
-def get_temps(pk):
-    all_temps = collect_tw_from_logs_and_hatches()
-    temps_this_week = []
-    for temp in all_temps:
-        if temp.get("week_id") == pk:
-            temps_this_week.append(temp)
-    temp_list = sorted (temps_this_week, key=lambda d: d['temp_name'], reverse=True)
-    return temp_list
-
-def get_weeks(pk):
-    all_weeks = collect_tw_from_logs_and_hatches()
-    weeks_this_temp = []
-    for week in all_weeks:
-        if week.get("temp_id") == pk:
-            weeks_this_temp.append(week)
-    week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
-    return week_list
-
-def kml_help(request):
-    return FileResponse("media/How to use the kml file.pdf", as_attachment=True, filename="KML help.pdf")
 
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
@@ -160,6 +54,21 @@ def make_kml_file (request, *args, **kwargs):
     response = HttpResponse(kml.kml())
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'
     return response
+
+def kml_help(request):
+    return FileResponse("media/How to use the kml file.pdf", as_attachment=True, filename="KML help.pdf")
+
+class UserAccessMixin (PermissionRequiredMixin):
+    def dispatch (self, request, *args, **kwargs):
+        if (not self.request.user.is_authenticated):
+            return redirect_to_login (
+                self.request.get_full_path(),
+                self.get_login_url(),
+                self.get_redirect_field_name()
+            )
+        if not self.has_permission():
+            return redirect('home/')
+        return super(UserAccessMixin, self).dispatch (request, *args, **kwargs)
 
 def home (request):  # Gets all its info from announcment.py
     return render (request, 'catches/home.html', top_messages)
@@ -497,7 +406,8 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
-        context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
+        # context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
+        context ['logs'] = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
@@ -564,7 +474,7 @@ class TempDetailView (PermissionRequiredMixin,  DetailView):
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['pk']).order_by('id')
         context ['weeks'] = get_weeks (self.kwargs['pk'])
-        context ['logs'] = Log.objects.filter (temp=self.kwargs['pk'])
+        context ['logs'] = log_filter_for_private (Log.objects.filter (temp=self.kwargs['pk']), self.request.user)
         return context
 
 class TempCreateView(PermissionRequiredMixin,  CreateView):
@@ -656,7 +566,7 @@ class WeekDetailView (PermissionRequiredMixin,  DetailView):
         context ['chart_for_weeks'] = get_query_set (self.kwargs['pk'])
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = get_temps(self.kwargs['pk'])
-        context ['logs'] = Log.objects.filter (week=self.kwargs['pk'])
+        context ['logs'] = log_filter_for_private (Log.objects.filter (week=self.kwargs['pk']), self.request.user)
         return context
 
 
@@ -666,13 +576,16 @@ class LogListView (PermissionRequiredMixin,  ListView):
     context_object_name = 'logs' 
     paginate_by = 6
 
+    def get_queryset(self):
+        log_list = log_filter_for_private (Log.objects.all(), self.request.user)
+        return log_list
+
 class LogListView_search (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_log'
     model = Log
     context_object_name = 'logs' # this is the name that we are passing to the template
     paginate_by = 9
     template_name = 'log_list.html'
-    I need to sort all the data to see of any of it is private.
 
     def get_queryset(self):
         index = 0
@@ -685,9 +598,10 @@ class LogListView_search (PermissionRequiredMixin,  ListView):
                 index = t.id
                 break
         if index == 0:
-            object_list = Log.objects.all()
+            object_list_all = Log.objects.all()
         else:
-            object_list = Log.objects.filter(temp = index)
+            object_list_all = Log.objects.filter(temp = index)
+        object_list = log_filter_for_private (object_list_all, self.request.user)
         return object_list
 
 class LogDetailView (PermissionRequiredMixin,  DetailView): 
@@ -715,6 +629,20 @@ class LogCreateView_from_lake(PermissionRequiredMixin,  CreateView):
     def get_initial(self):
         lake = Lake.objects.get(pk=self.kwargs['pk'])
         return {'lake': lake}
+
+    def form_valid(self, form):
+        form.instance.angler = self.request.user  # Assign logged-in user
+        return super().form_valid(form)
+
+class LogCreateView_from_temp(PermissionRequiredMixin,  CreateView):
+    permission_required = 'catches.add_log'
+    model = Log
+    form_class = New_Log_Form
+    success_message = "New Log saved"
+
+    def get_initial(self):
+     temp = Temp.objects.get(pk=self.kwargs['pk'])
+     return {'temp': temp}
 
     def form_valid(self, form):
         form.instance.angler = self.request.user  # Assign logged-in user
@@ -750,16 +678,6 @@ class LogDuplicateView(PermissionRequiredMixin,  CreateView):
     def form_valid(self, form):
         form.instance.angler = self.request.user  # Assign logged-in user
         return super().form_valid(form)
-
-class LogCreateView_from_temp(PermissionRequiredMixin,  CreateView):
-    permission_required = 'catches.add_log'
-    model = Log
-    form_class = New_Log_Form
-    success_message = "New Log saved"
-
-    def get_initial(self):
-     temp = Temp.objects.get(pk=self.kwargs['pk'])
-     return {'temp': temp}
 
 class LogUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_log'
