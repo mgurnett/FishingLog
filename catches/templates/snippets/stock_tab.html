@@ -18,8 +18,20 @@
                   <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a></th>
                   <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></td>
                   <td>{{ stock.number }}</td>
-                  <td>{{ stock.full_geno }}</td>
-                  <td>{{ stock.full_strain }}</td>
+                  <td>
+                    {% if stock.gentotype %}
+                      <abbr title = "{{ stock.geno_tooltip | safe }}">
+                        {{ stock.full_geno }}
+                      </abbr>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if stock.strain %}
+                      <abbr title = "{{ stock.strain_tooltip | safe }}">
+                        {{ stock.full_strain }}
+                      </abbr>
+                    {% endif %}
+                  </td>
                   <td>{{ stock.length }}cm ({{ stock.inch }}")</td>
                 {% endif %}
               </tr>

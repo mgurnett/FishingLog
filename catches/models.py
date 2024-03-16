@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd
 from django.contrib.auth.models import User
+from .fish_data import STRAIN_INFO, GENOTYPE_INFO
 
 ''' blank talks about being required!!!!!!!  
     # 
@@ -61,6 +62,8 @@ DISTRICTS = (
     (50,"Stony Plain"),(51,"Strathmore"),(52,"Sundre"),(53,"Swan Hills"),(54,"Valleyview"),(55,"Vegreville"),(56,"Vermilion"),
     (57,"Vulcan"),(58,"Wetaskiwin"),(59,"Whitecourt"),(60,"unknown"),
 )
+
+
 
 class Region(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -302,6 +305,14 @@ class Stock(models.Model):
         strain_found = STRAIN[strain_index][1]
 
         return strain_found
+
+    @property 
+    def geno_tooltip (self):
+        return GENOTYPE_INFO
+
+    @property 
+    def strain_tooltip (self):
+        return STRAIN_INFO
 
 class Temp(models.Model):
     name = models.CharField(max_length = 100)

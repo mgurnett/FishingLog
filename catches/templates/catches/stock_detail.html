@@ -7,23 +7,33 @@
 			<div class="card border-0 bg-transparent">
 				<h5 class="card-header">
 					<div class="row">
-						<div class="col-md-4"><b>{{ stock.date_stocked }}</b></div>
-						<div class="col-md-4"><b><a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.lake_info }}</a></b></div>
-						<div class="col-md-4"><b><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></b></div>
+						<div class="col-md-2">
+							<b>{{ stock.date_stocked }}</b>
+						</div>
+						<div class="col-md-6 text-center">
+							<b><a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.lake_info }}</a></b>
+						</div>
+						<div class="col-md-4 text-end">
+							<b><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></b>
+						</div>
 					</div>
 				</h5>
 				<div class="card-body">
 					<p class="card-text">
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-4 text-end">
 								{% if stock.gentotype %}
-									Genotype: <b>{{ stock.full_geno }}</b>
+									<abbr title = "{{ stock.geno_tooltip | safe }}">
+										Genotype: <b>{{ stock.full_geno }}</b>
+									</abbr>
 								{% endif %}
 							</div>
-							<div class="col-md-4"></div>
-							<div class="col-md-4">
-								{% if stock.gentotype %}
-									Strain: <b>{{ stock.full_strain }}</b>
+							<div class="col-md-4"> </div>
+							<div class="col-md-4 text-start">
+								{% if stock.strain %}
+									<abbr title = "{{ stock.strain_tooltip  | safe }}">
+										Strain: <b>{{ stock.full_strain }}</b>
+									</abbr>
 								{% endif %}
 							</div>
 						</div>
@@ -31,10 +41,12 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-8">{{stock.length}}cm ({{stock.inch}}") long</div>
-                        <div class="col-md-4">
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'stock_update' stock.id %}" type="submit" >edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'stock_delete' stock.id %}" type="submit" >delete</a>
+                        <div class="col-md-8">fish length: <b>{{stock.length}}cm</b> or <b>{{stock.inch}}"</b> long</div>
+                        <div class="col-md-4 text-end">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" 
+							href="{% url 'stock_update' stock.id %}" type="submit" >edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" 
+							href="{% url 'stock_delete' stock.id %}" type="submit" >delete</a>
 							<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
                         </div>
                     </div>
