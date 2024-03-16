@@ -10,12 +10,12 @@
         <tbody> 
           {% for temp in temps %}
           <tr>
-            <td scope="row">
+            <td scope="row">  
               {% if temp.type == "L"  %}
-                Log
+                <a href="{% url 'log_detail' temp.log %}"><b>Log</b></a>
               {% endif %}   
               {% if temp.type == "H"  %}
-                Hatch
+              <a href="{% url 'hatch_detail' temp.log %}"><b>Hatch</b></a>
               {% endif %}  
             </td>
             <td>

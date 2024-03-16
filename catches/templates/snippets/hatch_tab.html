@@ -20,8 +20,15 @@
             <td scope="row">
               <a href="{% url 'lake_detail' hatch.lake.id %}">{{ hatch.lake.name | title  }} </a>
             </td>
-            <td>{% if hatch.temp %}{{ hatch.temp.name }} {% endif %}</td>
-            <td>{% if hatch.sight_date %} {{ hatch.sight_date | date:'D d M Y' }} {% endif %}</td>
+            <td>
+              {% if hatch.temp %}
+                <a href="{% url 'temp_detail' hatch.temp.id %}">{{ hatch.temp.name }}</a>
+              {% endif %}
+            </td>
+            <td>
+              {% if hatch.sight_date %} 
+                <a href="{% url 'hatch_detail' hatch.id %}">{{ hatch.sight_date | date:'D d M Y' }} </a>
+              {% endif %}</td>
           </tr>
           {% endfor %} 
         </tbody>

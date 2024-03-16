@@ -30,3 +30,28 @@ detail templates:
 <div class="tab-pane container fade" id="BLOGS">
     {% include 'snippets/blog_list.html' %}
 </div>
+
+================  good card setup ================
+
+<div class="album py-1 "> 
+    <div class = "row">
+        {% for log in logs %}
+            <div class="col-md-6">
+                <div class="card mb-4 border-1 bg-transparent">
+                    <div class="card-header">
+                        <div class = "row">
+                            <div class="col-md-5"> </div>
+                            <div class="col-md-5"> </div>
+                            <div class="col-md-2">  </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> </p>
+                    </div>
+                    <div class="card-footer text-muted text-end">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

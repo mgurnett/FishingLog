@@ -12,10 +12,10 @@
           <tr>
             <td scope="row">  
               {% if week.type == "L"  %}
-                Log
+                <a href="{% url 'log_detail' week.log %}"><b>Log</b></a>
               {% endif %}   
               {% if week.type == "H"  %}
-                Hatch
+              <a href="{% url 'hatch_detail' week.log %}"><b>Hatch</b></a>
               {% endif %}  
             </td>
             <td>
