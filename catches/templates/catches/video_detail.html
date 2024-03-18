@@ -22,13 +22,15 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-3"> 
-							Author: {{ video.author | title}}
+                            {% if video.author %}
+								Author: {{ video.author | title}}
+							{% endif %}
 						</div>
                         <div class="col-md-3">
 							<a href="{{ video.url }}" target="_blank" >Youtube link</a>
 						</div>
                         <div class="col-md-3">
-                            {{ video.date_added }}
+							{{ video.date_added }}
                         </div>
                         <div class="col-md-3">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_update' video.id %}" type="submit" >edit</a>

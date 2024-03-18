@@ -20,27 +20,38 @@
                 <div class="card mb-4 border-1 bg-transparent">
                     <div class="card-header">
                         <div class = "row">
-                            <div class="col-md-8"> </div>
-                            <div class="col-md-4 text-end">HATCH</div>
+                            <div class="col-md-9">
+                                {{ h.sight_date|date:"D, N j, y" }} (<a href="{% url 'week_detail' h.week.id %}">Week: <b>{{ h.week.number }}</b></a>)
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <a href="{% url 'hatch_detail' h.id %}" >HATCH</a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class = "row">
+                            <div class="col-md-6">
+                                <a href="{% url 'hatch_detail' h.id %}" >Bug:<b>{{ h.bug.name | title }}</b></a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{% url 'hatch_detail' h.id %}" >Lake:<b>{{ h.lake.lake_info | title }}</b> </a> 
+                            </div>
+                        </div>
                         <p class="card-text">
                             {{ h.notes | safe }}
                         </p>
                     </div>
-                    <div class="card-footer text-muted text-end">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4 border-1 bg-transparent text-centre">
-                    <a href="{% url 'hatch_detail' h.id %}" class="card-link">
-                        Bug:<b>{{ h.bug.name | title }}</b> <br>
-                        Lake:<b>{{ h.lake.lake_info | title }}</b> 
-                    </a>
-                    <div class="card-body">
-                        <p class="card-text">{{ h.notes | safe }}</p>
+                    <div class="card-footer">
+                        <div class = "row">
+                            <div class="col-md-6">
+                                {% if hatch.temp %}
+                                  <a href="{% url 'temp_detail' hatch.temp.id %}">{{ hatch.temp.name }}</a> 
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 text-end ">
+                                    Tag: {{ h.bug.static_tag}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

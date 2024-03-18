@@ -8,34 +8,41 @@
 		<div class="col-md-1"> </div>
 		<div class="col-md-10">
 			<div class="card border-0 bg-transparent">
-				<h5 class="card-header">
-					{{ article.name | title }}
-				</h5>
+				<div class="card-header">
+					<div class="row">
+						<div class="col-md-6">
+							<h5>{{ article.name | title }}</h5>
+						</div>	
+						<div class="col-md-6 text-end">
+							{% if article.file %}
+								<a href = /media/{{ article.file }} download>{{ article.name | title }}</a>
+							{% endif %}
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							{% if article.author %}Author: {{ article.author|title}}{% endif %}
+						</div>	
+						<div class="col-md-6 text-end">
+                            {{ article.date_added }}
+						</div>	
+					</div>
+				</div>
 				<div class="card-body">
 					{% if article.notes %}
-						<p>{{ article.notes|safe }}</p>
-					{% endif %}
-					{% if article.file %}
-						<p>
-							<a href = /media/{{ article.file }} download>{{ article.name | title }}</a>
-						</p>
+						<p>{{ article.notes | safe }}</p>
 					{% endif %}
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-3"> 
-							Author: {{ article.author|title}}
-						</div>
-                        <div class="col-md-3">
+                        <div class="col-md-9">
 							Tags: <b>{{ article.tag_list }}</b>
 						</div>
-                        <div class="col-md-3">
-                            {{ article.date_added }}
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 test-end">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_update' article.id %}" type="submit" >edit</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_delete' article.id %}" type="submit" >delete</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' %}" type="submit" >new</a>
+							<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>							
                         </div>
                     </div>
 				</div>

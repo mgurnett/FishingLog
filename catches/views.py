@@ -672,6 +672,7 @@ class LogDuplicateView(PermissionRequiredMixin,  CreateView):
         initial['notes'] = log.notes
         initial['num_landed'] = log.num_landed
         initial['fish_swami'] = log.fish_swami
+        initial['private'] = log.private
         initial['pk'] = None
         return initial
 
@@ -733,37 +734,20 @@ class VideoDetailView(PermissionRequiredMixin,  DetailView):
 class VideoCreateView(PermissionRequiredMixin,  CreateView):
     permission_required = 'catches.add_video'
     model = Video
-    # form_class = Video_Form
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+    success_message = 'The video was added'
     
     def get_initial(self):
         if not self.kwargs:
             return
         tag = self.kwargs['tag']
         return {('tags'): tag}
-    
-    # def get_success_url(self):
-        # if not self.kwargs:
-        #     return reverse('videos_list')
-        # if self.kwargs.get('field') == 'video':
-        #     return reverse ('library_list')
-        # model_to_use = f"{self.kwargs.get('field')}_detail"
-        # return reverse("video_detail", kwargs={'pk': self.kwargs.get('pk')})
-    # I got rid of this to see if the absolute_url in the model works better.
-        
-
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The video was added'
-        )
-        return super().form_valid (form)
 
 class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_video'
     model = Video
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
+    success_message = "Video fixed"
     
     # def get_success_url(self):
     #     if not self.kwargs:
@@ -776,14 +760,6 @@ class VideoUpdateView(PermissionRequiredMixin,  UpdateView):
     def get_success_url(self):
         # return reverse('videos_list')
         return reverse('video_detail', kwargs={'pk': self.kwargs.get('pk')})
-
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'Video fixed'
-        )
-        return super().form_valid (form)
 
 class VideoDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_video'
@@ -911,14 +887,7 @@ class PictureUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_picture'
     model = Picture
     fields = ('name', 'notes', 'tags', 'image', 'snippet')
-
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'Picture fixed'
-        )
-        return super().form_valid (form)
+    success_message = "Picture fixed"
  
 class PictureDeleteView (PermissionRequiredMixin,  DeleteView):
     permission_required = 'catches.delete_picture'
