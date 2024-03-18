@@ -12,12 +12,45 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<p class="card-text"> 
-					<img class = "card-img-top mx-auto d-block" src="{{ bug.image.url }}" alt={{ bug.name | title }} class="img-thumbnail"style="width:50%">
-				</p>
-				<p class="card-text">
-					{{ bug.notes | safe }}
-				</p>
+				<div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="{{ bug.image.url }}" class="mx-auto d-block" style="width:25%" alt="{{ bug.name | title }}">
+							<div class="row">
+								<div class="col-md-2 text-centre"></div>
+								<div class="col-md-8 d-flex justify-content-center">
+									{{ bug.notes | safe }}
+								</div>
+								<div class="col-md-2 text-centre"></div>
+							</div>
+						</div>
+						{% for picture in pictures_list %}
+							<div class="carousel-item">
+								<a href="{% url 'picture_detail' picture.id %}" >
+									<img src="{{ picture.image.url }}" class="img-thumbnail mx-auto d-block" style="width:25%" >
+								</a>
+								<div class="row">
+									<div class="col-md-6 text-end">
+										date added: <b>{{ picture.date_added }}</b>
+									</div>
+									<div class="col-md-6 text-start">
+										tags: <b>{{ picture.tag_list }}</b>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+					<!-- Carousel Buttons -->
+					<a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleDark" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
 				<div class = "row">
 					<div class="col-md-2 "></div>
 					<div class="col-md-2 text-center">Fly count: <b>{{ bug.fly_ent_count }}</b></div>
