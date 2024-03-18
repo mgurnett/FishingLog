@@ -1,24 +1,20 @@
 Todo list.
 
+As of March 18
+- let users make their own favorites list.
+- let users add an address to their profile so that the distance thing works.
+- fix RFT in blogs.
+- sort out picture and sizes
+- work on validations
+- fix messages and success message and sucess_URL
+- In the tags list, show how many media, lakes, fish, flys.....
+- make temp to week chart PER lake
+- Break insects down to specific ones.
+
+
+================================
 look into icecream for replaceing print for debugging
 look at adding coloram for added colors to debugging.
-
-
--change the media models to create tags.
-
-- do a better job of images
-
-- work on validations
-
-- How to use Django Messages Framework
-
-Update and rethink tags.
-
-In the tags list, show how many media, lakes, fish, flys.....
-
-make temp to week chart PER lake
-
-Break insects down to specific ones.
 
 If I want to make a full backend,then follow this:  Django Admin User Model Permission Overrides & Performing Extra Operations
 https://youtu.be/WVSEcfAvlfc?si=xD14quMZufcOvTJw

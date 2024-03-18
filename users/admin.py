@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile,Address
 
 admin.site.register(Profile)
+admin.site.register(Address)
 
 class MyUserAdmin(admin.ModelAdmin):
     def group(self, user):
