@@ -256,7 +256,11 @@ class New_Hatch_Form (forms.ModelForm):
                 Column('', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Save')
+            Row(
+                Column('', css_class='form-group col-md-8 mb-0'),
+                Submit('submit', 'Save'),
+                css_class='form-row'
+            ),
         )
 
 class New_Stock_Form (forms.ModelForm):

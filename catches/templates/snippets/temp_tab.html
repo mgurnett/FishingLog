@@ -1,15 +1,22 @@
     <table class="table table-striped table-hover">
         <thead>
           <tr>
+            <th scope="col">Log or Hatch date</th>
             <th scope="col">Type</th>
             <th scope="col">Temperature</th>
-            <th scope="col">Log or Hatch date</th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody> 
           {% for temp in temps %}
           <tr>
+            <td>
+               {% if temp.type == "L"  %}
+                <a href="{% url 'log_detail' temp.log %}">{{ temp.date  }} </a>
+              {% endif %}   
+              {% if temp.type == "H"  %}
+                <a href="{% url 'hatch_detail' temp.log %}">{{ temp.date  }} </a>
+              {% endif %}
+            </td>
             <td scope="row">  
               {% if temp.type == "L"  %}
                 <a href="{% url 'log_detail' temp.log %}"><b>Log</b></a>
@@ -20,16 +27,6 @@
             </td>
             <td>
               <a href="{% url 'temp_detail' temp.temp_id %}">{{ temp.temp_name  }} </a>          
-            </td>
-            <td>
-               {% if temp.type == "L"  %}
-                <a href="{% url 'log_detail' temp.log %}">{{ temp.date  }} </a>
-              {% endif %}   
-              {% if temp.type == "H"  %}
-                <a href="{% url 'hatch_detail' temp.log %}">{{ temp.date  }} </a>
-              {% endif %}
-            </td>
-            <td>
             </td>
           </tr>
           {% endfor %} 

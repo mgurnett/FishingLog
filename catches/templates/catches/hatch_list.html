@@ -17,13 +17,30 @@
         <div class = "row">
             {% for h in hatchs %}
             <div class="col-md-4">
+                <div class="card mb-4 border-1 bg-transparent">
+                    <div class="card-header">
+                        <div class = "row">
+                            <div class="col-md-8"> </div>
+                            <div class="col-md-4 text-end">HATCH</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ h.notes | safe }}
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted text-end">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="card mb-4 border-1 bg-transparent text-centre">
                     <a href="{% url 'hatch_detail' h.id %}" class="card-link">
                         Bug:<b>{{ h.bug.name | title }}</b> <br>
                         Lake:<b>{{ h.lake.lake_info | title }}</b> 
                     </a>
                     <div class="card-body">
-                        <p class="card-text">{{ h.notes }}</p>
+                        <p class="card-text">{{ h.notes | safe }}</p>
                     </div>
                 </div>
             </div>

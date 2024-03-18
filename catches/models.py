@@ -7,63 +7,7 @@ from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd
 from django.contrib.auth.models import User
-from .fish_data import STRAIN_INFO, GENOTYPE_INFO
-
-''' blank talks about being required!!!!!!!  
-    # 
-    # If True, the field is allowed to be blank. Default is False.
-    # If blank=True then the field will not be required, whereas if it's False the field cannot be blank.
-
-    # If True, Django will store empty values as NULL in the database. Default is False.
-    # NULL - CharFields and TextFields are never saved as NULL. Blank values are stored in the DB as an empty string ('').
-'''
-
-STRAIN = (
-    ("BEBE", "Beitty x Beitty"),
-    ("BRBE", "Bow River x Beitty"),
-    ("CLCL", "Campbell Lake"),
-    ("LYLY", "Lyndon"),
-    ("PLPL", "Pit Lake"),
-    ("TLTLJ", "Trout Lodge / Jumpers"),
-    ("TLTLK", "Trout Lodge / Kamloops"),
-    ("TLTLS", "Trout Lodge / Silvers"),
-    ("LSE", "Lac Ste. Anne"),
-    ("JBL", "Job Lake"),
-    ("MC", 'Marie Creek'),
-    ("RI", 'Rock Island'),
-    ("AC", 'Allison Creek'),
-    ("RD", 'Riverance'),
-)
-
-GENTOTYPE = (
-    ("2N", "diploid"),
-    ("3N", "triploid"),
-    ("AF2N", "all-female diploid"),
-    ("AF3N", "all-female triploid"),
-)
-
-STRENGTH = (
-    (0, "none"),
-    (1, "few"),
-    (2, "weak"),
-    (3, "low"),
-    (4, "lots"),
-    (5, "abundent"),
-)
-
-DISTRICTS = (
-    (0,"Athabasca"),(1,"Barrhead"),(2,"Blairmore"),(3,"Bonnyville"),(4,"Brooks"),(5,"Calgary"),(6,"Camrose"),(7,"Canmore"),
-    (8,"Cardston"),(9,"Cd Grande Prairie"),(10,"Claresholm"),(11,"Cochrane"),(12,"Cold Lake"),(13,"Coronation"),(14,"Drayton Valley"),
-    (15,"Drumheller"),(16,"Edmonton"),(17,"Edson"),(18,"Evansburg"),(19,"Fairview"),(20,"Foremost"),(21,"Fort Mcmurray"),
-    (22,"Fort Vermilion"),(23,"Fox Creek"),(24,"Grande Cache"),(25,"Grande Prairie"),(26,"Hanna"),(27,"High Level"),
-    (28,"High Prairie"),(29,"High River"),(30,"Hinton"),(31,"Lac La Biche"),(32,"Lethbridge"),(33,"Lloydminster"),(34,"Manning"),
-    (35,"Medicine Hat"),(36,"Nordegg"),(37,"Olds"),(38,"Oyen"),(39,"Peace River"),(40,"Pincher Creek"),(41,"Ponoka"),(42,"Provost"),
-    (43,"Red Deer"),(44,"Rocky Mountain House"),(45,"Slave Lake"),(46,"Smoky Lake"),(47,"Spirit River"),(48,"St. Paul"),(49,"Stettler"),
-    (50,"Stony Plain"),(51,"Strathmore"),(52,"Sundre"),(53,"Swan Hills"),(54,"Valleyview"),(55,"Vegreville"),(56,"Vermilion"),
-    (57,"Vulcan"),(58,"Wetaskiwin"),(59,"Whitecourt"),(60,"unknown"),
-)
-
-
+from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
 
 class Region(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -233,7 +177,7 @@ class Lake(models.Model):
         dist = DISTRICTS[self.district][1]
         return dist 
 
-# https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
+    # https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
     def __str__(self):
         if self.favourite:
             fav="*"
@@ -279,10 +223,10 @@ class Stock(models.Model):
     def __str__(self):
         return f'Stocking report: On {self.date_stocked} at {self.lake}, {self.number} ({self.length}cm or {self.inch}inch) {self.fish} ({self.strain}/{self.gentotype}) were stocked'
 
-# https://docs.djangoproject.com/en/4.1/ref/models/fields/#model-field-types
-#https://youtu.be/-HuTlmEVOgU - viedo on mant to many relationship
+        # https://docs.djangoproject.com/en/4.1/ref/models/fields/#model-field-types
+        #https://youtu.be/-HuTlmEVOgU - viedo on mant to many relationship
 
-# Payne Lake  Mami Lake  NE10 -2-28-W4 RNTR  Beitty Resort  3N 14.2 38,000  21-Sep-22
+        # Payne Lake  Mami Lake  NE10 -2-28-W4 RNTR  Beitty Resort  3N 14.2 38,000  21-Sep-22
 
     @property 
     def full_geno (self):
@@ -648,8 +592,7 @@ class Chart(models.Model):
 
         return strength_found
 
-'''
-ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
+'''  ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
 in the referencing table are deleted.
 ON DELETE SET NULL: if a row of the referenced table is deleted, then all referencing columns 
 in all matching rows of the referencing table to be set to null.
@@ -662,4 +605,13 @@ has any matching rows in the referencing table.
 ON DELETE NO ACTION (the default): there is no referential delete action; the referential 
 constraint only specifies a constraint check.
 NO DELETE PROTECT
+'''
+
+''' blank talks about being required!!!!!!!  
+    # 
+    # If True, the field is allowed to be blank. Default is False.
+    # If blank=True then the field will not be required, whereas if it's False the field cannot be blank.
+
+    # If True, Django will store empty values as NULL in the database. Default is False.
+    # NULL - CharFields and TextFields are never saved as NULL. Blank values are stored in the DB as an empty string ('').
 '''
