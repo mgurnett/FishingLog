@@ -418,7 +418,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
-        context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+        context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 

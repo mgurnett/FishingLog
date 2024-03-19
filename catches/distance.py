@@ -4,13 +4,15 @@ from django.conf import settings
 # https://python-gmaps.readthedocs.io/en/latest/gmaps.html#gmaps.directions.Directions.directions
 # Requires API key
 
-def find_dist (lake):
+def find_dist (lake, user):
     gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+    address_str = f"{user.profile.address}, {user.profile.city}, {user.profile.prov}"
 
     # Requires cities name 
     # my_dist = gmaps.distance_matrix('Calgary, AB','Edmonton, AB')
     # my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB','53.6832190000, -113.2741360000')
-    my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB', str (lake.lat) + "," + str (lake.long) )
+    # my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB', str (lake.lat) + "," + str (lake.long) )
+    my_dist = gmaps.distance_matrix(address_str, str (lake.lat) + "," + str (lake.long) )
     my_dist_dict = { 
         'distance_text': my_dist['rows'][0]['elements'][0]['distance']['text'],
         'meters': my_dist['rows'][0]['elements'][0]['distance']['value'],

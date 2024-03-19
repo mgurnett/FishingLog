@@ -25,15 +25,21 @@
 					</div> <!-- Title line -->
 					<hr>
 					<div class="row"> <!-- Districts line -->
-						<div class="col-md-4"> 
+						<div class="col-md-2">
 							District: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list_dist' lake.district %}"> {{ lake.dist_name | title  }}</a>
 						</div>
-						<div class="col-md-4 ">
+						<div class="col-md-2 ">
 							{% if lake.region %} 
 								Region: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_detail' lake.region.id %}">{{ lake.region | title }}</a>
 							{% endif %}
 						</div>
-						<div class="col-md-4 text-end">
+						<div class="col-md-2">
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
+						</div>
+						<div class="col-md-1">
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
+						</div>
+						<div class="col-md-5 text-end">
 							<form method="post">{% csrf_token %}
 								{{ form }}
 								<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="Plan">
@@ -42,10 +48,7 @@
 					</div> <!-- Districts line -->
 					<hr>
 					<div class="row"> <!-- Maps line -->
-						<div class="col-md-1 text-end">
-							<b>Maps</b>
-						</div>
-						<div class="col-md-2 text-start">
+						<div class="col-md-4 text-center">
 							{% if lake.gps_url %} 
 								<a class="btn btn-primary btn-md mt-1 mb-1" href="{{ lake.gps_url }}" 
 									target="_blank" type="submit" >Bathymetric</a>
@@ -57,16 +60,15 @@
 								</a>
 							{% endif %}
 						</div>
-						<div class="col-md-3">
-							Google maps: <b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+						<div class="col-md-4">
+							<p>
+								<abbr title = "Distance from address recorded in your profile according to Google Maps.">
+								Distance: 
+								</abbr>
+								<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+							</p>
 						</div>
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
-						</div>
-						<div class="col-md-1">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
-						</div>
-						<div class="col-md-3 text-end">
+						<div class="col-md-4 text-end">
 							Tag: <b> {{ lake.static_tag }}</b>
 						</div>
 					</div> <!-- Maps line -->
