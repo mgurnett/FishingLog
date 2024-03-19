@@ -327,8 +327,10 @@ class FlyDeleteView (PermissionRequiredMixin,  DeleteView):
     success_url = "/flys/"
 
 
-class LakeListView (UserAccessMixin, ListView):
-    permission_required = 'catches.view_lake'
+# class LakeListView (UserAccessMixin, ListView):
+    # permission_required = 'catches.view_lake'
+class LakeListView (ListView):
+    # permission_required = 'catches.view_lake'
     model = Lake
     context_object_name = 'lakes' 
 
@@ -367,9 +369,11 @@ class LakeListView_districts (UserAccessMixin, TemplateView):
         return context
 
 
-class LakeDetailView (UserAccessMixin, FormMixin, DetailView):  
-    permission_required = 'catches.view_lake'
-    
+# class LakeDetailView (UserAccessMixin, FormMixin, DetailView):  
+#     permission_required = 'catches.view_lake'
+class LakeDetailView (FormMixin, DetailView):  
+    # permission_required = 'catches.view_lake'
+
     model = Lake
     form_class = Plan_form
     # context_object_name = 'lake'
@@ -399,7 +403,13 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         subtotals.append({'year': 'total', 'subt': total})
         # print (subtotals)
         # lake_dist = Lake.objects.get(id=self.kwargs['pk'])
-        # distance_to_lake = distance (lake_dist.lat, lake_dist.long)
+
+        if self.request.user.is_authenticated:
+            distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
+            logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
+        else:
+            distance_to_lake = ""
+            logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
         
         context = super().get_context_data(**kwargs)
@@ -407,7 +417,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         # context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
-        context ['logs'] = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
+        context ['logs'] = logs_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
@@ -418,7 +428,7 @@ class LakeDetailView (UserAccessMixin, FormMixin, DetailView):
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
-        context ['distance'] = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
+        context ['distance'] = distance_to_lake
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 

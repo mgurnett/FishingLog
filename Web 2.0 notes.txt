@@ -55,3 +55,9 @@ detail templates:
         {% endfor %}
     </div>
 </div>
+
+================  is allowed if loged in ================
+
+{% if user.is_authenticated %}
+{% else %}
+{% endif %}

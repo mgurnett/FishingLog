@@ -65,7 +65,11 @@
 								<abbr title = "Distance from address recorded in your profile according to Google Maps.">
 								Distance: 
 								</abbr>
-								<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+								{% if user.is_authenticated %}
+									<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+								{% else %}
+									Login to see distance
+								{% endif %}
 							</p>
 						</div>
 						<div class="col-md-4 text-end">
