@@ -25,12 +25,23 @@
             <div class="card-body" style="column-count: 3;">                                
                 <ul class="list-unstyled card-columns" >
                     {% for lake in favs %}
-                        <li>
-                            <a href="{% url 'lake_detail' lake.id %}">{{ lake.name | title }}</a>
+                        <!-- <li>
+                            <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b></a>
                             {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
                             {% if lake.log_set.count %}
-                                <span class="badge badge-dark badge-pill"> ( logs: {{ lake.log_set.count }} )</span>
+                                <span class="badge badge-light badge-pill"> ( logs: {{ lake.log_set.count }} )</span>
                             {% endif %}
+                        </li> -->
+                        <li>
+                            <button type="button" class="btn bg-transparent position-relative">
+                                <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b>
+                                    {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
+                                    <span class="badge bg-primary">
+                                        <span class="badge badge-light badge-pill">( logs: {{ lake.log_set.count }} )</span>
+                                        <span class="visually-hidden">logs</span>
+                                    </span>
+                                </a>
+                              </button>
                         </li>
                     {% endfor %} 
                 </ul> 
@@ -69,7 +80,7 @@
                 <ul class="list-unstyled card-columns" >
                     {% for reg in regions %}
                         <li>
-                            <a href="{% url 'region_detail' reg.id %}">{{ reg.name | title }}  ( Lakes: {{ reg.lake_count }} )</a>
+                            <a href="{% url 'region_detail' reg.id %}"><b>{{ reg.name | title }}</b>  ( Lakes: {{ reg.lake_count }} )</a>
                         </li>
                     {% endfor %} 
                 </ul> 
@@ -105,7 +116,7 @@
                 <ul class="list-unstyled card-columns" >
                     {% for dist in districts %}
                         <li>
-                            <a href="{% url 'lake_list_dist' dist.0 %}"> {{ dist.1 | title }}  ( Lakes: {{ dist.2 }} )</a>
+                            <a href="{% url 'lake_list_dist' dist.0 %}"> <b>{{ dist.1 | title }}</b>  ( Lakes: {{ dist.2 }} )</a>
                         </li>
                     {% endfor %} 
                 </ul> 

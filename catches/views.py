@@ -178,6 +178,11 @@ class FishListView (PermissionRequiredMixin, ListView):
     model = Fish
     context_object_name = 'fishes' 
     paginate_by = 6
+    
+    def handle_no_permission(self):
+        # add custom message
+        messages.error(self.request, 'You have no permission')
+        return super(FishListView, self).handle_no_permission()
  
 class FishDetailView (PermissionRequiredMixin, DetailView): 
     permission_required = 'catches.view_fish'
@@ -194,7 +199,7 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
 
-class FishCreateView(PermissionRequiredMixin,  CreateView):
+class FishCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_fish'
     model = Fish
     fields = '__all__' 
