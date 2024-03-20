@@ -17,9 +17,11 @@
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+							{% if user.is_authenticated %}
+								<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new</a>
+								<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_update' lake.id %}" type="submit" >edit</a>
+								<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_delete' lake.id %}" type="submit" >delete</a>
+							{% endif %}
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 						</div>
 					</div> <!-- Title line -->
@@ -37,13 +39,17 @@
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
 						</div>
 						<div class="col-md-1">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
+							{% if user.is_authenticated %}
+								<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'weather2' pk=lake.id %}">Weather</a>
+							{% endif %}
 						</div>
 						<div class="col-md-5 text-end">
-							<form method="post">{% csrf_token %}
-								{{ form }}
-								<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="Plan">
-							</form>
+							{% if user.is_authenticated %}
+								<form method="post">{% csrf_token %}
+									{{ form }}
+									<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="Plan">
+								</form>
+							{% endif %}
 						</div>
 					</div> <!-- Districts line -->
 					<hr>

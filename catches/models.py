@@ -434,6 +434,10 @@ class Log(models.Model):
             return self.fly.name
         return self.fly.name
 
+    # @property 
+    # def num_of_logs (self):
+    #     return self.angler_set.count
+
     def save(self, *args, **kwargs):
         if not self.week:
             week_num = Week.objects.get(number=int(self.catch_date.strftime('%U')))

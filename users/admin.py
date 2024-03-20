@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Profile
+from catches.models import Log
 
 # admin.site.register(Profile)
 
@@ -19,4 +20,5 @@ admin.site.register(User, MyUserAdmin)
 
 @admin.register (Profile)
 class ProfileAdmin (admin.ModelAdmin):
+    # list_display = ['user','user_address','num_of_logs']
     list_display = ['user','user_address']
