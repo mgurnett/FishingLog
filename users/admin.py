@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Profile
 
-admin.site.register(Profile)
+# admin.site.register(Profile)
 
 class MyUserAdmin(admin.ModelAdmin):
     def group(self, user):
@@ -16,3 +16,7 @@ class MyUserAdmin(admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin)
+
+@admin.register (Profile)
+class ProfileAdmin (admin.ModelAdmin):
+    list_display = ['user','user_address']

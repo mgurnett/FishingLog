@@ -12,6 +12,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    @property 
+    def user_address (self):
+        return f'{self.address}, {self.city}, {self.prov}' 
+
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
 
