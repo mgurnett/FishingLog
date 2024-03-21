@@ -1,4 +1,5 @@
 {% extends "catches/base/base.html" %}
+{% block title %}Stocking report for:{{ stock.lake.name | title}}{% endblock %}
 {% block content %}
 <div class="container">
 	<div class="row">
@@ -11,10 +12,10 @@
 							<b>{{ stock.date_stocked }}</b>
 						</div>
 						<div class="col-md-6 text-center">
-							<b><a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.lake_info }}</a></b>
+							<b><a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.lake_info | title}}</a></b>
 						</div>
 						<div class="col-md-4 text-end">
-							<b><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></b>
+							<b><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name | title}}</a></b>
 						</div>
 					</div>
 				</h5>

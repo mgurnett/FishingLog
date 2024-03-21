@@ -1,5 +1,5 @@
 {% extends "catches/base/base.html" %}
-{% block title %}Tags{% endblock %}
+{% block title %}Tag: {{ tag.name | title }}{% endblock %}
 
 {% block content %}
   
@@ -9,7 +9,7 @@
 		<div class="col-md-10">
 			<div class="card border-0 bg-transparent">
 				<h5 class="card-header">
-          {{ tag.name | title }} ({{ tag.slug }})
+                    {{ tag.name | title }} ({{ tag.slug }})
 				</h5>
 			</div>
 		</div>
