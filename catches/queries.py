@@ -1,9 +1,14 @@
 from .models import *
 from django.db.models import Q
 
-def collect_tw_from_logs_and_hatches():
-    logs = Log.objects.all()
-    hatches = Hatch.objects.all()
+def collect_tw_from_logs_and_hatches(**kwargs):
+    lake = kwargs.pop('lake', '')
+    if lake:
+        logs = Log.objects.filter(lake=lake)
+        hatches = Hatch.objects.filter(lake=lake)
+    else:
+        logs = Log.objects.all()
+        hatches = Hatch.objects.all() 
     data = []
     for log in logs:
         if log.temp.id > 1:

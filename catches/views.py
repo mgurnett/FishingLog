@@ -947,13 +947,44 @@ class Graph(TemplateView):
         fig = px.scatter(df, 
             x='Week',
             y='Temperature',
-            trendline="rolling", 
+            trendline="rolling",  
             trendline_options=dict(window=10),
             height = 750,
             text='Date'
             )
 
         context = {'graph': fig.to_html()}
+        return context
+
+class Graph_lake(TemplateView):
+    template_name = 'catches/graph.html'
+    context_object_name = 'graph'
+
+    def get_context_data(self, **kwargs):
+        context = super(Graph_lake, self).get_context_data(**kwargs)
+
+        lake = Lake.objects.get(pk=self.kwargs['pk'])
+
+        data = collect_tw_from_logs_and_hatches(lake=lake)
+
+        df = pd.DataFrame.from_dict( data )
+        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
+        
+        df = df.sort_values(by='temp_id')
+        # df = df.groupby(df.Date.dt.year)
+        # df.to_csv('graph_data.csv')
+
+        fig = px.scatter(df, 
+            x='Week',
+            y='Temperature',
+            trendline="rolling",  
+            trendline_options=dict(window=5),
+            height = 650,
+            text='Date'
+            )
+
+        context = {'graph': fig.to_html()}
+        context ['lake'] = lake
         return context
 
 class ChartGraph(TemplateView):

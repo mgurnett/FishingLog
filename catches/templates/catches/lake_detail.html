@@ -37,6 +37,7 @@
 						</div>
 						<div class="col-md-2">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph_lake' pk=lake.id %}">Temperature graph for lake</a>
 						</div>
 						<div class="col-md-1">
 							{% if user.is_authenticated %}

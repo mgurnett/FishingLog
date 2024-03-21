@@ -1,9 +1,34 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Temperature graph {% endblock %}
 {% block content %}
-<h1>Water temp vs Week of the year</h1>
 <div class="container">
-	{{ graph | safe }}
+	<div class="row">
+		{% if lake %}
+			<div class="col-md-10">
+				<h3>Water temp vs Week of the year for <b>{{ lake.lake_info | title }}</b></h3>
+			</div>
+			<div class="col-md-2 text-end">
+				<p>
+					<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
+					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+				</p>
+			</div>
+		{% else %}
+			<div class="col-md-10">
+				<h3>Water temp vs Week of the year</h3>
+			</div>
+			<div class="col-md-2 text-end">
+				<p>
+					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+				</p>
+			</div>
+		{% endif %}
+	</div>
+	{% if graph %}
+		{{ graph | safe }}
+	{% else %}
+		<h3>No temperature data collected for <b>{{ lake.lake_info | title }}</b></h3>
+	{% endif %}
 </div>
 
 

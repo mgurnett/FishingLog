@@ -1,16 +1,27 @@
 {% extends "catches/base/base.html" %}
-<!-- This is going ot be the main landing page for everything. -->
+{% block title %}Not Authorized{% endblock %}
 {% load tz %}
 
 {% block content %}
 <div class="container">
 	<div class="row">
-        <h2>
+        <h2 class="text-center">
             Sorry, but you don't have access to that operation. 
         </h2>
-        <h4>
-             If you would like to contribute logs and hatches to this website, then send me a message and I will add you.
-        </h4>
+    </div>
+	<div class="row">
+        <h5>
+             If you would like to contribute temperature readings, logs and hatches to this website, then send me a message and I will add you.
+        </h5>
+    </div>
+	<div class="row">
+        <div class="col-md-4 text-end">
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >HOME</a>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-start">
+            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">BACK</button>
+        </div>
     </div>
 </div>
 
