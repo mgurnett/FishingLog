@@ -250,7 +250,7 @@ class BugCreateView(PermissionRequiredMixin,  CreateView):
     model = Bug
     fields = '__all__' 
     # form_class = New_Bug_Form
-    success_message = "New Bug saved"
+    success_message = "New Bug saved" 
 
 class BugUpdateView(PermissionRequiredMixin,  UpdateView):
     permission_required = 'catches.change_bug'

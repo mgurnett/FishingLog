@@ -17,6 +17,8 @@ back button
 
 good tabs page is: catches/templates/snippets/picture_tab.html
   
+Titles are working.
+{% block title %} Fishing Log {% endblock %}
 
 blog tags
 views:

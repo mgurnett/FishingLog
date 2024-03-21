@@ -10,10 +10,10 @@
                             <div class="col-md-5">
                                 Water temp: <b>{{ log.temp.name }}</b>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <a href="{% url 'log_detail' log.id%}"><b>{{ log.catch_date|date:"D, N j, y" }}</a></b>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3 text-end">
                                 <a href="{% url 'week_detail' log.week.id %}">Week: <b>{{ log.week.number }}</b></a>
                             </div>
                         </div>

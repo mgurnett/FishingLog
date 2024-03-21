@@ -1,9 +1,12 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        {{ form.media }}
-        <form method="POST" enctype="multipart/form-data">
+{{ form.media }}
+        {% comment %} <form method="post" novalidate enctype="multipart/form-data">
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field.error }}
+                {{ hidden_field }}
+            {% endfor %}
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Blog Post</legend>
@@ -12,6 +15,30 @@
             <div class="form-group">
                 <button class="btn btn-outline-info" form="signupform" type="submit">Post</button>
             </div>
+        </form> {% endcomment %}
+
+
+        <form method="post" novalidate enctype="multipart/form-data">
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field.error }}
+                {{ hidden_field }}
+            {% endfor %}
+            {% csrf_token %}
+            <div class="container">
+                <legend class="border-bottom mb-4">Blog Post</legend>
+                <div class="row">
+                    {{ form.title | as_crispy_field }}
+                </div>
+                <div class="row">
+                    {{ form.content | as_crispy_field }}
+                </div>
+                <div class="row">
+                    {{ form.tags | as_crispy_field }}
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </div>
         </form>
-    </div>
+
 {% endblock content %}

@@ -1,9 +1,7 @@
 Todo list.
 
 As of March 18
-- figure out viewers and contrib and login.
 - let users make their own favorites list.
-- fix RFT in blogs.
 - sort out picture and sizes
 - work on validations
 - fix messages and success message and sucess_URL
