@@ -966,26 +966,30 @@ class Graph_lake(TemplateView):
         lake = Lake.objects.get(pk=self.kwargs['pk'])
 
         data = collect_tw_from_logs_and_hatches(lake=lake)
+        if data:
 
-        df = pd.DataFrame.from_dict( data )
-        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
-        
-        df = df.sort_values(by='temp_id')
-        # df = df.groupby(df.Date.dt.year)
-        # df.to_csv('graph_data.csv')
+            df = pd.DataFrame.from_dict( data )
+            df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
+            
+            # df = df.groupby(df.Date.dt.year)
+            df = df.sort_values(by='temp_id')
+            # df.to_csv('graph_data.csv')
 
-        fig = px.scatter(df, 
-            x='Week',
-            y='Temperature',
-            trendline="rolling",  
-            trendline_options=dict(window=5),
-            height = 650,
-            text='Date'
-            )
+            fig = px.line(df, 
+                x='Week',
+                y='Temperature',
+                # trendline="rolling",  
+                # trendline_options=dict(window=5),
+                height = 650,
+                text='Date'
+                )
 
-        context = {'graph': fig.to_html()}
-        context ['lake'] = lake
-        return context
+            context = {'graph': fig.to_html()}
+            context ['lake'] = lake
+            return context
+        else:
+            context ['lake'] = lake
+            return context
 
 class ChartGraph(TemplateView):
     template_name = 'catches/chart_graph.html'
