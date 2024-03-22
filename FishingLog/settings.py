@@ -170,3 +170,6 @@ GRAPH_MODELS = {
 #to run: python3 manage.py graph_models -o fish_log_models.png
 
 # CRISPY_FAIL_SILENTLY = not DEBUG
+
+# https://dreampuf.github.io/GraphvizOnline/ - you can copy the dot file into this to see it.
+# python3 manage.py graph_models catches blog > models.dot

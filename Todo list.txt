@@ -6,7 +6,6 @@ As of March 18
 - work on validations
 - fix messages and success message and sucess_URL
 - In the tags list, show how many media, lakes, fish, flys.....
-- make temp to week chart PER lake
 - Break insects down to specific ones.
 
 
