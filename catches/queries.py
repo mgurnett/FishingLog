@@ -38,7 +38,7 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                     'type': 'H'
                     }
                 data.append(log_data)
-    return data  #  list of dictionaries
+    return data  #  list of dictionaries 
 
 def get_query_set(pk): # get the data for the hatch trends for week detail view
 
