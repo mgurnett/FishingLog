@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models.signals import pre_save
 from django.urls import reverse
 from django.utils import timezone
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from PIL import Image
 from taggit.managers import TaggableManager
@@ -8,6 +11,7 @@ from taggit.managers import TaggableManager
 import pandas as pd
 from django.contrib.auth.models import User
 from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
+
 
 class Region(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -94,7 +98,6 @@ class Fish(models.Model):
 
 class Bug(models.Model):
     name = models.CharField ('Insect name', max_length=100)
-    description = models.TextField ('Description', blank=True)
     notes = RichTextField (blank=True, null=True)
     static_tag = models.SlugField()
     image = models.ImageField ('Picture of the bug', 
@@ -103,7 +106,6 @@ class Bug(models.Model):
         height_field=None, 
         width_field=None, 
         max_length=100, 
-        blank=True, null=True
         )
 
     def save(self, *args, **kwargs):
@@ -146,7 +148,7 @@ class Lake(models.Model):
     district = models.IntegerField (blank=True, null=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     favourite = models.BooleanField (default = False)
-    static_tag = models.SlugField()
+    static_tag = models.SlugField() 
     gps_url = models.URLField(max_length = 200, blank=True)
     
     class Meta:
@@ -285,7 +287,6 @@ class Fly_type(models.Model):
         height_field=None, 
         width_field=None, 
         max_length=100, 
-        blank=True, null=True
         )
  
     def save(self, *args, **kwargs):
@@ -326,7 +327,7 @@ class Fly(models.Model):
         blank=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['fly_type','name']
 
     def __str__(self):
         if self.bug:

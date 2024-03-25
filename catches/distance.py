@@ -1,6 +1,9 @@
 # importing googlemaps module
 import googlemaps
+import simplekml
+from .models import *
 from django.conf import settings
+from django.http import HttpResponse, FileResponse
 # https://python-gmaps.readthedocs.io/en/latest/gmaps.html#gmaps.directions.Directions.directions
 # Requires API key
 
@@ -20,6 +23,33 @@ def find_dist (lake, user):
         'minutes': my_dist['rows'][0]['elements'][0]['duration']['value'],
     }
     return (my_dist_dict)
+
+
+def make_kml_file (request, *args, **kwargs):
+    # print (kwargs)  {'pk': '8', 'model': 'R'}
+    id = kwargs['pk']
+    model = kwargs['model']
+    # print (f"model = {model} and id is {id}")
+    if model == "R":
+        lakes = Lake.objects.filter (region=id)
+        file_name = f'{Region.objects.get(pk=id).name}.kml'
+    if model == "D":
+        lakes = Lake.objects.filter (district=id)
+        file_name = f'{DISTRICTS[int(id)][1]}.kml'        
+    kml = simplekml.Kml()
+    for lake in lakes:
+        kml.newpoint(
+            name = lake.name, 
+            description = lake.lake_info,
+            coords = [(lake.long,lake.lat)],
+            # atomlink = str(f'www.ontheflys.com/lakes/{lake.id}/')
+        )
+    response = HttpResponse(kml.kml())
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+    return response
+
+def kml_help(request):
+    return FileResponse("media/How to use the kml file.pdf", as_attachment=True, filename="KML help.pdf")
 
 if __name__ == "__main__":
     Lat = 53.6832190000

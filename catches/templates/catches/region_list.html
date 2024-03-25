@@ -1,29 +1,31 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Regions{% endblock %}
-{% block content %}
-<h1>Fishing regions</h1>    
+{% block content %}  
 <div class="album py-5 ">
     <div class="container">
         <div class = "row">
+            <h1>Fishing regions</h1>  
             {% for reg in regions %}
-            <div class="col-md-4">
-                <div class="card mb-4 border-0 bg-transparent"> 
-                    <a href="{% url 'region_detail' reg.id %}" class="card-link">{{ reg.name }} </a> 
-                    Lakes in the region: {{ reg.lake_count }}
-                    <div class="card-body">
-                        <p class="card-text">{{ reg.notes }}</p>
+                <div class="col-md-4">
+                    <div class="card mb-4 border-0 bg-transparent"> 
+                        <a href="{% url 'region_detail' reg.id %}" class="card-link"><h3>{{ reg.name }}</h3></a> 
+                        Lakes in the region: {{ reg.lake_count }}
+                        <div class="card-body">
+                            <p class="card-text">{{ reg.notes }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
 </div> 
 <div class="container">
     <div class = "row">
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'region_create' %}">New Region</a>
-        </button>
+        <div class="col-md-4"></div>
+        <div class="col-md-8 text-end">
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >new region</a>
+            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+        </div>
     </div>
 </div>
 {% endblock content %}

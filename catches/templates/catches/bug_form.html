@@ -1,43 +1,11 @@
 {% extends "catches/base/base.html" %}
-{% block title %}Bugs{% endblock %}
+{% block title %} Bugs {% endblock %}
 
 {% load crispy_forms_tags %}
 
-{% block content %} 
-{{ form.media }}
-    <form method="post" novalidate enctype="multipart/form-data">
-      {% for hidden_field in form.hidden_fields %}
-          {{ hidden_field.error }}
-          {{ hidden_field }}
-      {% endfor %}
-      {% csrf_token %}
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            {{ form.name|as_crispy_field }}
-          </div>
-          <div class="col-md-8 mb-4">
-            {{ form.description |as_crispy_field }}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-1"> </div>
-          <div class="col-md-10">
-            {{ form.notes|as_crispy_field }}
-          </div>
-          <div class="col-md-1"> </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
-            {{ form.static_tag|as_crispy_field }}
-          </div>
-          <div class="col-md-8">
-            {{ form.image|as_crispy_field }}
-          </div>
-          <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">Save bug</button>
-          </div>
-        </div>
-      </div>
-    </form>
-{% endblock content %}
+{% block content %}
+  {% csrf_token %}
+  <div class="container">
+    {% crispy form %}
+  </div>
+{% endblock %} 
