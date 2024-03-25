@@ -3,48 +3,9 @@
 
 {% load crispy_forms_tags %}
 
-{% block content %} 
-{{ form.media }}
-    <form method="post" novalidate enctype="multipart/form-data">
-      {% for hidden_field in form.hidden_fields %}
-          {{ hidden_field.error }}
-          {{ hidden_field }}
-      {% endfor %}
-      {% csrf_token %}
-      <div class="container">
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-3">
-            {{ form.name|as_crispy_field }}
-          </div>
-          <div class="col-2">
-            {{ form.abbreviation|as_crispy_field }}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-10">
-            {{ form.notes|as_crispy_field }}
-          </div>
-          <div class="col-1"> </div>
-        </div>
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-9">
-            {{ form.image|as_crispy_field }}
-          </div>
-          <div class="col-2"> </div>
-        </div>
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-2">
-            {{ form.static_tag|as_crispy_field }}
-          </div>
-          <div class="col-7 text-end">
-            <button type="submit" class="btn btn-primary mt-4">Save fish</button>
-            <button class="btn btn-primary btn-sm mt-4" onclick="window.history.back()">back</button>
-          </div>
-        </div>
-      </div>
-    </form>
-{% endblock content %}
+{% block content %}
+  {% csrf_token %}
+  <div class="container">
+    {% crispy form %}
+  </div>
+{% endblock %} 

@@ -2,8 +2,8 @@ from .models import *
 import os
 import json
 
-with open ('/home/michael/messages.json') as messages_file:
-    messages = json.load (messages_file)
+with open ('/home/michael/broadcasts.json') as messages_file:
+    broadcasts = json.load (messages_file)
 
 # =====================================
 # This is changed in /home/michael/messages.json
@@ -17,13 +17,13 @@ with open ('/home/michael/messages.json') as messages_file:
 # Muir Lake             186
 
 first_slide = {
-    'plan': messages ['plan'],
-    'lake': Lake.objects.get(id=messages ['id']),
+    'plan': broadcasts ['plan'],
+    'lake': Lake.objects.get(id=broadcasts ['id']),
 } 
 
 # =====================================
 top_messages = {
     'first_slide': first_slide,
-    'second_slide': messages ['second_slide'],
-    'third_slide': messages ['third_slide'],
+    'second_slide': broadcasts ['second_slide'],
+    'third_slide': broadcasts ['third_slide'],
 }

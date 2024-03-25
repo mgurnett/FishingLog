@@ -5,6 +5,7 @@
 
 {% block content %}
   {% csrf_token %}
-  {% crispy form %}
-
+  <div class="container">
+    {% crispy form %}
+  </div>
 {% endblock %}

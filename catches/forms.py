@@ -1,15 +1,51 @@
 from django import forms
+from django.forms import ModelForm, DateInput
+#https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#topics-forms-modelforms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from crispy_forms.layout import Layout, Submit, Button, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
 from ckeditor.widgets import CKEditorWidget
 from .models import *
 
-
-class DateInput(forms.DateInput):
+class DateInput(DateInput):
     input_type = 'date'
 
- 
+class New_Bug_Form (forms.ModelForm):
+    class Meta:
+        model = Bug
+        fields = '__all__'
+    name = forms.CharField ( required = True )       
+    notes = forms.CharField ( widget = CKEditorWidget(), max_length = 100, required = False ) 
+    image = forms.ImageField ( required = True )
+    static_tag = forms.CharField ( required = False )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                Column('static_tag', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )
+
 class New_Regions_Form (forms.ModelForm): 
     class Meta:
         model = Region
@@ -26,12 +62,14 @@ class New_Regions_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             'notes',
-            Submit('submit', 'Save'),
-        )
-        self.helper.layout.append(
-            FormActions(
-                HTML('<a class="btn btn-primary" onclick="window.history.back()">Cancel</a>')
-            )
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
         )
 
 class New_Temp_Form (forms.ModelForm): 
@@ -58,94 +96,15 @@ class New_Temp_Form (forms.ModelForm):
                 Column('search_keys', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Save')
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
         )
-
-# class New_Fly_type_Form (forms.ModelForm):
-#     class Meta:
-#         model = Fly_type
-#         fields = '__all__'
-#     name = forms.CharField ( required = True )       
-#     notes = forms.CharField ( required = False )
-#     image = forms.ImageField (required = False )  
-    
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Row(
-#                 Column('name', css_class='form-group col-md-4 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             'notes',
-#             Row(
-#                 Column('image', css_class='form-group col-md-6 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Submit('submit', 'Save')
-#         )
-
-# class New_Fish_Form (forms.ModelForm):
-    
-#     class Meta:
-#         model = Fish
-#         fields = '__all__'
-#     name = forms.CharField ( required = True )       
-#     notes = forms.CharField ( required = False )      
-#     abbreviation = forms.CharField ( required = False )
-#     image = forms.ImageField (required = False )
-#     static_tag = forms.CharField ( required = False )
-    
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Row(
-#                 Column('name', css_class='form-group col-md-4 mb-0'),
-#                 Column('abbreviation', css_class='form-group col-md-4 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column('notes', css_class='form-group col-md-12 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column('image', css_class='form-group col-md-8 mb-0'),
-#                 Column('static_tag', css_class='form-group col-md-4 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Submit('submit', 'Save')
-#         )
-
-# class New_Bug_Form (forms.ModelForm):
-    
-#     class Meta:
-#         model = Bug
-#         fields = '__all__'
-#     name = forms.CharField ( required = True )       
-#     notes = forms.CharField ( required = False )  
-#     image = forms.ImageField (required = False )
-#     static_tag = forms.CharField ( required = False )
-    
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Row(
-#                 Column('name', css_class='form-group col-md-4 mb-0'),
-#                 Column('static_tag', css_class='form-group col-md-4 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column('notes', css_class='form-group col-md-12 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column('image', css_class='form-group col-md-6 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Submit('submit', 'Save')
-#         )
 
 class New_Lake_Form (forms.ModelForm):
     
@@ -161,7 +120,7 @@ class New_Lake_Form (forms.ModelForm):
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
     district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
-    static_tag = forms.CharField( max_length = 100, required = True )
+    static_tag = forms.CharField( max_length = 100, required = False )
     gps_url = forms.CharField( max_length = 100, required = False )
     waterbody_id = forms.IntegerField( required = False )
     favourite = forms.BooleanField( required = False )
@@ -176,7 +135,7 @@ class New_Lake_Form (forms.ModelForm):
             Row(
                 Column('name',          css_class='form-group col-md-5 mb-0'),
                 Column('other_name',    css_class='form-group col-md-4 mb-0'),
-                Column('favourite',     css_class='form-group col-md-2 mb-0'),
+                Column('favourite',     css_class='form-group col-md-2 mt-4'),
                 css_class='form-row'
             ),
             Row(
@@ -197,10 +156,13 @@ class New_Lake_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('gps_url',       css_class='form-group col-md-10 mb-0'),
-                css_class='form-row'
+                Column('gps_url',       css_class='form-group col-md-7 mb-0'),
+                Column(Submit('submit', 'Submit', css_class='btn-primary col-md-5 mb-0')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ), 
+                css_class='btn-primary col-md-3 mb-0')
             ),
-            Submit('submit', 'Save')
         )
               
 class New_Hatch_Form (forms.ModelForm):
@@ -257,8 +219,11 @@ class New_Hatch_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('', css_class='form-group col-md-8 mb-0'),
-                Submit('submit', 'Save'),
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
                 css_class='form-row'
             ),
         )
@@ -302,7 +267,14 @@ class New_Stock_Form (forms.ModelForm):
                 Column('length', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Save')
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
         )
         
 class New_Log_Form (forms.ModelForm): 
@@ -353,7 +325,7 @@ class New_Log_Form (forms.ModelForm):
                 Column('length',        css_class='form-group col-md-2 mb-0'),
                 Column('weight',        css_class='form-group col-md-2 mb-0'),
                 Column('num_landed',    css_class='form-group col-md-2 mb-0'),
-                Column('private',       css_class='form-group col-md-2 mt-8'),
+                Column('private',       css_class='form-group col-md-2 mt-12'),
                 css_class='form-row'
             ),
             Row(
@@ -366,7 +338,14 @@ class New_Log_Form (forms.ModelForm):
                 Column('notes',         css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Save')
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
         )
         
 class Plan_form (forms.ModelForm):
@@ -385,4 +364,73 @@ class Plan_form (forms.ModelForm):
                 Column(''),
                 css_class='form-row'
             )
+        )
+
+class New_Fly_type_Form (forms.ModelForm):
+    class Meta:
+        model = Fly_type
+        fields = '__all__'
+    name = forms.CharField ( required = True )       
+    notes = forms.CharField ( required = False )
+    image = forms.ImageField (required = False )  
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            'notes',
+            Row(
+                Column('image', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )
+
+class New_Fish_Form (forms.ModelForm):
+    class Meta:
+        model = Fish
+        fields = '__all__'
+    name = forms.CharField ( required = True )       
+    notes = forms.CharField ( required = False )      
+    abbreviation = forms.CharField ( required = False )
+    image = forms.ImageField (required = False )
+    static_tag = forms.CharField ( required = False )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                Column('abbreviation', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image', css_class='form-group col-md-8 mb-0'),
+                Column('static_tag', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
         )

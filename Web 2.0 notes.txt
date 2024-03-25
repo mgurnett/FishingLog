@@ -33,6 +33,9 @@ detail templates:
     {% include 'snippets/blog_list.html' %}
 </div>
 
+
+{% csrf_token %}
+
 ================  good card setup ================
 
 <div class="album py-1 "> 
