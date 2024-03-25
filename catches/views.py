@@ -1161,7 +1161,7 @@ def searchview (request):
     ) 
     region_results = Region.objects.filter( Q(name__icontains=query) )
     fish_results = Fish.objects.filter( Q(name__icontains=query) | Q(abbreviation__icontains=query) | Q(static_tag__icontains=query))
-    bug_results = Bug.objects.filter( Q(name__icontains=query)  | Q(description__icontains=query) | Q(static_tag__icontains=query))
+    bug_results = Bug.objects.filter( Q(name__icontains=query)  | Q(static_tag__icontains=query))
     fly_results = Fly.objects.filter( Q(name__icontains=query)   | Q(static_tag__icontains=query))
     video_results = Video.objects.filter( Q(name__icontains=query)  | Q(url__icontains=query) )
     picture_results = Picture.objects.filter( Q(name__icontains=query) )

@@ -72,7 +72,11 @@
 								Distance: 
 								</abbr>
 								{% if user.is_authenticated %}
-									<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+									{% if distance.distance_text == 'Distance not available' %}
+										<b>Distance not available</b>
+									{% else %}
+										<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+									{% endif %}
 								{% else %}
 									Login to see distance
 								{% endif %}

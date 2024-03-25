@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register (Lake)
+# admin.site.register (Lake)
 admin.site.register (Stock)
 admin.site.register (Region)
 admin.site.register (Fish)
@@ -45,3 +45,7 @@ class TempAdmin (admin.ModelAdmin):
 @admin.register (Log)
 class LogAdmin (admin.ModelAdmin):
     list_display = ['lake', 'fish', 'temp', 'week']
+
+@admin.register (Lake)
+class LakeAdmin (admin.ModelAdmin):
+    list_display = ['name', 'lat', 'long', 'static_tag']
