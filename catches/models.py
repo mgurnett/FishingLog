@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 from PIL import Image
 from taggit.managers import TaggableManager
 # from django.utils.text import slugify
-import pandas as pd
+import pandas as pd 
 from django.contrib.auth.models import User
 from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
 
