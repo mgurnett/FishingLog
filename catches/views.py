@@ -63,6 +63,7 @@ class RegionDetailView (PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs): 
         context = super(RegionDetailView, self).get_context_data(**kwargs)
         context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
+        context ['all_lakes'] = Lake.objects.all()  #I want to make a list in lakes that makes a list of lakes grouped by district.  I want to use it here as a dropdown
         return context
 
 class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):

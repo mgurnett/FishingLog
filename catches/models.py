@@ -363,7 +363,7 @@ class Log(models.Model):
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
-    record_date = models.DateField(default=timezone.now)
+    record_date = models.DateField(default=timezone.now) # another option is (auto_now_add = True)
     location = models.CharField (max_length=100, blank=True, null=True)
     length = models.FloatField ( blank=True, default=0.0 )
     weight = models.FloatField ( blank=True, default=0.0 )
