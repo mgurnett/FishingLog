@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from blog.models import *
+from users.models import Profile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, FileResponse
@@ -322,10 +323,13 @@ class LakeListView (ListView):
             dists.append(di)
             lake_num = lake_num + dist_count
         # print (f"Total lakes is: {lake_num}")
-
+            
+        user = Profile.objects.get (id = self.request.user.id)
+        regions_list = region_filter (Region.objects.all(), user)
+            
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
         context ['favs'] = Lake.objects.filter (favourite=True)
-        context ['regions'] = Region.objects.all()
+        context ['regions'] = regions_list
         context ['districts'] = dists
         return context
 

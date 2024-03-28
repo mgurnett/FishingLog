@@ -157,7 +157,7 @@ TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING  = False
 
 GRAPH_MODELS = {
-  'app_labels': ["catches"],
+  'app_labels': ["catches", "blog"],
   'group_models': True,
   'color_code_deletions': True,
 #   'arrow_shape': True,

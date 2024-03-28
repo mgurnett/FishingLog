@@ -100,3 +100,7 @@ def get_weeks(pk):
 def log_filter_for_private (log_list, current_user):
         object_list = log_list.filter(Q(private=False) | Q(angler=current_user))
         return object_list
+
+def region_filter (region_list, current_user):
+        object_list = region_list.filter(Q(angler=current_user))
+        return object_list

@@ -1,0 +1,10 @@
+{
+        "SECRET_KEY": "django-insecure-l*uso9%7f(k1$rj2!3@+6+l91o8xxy!*4!k&dp+*>",
+        "GOOGLE_MAPS_API_KEY": "AIzaSyB-oms0UbhKCb8Cla7_M64Zq54BO8p5LOo",
+        "DEBUG": "False",
+        "OW_api_key": "b0c00848fbb4cb7f70bf7c20d1738246",
+	"EMAIL_BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+	"EMAIL_HOST": "mail.stillwaterflyfishing.com",
+	"EMAIL_HOST_USER": "admin",
+	"EMAIL_HOST_PASSWORD": "Sam5000g"
+}

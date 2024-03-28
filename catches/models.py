@@ -12,24 +12,6 @@ import pandas as pd
 from django.contrib.auth.models import User
 from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
 
-
-class Region(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    notes = models.TextField (blank=True)
-    
-    class Meta: 
-        ordering = ['name']
-
-    def __str__ (self):
-        return self.name
-
-    def get_absolute_url (self):
-        return reverse ('region_list')
-            
-    @property 
-    def lake_count (self):
-        return Lake.objects.filter(region=self.id).count()
-
 class Week(models.Model):
     number = models.IntegerField()
     prev_num = models.IntegerField()
@@ -137,7 +119,6 @@ class Bug(models.Model):
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
-    region = models.ForeignKey(Region, blank=True, null=True, on_delete=models.SET_NULL)
     notes = RichTextField (blank=True, null=True)
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
@@ -193,6 +174,25 @@ class Lake(models.Model):
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
+    
+class Region(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    notes = models.TextField (blank=True)
+    # Many-to-Many relationship with lakes (a region can have many lakes, and a lake can belong to many regions)
+    lakes = models.ManyToManyField(to='Lake', blank=True)
+    
+    class Meta: 
+        ordering = ['name']
+
+    def __str__ (self):
+        return self.name
+
+    def get_absolute_url (self):
+        return reverse ('region_list')
+            
+    @property 
+    def lake_count (self):
+        return Lake.objects.filter(region=self.id).count()
 
 class Stock(models.Model):
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
