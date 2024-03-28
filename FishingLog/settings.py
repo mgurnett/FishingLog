@@ -138,15 +138,14 @@ LOGIN_URL = 'login'
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-'''
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.edmontonflyfishing.com'6
+EMAIL_BACKEND = config ['EMAIL_BACKEND']
+EMAIL_HOST = config ['EMAIL_HOST']
 EMAIL_HOST_USER = config ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
-'''
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

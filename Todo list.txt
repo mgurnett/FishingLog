@@ -8,6 +8,16 @@ As of March 18
 - Break insects down to specific ones.
 - Fish add logs and stocks tabs.  Make a carosel for the pictures.
 
+- REGIONS - this needs to be reversed, so that lake are part of a region.  The key needs to be in regions not lakes.  Then each angler can have their own regions.
+    - Each angler needs to have their own region.
+    - We need to add remove for each lake in a region list
+    - be able to add lakes to a region in the region detail list.
+
+BLOG - move blog in to catches so that the colouring follows.
+
+USERS - Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
+
+
 Amazing video about Django and proxy models.  https://youtu.be/KF2p-LQjZZ4?si=OdFcU90BFgtxggSO
 ================================
 look into icecream for replaceing print for debugging
