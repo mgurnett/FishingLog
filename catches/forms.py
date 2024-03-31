@@ -49,7 +49,8 @@ class New_Bug_Form (forms.ModelForm):
 class New_Regions_Form (forms.ModelForm): 
     class Meta:
         model = Region
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['name', 'notes']
     name = forms.CharField(required=True)       
     notes = forms.CharField(required=False)
     
@@ -106,12 +107,20 @@ class New_Temp_Form (forms.ModelForm):
             ),
         )
 
+class Lake_to_Region_form(forms.ModelForm):
+    class Meta:
+        model = Lake  # Corrected model
+        fields = ['lake']
+
+    lake = forms.ModelChoiceField(queryset=Lake.objects.all(), label="Lake to add:")
+
+
 class New_Lake_Form (forms.ModelForm):
     
     class Meta:
         model = Lake
         fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
-        'district', 'waterbody_id', 'favourite', 'region', 'static_tag', 'gps_url']
+        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url']
 
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
@@ -124,9 +133,6 @@ class New_Lake_Form (forms.ModelForm):
     gps_url = forms.CharField( max_length = 100, required = False )
     waterbody_id = forms.IntegerField( required = False )
     favourite = forms.BooleanField( required = False )
-    region = forms.ModelChoiceField(
-        queryset=Region.objects.all(),
-        required = False )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -141,7 +147,6 @@ class New_Lake_Form (forms.ModelForm):
             Row(
                 Column('district',      css_class='form-group col-md-3 mb-0'),
                 Column('static_tag',    css_class='form-group col-md-4 mb-0'),
-                Column('region',        css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(

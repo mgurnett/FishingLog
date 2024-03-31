@@ -101,6 +101,35 @@ def log_filter_for_private (log_list, current_user):
         object_list = log_list.filter(Q(private=False) | Q(angler=current_user))
         return object_list
 
-def region_filter (region_list, current_user):
-        object_list = region_list.filter(Q(angler=current_user))
-        return object_list
+def get_regions_with_lake_for_current_user (lake_id, current_user):
+    """
+    This function retrieves a queryset of regions containing a specific lake for the current user.
+
+    Args:
+        lake_id: The ID of the lake to search for.
+
+    Returns:
+        A queryset of Region objects that contain the specified lake and belong to the current user.
+    """
+
+    return Region.objects.filter(
+        lakes__id=lake_id,  # Filter regions by lake ID
+        profile__user=current_user  # Filter by current user through profile
+    )
+
+def get_lakes_for_user_by_region (region, current_user):
+    """
+    This function retrieves a queryset of lakes for a specific user and region.
+
+    Args:
+        user: The User object for whom to find lakes.
+
+    Returns:
+        A queryset of Lake objects that belong to regions associated with the user.
+    """
+
+    return Lake.objects.filter(
+        Q(region__profile__user=current_user),  # Filter by user through profile and region
+        region=region,  # Filter regions by lake ID
+    ).distinct()
+

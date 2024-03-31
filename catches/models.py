@@ -6,11 +6,13 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from PIL import Image
+from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
 from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
+from users.models import Profile
 
 class Week(models.Model):
     number = models.IntegerField()
@@ -176,10 +178,11 @@ class Lake(models.Model):
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
     
 class Region(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField (max_length=100, unique=True)
     notes = models.TextField (blank=True)
     # Many-to-Many relationship with lakes (a region can have many lakes, and a lake can belong to many regions)
-    lakes = models.ManyToManyField(to='Lake', blank=True)
+    lakes = models.ManyToManyField (to='Lake', blank=True)
+    profile = models.ForeignKey (Profile, on_delete=models.CASCADE) 
     
     class Meta: 
         ordering = ['name']
@@ -597,7 +600,8 @@ class Chart(models.Model):
 
         return strength_found
 
-'''  ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
+'''  
+ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
 in the referencing table are deleted.
 ON DELETE SET NULL: if a row of the referenced table is deleted, then all referencing columns 
 in all matching rows of the referencing table to be set to null.

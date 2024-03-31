@@ -8,7 +8,7 @@
 			<div class="card border-0 bg-transparent">	
 				<div class="card-header">
 					<div class="row">
-						<div class="col-md-1"></div>
+						<div class="col-md-1"></div> 
 						<div class="col-md-4"> 
 							<h5>
 								Region: <b>{{ region.name | title }}</b>
@@ -17,7 +17,19 @@
 						<div class="col-md-6 text-end">
 							Lakes in the region: <b>{{ region.lake_count }}</b>
 						</div>
-						<div class="col-md-1"></div>
+						<div class="col-md-1"></div> 
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							{% if user.is_authenticated %}
+								<form method="post">
+									{% csrf_token %}
+									{{ form }}
+									<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="add">
+								</form>
+							{% endif %} 
+						</div>
 					</div>
 				</div>
 				{% if region.notes %}
@@ -34,7 +46,7 @@
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >New region</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
-							<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
                         </div>
                     </div>
 				</div>
@@ -69,7 +81,11 @@
 									{% endif %}
 								</td>
 								<td>
-									<a class="btn btn-outline-primary btn-md mt-1 mb-1" href="#" type="submit" >Remove</a>
+									<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
+										{% csrf_token %}
+										<input type="hidden" name="lake" value="{{ lake.pk }}">
+										<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
+									</form>
 								</td>
 							</tr>
 						{% endfor %} 
@@ -81,3 +97,12 @@
 	</div> <!--  Bottom card-->
 </div>
 {% endblock content %}
+
+{% for lake in region.lakes.all %}
+    <p>{{ lake.name }}</p>
+    <form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="lake" value="{{ lake.pk }}">
+        <button type="submit">Remove</button>
+    </form>
+{% endfor %}

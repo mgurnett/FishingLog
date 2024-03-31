@@ -9,7 +9,8 @@ urlpatterns = [
     path ('regions/<int:pk>/', RegionDetailView.as_view(), name = 'region_detail'), 
     path ('regions/new/', RegionCreateView.as_view(), name = 'region_create'),  
     path ('regions/update/<int:pk>/', RegionUpdateView.as_view(), name = 'region_update'), 
-    path ('regions/delete/<int:pk>/', RegionDeleteView.as_view(), name = 'region_delete'),
+    path ('regions/delete/<int:pk>/', RegionDeleteView.as_view(), name = 'region_delete'),    
+    path ('regions/<int:pk>/remove_lake/<int:lake_pk>/', remove_lake_from_region, name='remove_lake_from_region'),
     
     path ('fly_type/', Fly_typeListView.as_view(), name = 'fly_type_list'), 
     path ('fly_type/<int:pk>/', Fly_typeDetailView.as_view(), name = 'fly_type_detail'), 

@@ -52,36 +52,56 @@ def home (request):  # Gets all its info from announcment.py
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
     model = Region
-    context_object_name = 'regions' 
     paginate_by = 9
 
-class RegionDetailView (PermissionRequiredMixin, DetailView): 
-    permission_required = 'catches.view_region'
-    
-    model = Region
-    context_object_name = 'region'
-    
-    def get_context_data(self, **kwargs): 
-        context = super(RegionDetailView, self).get_context_data(**kwargs)
-        context ['lakes'] = Lake.objects.filter (region=self.kwargs['pk'])
-        context ['all_lakes'] = Lake.objects.all()  #I want to make a list in lakes that makes a list of lakes grouped by district.  I want to use it here as a dropdown
+    def get_context_data(self, *args, **kwargs):
+
+        context = super (RegionListView, self).get_context_data (*args, **kwargs)
+        context ['regions'] = Region.objects.filter (profile_id = self.request.user.id)
         return context
+
+class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
+    permission_required = 'catches.view_region'
+    model = Region
+    form_class = Lake_to_Region_form
+
+    def get_success_url(self):
+        pk = self.object.pk
+        return reverse_lazy('region_detail', kwargs={'pk': pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lakes'] = get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id)
+        context['form'] = self.get_form()  # Use get_form() for consistency
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            # Set the lake instance as an attribute on the view (more explicit)
+            cleaned_lake = form.cleaned_data['lake']
+            self.lake = Lake.objects.get(pk=cleaned_lake.id)
+            return self.form_valid(form)
+
+    # Handle form validation and lake association
+    def form_valid(self, form):
+        lake_id = form.cleaned_data['lake']  # Access the lake's ID from cleaned data
+        self.lake = Lake.objects.get(pk=lake_id.id)  # Retrieve the lake instance
+        self.object.lakes.add(self.lake)  # Add the lake to the region
+        return super().form_valid(form)
 
 class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_region'
     model = Region
     form_class = New_Regions_Form
     success_message = "New region saved"
-    success_url = reverse_lazy('region_list')  # Replace with your desired redirect URL
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        self.object.save()  # Assuming you haven't saved the object in super().form_valid()
-        messages.success(self.request, self.success_message)  # Display success message
-        return response
-
-    def form_invalid(self, form):
-        return self.render_to_response({'form': form})  # Re-render form with errors
+        profile = Profile.objects.get (user = self.request.user)
+        form.instance.profile = profile
+        return super().form_valid(form)
 
 class RegionUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_region'
@@ -89,14 +109,30 @@ class RegionUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView)
     form_class = New_Regions_Form
     success_message = "Region fixed"
 
+    def form_valid(self, form):
+        profile = Profile.objects.get (user = self.request.user)
+        form.instance.profile = profile
+        return super().form_valid(form)
+
 class RegionDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
     permission_required = 'catches.delete_region'
-    
     model = Region
     success_url = "/regions/"
     success_message = "Region deleted"
 
- 
+def remove_lake_from_region(request, pk, lake_pk):
+    region = Region.objects.get(pk=pk)
+    lake = Lake.objects.get(pk=lake_pk)
+
+    if request.method == 'POST':
+        region.lakes.remove(lake)
+        # Success message or logic (optional)
+        return redirect('region_detail', pk=pk)
+
+    # Render confirmation template or handle GET requests (optional)
+    return render(request, 'template/confirmation.html', {'region': region, 'lake': lake})
+
+
 class Fly_typeListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_fly_type'
     
@@ -306,6 +342,14 @@ class FlyDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     success_url = "/flys/"
     success_message = "Fly was deleted"
 
+# def region_filter (region_list, current_user):
+#         object_list = region_list.filter(Q(angler=current_user))
+#         return object_list 
+
+# def region_lake_filter (region_list, lake, current_user):
+#         region_list = region_filter ()
+#         object_list = region_list.filter(Q(angler=current_user))
+#         return object_list 
 
 class LakeListView (ListView):
     # permission_required = 'catches.view_lake'
@@ -323,13 +367,10 @@ class LakeListView (ListView):
             dists.append(di)
             lake_num = lake_num + dist_count
         # print (f"Total lakes is: {lake_num}")
-            
-        user = Profile.objects.get (id = self.request.user.id)
-        regions_list = region_filter (Region.objects.all(), user)
-            
+
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
         context ['favs'] = Lake.objects.filter (favourite=True)
-        context ['regions'] = regions_list
+        context ['regions'] = Region.objects.filter (profile_id = self.request.user.id)
         context ['districts'] = dists
         return context
 
@@ -378,7 +419,6 @@ class LakeDetailView (FormMixin, DetailView):
             total += sub_t
         subtotals.append({'year': 'total', 'subt': total})
         # print (subtotals)
-        # lake_dist = Lake.objects.get(id=self.kwargs['pk'])
 
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
@@ -387,13 +427,15 @@ class LakeDetailView (FormMixin, DetailView):
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
-        
+
+        regions_list = get_regions_with_lake_for_current_user (self.kwargs['pk'], self.request.user)
+    
         context = super().get_context_data(**kwargs)
-        context ['lakes'] = Lake.objects.filter (id=self.kwargs['pk'])
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         # context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = logs_list
+        context ['regions'] = regions_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
@@ -426,22 +468,12 @@ class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
 
-    def form_valid(self, form):
-        if not form.instance.static_tag:
-            form.instance.static_tag = slugify(form.instance.name)
-        return super().form_valid(form)
-
 class LakeUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_lake'
     model = Lake
     form_class = New_Lake_Form
     success_url = "/lakes/"
     success_message = "Lake was edited successfully"
-
-    def form_valid(self, form):
-        if not form.instance.static_tag:
-            form.instance.static_tag = slugify(form.instance.name)
-        return super().form_valid(form)
 
 class LakeDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'catches.delete_lake'

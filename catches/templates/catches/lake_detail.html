@@ -27,13 +27,8 @@
 					</div> <!-- Title line -->
 					<hr>
 					<div class="row"> <!-- Districts line -->
-						<div class="col-md-2">
+						<div class="col-md-4">
 							District: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list_dist' lake.district %}"> {{ lake.dist_name | title  }}</a>
-						</div>
-						<div class="col-md-2 ">
-							{% if lake.region %} 
-								Region: <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_detail' lake.region.id %}">{{ lake.region | title }}</a>
-							{% endif %}
 						</div>
 						<div class="col-md-2">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph_lake' pk=lake.id %}">Temperature graph</a>
@@ -49,7 +44,7 @@
 									{{ form }}
 									<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="Plan">
 								</form>
-							{% endif %}
+							{% endif %} 
 						</div>
 					</div> <!-- Districts line -->
 					<hr>
