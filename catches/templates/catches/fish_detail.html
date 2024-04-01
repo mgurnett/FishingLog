@@ -47,7 +47,13 @@
 				<h5 class="col-12"><!-- Nav tabs -->
 					<ul class="nav nav-tabs ">
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+							<a class="nav-link active" data-toggle="tab" href="#LOGS"><b>Fishing Logs</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#STOCKS"><b>Stock report</b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
@@ -65,7 +71,13 @@
 			<div class="row">
 				<div class="col-md-12  ">               <!-- Tab panes -->
 					<div class="tab-content ">
-						<div class="tab-pane container active" id="VIDS">
+						<div class="tab-pane container active" id="LOGS">
+							{% include 'snippets/log_tab.html' %}
+						</div>
+						<div class="tab-pane container fade" id="STOCKS">
+							{% include 'snippets/stock_tab.html' %}
+						</div> 
+						<div class="tab-pane container fade" id="VIDS">
 							{% include 'snippets/video_list.html' %}
 						</div>
 						<div class="tab-pane container fade" id="ARTS">

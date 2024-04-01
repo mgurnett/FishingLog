@@ -33,9 +33,22 @@
                             {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
                         </p>
                     </div>
-                    <div class="card-footer text-muted text-end">
-                        Angler:{{ log.angler | title }}{% if log.private %}<i class="fas fa-eye-slash"></i>{% endif %}
-                    </div>
+                    {% if model == "fish" %}
+                        <div class="text-muted card-footer">
+                            <div class = "row">
+                                <div class="col-md-6 text-start">
+                                    Lake: <a href="{% url 'lake_detail' log.lake.id %}">{{log.lake.name | title }}</a>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    Angler: {{ log.angler | title }}{% if log.private %}<i class="fas fa-eye-slash"></i>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card-footer text-muted text-end">
+                            Angler: {{ log.angler | title }}{% if log.private %}<i class="fas fa-eye-slash"></i>{% endif %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

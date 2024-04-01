@@ -187,17 +187,42 @@ class FishListView (PermissionRequiredMixin, ListView):
  
 class FishDetailView (PermissionRequiredMixin, DetailView): 
     permission_required = 'catches.view_fish'
-    
     model = Fish
     context_object_name = 'fish'
  
     def get_context_data(self, *args, **kwargs):
+
+        stock_list = Stock.objects.filter (fish=self.kwargs['pk'])
+        year_list = []
+        for x in stock_list:
+            if not x.date_stocked.year in year_list:
+                year_list.append(x.date_stocked.year)
+        subtotals = []
+        total = 0
+        for years in year_list:
+            sub_t = 0
+            for x in stock_list:
+                if years == x.date_stocked.year:
+                    sub_t += x.number
+            subtotals.append({'year': years, 'subt': sub_t})
+            total += sub_t
+        subtotals.append({'year': 'total', 'subt': total})
+
+        if self.request.user.is_authenticated:
+            logs_list = log_filter_for_private (Log.objects.filter (fish=self.kwargs['pk']), self.request.user)
+        else:
+            logs_list = log_filter_for_private (Log.objects.filter (fish=self.kwargs['pk']), None)
+
         context = super (FishDetailView, self).get_context_data (*args, **kwargs)
         data = Fish.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
+        context ['stockings'] = stock_list
+        context ['subts'] = subtotals 
+        context ['logs'] = logs_list
+        context ['model'] = "fish"
         return context
 
 class FishCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
@@ -342,14 +367,6 @@ class FlyDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     success_url = "/flys/"
     success_message = "Fly was deleted"
 
-# def region_filter (region_list, current_user):
-#         object_list = region_list.filter(Q(angler=current_user))
-#         return object_list 
-
-# def region_lake_filter (region_list, lake, current_user):
-#         region_list = region_filter ()
-#         object_list = region_list.filter(Q(angler=current_user))
-#         return object_list 
 
 class LakeListView (ListView):
     # permission_required = 'catches.view_lake'
@@ -870,12 +887,6 @@ class PictureListView(PermissionRequiredMixin,  ListView):
     model = Picture
     paginate_by = 2
     context_object_name = 'pictures_list'
-
-# class Car(PermissionRequiredMixin,  ListView):
-#     permission_required = 'catches.view_picture'
-#     model = Picture
-#     paginate_by = 2
-#     context_object_name = 'pictures_list'
  
 class PictureDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_picture'

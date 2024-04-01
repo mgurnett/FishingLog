@@ -2,7 +2,11 @@
         <thead>
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Fish</th>
+            {% if model == "fish" %}
+              <th scope="col">Lake</th>
+            {% else %}
+              <th scope="col">Fish</th>
+            {% endif %}
             <th scope="col">Number</th>
             <th scope="col">Genotype</th>
             <th scope="col">Strain</th>
@@ -16,7 +20,11 @@
               <tr>
                 {% if stock.date_stocked.year == s.year %}
                   <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a></th>
-                  <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name}}</a></td>
+                  {% if model == "fish" %}
+                    <td><a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name | title }}</a></td>
+                  {% else %}
+                    <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name | title }}</a></td>
+                  {% endif %}
                   <td>{{ stock.number }}</td>
                   <td>
                     {% if stock.gentotype %}
