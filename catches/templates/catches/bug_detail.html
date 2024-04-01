@@ -91,6 +91,9 @@
 					<a class="nav-link active" data-toggle="tab" href="#FLYS"><b>Flys</b></a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#HATCH"><b>Hatch</b></a>
+				</li> 
+				<li class="nav-item">
 					<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
 				</li>
 				<li class="nav-item">
@@ -100,7 +103,7 @@
 					<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+					<a class="nav-link" data-toggle="tab" href="#BLOGS"><b>Blog Posts</b></a>
 				</li>
 			</ul>
 		</h5>
@@ -111,6 +114,9 @@
 				<div class="tab-pane container active" id="FLYS">
 					{% include 'snippets/fly_list.html' %}
 				</div>
+				<div class="tab-pane container fade" id="HATCH">
+					{% include 'snippets/hatch_tab.html' %}
+				</div> 
 				<div class="tab-pane container fade" id="VIDS">
 					{% include 'snippets/video_list.html' %}
 				</div>
