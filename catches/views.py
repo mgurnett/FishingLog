@@ -611,7 +611,7 @@ class WeekDetailView (PermissionRequiredMixin,  DetailView):
         context ['logs'] = log_filter_for_private (Log.objects.filter (week=self.kwargs['pk']), self.request.user)
         return context
 
-
+ 
 class LogListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_log'
     model = Log

@@ -63,7 +63,9 @@
 						<tr>
 							<th>Lake</th>
 							<th>Logs</th>
-							<th>Actions</th>
+							<th>Hatches</th>
+							<th>Stocks</th>
+							<th></th>
 						</tr>
 						{% for lake in lakes %}
 							<tr>
@@ -81,11 +83,32 @@
 									{% endif %}
 								</td>
 								<td>
-									<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
-										{% csrf_token %}
-										<input type="hidden" name="lake" value="{{ lake.pk }}">
-										<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
-									</form>
+									{% if lake.num_of_hatch %}
+										{{ lake.num_of_hatch }}
+									{% endif %}
+								</td>
+								<td>
+									{% if lake.num_of_stock %}
+										{{ lake.num_of_stock }}
+									{% endif %}
+								</td>
+								<td>  
+									<div class="row">
+										<div class=" col-md-1"></div>
+										<div class=" col-md-5">
+											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
+										</div>
+										<div class=" col-md-3">
+											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
+										</div>
+										<div class=" col-md-3">
+											<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
+												{% csrf_token %}
+												<input type="hidden" name="lake" value="{{ lake.pk }}">
+												<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
+											</form> 
+										</div>
+									</div>
 								</td>
 							</tr>
 						{% endfor %} 
