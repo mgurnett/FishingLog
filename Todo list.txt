@@ -1,5 +1,3 @@
-Todo list.
-
 As of March 18
 - let users make their own favorites list.
 - sort out picture and sizes
