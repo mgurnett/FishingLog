@@ -135,19 +135,18 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 LOGIN_REDIRECT_URL = 'catch_home'
 LOGIN_URL = 'login'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = BASE_DIR / 'emails'
-DEFAULT_FROM_EMAIL = 'admin@stillwaterflyfishing.com'
-
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
 
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
 EMAIL_BACKEND = config ['EMAIL_BACKEND']
 EMAIL_HOST = config ['EMAIL_HOST']
 EMAIL_HOST_USER = config ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
