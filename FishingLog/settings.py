@@ -23,6 +23,7 @@ OW_API_KEY = config ['OW_api_key']
 DEBUG = config ['DEBUG']
 
 ALLOWED_HOSTS = list(config ['ALLOWED_HOSTS'])
+CSRF_TRUSTED_ORIGINS = ['https://www.stillwaterflyfishing.com']
 
 
 # Application definition
