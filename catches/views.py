@@ -1229,4 +1229,3 @@ def searchview (request):
 
     return render( request, 'catches/search_results.html', context )
     # return context
- 

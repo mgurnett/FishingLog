@@ -178,7 +178,7 @@ class Lake(models.Model):
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
     
 class Region(models.Model):
-    name = models.CharField (max_length=100, unique=True)
+    name = models.CharField (max_length=100)
     notes = models.TextField (blank=True)
     # Many-to-Many relationship with lakes (a region can have many lakes, and a lake can belong to many regions)
     lakes = models.ManyToManyField (to='Lake', blank=True)

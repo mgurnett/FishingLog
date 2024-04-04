@@ -7,6 +7,7 @@ As of March 18
 - Make a carosel for the pictures.
 
 Favorites - Think about removing them.
+    - replace them with an automatic region of favorites when they sign up. - use signals.
 
 BLOG - move blog in to catches so that the colouring follows.
     make a comment system.
@@ -14,6 +15,18 @@ BLOG - move blog in to catches so that the colouring follows.
 FISH - take pictures
 
 USERS - Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
+
+Messages - Make a table so that the messages can be set from the admin area. 
+
+EMAIL 
+    - figure out why it is sending 2 for PW reset
+    - figure out gmail
+    - figure out how to modify it.
+    - add button to request contribute
+    - 
+LOGO
+
+
 
 
 Amazing video about Django and proxy models.  https://youtu.be/KF2p-LQjZZ4?si=OdFcU90BFgtxggSO

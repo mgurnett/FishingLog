@@ -3,7 +3,7 @@ from .models import *
 
 # admin.site.register (Lake)
 admin.site.register (Stock)
-admin.site.register (Region)
+# admin.site.register (Region)
 admin.site.register (Fish)
 # admin.site.register (Fly)
 admin.site.register (Bug)
@@ -49,3 +49,10 @@ class LogAdmin (admin.ModelAdmin):
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):
     list_display = ['name', 'lat', 'long', 'static_tag','district']
+
+@admin.register (Region)
+class RegionAdmin (admin.ModelAdmin):
+    list_display = ['name', 'profile']
+
+    # def get_lakes (self, obj):
+    #     return ", ".join(o for o in obj.lakes.name())
