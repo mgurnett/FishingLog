@@ -1,7 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from .models import Profile
 from catches.models import Log
+
+admin.site.register(Permission)
 
 # admin.site.register(Profile)
 

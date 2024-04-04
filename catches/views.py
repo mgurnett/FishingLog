@@ -55,9 +55,10 @@ class RegionListView (PermissionRequiredMixin, ListView):
     paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
-
+        profile_ob = convert_user_to_profile (self.request.user)  # I have to convert user id into profile.   They are not the same.
         context = super (RegionListView, self).get_context_data (*args, **kwargs)
-        context ['regions'] = Region.objects.filter (profile_id = self.request.user.id)
+        context ['regions'] = Region.objects.filter (profile = profile_ob)
+        # context ['regions'] = Region.objects.all()
         return context
 
 class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
@@ -388,7 +389,8 @@ class LakeListView (ListView):
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
         context ['favs'] = Lake.objects.filter (favourite=True)
-        context ['regions'] = Region.objects.filter (profile_id = self.request.user.id)
+        profile_ob = convert_user_to_profile (self.request.user)
+        context ['regions'] = Region.objects.filter (profile_id = profile_ob)
         context ['districts'] = dists
         return context
 
@@ -446,14 +448,14 @@ class LakeDetailView (FormMixin, DetailView):
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
-        regions_list = get_regions_with_lake_for_current_user (self.kwargs['pk'], self.request.user)
+        # regions_list = get_regions_with_lake_for_current_user (self.kwargs['pk'], self.request.user)  Won't work without convertinghte user to the profile number.
     
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         # context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = logs_list
-        context ['regions'] = regions_list
+        # context ['regions'] = regions_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)

@@ -6,8 +6,8 @@ As of March 18
 - Break insects down to specific ones.
 - Make a carosel for the pictures.
 
-Favorites - Think about removing them.
-    - replace them with an automatic region of favorites when they sign up. - use signals.
+Favorites - Make them for each user 
+    - make a flag that says that a new log has been added.
 
 BLOG - move blog in to catches so that the colouring follows.
     make a comment system.
