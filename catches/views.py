@@ -134,6 +134,25 @@ def remove_lake_from_region(request, pk, lake_pk):
     return render(request, 'template/confirmation.html', {'region': region, 'lake': lake})
 
 
+class FavoriteListView (PermissionRequiredMixin, ListView):
+    permission_required = 'catches.view_favorite'
+    model = Favorite
+    paginate_by = 9
+
+    def get_context_data(self, *args, **kwargs):
+        context = super (FavoriteListView, self).get_context_data (*args, **kwargs)
+        context ['favorites'] = Favorite.objects.filter (user = self.request.user)
+        return context
+
+def remove_lake_from_favorites(request, lake_pk):
+    lake = Lake.objects.get(pk=lake_pk)
+
+    if request.method == 'POST':
+        favorite.lakes.remove(lake)
+        # Success message or logic (optional)
+        return redirect('favorite_list', user = self.request.user)
+
+
 class Fly_typeListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_fly_type'
     
@@ -388,7 +407,7 @@ class LakeListView (ListView):
         # print (f"Total lakes is: {lake_num}")
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
-        context ['favs'] = Lake.objects.filter (favourite=True)
+        # context ['favs'] = Lake.objects.filter (favourite=True)
         profile_ob = convert_user_to_profile (self.request.user)
         context ['regions'] = Region.objects.filter (profile_id = profile_ob)
         context ['districts'] = dists
@@ -443,6 +462,7 @@ class LakeDetailView (FormMixin, DetailView):
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
+            favorite = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
@@ -453,10 +473,9 @@ class LakeDetailView (FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
-        # context ['logs'] = Log.objects.filter (lake=self.kwargs['pk'])
         context ['logs'] = logs_list
-        # context ['regions'] = regions_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
+        context ['favorite'] = favorite
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)

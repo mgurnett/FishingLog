@@ -130,12 +130,12 @@ class Lake(models.Model):
     # district = models.CharField (max_length=100, blank=True, choices = DISTRICTS)
     district = models.IntegerField (blank=True, null=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
-    favourite = models.BooleanField (default = False)
+    # favourite = models.BooleanField (default = False)
     static_tag = models.SlugField() 
     gps_url = models.URLField(max_length = 200, blank=True)
     
     class Meta:
-        ordering = ['-favourite', 'name']
+        ordering = ['name']
 
     @property 
     def num_of_stock (self):
@@ -147,14 +147,10 @@ class Lake(models.Model):
 
     @property 
     def lake_info (self):
-        if self.favourite:
-            fav="*"
-        else:
-            fav=""
         if self.other_name:
-            output = f'{self.name} ({self.other_name}{fav})' 
+            output = f'{self.name} ({self.other_name})' 
         else:
-            output = f'{self.name}{fav}' 
+            output = f'{self.name}' 
         return output   
 
     @property 
@@ -164,14 +160,10 @@ class Lake(models.Model):
 
     # https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
     def __str__(self):
-        if self.favourite:
-            fav="*"
-        else:
-            fav=""
         if self.other_name == "":
-            return f'{self.name}{fav} at {self.ats} of {self.dist_name}'
+            return f'{self.name} at {self.ats} of {self.dist_name}'
         else:
-            return f'{self.name} ({self.other_name}{fav}) at {self.ats} of {self.dist_name}'  # used in the admin to set the name of the model
+            return f'{self.name} ({self.other_name}) at {self.ats} of {self.dist_name}'  # used in the admin to set the name of the model
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.
@@ -599,6 +591,21 @@ class Chart(models.Model):
         strength_found = STRENGTH[strength_index][1]
 
         return strength_found
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
+    date_added = models.DateField(auto_now_add = True)
+    new_flag = models.DateField(auto_now_add = True)
+    
+    class Meta: 
+        ordering = ['lake']
+
+    def __str__ (self):
+        return self.lake.name
+
+    def get_absolute_url (self):
+        return reverse ('favorite_list')
 
 '''  On Delete
 ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 

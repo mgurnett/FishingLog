@@ -100,6 +100,14 @@ def get_weeks(pk):
     week_list = sorted (weeks_this_temp, key=lambda d: d['week'], reverse=True)
     return week_list
   
+def favorite_filter_for_lake (lake_id, current_user) -> bool:
+    print (f'{lake_id = }{current_user.id = }')
+    fav = Favorite.objects.filter(lake=lake_id, user=current_user.id)
+    if fav:
+        return True
+    else:
+        return False
+  
 def log_filter_for_private (log_list, current_user):
         object_list = log_list.filter(Q(private=False) | Q(angler=current_user))
         return object_list

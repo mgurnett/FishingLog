@@ -54,5 +54,6 @@ class LakeAdmin (admin.ModelAdmin):
 class RegionAdmin (admin.ModelAdmin):
     list_display = ['name', 'profile']
 
-    # def get_lakes (self, obj):
-    #     return ", ".join(o for o in obj.lakes.name())
+@admin.register (Favorite)
+class FavoriteAdmin (admin.ModelAdmin):
+    list_display = ['lake', 'user']

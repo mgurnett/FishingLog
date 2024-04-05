@@ -1,0 +1,100 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Favorites{% endblock %}
+{% block content %}  
+<div class="container">
+	<div class="row"> <!--  Top card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10"> 
+			<div class="card border-0 bg-transparent">	
+				<div class="card-header">
+					<div class="row">
+						<div class="col-md-1"></div> 
+						<div class="col-md-4"> 
+							<h5>
+								Favorites
+							</h5>
+						</div>
+						<div class="col-md-6 text-end">
+							Lakes in the region: <b></b>
+						</div>
+						<div class="col-md-1"></div> 
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4 text-end">
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div> <!--  Top card-->
+	<div class="row"> <!--  Bottom card-->
+		<div class="col-md-1"> </div>
+		<div class="col-md-10"> 
+			<div class="container">   <!-- Lake list snippit.-->
+				<table class="table table-striped table-hover">
+					<tbody>
+						<tr>
+							<th>Lake</th>
+							<th>Logs</th>
+							<th>Hatches</th>
+							<th>Stocks</th>
+							<th></th>
+						</tr>
+						{% for fav in favorites %}
+							<tr>
+								<td scope="row">   
+									<a href="{% url 'lake_detail' fav.lake.id %}" class="list-group-item">
+										{{ fav.lake.lake_info }}
+										{% if fav.lake.favourite %}
+											<i class="fas fa-check-circle"></i>
+										{% endif %}
+									</a>
+								</td>
+								<td>
+									{% if fav.lake.log_set.count %}
+										{{ fav.lake.log_set.count }}
+									{% endif %}
+								</td>
+								<td>
+									{% if fav.lake.num_of_hatch %}
+										{{ fav.lake.num_of_hatch }}
+									{% endif %}
+								</td>
+								<td>
+									{% if fav.lake.num_of_stock %}
+										{{ fav.lake.num_of_stock }}
+									{% endif %}
+								</td>
+								<td>  
+									<div class="row">
+										<div class=" col-md-1"></div>
+										<div class=" col-md-5">
+											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=fav.lake.id %}">Hatch at the lake</a>
+										</div>
+										<div class=" col-md-3">
+											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=fav.lake.id %}">Catch log</a>
+										</div>
+										<div class=" col-md-3">
+											<form action="{% url 'remove_lake_from_favorites' fav.lake.pk %}" method="post">
+												{% csrf_token %}
+												<input type="hidden" name="lake" value="{{ fav.lake.pk }}">
+												<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
+											</form> 
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %} 
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+	</div> <!--  Bottom card-->
+</div>
+{% endblock content %}
