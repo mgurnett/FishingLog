@@ -13,7 +13,7 @@
 					<div class="row"> <!-- Title line -->
 						<div class="col-md-7 text-center"> 
 							<h2>
-								{{ lake.lake_info | title }}{% if favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+								{{ lake.lake_info | title }}{% if fav %} <i class="fas fa-check-circle"></i>{% endif %}
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
@@ -82,24 +82,34 @@
 						</div>
 					</div> <!-- Maps line -->
 					<hr>
-					<div class="row"> <!-- new content line -->
-                        <div class="col-md-1"></div>	
-                        <div class="col-md-2">
+					<div class="row"> <!-- new content line -->	
+                        <div class="col-md-3 text-center">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
-						</div>	
-                        <div class="col-md-2">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
 						</div>	
-                        <div class="col-md-2">
+                        <div class="col-md-5 text-center">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
-						</div>	
-                        <div class="col-md-2">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
-						</div>	
-                        <div class="col-md-2">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
                         </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-2 text-end">
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'favorite_list'  %}">Favorites</a>
+						</div>
+						<div class="col-md-2 text-start">
+							{% if fav %}
+								<form action="{% url 'remove_lake_from_favorites' fav %}" method="post">
+									{% csrf_token %}
+									<input type="hidden" name="lake_detail" value="{{ lake.pk }}">
+									<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
+								</form> 
+							{% else %}
+								<form action="{% url 'add_lake_to_favorites' lake_pk=lake.pk user_pk=user.id %}" method="post">
+									{% csrf_token %}
+									<input type="hidden" name="lake_detail" value="{{ lake.pk }}">
+									<button class="btn btn-primary btn-md mt-1 mb-1" type="submit">Add lake</button>
+								</form> 
+							{% endif %}
+						</div>
                     </div>
 				</div> <!-- top of the card -->
 				<div class="card-body"> <!-- card body for notes -->

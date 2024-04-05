@@ -15,7 +15,7 @@
 							</h5>
 						</div>
 						<div class="col-md-6 text-end">
-							Lakes in the region: <b></b>
+							Favorite lakes: <b>{{ count }}</b>
 						</div>
 						<div class="col-md-1"></div> 
 					</div>
@@ -80,7 +80,7 @@
 											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=fav.lake.id %}">Catch log</a>
 										</div>
 										<div class=" col-md-3">
-											<form action="{% url 'remove_lake_from_favorites' fav.lake.pk %}" method="post">
+											<form action="{% url 'remove_lake_from_favorites' fav.id %}" method="post">
 												{% csrf_token %}
 												<input type="hidden" name="lake" value="{{ fav.lake.pk }}">
 												<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>

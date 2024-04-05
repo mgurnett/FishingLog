@@ -104,7 +104,7 @@
 										<div class=" col-md-3">
 											<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
 												{% csrf_token %}
-												<input type="hidden" name="lake" value="{{ lake.pk }}">
+												<input type="hidden" name="lake"  value="{{ lake.pk }}">
 												<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
 											</form> 
 										</div>

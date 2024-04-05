@@ -78,7 +78,7 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.get_form()
+        form = self.get_form() 
 
         if form.is_valid():
             # Set the lake instance as an attribute on the view (more explicit)
@@ -140,17 +140,33 @@ class FavoriteListView (PermissionRequiredMixin, ListView):
     paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
+        favs = Favorite.objects.filter (user = self.request.user)
+        count = favs.count()
         context = super (FavoriteListView, self).get_context_data (*args, **kwargs)
-        context ['favorites'] = Favorite.objects.filter (user = self.request.user)
+        context ['favorites'] = favs
+        context ['count'] = count
         return context
 
-def remove_lake_from_favorites(request, lake_pk):
-    lake = Lake.objects.get(pk=lake_pk)
-
+def remove_lake_from_favorites(request, pk):
+    favorite = Favorite.objects.get(pk=pk)
+    lake_pk = favorite.lake.id
     if request.method == 'POST':
-        favorite.lakes.remove(lake)
+        favorite.delete()
+        if 'lake_detail' in request.POST:
+            return redirect('lake_detail', lake_pk)
         # Success message or logic (optional)
-        return redirect('favorite_list', user = self.request.user)
+    return redirect('favorite_list')
+    
+def add_lake_to_favorites(request, lake_pk, user_pk):
+    lake = Lake.objects.get(pk=lake_pk)
+    user = User.objects.get(pk=user_pk)
+    favorite = Favorite (lake=lake, user=user)
+    if request.method == 'POST':
+        favorite.save()
+        if 'lake_detail' in request.POST:
+            return redirect('lake_detail', lake_pk)
+        # Success message or logic (optional)
+    return redirect('favorite_list')
 
 
 class Fly_typeListView (PermissionRequiredMixin, ListView):
@@ -407,7 +423,7 @@ class LakeListView (ListView):
         # print (f"Total lakes is: {lake_num}")
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
-        # context ['favs'] = Lake.objects.filter (favourite=True)
+        context ['favs'] = Favorite.objects.filter (user=self.request.user)
         profile_ob = convert_user_to_profile (self.request.user)
         context ['regions'] = Region.objects.filter (profile_id = profile_ob)
         context ['districts'] = dists
@@ -462,20 +478,18 @@ class LakeDetailView (FormMixin, DetailView):
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
-            favorite = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)
+            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
-
-        # regions_list = get_regions_with_lake_for_current_user (self.kwargs['pk'], self.request.user)  Won't work without convertinghte user to the profile number.
     
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         context ['logs'] = logs_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
-        context ['favorite'] = favorite
+        context ['fav'] = favorite_id
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
@@ -507,12 +521,22 @@ class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
 
+    def form_valid(self, form):
+        if not form.instance.static_tag:
+            form.instance.static_tag = slugify(form.instance.name)
+        return super().form_valid(form)
+
 class LakeUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_lake'
     model = Lake
     form_class = New_Lake_Form
     success_url = "/lakes/"
     success_message = "Lake was edited successfully"
+
+    def form_valid(self, form):
+        if not form.instance.static_tag:
+            form.instance.static_tag = slugify(form.instance.name)
+        return super().form_valid(form)
 
 class LakeDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'catches.delete_lake'

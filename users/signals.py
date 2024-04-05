@@ -11,8 +11,8 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         instance.groups.add(Group.objects.get(name='viewers'))
         region = Region (
-            name = "Favorite",
-            notes = "Your personal favorite lakes",
+            name = "My region",
+            notes = "Lakes around your area",
             profile = instance.profile
         )
         region.save()

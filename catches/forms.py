@@ -114,7 +114,6 @@ class Lake_to_Region_form(forms.ModelForm):
 
     lake = forms.ModelChoiceField(queryset=Lake.objects.all(), label="Lake to add:")
 
-
 class New_Lake_Form (forms.ModelForm):
     
     class Meta:

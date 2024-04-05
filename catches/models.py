@@ -594,7 +594,9 @@ class Chart(models.Model):
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # users = models.ManyToManyField (to='User', blank=True)
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
+    # lakes = models.ManyToManyField (to='Lake', blank=True)
     date_added = models.DateField(auto_now_add = True)
     new_flag = models.DateField(auto_now_add = True)
     

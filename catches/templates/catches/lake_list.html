@@ -25,20 +25,20 @@
         <div class="card border-0 bg-transparent" >
             <div class="card-body" style="column-count: 3;">                                
                 <ul class="list-unstyled card-columns" >
-                    {% for lake in favs %}
+                    {% for f in favs %}
                         <!-- <li>
-                            <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b></a>
-                            {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
-                            {% if lake.log_set.count %}
-                                <span class="badge badge-light badge-pill"> ( logs: {{ lake.log_set.count }} )</span>
+                            <a href="{% url 'lake_detail' f.lake.id %}"><b>{{ f.lake.name | title }}</b></a>
+                            {% if not f.lake.other_name == "" %} <a href="{% url 'lake_detail' f.lake.id %}"> ({{ f.lake.other_name | title }}) </a> {% endif %}
+                            {% if f.lake.log_set.count %}
+                                <span class="badge badge-light badge-pill"> ( logs: {{ f.lake.log_set.count }} )</span>
                             {% endif %}
                         </li> -->
                         <li>
                             <button type="button" class="btn bg-transparent position-relative">
-                                <a href="{% url 'lake_detail' lake.id %}"><b>{{ lake.name | title }}</b>
-                                    {% if not lake.other_name == "" %} <a href="{% url 'lake_detail' lake.id %}"> ({{ lake.other_name | title }}) </a> {% endif %}
+                                <a href="{% url 'lake_detail' f.lake.id %}"><b>{{ f.lake.name | title }}</b>
+                                    {% if not f.lake.other_name == "" %} <a href="{% url 'lake_detail' f.lake.id %}"> ({{ f.lake.other_name | title }}) </a> {% endif %}
                                     <span class="badge bg-primary text-light">
-                                        ( logs: {{ lake.log_set.count }} )
+                                        ( logs: {{ f.lake.log_set.count }} )
                                     </span>
                                 </a>
                               </button>

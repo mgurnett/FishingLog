@@ -13,7 +13,8 @@ urlpatterns = [
     path ('regions/<int:pk>/remove_lake/<int:lake_pk>/', remove_lake_from_region, name='remove_lake_from_region'),
 
     path ('favorites/', FavoriteListView.as_view(), name = 'favorite_list'), 
-    path ('favorites/remove_lake/<int:lake_pk>/', remove_lake_from_favorites, name='remove_lake_from_favorites'),
+    path ('favorites/remove_lake/<int:pk>/', remove_lake_from_favorites, name='remove_lake_from_favorites'),
+    path ('favorites/<int:lake_pk>/add_lake/<int:user_pk>/', add_lake_to_favorites, name='add_lake_to_favorites'),
     
     path ('fly_type/', Fly_typeListView.as_view(), name = 'fly_type_list'), 
     path ('fly_type/<int:pk>/', Fly_typeDetailView.as_view(), name = 'fly_type_detail'), 

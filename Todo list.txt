@@ -14,6 +14,7 @@ Favorites
     - make a flag that says that a new log has been added.
     - date added
     
+Distance - run each lake once from a sctipt and put in the distance into a seperate model.  Then I can sort by distance.
 
 BLOG - move blog in to catches so that the colouring follows.
     make a comment system.
