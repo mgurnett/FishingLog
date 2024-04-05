@@ -600,7 +600,7 @@ class Chart(models.Model):
 
         return strength_found
 
-'''  
+'''  On Delete
 ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
 in the referencing table are deleted.
 ON DELETE SET NULL: if a row of the referenced table is deleted, then all referencing columns 

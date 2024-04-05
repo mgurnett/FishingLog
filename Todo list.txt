@@ -6,8 +6,14 @@ As of March 18
 - Break insects down to specific ones.
 - Make a carosel for the pictures.
 
-Favorites - Make them for each user 
+Messages - Fix with model.
+
+Favorites 
+    - Make a model for favorites
+    - Make them for each user 
     - make a flag that says that a new log has been added.
+    - date added
+    
 
 BLOG - move blog in to catches so that the colouring follows.
     make a comment system.
