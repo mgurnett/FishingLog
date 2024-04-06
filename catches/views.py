@@ -91,6 +91,8 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
         lake_id = form.cleaned_data['lake']  # Access the lake's ID from cleaned data
         self.lake = Lake.objects.get(pk=lake_id.id)  # Retrieve the lake instance
         self.object.lakes.add(self.lake)  # Add the lake to the region
+        mess = f'{self.lake.name} added to '
+        messages.info(request, mess)
         return super().form_valid(form)
 
 class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
@@ -127,6 +129,8 @@ def remove_lake_from_region(request, pk, lake_pk):
 
     if request.method == 'POST':
         region.lakes.remove(lake)
+        mess_text = f'<b>{lake.name}</b> removed from {region.name}'
+        messages.add_message(request, messages.ERROR, mess_text)
         # Success message or logic (optional)
         return redirect('region_detail', pk=pk)
 
@@ -153,6 +157,8 @@ def remove_lake_from_favorites(request, pk):
     if request.method == 'POST':
         favorite.delete()
         if 'lake_detail' in request.POST:
+            mess_text = f'<b>{favorite.lake.name}</b> removed from your favorites'
+            messages.add_message(request, messages.ERROR, mess_text)
             return redirect('lake_detail', lake_pk)
         # Success message or logic (optional)
     return redirect('favorite_list')
@@ -164,6 +170,8 @@ def add_lake_to_favorites(request, lake_pk, user_pk):
     if request.method == 'POST':
         favorite.save()
         if 'lake_detail' in request.POST:
+            mess_text = f'{lake.name} added to your favorites'
+            messages.add_message(request, messages.ERROR, mess_text)
             return redirect('lake_detail', lake_pk)
         # Success message or logic (optional)
     return redirect('favorite_list')
@@ -1134,31 +1142,31 @@ class Weather2 (TemplateView):
         return context
         
 
-def get_hl (id):
-    temp_list = get_temps(id)
-    # print (f'id is {id}   and temp_list is {temp_list}')
-    low = 100
-    high = 0
-    for temp in temp_list:
-        if temp['temp'] < low:
-            low = temp['temp']
-        if temp['temp'] > high:
-            high = temp['temp']
-    # print (f'low: {low} high: {high}')
-    if low == 100:
-        return {"low": '', "high": ''}
-    else:
-        return {"low": low, "high": high}
+# def get_hl (id):
+#     temp_list = get_temps(id)
+#     # print (f'id is {id}   and temp_list is {temp_list}')
+#     low = 100
+#     high = 0
+#     for temp in temp_list:
+#         if temp['temp'] < low:
+#             low = temp['temp']
+#         if temp['temp'] > high:
+#             high = temp['temp']
+#     # print (f'low: {low} high: {high}')
+#     if low == 100:
+#         return {"low": '', "high": ''}
+#     else:
+#         return {"low": low, "high": high}
 
-def fly_list(id):
+# def fly_list(id):
     # id = 8
-    logs = Log.objects.filter(week = id)
-    fly_list = []
-    for log in logs:
-        if log.fly:
-            fly_list.append(log.fly)
-    fly_list = list(dict.fromkeys(fly_list))
-    return fly_list
+    # logs = Log.objects.filter(week = id)
+    # fly_list = []
+    # for log in logs:
+    #     if log.fly:
+    #         fly_list.append(log.fly)
+    # fly_list = list(dict.fromkeys(fly_list))
+    # return fly_list
 
     
 class Plan(TemplateView):

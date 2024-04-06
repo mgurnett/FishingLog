@@ -33,6 +33,9 @@ detail templates:
     {% include 'snippets/blog_list.html' %}
 </div>
 
+Messages
+mess_text = f'<b>{favorite.lake.name}</b> removed from your favorites'
+messages.add_message(request, messages.ERROR, mess_text)
 
 {% csrf_token %}
 

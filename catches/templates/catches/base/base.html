@@ -72,7 +72,13 @@
                         {% if messages %}
                             <ul class="messages">
                                 {% for message in messages %}
-                                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+                                        <span style="color:stormy_blue;">{{ message | safe }}</span>
+                                    {% else %}
+                                        {{ message | safe }}
+                                    {% endif %}
+                                </p>
                                 {% endfor %}
                             </ul>
                         {% endif %}

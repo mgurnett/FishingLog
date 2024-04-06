@@ -24,6 +24,6 @@ first_slide = {
 # =====================================
 top_messages = {
     'first_slide': first_slide,
-    'second_slide': broadcasts ['second_slide'],
     'third_slide': broadcasts ['third_slide'],
+    'second_slide': broadcasts ['second_slide'],
 }
