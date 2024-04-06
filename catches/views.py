@@ -168,7 +168,7 @@ def add_lake_to_favorites(request, lake_pk, user_pk):
         # Success message or logic (optional)
     return redirect('favorite_list')
 
-
+ 
 class Fly_typeListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_fly_type'
     
@@ -422,10 +422,17 @@ class LakeListView (ListView):
             lake_num = lake_num + dist_count
         # print (f"Total lakes is: {lake_num}")
 
+        if self.request.user.is_authenticated:
+            fav_objs = Favorite.objects.filter (user=self.request.user)
+            profile_ob = convert_user_to_profile (self.request.user)
+            region_objs = Region.objects.filter (profile_id = profile_ob)
+        else:
+            fav_objs = None
+            region_objs = None
+
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
-        context ['favs'] = Favorite.objects.filter (user=self.request.user)
-        profile_ob = convert_user_to_profile (self.request.user)
-        context ['regions'] = Region.objects.filter (profile_id = profile_ob)
+        context ['favs'] = fav_objs
+        context ['regions'] = region_objs
         context ['districts'] = dists
         return context
 
@@ -1010,8 +1017,11 @@ class Graph(TemplateView):
 
         df = pd.DataFrame.from_dict( data )
         df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
+        # df['date'] = pd.to_datetime(df['date'])
+        # df = df.set_index('date') 
         
         df = df.sort_values(by='temp_id')
+        # df = df.groupby(pd.Grouper(key='Date', axis=0, freq='YS', sort=True)).sum()  
         # df = df.groupby(df.Date.dt.year)
         # df.to_csv('graph_data.csv')
 
