@@ -10,17 +10,16 @@
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						{% if user.is_authenticated %}
-							Our next planned trip is: <a href="{% url 'lake_detail' first_slide.lake.id %}"><b>{{ first_slide.lake.name | title }}</b></a> {{ first_slide.plan | safe }}
+							{{ trip | safe }}
 						{% else %}
 							Please log in to see the next planned fishing trip.
 						{% endif %}	
 					</div>
-					<div class="carousel-item">
-						{{ second_slide | safe }}
-					</div>
-					<div class="carousel-item">
-						{{ third_slide | safe }} 
-					</div>
+					{% for announce in announcments %}
+						<div class="carousel-item">
+							{{ announce | safe }}  
+						</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

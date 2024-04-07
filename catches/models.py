@@ -609,6 +609,19 @@ class Favorite(models.Model):
     def get_absolute_url (self):
         return reverse ('favorite_list')
 
+class Announcment(models.Model):
+    lake_id = models.IntegerField (default = 0)
+    notes = models.TextField (blank=True)
+    
+    class Meta: 
+        ordering = ['notes']
+
+    def __str__ (self):
+        return f'{self.notes} ({self.lake_id})' 
+
+    def get_absolute_url (self):
+        return reverse ('catch_home')
+
 '''  On Delete
 ON DELETE CASCADE: if a row of the referenced table is deleted, then all matching rows 
 in the referencing table are deleted.

@@ -57,3 +57,7 @@ class RegionAdmin (admin.ModelAdmin):
 @admin.register (Favorite)
 class FavoriteAdmin (admin.ModelAdmin):
     list_display = ['lake', 'user']
+
+@admin.register (Announcment)
+class AnnouncmentAdmin (admin.ModelAdmin):
+    list_display = ['notes', 'lake_id']

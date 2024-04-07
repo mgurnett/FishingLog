@@ -45,9 +45,26 @@ class UserAccessMixin (PermissionRequiredMixin):
             return redirect('home/')
         return super(UserAccessMixin, self).dispatch (request, *args, **kwargs)
 
-def home (request):  # Gets all its info from announcment.py
-    # messages.add_message(request, messages.INFO, "Hello world.")
-    return render (request, 'catches/home.html', top_messages)
+class Home (TemplateView):
+    template_name = 'catches/home.html'
+    model = Announcment
+
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        announces = Announcment.objects.all()
+        announce_list = []
+        trip_str = ""
+        announce_str = ""
+        for an in announces:
+            if an.lake_id != 0:
+                lake = Lake.objects.get(pk=an.lake_id)
+                trip_str = f'Our next planned trip is: <b>{lake.name}</b> {an.notes}'
+            else:
+                announce_list.append (an.notes)
+        context ['announcments'] = announce_list
+        context ['trip'] = trip_str
+        context ['lake_link'] = trip_str
+        return context
 
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
@@ -137,7 +154,7 @@ def remove_lake_from_region(request, pk, lake_pk):
     # Render confirmation template or handle GET requests (optional)
     return render(request, 'template/confirmation.html', {'region': region, 'lake': lake})
 
-
+ 
 class FavoriteListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_favorite'
     model = Favorite
