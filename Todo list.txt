@@ -1,16 +1,11 @@
 As of March 18
-- let users make their own favorites list.
 - sort out picture and sizes
 - work on validations
 - In the tags list, show how many media, lakes, fish, flys.....
 - Break insects down to specific ones.
 - Make a carosel for the pictures.
 
-Messages - Fix with model.
-
 Favorites 
-    - Make a model for favorites
-    - Make them for each user 
     - make a flag that says that a new log has been added.
     - date added
     
@@ -23,8 +18,6 @@ FISH - take pictures
 
 USERS - Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
 
-Messages - Make a table so that the messages can be set from the admin area. 
-
 EMAIL 
     - figure out why it is sending 2 for PW reset
     - figure out gmail
@@ -32,9 +25,6 @@ EMAIL
     - add button to request contribute
     - 
 LOGO
-
-
-
 
 Amazing video about Django and proxy models.  https://youtu.be/KF2p-LQjZZ4?si=OdFcU90BFgtxggSO
 ================================

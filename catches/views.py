@@ -30,7 +30,6 @@ from catches.forms import *
 from .weather_stuff import *
 from .Open_Weather import *
 from .distance import *
-from .announcments import *
 from .queries import *
 
 class UserAccessMixin (PermissionRequiredMixin):
