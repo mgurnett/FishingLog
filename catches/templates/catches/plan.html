@@ -23,15 +23,15 @@
 	</div>
     <hr>
 	<div class="row"> <!-- Temperature Row-->
-		<div class="col-md-5 text-left">
+		<div class="col-md-5 text-start">
             <h4>
                 Current:<b>{% timezone "America/Edmonton" %} {% now "D, M j, y" %}</b> (week: {% now "W" %}) {% endtimezone %}
             </h4>
 		</div>
-		<div class="col-md-7 text-right">
-            <h4>
-                {% if hl.low %} Lowest temperature <b>{{ hl.low }}&deg;C</b>{% endif %} {% if hl.high %} Highest temperature <b>{{ hl.high }}&deg;C</b>{% endif %} 
-            </h4>
+		<div class="col-md-7 text-end">
+            <p>
+                {% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - {% if hl.high %} Highest recorded temperature <b>{{ hl.high }}&deg;C</b>{% endif %} 
+			</p>
 		</div>
 	</div>
     <hr>

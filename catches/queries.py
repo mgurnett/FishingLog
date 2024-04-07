@@ -43,7 +43,7 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                 data.append(log_data)
     return data  #  list of dictionaries 
 
-def get_hl (id):
+def get_hl (id): 
     temp_list = get_temps(id)
     # print (f'id is {id}   and temp_list is {temp_list}')
     low = 100

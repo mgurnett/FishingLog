@@ -1,69 +1,62 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Week: #{{ week.number}}{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-md-1"> </div>
-    <div class="col-md-10">
-        <div class="card border-0 bg-transparent">
-            <div class="card-header">
-                <div class="row">
+<div class="container">
+	<div class="row"><!-- Top card-->
+		<div class="card mb-4 border-0 bg-transparent">
+			<div class="card-header">
+				<div class = "row">
                     <h5 class="col-md-3"> Details for week <b>#{{ week.number}}</b></h5>
                     <div class="col-md-3 text-center"> <a href="{% url 'week_detail' week.prev_num %}"><b>Previous week</b></a> </div>
                     <div class="col-md-3 text-center"> <a href="{% url 'week_detail' week.next_num %}"><b>Next week</b></a>  </div>
                     <h5 class="col-md-3 text-end">{{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }}</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-1"> </div>
-</div>
-
-<div class="row mb-3"><!-- Bottom card-->
-    <div class="col-md-1 "></div>
-    <div class="col-md-10">
-        <div class="row">
-            <h5 class="col-12"><!-- Nav tabs -->
-                <ul class="nav nav-tabs ">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"  
-                        href="#LOGS">Fishing Logs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" 
-                        href="#HATCH">Hatch</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" 
-                        href="#TEMP">Temperatures</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" 
-                        href="#CHART">Chart</a>
-                    </li>
-                </ul>
-            </h5>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12  ">               <!-- Tab panes -->
-                <div class="tab-content ">
-                    <div class="tab-pane container active" id="LOGS">
-                        {% include 'snippets/log_tab.html' %}
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row">
+                    <h5 class="col-12"><!-- Nav tabs -->
+                        <ul class="nav nav-tabs ">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab"  
+                                href="#LOGS">Fishing Logs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" 
+                                href="#HATCH">Hatch</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" 
+                                href="#TEMP">Temperatures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" 
+                                href="#CHART">Chart</a>
+                            </li>
+                        </ul>
+                    </h5>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+                    <div class="col-md-12  ">               <!-- Tab panes -->
+                        <div class="tab-content ">
+                            <div class="tab-pane container active" id="LOGS">
+                                {% include 'snippets/log_tab.html' %}
+                            </div>
+                            <div class="tab-pane container fade" id="HATCH">
+                                {% include 'snippets/hatch_tab.html' %}
+                            </div>    
+                            <div class="tab-pane container fade" id="TEMP">
+                                {% include 'snippets/temp_tab.html' %}
+                            </div>   
+                            <div class="tab-pane container fade" id="CHART">
+                                {% include 'snippets/chart_tab.html' %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane container fade" id="HATCH">
-                        {% include 'snippets/hatch_tab.html' %}
-                    </div>    
-                    <div class="tab-pane container fade" id="TEMP">
-                        {% include 'snippets/temp_tab.html' %}
-                    </div>   
-                    <div class="tab-pane container fade" id="CHART">
-                        {% include 'snippets/chart_tab.html' %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-1"></div>
-</div><!-- Bottom card-->
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock content %}

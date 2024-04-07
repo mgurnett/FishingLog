@@ -1158,33 +1158,6 @@ class Weather2 (TemplateView):
         return context
         
 
-# def get_hl (id):
-#     temp_list = get_temps(id)
-#     # print (f'id is {id}   and temp_list is {temp_list}')
-#     low = 100
-#     high = 0
-#     for temp in temp_list:
-#         if temp['temp'] < low:
-#             low = temp['temp']
-#         if temp['temp'] > high:
-#             high = temp['temp']
-#     # print (f'low: {low} high: {high}')
-#     if low == 100:
-#         return {"low": '', "high": ''}
-#     else:
-#         return {"low": low, "high": high}
-
-# def fly_list(id):
-    # id = 8
-    # logs = Log.objects.filter(week = id)
-    # fly_list = []
-    # for log in logs:
-    #     if log.fly:
-    #         fly_list.append(log.fly)
-    # fly_list = list(dict.fromkeys(fly_list))
-    # return fly_list
-
-    
 class Plan(TemplateView):
     model = Lake
     template_name = 'catches/plan.html'
