@@ -7,7 +7,6 @@ As of March 18
 
 Favorites 
     - make a flag that says that a new log has been added.
-    - date added
     
 Distance - run each lake once from a sctipt and put in the distance into a seperate model.  Then I can sort by distance.
 
@@ -15,6 +14,8 @@ BLOG - move blog in to catches so that the colouring follows.
     make a comment system.
 
 FISH - take pictures
+
+LOGS - add depth and retrieve, line tippet.
 
 USERS - Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
 
@@ -25,6 +26,8 @@ EMAIL
     - add button to request contribute
     - 
 LOGO
+
+WEEKS - Figure out a better way to pars them than over and over.
 
 Amazing video about Django and proxy models.  https://youtu.be/KF2p-LQjZZ4?si=OdFcU90BFgtxggSO
 ================================

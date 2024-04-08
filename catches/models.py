@@ -36,16 +36,31 @@ class Week(models.Model):
     @property 
     def dates_in_week(self):
         yearnum = int(timezone.now().strftime("%Y"))
-        start_date = f'{yearnum}/01/01'; end_date = f'{yearnum}/12/31'; 
+        start_date = f'{yearnum}/01/01'
+        end_date = f'{yearnum}/12/31'
         week_of_sundays = pd.date_range(start_date, end_date, freq='W-SUN')
         for wofs in week_of_sundays:
-            week_num = wofs.strftime("%W")
+            week_num = int(wofs.strftime("%W")) +1
             # print (f'yearnum is {yearnum} / Wnumber is {Wnumber} /week_num is {week_num} /')
-            if int(week_num) == int(self.number):
+            if week_num == int(self.number):
                 end_date = wofs + pd.DateOffset(6)
                 week_info = {'week_num': week_num, 'start_date': wofs.strftime("%b %-d"), 'end_date': end_date.strftime("%b %-d")}
                 return week_info
         return
+    
+    # @property 
+    # def dates_in_week(self):
+    #     week_info_list = []
+    #     yearnum = int(timezone.now().strftime("%Y"))
+    #     start_date = f'{yearnum}/01/01'
+    #     end_date = f'{yearnum}/12/31'
+    #     week_of_sundays = pd.date_range(start_date, end_date, freq='W-SUN')
+    #     for wofs in week_of_sundays:
+    #         week_num = int(wofs.strftime("%W")) + 1
+    #         end_date = wofs + pd.DateOffset(6)
+    #         week_info = {'week_num': week_num, 'start_date': wofs.strftime("%b %-d"), 'end_date': end_date.strftime("%b %-d")}
+    #         week_info_list.append (week_info)
+    #     return week_info_list
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
@@ -141,7 +156,7 @@ class Lake(models.Model):
     def is_favorite (lake_pk,  user_pk):
         print (f'{lake_pk = } {user_pk = }')
         try:
-            fav = Favorite.objects.get(lake=self.lake.id, user=user_id)
+            fav = Favorite.objects.get(lake=lake_pk, user=user_pk)
         except:
             return False
         else:

@@ -96,12 +96,17 @@
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
                         </div>
-                        <div class="col-md-2 text-end">
+                        <div class="col-md-1 text-end">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'favorite_list'  %}">Favorites</a>
 						</div>
-						<div class="col-md-2 text-start">
+                        <div class="col-md-2 text-muted text-end mt-2 ">
 							{% if fav %}
-								<form action="{% url 'remove_lake_from_favorites' fav %}" method="post">
+								Date added: {{ fav.date_added}}
+							{% endif %}
+						</div>
+						<div class="col-md-1 text-end">
+							{% if fav %}
+								<form action="{% url 'remove_lake_from_favorites' fav.id %}" method="post">
 									{% csrf_token %}
 									<input type="hidden" name="lake_detail" value="{{ lake.pk }}">
 									<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>

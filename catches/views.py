@@ -100,14 +100,14 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
             # Set the lake instance as an attribute on the view (more explicit)
             cleaned_lake = form.cleaned_data['lake']
             self.lake = Lake.objects.get(pk=cleaned_lake.id)
-            return self.form_valid(form)
+            return self.form_valid(form, request)
 
     # Handle form validation and lake association
-    def form_valid(self, form):
+    def form_valid(self, form, request):
         lake_id = form.cleaned_data['lake']  # Access the lake's ID from cleaned data
         self.lake = Lake.objects.get(pk=lake_id.id)  # Retrieve the lake instance
         self.object.lakes.add(self.lake)  # Add the lake to the region
-        mess = f'{self.lake.name} added to '
+        mess = f'{self.lake.name} added to region'
         messages.info(request, mess)
         return super().form_valid(form)
 
@@ -509,18 +509,24 @@ class LakeDetailView (FormMixin, DetailView):
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
-            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user) 
+            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)             
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
+            
+        if favorite_id:
+            favorite_info = Favorite.objects.get(pk=favorite_id)
+        else:
+            favorite_info = None
+
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
-    
+        print (f'{favorite_info = }')
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         context ['logs'] = logs_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
-        context ['fav'] = favorite_id
+        context ['fav'] = favorite_info
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
@@ -673,7 +679,7 @@ class WeekListView (PermissionRequiredMixin,  ListView):
     permission_required = 'catches.view_week'
     model = Week
     context_object_name = 'weeks' 
-    paginate_by = 16
+    paginate_by = 16 
 
 class WeekDetailView (PermissionRequiredMixin,  DetailView): 
     permission_required = 'catches.view_week'
@@ -686,6 +692,7 @@ class WeekDetailView (PermissionRequiredMixin,  DetailView):
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['pk']).order_by('temp')
         context ['temps'] = get_temps(self.kwargs['pk'])
         context ['logs'] = log_filter_for_private (Log.objects.filter (week=self.kwargs['pk']), self.request.user)
+        context ['model'] = "weeks"
         return context
 
  
