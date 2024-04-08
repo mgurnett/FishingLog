@@ -45,3 +45,5 @@ DISTRICTS = (
     (50,"Stony Plain"),(51,"Strathmore"),(52,"Sundre"),(53,"Swan Hills"),(54,"Valleyview"),(55,"Vegreville"),(56,"Vermilion"),
     (57,"Vulcan"),(58,"Wetaskiwin"),(59,"Whitecourt"),(60,"unknown"),
 )
+
+KML_TOOLTIP = ('If you go to regions or districts you can hit kml download and it will send you a kml file that you can then pull into Google Maps or Google Earth and it will make a map for you of the lakes in that region of district.')

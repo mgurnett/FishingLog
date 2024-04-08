@@ -23,7 +23,11 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> 
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >Make KML file</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >
+								<abbr title = 'If you go to regions or districts you can hit kml download and it will send you a kml file that you can then pull into Google Maps or Google Earth and it will make a map for you of the lakes in that region of district.'>
+									Make KML file
+								</abbr>
+							</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
 						</div>
                         <div class="col-md-4 text-end">

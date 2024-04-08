@@ -38,7 +38,11 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-8"> 
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >Make KML file</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >
+								<abbr title = "{{ region.kml_tooltip | safe }}">
+									Make KML file
+								</abbr>
+							</a> 
 							<a class="btn btn-primary btn-md mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
 							<!-- This is how you make a download button: https://youtu.be/1x_ACMFzGYM?si=8xMlwoIQ4chCkhHV -->
 						</div>

@@ -85,7 +85,11 @@
 					<div class="row"> <!-- new content line -->	
                         <div class="col-md-3 text-center">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">
+								<abbr title = "Logs are assigned to the person logged in and can be marked private so only you see that log.">
+									Catch log
+								</abbr>
+							</a>
 						</div>	
                         <div class="col-md-5 text-center">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>

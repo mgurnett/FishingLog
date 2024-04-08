@@ -11,7 +11,7 @@ from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd 
 from django.contrib.auth.models import User 
-from .fish_data import STRAIN_INFO, GENOTYPE_INFO, STRAIN, GENTOTYPE, STRENGTH, DISTRICTS
+from .fish_data import *
 from users.models import Profile
 
 class Week(models.Model):
@@ -138,6 +138,16 @@ class Lake(models.Model):
         ordering = ['name']
 
     @property 
+    def is_favorite (lake_pk,  user_pk):
+        print (f'{lake_pk = } {user_pk = }')
+        try:
+            fav = Favorite.objects.get(lake=self.lake.id, user=user_id)
+        except:
+            return False
+        else:
+            return True
+
+    @property 
     def num_of_stock (self):
         return self.fish.count
 
@@ -157,6 +167,10 @@ class Lake(models.Model):
     def dist_name (self):
         dist = DISTRICTS[self.district][1]
         return dist 
+
+    @property 
+    def kml_tooltip (self):
+        return KML_TOOLTIP
 
     # https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
     def __str__(self):
@@ -188,6 +202,10 @@ class Region(models.Model):
     @property 
     def lake_count (self):
         return Lake.objects.filter(region=self.id).count()
+
+    @property 
+    def kml_tooltip (self):
+        return KML_TOOLTIP
 
 class Stock(models.Model):
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)

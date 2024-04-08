@@ -258,7 +258,7 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
             if not x.date_stocked.year in year_list:
                 year_list.append(x.date_stocked.year)
         subtotals = []
-        total = 0
+        total = 0 
         for years in year_list:
             sub_t = 0
             for x in stock_list:
@@ -509,7 +509,7 @@ class LakeDetailView (FormMixin, DetailView):
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
-            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)
+            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user) 
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
@@ -533,7 +533,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['distance'] = distance_to_lake
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
-
+ 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()

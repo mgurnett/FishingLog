@@ -21,7 +21,11 @@
                 {% if stock.date_stocked.year == s.year %}
                   <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a></th>
                   {% if model == "fish" %}
-                    <td><a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name | title }}</a></td>
+                    <td>
+                      <a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name | title }}</a>  
+                      {% if stock.lake.is_favorite_ %} <i class="fas fa-check-circle"></i>{% endif %}
+                      (<a href="{% url 'lake_list_dist' stock.lake.district %}"> {{ stock.lake.dist_name | title  }}</a>)
+                    </td>
                   {% else %}
                     <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name | title }}</a></td>
                   {% endif %}

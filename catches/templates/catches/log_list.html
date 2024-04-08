@@ -18,7 +18,11 @@
                 </div>
                 <div class="col-md-3">
                     <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create' %}">New Hatch</a>
-                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}">New log</a>
+                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}">
+                        <abbr title = "Logs are assigned to the person logged in and can be marked private so only you see that log.">
+                            New log
+                        </abbr>
+                    </a>
                     <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
                     <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
                 </div> 
