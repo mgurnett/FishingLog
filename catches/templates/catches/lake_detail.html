@@ -14,6 +14,7 @@
 						<div class="col-md-7 text-center"> 
 							<h2>
 								{{ lake.lake_info | title }}{% if fav %} <i class="fas fa-check-circle"></i>{% endif %}
+								{{ Favorite.is_favorite  }}
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
@@ -106,7 +107,7 @@
 						</div>
 						<div class="col-md-1 text-end">
 							{% if fav %}
-								<form action="{% url 'remove_lake_from_favorites' fav.id %}" method="post">
+								<form action="{% url 'remove_lake_from_favorites' fav %}" method="post">
 									{% csrf_token %}
 									<input type="hidden" name="lake_detail" value="{{ lake.pk }}">
 									<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>

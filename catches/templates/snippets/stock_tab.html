@@ -30,7 +30,7 @@
                     <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name | title }}</a></td>
                   {% endif %}
                   <td>{{ stock.number }}</td>
-                  <td>
+                  <td> 
                     {% if stock.gentotype %}
                       <abbr title = "{{ stock.geno_tooltip | safe }}">
                         {{ stock.full_geno }}
