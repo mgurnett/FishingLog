@@ -76,7 +76,7 @@ class New_Regions_Form (forms.ModelForm):
 class New_Temp_Form (forms.ModelForm): 
     class Meta:
         model = Temp
-        fields = '__all__'
+        fields = ['name', 'notes', 'search_keys']
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
     search_keys = forms.CharField ( required = True )     

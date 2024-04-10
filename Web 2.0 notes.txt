@@ -16,6 +16,7 @@ back button
 <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
 
 good tabs page is: catches/templates/snippets/picture_tab.html
+I like how library/details puts the buttons as the end of the tabls.
   
 Titles are working.
 {% block title %} Fishing Log {% endblock %}

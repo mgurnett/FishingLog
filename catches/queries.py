@@ -43,6 +43,23 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                 data.append(log_data)
     return data  #  list of dictionaries 
 
+def stock_with_subtotals (stock_list):
+    year_list = []
+    for x in stock_list:
+        if not x.date_stocked.year in year_list:
+            year_list.append(x.date_stocked.year)
+    subtotals = []
+    total = 0
+    for years in year_list:
+        sub_t = 0
+        for x in stock_list:
+            if years == x.date_stocked.year:
+                sub_t += x.number
+        subtotals.append({'year': years, 'subt': sub_t})
+        total += sub_t
+    subtotals.append({'year': 'total', 'subt': total})
+    return subtotals
+
 def get_hl (id): 
     temp_list = get_temps(id)
     # print (f'id is {id}   and temp_list is {temp_list}')

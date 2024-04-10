@@ -296,7 +296,7 @@ class Temp(models.Model):
     direction = models.CharField(max_length = 10)
 
     def __str__ (self):
-        return self.name
+        return f'{self.name} {self.notes} {self.week}'
 
     def get_absolute_url (self):
         return reverse ('temp_list')

@@ -4,6 +4,7 @@ from blog.models import *
 from users.models import Profile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils import timezone
 from django.http import HttpResponse, FileResponse
 from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy  #lets you call urls by name 
@@ -253,20 +254,7 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
 
         stock_list = Stock.objects.filter (fish=self.kwargs['pk'])
-        year_list = []
-        for x in stock_list:
-            if not x.date_stocked.year in year_list:
-                year_list.append(x.date_stocked.year)
-        subtotals = []
-        total = 0 
-        for years in year_list:
-            sub_t = 0
-            for x in stock_list:
-                if years == x.date_stocked.year:
-                    sub_t += x.number
-            subtotals.append({'year': years, 'subt': sub_t})
-            total += sub_t
-        subtotals.append({'year': 'total', 'subt': total})
+        subtotals = stock_with_subtotals (stock_list)
 
         if self.request.user.is_authenticated:
             logs_list = log_filter_for_private (Log.objects.filter (fish=self.kwargs['pk']), self.request.user)
@@ -490,21 +478,14 @@ class LakeDetailView (FormMixin, DetailView):
     def get_context_data(self, **kwargs): 
         # context = super(LakeDetailView, self).get_context_data(**kwargs)
         stock_list = Stock.objects.filter (lake=self.kwargs['pk'])
-        year_list = []
-        for x in stock_list:
-            if not x.date_stocked.year in year_list:
-                year_list.append(x.date_stocked.year)
-        subtotals = []
-        total = 0
-        for years in year_list:
-            sub_t = 0
-            for x in stock_list:
-                if years == x.date_stocked.year:
-                    sub_t += x.number
-            subtotals.append({'year': years, 'subt': sub_t})
-            total += sub_t
-        subtotals.append({'year': 'total', 'subt': total})
-        # print (subtotals)
+        subtotals = stock_with_subtotals (stock_list)
+
+        week_now = int(timezone.now().strftime("%W"))
+        week_now_model = Week.objects.get(id=13)
+        temp_list = get_temps(week_now_model.id)
+        for t in temp_list:
+            tem = t.get('temp')
+            print (f'{tem}')
 
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
@@ -513,11 +494,6 @@ class LakeDetailView (FormMixin, DetailView):
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
-            
-        # if favorite_id:
-        #     favorite_info = Favorite.objects.get(pk=favorite_id)
-        # else:
-        #     favorite_info = None
 
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
@@ -533,6 +509,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
+        context ['temp'] = week_now
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
@@ -606,17 +583,17 @@ class TempDetailView (PermissionRequiredMixin,  DetailView):
 
 class TempCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_temp'
-
     model = Temp
     form_class = New_Temp_Form
     success_message = "New Temp saved"
+    success_url = "/temps/"
 
 class TempUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_temp'
-
     model = Temp
     form_class = New_Temp_Form
-    success_message = "Temp fixed"
+    success_message = "Note changed"
+    reverse_lazy('temp_list')
 
 class TempDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
     permission_required = 'catches.delete_temp'
