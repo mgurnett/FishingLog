@@ -481,12 +481,8 @@ class LakeDetailView (FormMixin, DetailView):
         subtotals = stock_with_subtotals (stock_list)
 
         week_now = int(timezone.now().strftime("%W"))
-        week_now_model = Week.objects.get(id=13)
-        temp_list = get_temps(week_now_model.id)
-        for t in temp_list:
-            tem = t.get('temp')
-            print (f'{tem}')
-
+        ave_temp = get_average_temp_for_week (week_now)
+        
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
@@ -509,7 +505,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
-        context ['temp'] = week_now
+        context ['ave_temp'] = ave_temp
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
@@ -1150,38 +1146,26 @@ class Plan(TemplateView):
     def get_context_data(self, **kwargs): 
         context = super(Plan, self).get_context_data(**kwargs)
         current_week = int(timezone.now().strftime("%W"))
-        # check to see tht everyting we need is passed in and is correct.  
-        # Then get the approperate data an dput it in the contect list
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
-        # print ('Lake worked')
         context ['week'] = Week.objects.get (id= self.kwargs['wpk'])
-        # print ('Week worked')
         context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
-        # print ('temps worked')
         context ['hl'] = get_hl (self.kwargs['wpk'])
-        # print ('hl worked')
-        # send the flys list to the context list
         context ['fly_list'] = fly_list (self.kwargs['wpk'])
-        # print ('fly worked')
-        # grab all the chart data
         chart_data = get_query_set (self.kwargs['wpk'])
         chart_list =[]
         for c in chart_data:
             if ( c['this'] == "abundent" or c['this'] == "lots" or c['trend'] == "rising" ):
                 chart_list.append (c)
-        # send all chart data that passed filter to context list
         context ['chart_for_weeks'] = chart_list
-        # print ('chart_for_weeks worked')
-        # send all hatch data for that week to contect list.
         context ['hatches'] = Hatch.objects.filter (week=self.kwargs['wpk'])
-        # print ('hatches worked')
         array_list = get_array(
             week = self.kwargs['wpk'], 
             lake = self.kwargs['lpk'], 
             temperature = get_hl (self.kwargs['wpk'])['low']
         )
         context ['array'] = array_list
-        # print ('array  worked')
+        context ['ave_temp'] = get_average_temp_for_week (self.kwargs['wpk'])   #  I need the name of the week, not the id.
+        context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['lpk'], user_pk = self.request.user.id)
         return context
 
 INFO_LIST = [

@@ -76,6 +76,23 @@ def get_hl (id):
     else:
         return {"low": low, "high": high}
 
+def get_average_temp_for_week (week_now):
+        week_now_model = Week.objects.get(number=week_now)
+        temp_list = get_temps(week_now_model.id)
+        if temp_list:
+            print (f'{temp_list = }')
+            tem = 0
+            for index, t in enumerate(temp_list):
+                tem += t.get('temp_id')
+                print (f'{t = }')
+                n = index+1
+                print (f'{tem = }')
+            ave = round(tem/n)
+            ave_temp = Temp.objects.get(id = ave)
+        else:
+            ave_temp = None
+        return ave_temp
+    
 def fly_list(id):
     # id = 8
     logs = Log.objects.filter(week = id)

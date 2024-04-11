@@ -6,34 +6,33 @@
  
 <div class="container">
 	<div class="row"> <!-- Title Row-->
-		<div class="col-md-8 text-left">
-            <h2> 
+		<div class="col-md-12 text-left">
+            <h3> 
 				<b>Fishing plan</b> for: <a href="{% url 'lake_detail' lake.id %}">
-                    <b>{{ lake.lake_info | title  }}</b>{% if lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+                    <b>{{ lake.lake_info | title  }}</b>{% if fav %}<i class="fas fa-check-circle"></i>{% endif %}
                 </a>
-            </h2>
-		</div>
-		<div class="col-md-4 text-right">
-            <h3>
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
 					Week: <b>{{ week.number }}</b> ({{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }})
                 </a>
             </h3>
 		</div>
 	</div>
-    <hr>
+	<hr>
 	<div class="row"> <!-- Temperature Row-->
-		<div class="col-md-5 text-start">
-            <h4>
-                Current:<b>{% timezone "America/Edmonton" %} {% now "D, M j, y" %}</b> (week: {% now "W" %}) {% endtimezone %}
-            </h4>
-		</div>
-		<div class="col-md-7 text-end">
-            <p>
-                {% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - {% if hl.high %} Highest recorded temperature <b>{{ hl.high }}&deg;C</b>{% endif %} 
-			</p>
+		<div class="col-md-12 text-start">
+            {% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - 
+			{% if hl.high %} Highest recorded temperature <b>{{ hl.high }}&deg;C</b>{% endif %} - 
+			Average recorded temperature <b>{{ ave_temp.deg }}&deg;C</b>
 		</div>
 	</div>
+	{% if ave_temp %}
+		<hr>
+		<div class="row"> <!-- Stratagy-->
+			<div class="col-md-12 text-start">
+				{{ ave_temp.notes }}
+			</div>
+		</div>
+	{% endif %}
     <hr>
 	<div class="row"> <!-- Flys Row-->
 		<div class="col-md-6"> <!-- Best flys based on logs card-->
