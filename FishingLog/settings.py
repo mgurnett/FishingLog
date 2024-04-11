@@ -14,6 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config ['SECRET_KEY']
+SESSION_COOKIE_SECURE = True
 
 GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 
@@ -21,9 +22,11 @@ OW_API_KEY = config ['OW_api_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config ['DEBUG']
+SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = list(config ['ALLOWED_HOSTS'])
 CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
+CSRF_COOKIE_SECURE = True
 
 
 # Application definition

@@ -54,7 +54,6 @@ class Home (TemplateView):
         announces = Announcment.objects.all()
         announce_list = []
         trip_str = ""
-        announce_str = ""
         for an in announces:
             if an.lake_id != 0:
                 lake = Lake.objects.get(pk=an.lake_id)
@@ -481,7 +480,6 @@ class LakeDetailView (FormMixin, DetailView):
         subtotals = stock_with_subtotals (stock_list)
 
         week_now = int(timezone.now().strftime("%W"))
-        ave_temp = get_average_temp_for_week (week_now)
         
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
@@ -505,7 +503,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
-        context ['ave_temp'] = ave_temp
+        context ['ave_data'] = get_average_temp_for_week (week_now)
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
@@ -1145,9 +1143,10 @@ class Plan(TemplateView):
 
     def get_context_data(self, **kwargs): 
         context = super(Plan, self).get_context_data(**kwargs)
-        current_week = int(timezone.now().strftime("%W"))
+        # current_week = int(timezone.now().strftime("%W"))
+        week_obj = Week.objects.get (id= self.kwargs['wpk'])
         context ['lake'] = Lake.objects.get (id=self.kwargs['lpk'])
-        context ['week'] = Week.objects.get (id= self.kwargs['wpk'])
+        context ['week'] = week_obj
         context ['temps'] = Temp.objects.filter (week=self.kwargs['wpk']).order_by('id')
         context ['hl'] = get_hl (self.kwargs['wpk'])
         context ['fly_list'] = fly_list (self.kwargs['wpk'])
@@ -1164,7 +1163,7 @@ class Plan(TemplateView):
             temperature = get_hl (self.kwargs['wpk'])['low']
         )
         context ['array'] = array_list
-        context ['ave_temp'] = get_average_temp_for_week (self.kwargs['wpk'])   #  I need the name of the week, not the id.
+        context ['ave_data'] = get_average_temp_for_week (week_obj.number)
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['lpk'], user_pk = self.request.user.id)
         return context
 
@@ -1249,3 +1248,7 @@ def searchview (request):
 
     return render( request, 'catches/search_results.html', context )
     # return context
+
+
+class NotAllowed (TemplateView):
+    template_name = '403.html'

@@ -40,7 +40,9 @@
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph_lake' pk=lake.id %}">Temperature graph</a>
 						</div>
 						<div class="col-md-3 text-end">
-							Average temperature: <b>{{ ave_temp }}</b>
+							{% if ave_data.ave_temp %}
+								Average recorded temperature: <b>{{ ave_data.ave_temp.deg }}&deg;C</b>
+							{% endif %}
 						</div>
 						<div class="col-md-3 text-end">
 							{% if user.is_authenticated %}

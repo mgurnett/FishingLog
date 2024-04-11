@@ -6,11 +6,12 @@
  
 <div class="container">
 	<div class="row"> <!-- Title Row-->
-		<div class="col-md-12 text-left">
+		<div class="col-md-12 text-center">
             <h3> 
 				<b>Fishing plan</b> for: <a href="{% url 'lake_detail' lake.id %}">
-                    <b>{{ lake.lake_info | title  }}</b>{% if fav %}<i class="fas fa-check-circle"></i>{% endif %}
+                    <b>{{ lake.lake_info | title  }}</b>
                 </a>
+				{% if fav %}<i class="fas fa-check-circle"></i>{% endif %} on 
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
 					Week: <b>{{ week.number }}</b> ({{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }})
                 </a>
@@ -20,9 +21,14 @@
 	<hr>
 	<div class="row"> <!-- Temperature Row-->
 		<div class="col-md-12 text-start">
-            {% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - 
+			{% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - 
 			{% if hl.high %} Highest recorded temperature <b>{{ hl.high }}&deg;C</b>{% endif %} - 
-			Average recorded temperature <b>{{ ave_temp.deg }}&deg;C</b>
+			{% if ave_data.ave_temp %}
+				<a href="{% url 'temp_detail' ave_data.ave_temp.id %}">
+						Average recorded temperature: <b>{{ ave_data.ave_temp.deg }}&deg;C</b> - 
+						Number of records: <b>{{ ave_data.n }}</b> 
+				</a>
+			{% endif %}
 		</div>
 	</div>
 	{% if ave_temp %}

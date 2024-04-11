@@ -4,10 +4,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
-
+from django.conf.urls import handler404
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
@@ -19,6 +19,7 @@ urlpatterns = [
     path ('', include ('catches.urls')),
     path ('blog/', include ('blog.urls')),
 ]
+handler404 = auth_views.LoginView.as_view(template_name='users/login.html')
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
