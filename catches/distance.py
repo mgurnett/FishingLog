@@ -27,7 +27,6 @@ def find_dist (lake, user):
         }
     return (my_dist_dict)
 
-
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
     id = kwargs['pk']
