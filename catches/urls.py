@@ -4,7 +4,7 @@ from .views import *
         
 urlpatterns = [
     path ('', views.Home.as_view(), name = 'catch_home'),
-    path ('media/', views.NotAllowed.as_view()),
+    # path ('media/', views.NotAllowed.as_view()),
 
     path ('regions/', RegionListView.as_view(), name = 'region_list'), 
     path ('regions/<int:pk>/', RegionDetailView.as_view(), name = 'region_detail'), 
