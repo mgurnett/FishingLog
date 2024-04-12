@@ -20,16 +20,10 @@ GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 OW_API_KEY = config ['OW_api_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if config ['DEBUG']:
-    DEBUG = True
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-    SECURE_SSL_REDIRECT = False
-else:
-    DEBUG = False
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = False
+DEBUG = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 
 ALLOWED_HOSTS = list(config ['ALLOWED_HOSTS'])
