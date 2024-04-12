@@ -29,6 +29,8 @@ LOGO
 
 WEEKS - Figure out a better way to pars them than over and over.
 
+HTML DATA LIST - see https://youtube.com/shorts/0CNBJs1z_P8?si=XiayhdQQW6FhZVA2
+
 Amazing video about Django and proxy models.  https://youtu.be/KF2p-LQjZZ4?si=OdFcU90BFgtxggSO
 ================================
 look into icecream for replaceing print for debugging
