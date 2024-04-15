@@ -1,33 +1,7 @@
 from pathlib import Path
-import os
-import json
-
-with open ('/etc/config.json') as config_file:
-    config = json.load (config_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config ['SECRET_KEY']
- 
-GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
-
-OW_API_KEY = config ['OW_api_key']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
-
-
-ALLOWED_HOSTS = list(config ['ALLOWED_HOSTS'])
-CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 
 # Application definition
 
@@ -127,12 +101,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = 'static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
@@ -141,16 +109,6 @@ LOGIN_URL = 'login'
 
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 FILE_UPLOAD_PERMISSIONS = 0o644
-
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'emails'
-EMAIL_BACKEND = config ['EMAIL_BACKEND']
-EMAIL_HOST = config ['EMAIL_HOST']
-EMAIL_HOST_USER = config ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = config ['EMAIL_HOST_PASSWORD']
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = config ['DEFAULT_FROM_EMAIL']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -175,3 +133,5 @@ GRAPH_MODELS = {
 
 # https://dreampuf.github.io/GraphvizOnline/ - you can copy the dot file into this to see it.
 # python3 manage.py graph_models catches blog > models.dot
+
+from .settings_local import *   # get all the local setting and the secrets.

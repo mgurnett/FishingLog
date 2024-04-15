@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
 from django.utils import timezone
+from django.templatetags.static import static
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
@@ -346,7 +347,7 @@ class Fly(models.Model):
     static_tag = models.SlugField()
     snippet = models.CharField (max_length = 255, blank=True)
     image = models.ImageField ( 
-        default='default.jpg', 
+        default=static('default.jpg'), 
         upload_to='flys/', 
         height_field=None, 
         width_field=None, 

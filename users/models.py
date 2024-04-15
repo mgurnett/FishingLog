@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.templatetags.static import static
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField (max_length=100, default = '10220 104 Ave NW')
     city = models.CharField (max_length=15, default = 'Edmonton')
     prov = models.CharField (max_length=5, default = 'AB')
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default=static('default.jpg'), upload_to='profile_pics')
     # One-to-Many relationship with regions (a profile can have many regions)
     # regions = models.ForeignKey(Region, on_delete=models.CASCADE)
 
