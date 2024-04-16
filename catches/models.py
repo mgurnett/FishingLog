@@ -347,13 +347,13 @@ class Fly(models.Model):
     static_tag = models.SlugField()
     snippet = models.CharField (max_length = 255, blank=True)
     image = models.ImageField ( 
-        default=static('default.jpg'), 
+        default=static('default_fly.jpg'), 
         upload_to='flys/', 
         height_field=None, 
         width_field=None, 
         max_length=100,
         blank=True)
-
+ 
     class Meta:
         ordering = ['fly_type','name']
 

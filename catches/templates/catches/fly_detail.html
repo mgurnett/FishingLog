@@ -12,7 +12,7 @@
                             {{ fly.name | title }}
                         </h4>
                         <h5 class="card-header col-4">
-                            {% if not fly.fly_type == "" %} 
+                            {% if fly.fly_type %} 
                                 Fly type: <a href="{% url 'fly_type_detail' fly.fly_type.id %}" class="card-link"><b>{{ fly.fly_type.name | title  }}</b> </a>
                             {% endif %}
                         </h5>
