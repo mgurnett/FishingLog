@@ -1,3 +1,6 @@
+Fix static and media in both dev and prod.
+https://stackoverflow.com/questions/62678379/imagefield-leads-to-page-not-found-in-production-when-i-click-save-button
+
 As of March 18
 - sort out picture and sizes
 - work on validations
