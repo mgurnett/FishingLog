@@ -347,7 +347,7 @@ class Fly(models.Model):
     static_tag = models.SlugField()
     snippet = models.CharField (max_length = 255, blank=True)
     image = models.ImageField ( 
-        default=static('default_fly.jpg'), 
+        default='flys/default_fly.jpg', 
         upload_to='flys/', 
         height_field=None, 
         width_field=None, 

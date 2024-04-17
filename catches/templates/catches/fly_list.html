@@ -1,30 +1,48 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Flys{% endblock %}
 {% block content %}   
-    <div class="album py-5 ">
-        <div class="container">
-            <div class = "row">
-                {% for fly in flys %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <a href="{% url 'fly_detail' fly.id %}" class="card-link">
-                                {% if fly.image %}
-                                    <img src={{ fly.image.url }} alt={{ fly.name | title }}>
-                                {% else %}
-                                    <img src= flys/default.jpg  >
-                                {% endif %}
-                            </a>
-                            <div class="card-body">
-                                <h4 class="">{{ fly.name | title  }}</h4>
-                                <h6 class="card-subtitle text-muted">
-                                    Type of fly: <b>{{ fly.fly_type }}</b>  Bug: <b>{{ fly.bug.name }}</b>
-                                </h6>
+
+<div class="container">
+    <div class="album py-1 "> 
+        <div class = "row">
+            {% for fly in flys %}
+                <div class="col-md-6">
+                    <div class="card mb-4 border-1 bg-transparent">
+                        <div class="card-header">
+                            <div class = "row">
+                                <a href="{% url 'fly_detail' fly.id %}" class="card-link">
+                                    {% if fly.image %}
+                                        <img class="img-thumbnail mx-auto d-block" src={{ fly.image.url }} alt={{ fly.name | title }}>
+                                    {% else %}
+                                        <img src= flys/default.jpg  >
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="">{{ fly.name | title  }}</h4>
+                            <h6 class="card-subtitle">
                                 <p class="card-text">{{ fly.description }}</p>
+                            </h6>
+                        </div>
+                        <div class="card-footer text-muted text-end">
+                            <div class = "row">
+                                {% if fly.fly_type %}
+                                    <div class="col-md-6 text-start">
+                                        Type of fly: <b>{{ fly.fly_type }}</b>
+                                    </div>
+                                {% endif %}
+                                {% if fly.bug %}
+                                    <div class="col-md-6 text-end">
+                                        Bug: <b>{{ fly.bug.name }}</b>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 {% endblock content %} 

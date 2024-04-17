@@ -8,7 +8,7 @@ class Profile(models.Model):
     address = models.CharField (max_length=100, default = '10220 104 Ave NW')
     city = models.CharField (max_length=15, default = 'Edmonton')
     prov = models.CharField (max_length=5, default = 'AB')
-    image = models.ImageField(default=static('catches/site/default_profile.jpg'), upload_to='profile_pics')
+    image = models.ImageField( default='profile_pics/default_profile.jpg', upload_to='profile_pics')
     # One-to-Many relationship with regions (a profile can have many regions)
     # regions = models.ForeignKey(Region, on_delete=models.CASCADE)
 
