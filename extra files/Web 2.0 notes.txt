@@ -42,6 +42,9 @@ messages.add_message(request, messages.ERROR, mess_text)
 
 {% csrf_token %}
 
+To change a password use:
+python3 manage.py changepassword <username> 
+
 ================  good card setup ================
 
 <div class="album py-1 "> 

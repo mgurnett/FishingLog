@@ -16,19 +16,35 @@ GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 OW_API_KEY = config ['OW_api_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ['*']
+
+SECURE_HSTS_SECONDS = 86400 
+SECURE_HSTS_PRELOAD = True 
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+ALLOWED_HOSTS = ['stillwaterflyfishing.com']
 CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = '/home/michael/Desktop/stillwaterflyfishing.com/static''
-STATIC_URL = 'static/'
+# DEVELOPMENT
+# STATIC_URL = '/public/assets/'
+# MEDIA_URL  = '/public/uploads/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/assets')]
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+# )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# PRODUCTION
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
+
 
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
@@ -39,3 +55,12 @@ EMAIL_HOST_PASSWORD = config ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = config ['DEFAULT_FROM_EMAIL']
+
+# Static file serving.
+# https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }

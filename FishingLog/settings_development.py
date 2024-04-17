@@ -26,8 +26,8 @@ CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 
 # DEVELOPMENT
 STATIC_URL = '/public/assets/'
-MEDIA_URL = '/public/uploads/'
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+MEDIA_URL  = '/public/uploads/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/assets')]
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
