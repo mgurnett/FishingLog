@@ -20,13 +20,14 @@ DEBUG = False
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SECURE_HSTS_SECONDS = 86400 
 SECURE_HSTS_PRELOAD = True 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-ALLOWED_HOSTS = ['stillwaterflyfishing.com']
+#ALLOWED_HOSTS = ['https://*.stillwaterflyfishing.com']
+ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
 CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 
 # Static files (CSS, JavaScript, Images)
@@ -42,6 +43,8 @@ CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 # )
 
 # PRODUCTION
+STATIC_URL = '/public/assets/'
+MEDIA_URL  = '/public/uploads/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
 
@@ -64,3 +67,6 @@ DEFAULT_FROM_EMAIL = config ['DEFAULT_FROM_EMAIL']
 #         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 #     },
 # }
+
+#  https://djangodeployment.readthedocs.io/en/latest/05-static-files.html  Deploying Django on a single Debian or Ubuntu server
+# https://arnopretorius-cwd.medium.com/django-web-application-security-checklist-64bfe2438a29  Django web application security checklist
