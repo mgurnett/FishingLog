@@ -1,6 +1,9 @@
 import os
 import json
-from pathlib import Path
+from pathlib import Path# settings.py
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api	
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,8 +18,16 @@ GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 
 OW_API_KEY = config ['OW_api_key']
 
+cloudinary.config( 
+  	cloud_name = config ['CLOUD_NAME'],
+  	api_key = config ['API_KEY'],
+  	api_secret = config ['API_SECRET']
+)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True

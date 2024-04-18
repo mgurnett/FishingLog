@@ -6,11 +6,13 @@ attrs==23.1.0
 beautifulsoup4==4.12.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
+cloudinary==1.39.1
 crispy-bootstrap5==2023.10
 defusedxml==0.7.1
 Django==4.2.7
 django-blacklist==0.7.0
 django-ckeditor==6.7.0
+django-cloudinary-storage==0.3.0
 django-crispy-forms==2.1
 django-easy-audit==1.3.5
 django-extensions==3.2.3
