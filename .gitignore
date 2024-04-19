@@ -30,7 +30,6 @@ pip-delete-this-directory.txt
 # Django stuff:
 *.log
 settings_local.py
-static/
 public/
 # db.sqlite3
 # db.sqlite3-journal

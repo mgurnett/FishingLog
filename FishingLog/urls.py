@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from users import views as user_views
 from django.urls import re_path
 from django.views.static import serve
+from django.urls import path, include,re_path
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view( template_name='users/password_reset_complete.html' ), name='password_reset_complete'),
     path ('', include ('catches.urls')),
     path ('blog/', include ('blog.urls')),
+	re_path(r'^uploads/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]
 
 from django.conf.urls.static import static
