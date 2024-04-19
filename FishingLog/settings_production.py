@@ -18,15 +18,14 @@ GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 
 OW_API_KEY = config ['OW_api_key']
 
-cloudinary.config( 
-  	cloud_name = config ['CLOUD_NAME'],
-  	api_key = config ['API_KEY'],
-  	api_secret = config ['API_SECRET']
-)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config ['CLOUD_NAME'],
+    'API_KEY': config ['API_KEY'],
+    'API_SECRET': config ['API_SECRET'],
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
@@ -54,8 +53,9 @@ CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 # )
 
 # PRODUCTION
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 STATIC_URL = '/public/assets/'
-MEDIA_URL  = '/public/uploads/'
+MEDIA_URL  = '/stillwaterflyfishing.com/public/uploads/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
 
