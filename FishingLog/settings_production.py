@@ -55,7 +55,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 # PRODUCTION
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 STATIC_URL = '/public/assets/'
-MEDIA_URL  = '/stillwaterflyfishing.com/public/uploads/'
+MEDIA_URL  = '/public/uploads/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
 
