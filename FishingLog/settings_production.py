@@ -18,11 +18,11 @@ GOOGLE_MAPS_API_KEY = config ['GOOGLE_MAPS_API_KEY']
 
 OW_API_KEY = config ['OW_api_key']
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config ['CLOUD_NAME'],
-    'API_KEY': config ['API_KEY'],
-    'API_SECRET': config ['API_SECRET'],
-}
+cloudinary.config( 
+  	cloud_name = config ['CLOUD_NAME'],
+  	api_key = config ['API_KEY'],
+  	api_secret = config ['API_SECRET']
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
