@@ -46,7 +46,7 @@ def run():
         next(reader)  # Advance past the header
 
         for stock_count, row in enumerate(reader):
-            # print (row)
+            print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
                 # print (lake_id)
@@ -84,6 +84,6 @@ def run():
                 gentotype = geo,
                 )
             
-            print (f'{stock_count+2} - {stock}')
-            stock.save()
+            # print (f'{stock_count+2} - {stock}')
+            # stock.save()
             print (f'{stock_count+2} - {stock}')
