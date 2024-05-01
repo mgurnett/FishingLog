@@ -45,8 +45,9 @@ def run():
         reader = csv.reader(file)
         next(reader)  # Advance past the header
 
+        total_fish_stocked = 0
         for stock_count, row in enumerate(reader):
-            print (row)
+            # print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
                 # print (lake_id)
@@ -83,7 +84,8 @@ def run():
                 strain = strain,
                 gentotype = geo,
                 )
-            
+            total_fish_stocked += int(row[7])
             # print (f'{stock_count+2} - {stock}')
             # stock.save()
-            print (f'{stock_count+2} - {stock}')
+            # print (f'{stock_count+2} - {stock}')
+        print (f'total number of fish stocked is: {total_fish_stocked}')

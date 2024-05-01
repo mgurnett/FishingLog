@@ -75,6 +75,3 @@ python3 manage.py changepassword <username>
 {% if user.is_authenticated %}
 {% else %}
 {% endif %}
-
-=================  Cloudinary ====================
-see: https://devmaesters.com/blog/37  How to host media files on Cloudinary for Django projects

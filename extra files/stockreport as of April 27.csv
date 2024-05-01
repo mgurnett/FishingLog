@@ -1,9 +1,4 @@
-"Waterbody Official
-Name","Waterbody
-Common Name",ATS,Species,Strain*,Genotype**,"Average
-Length
-(cm)","Number
-Stocked",Stocking Date
+"Waterbody Official Name","Waterbody Common Name",ATS,Species,Strain*,Genotype**,"Average Length (cm)","Number Stocked",Stocking Date
 Beaver Mines Lake,,NE11-5-3-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.6,11500,2024-04-26
 Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Campbell Lake,2N,20.1,10400,2024-04-22
 Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Pit Lakes,2N,17.6,2000,2024-04-23
@@ -54,8 +49,7 @@ Unnamed,Diplomat Mine Pond,NW1-41-16-W4,RNTR,Campbell Lake,2N,43.2,30,2024-04-25
 Unnamed,Enchant Pond,NW8-14-18-W4,TGTR,Beitty/Bow River,3N,20,200,2024-04-10
 Unnamed,Enchant Pond,NW8-14-18-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,2000,2024-04-18
 Unnamed,ForemostReservoir,NW17-6-11-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,1500,2024-04-18
-Unnamed,"Goldspring Park
-Pond",NE6-2-15-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,2363,2024-04-18
+Unnamed,"Goldspring Park Pond",NE6-2-15-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,2363,2024-04-18
 Unnamed,Hiller's Reservoir,SE13-32-29-W4,RNTR,Campbell Lake,2N,20,3000,2024-04-19
 Unnamed,Huber Reservoir,SW36-37-13-W4,TGTR,Beitty/Bow River,3N,19,1250,2024-04-17
 Unnamed,Huber Reservoir,SW36-37-13-W4,RNTR,Riverence,AF2N,7.6,5000,2024-04-17
@@ -71,21 +65,17 @@ Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,RNTR,Riverence,AF3N,22.5,1000,202
 Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,3N,19.7,1000,2024-04-10
 Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River,3N,18.5,1000,2024-04-10
 Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River,2N,38,268,2024-04-11
-Unnamed,"Pine Coulee
-Reservoir",NE15-14-28-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.4,3750,2024-04-15
+Unnamed,"Pine Coulee Reservoir",NE15-14-28-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.4,3750,2024-04-15
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,BKTR,Beitty Resort,3N,18.8,750,2024-04-25
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.9,605,2024-04-25
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,BNTR,Bow River,3N,19.7,283,2024-04-25
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,TGTR,Beitty/Bow River,3N,19.5,200,2024-04-25
 Unnamed,Riverstone Pond,SW24-8-22-W4,RNTR,Riverence,AF3N,22.2,919,2024-04-10
-Unnamed,"Severn Creek
-Reservoir",NW12-26-22-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,3360,2024-04-15
+Unnamed,"Severn Creek Reservoir",NW12-26-22-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,3360,2024-04-15
 Unnamed,Shuster Lake,NE26-43-5-W4,BKTR,Beitty Resort,3N,18.5,3500,2024-04-24
-Unnamed,"Spring Coulee
-Park Pond",NE12-5-24-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.4,1250,2024-04-15
-Unnamed,"Stirling
-Children's Pond",SW29-6-19-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,1000,2024-04-18
+Unnamed,"Spring Coulee Park Pond",NE12-5-24-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.4,1250,2024-04-15
+Unnamed,"Stirling Children's Pond",SW29-6-19-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.5,1000,2024-04-18
 Unnamed,Telegraph Park Pond,NW32-48-21-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.7,1100,2024-04-25
 Unnamed,Telegraph Park Pond,NW32-48-21-W4,BNTR,Bow River,3N,19.7,193,2024-04-25
 Unnamed,Vegreville Trout pond,SW7-52-14-W4,RNTR,Campbell Lake,2N,20,4000,2024-04-19
-Unnamed,Vegreville Trout pond,SW7-52-14-W4,RNTR,Riverence,AF2N,7.7,10000,2024-04-19
+Unnamed,Vegreville Trout pond,SW7-52-14-W4,RNTR,Riverence,AF2N,7.7,10000,2024-04-19 

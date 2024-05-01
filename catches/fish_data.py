@@ -5,17 +5,21 @@ STRAIN = (
     ("BEBE", "Beitty x Beitty"),
     ("BRBE", "Bow River x Beitty"),
     ("CLCL", "Campbell Lake"),
+    ("JLJL", "Job Lake"),
     ("LYLY", "Lyndon"),
     ("PLPL", "Pit Lake"),
     ("TLTLJ", "Trout Lodge / Jumpers"),
     ("TLTLK", "Trout Lodge / Kamloops"),
     ("TLTLS", "Trout Lodge / Silvers"),
+    ("MCSW", "Marie Creek"),
     ("LSE", "Lac Ste. Anne"),
     ("JBL", "Job Lake"),
     ("MC", 'Marie Creek'),
     ("RI", 'Rock Island'),
     ("AC", 'Allison Creek'),
+    ("ACAC", 'Westslope Cutthroat'),
     ("RD", 'Riverance'),
+    ("RVRV", 'Riverance'),
 )
 
 GENTOTYPE = (
