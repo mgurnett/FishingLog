@@ -1,7 +1,36 @@
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = env('SECRET_KEY')
+
+# APIs
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
+OW_API_KEY = env('OW_api_key')
+CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
+
+DEBUG = env('DEBUG')
+
+if not DEBUG:
+    # PRODUCTION
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    SECURE_HSTS_SECONDS = 86400 
+    SECURE_HSTS_PRELOAD = True 
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
+else:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -135,5 +164,30 @@ GRAPH_MODELS = {
 
 # https://dreampuf.github.io/GraphvizOnline/ - you can copy the dot file into this to see it.
 # python3 manage.py graph_models catches blog > models.dot
+ 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-from .settings_local import *   # get all the local setting and the secrets.
+# DEVELOPMENT
+STATIC_URL = '/public/assets/'
+MEDIA_URL  = '/public/uploads/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/assets')]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+)
+
+# PRODUCTION
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
