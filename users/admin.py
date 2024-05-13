@@ -14,7 +14,7 @@ class MyUserAdmin(admin.ModelAdmin):
             groups.append(group.name)
         return ' '.join(groups)
     group.short_description = 'Groups'
-    list_display = ['username', 'first_name', 'last_name', 'is_active', 'group', 'last_login', 'email', ]
+    list_display = ['username', 'first_name', 'last_name', 'is_active', 'group', 'last_login', 'email', 'id']
     # list_filter = ("first_name",  )
 
 admin.site.unregister(User)
@@ -23,4 +23,4 @@ admin.site.register(User, MyUserAdmin)
 @admin.register (Profile)
 class ProfileAdmin (admin.ModelAdmin):
     # list_display = ['user','user_address','num_of_logs']
-    list_display = ['user','user_address']
+    list_display = ['user','user_address', 'user_id']

@@ -103,12 +103,12 @@ WSGI_APPLICATION = 'FishingLog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stillwaterflyfishing',
-        'USER': 'michael',
-        'PASSWORD': 'Sam5000',
-        'HOST': 'homeserver',
-        'PORT': '3306',
-    }
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+   }
 }
 
 
