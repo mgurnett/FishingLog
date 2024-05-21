@@ -46,13 +46,13 @@ STRAIN = (
 def run():
     Stock.objects.filter(date_stocked__year=2024).delete()
 
-    with open('extra files/stockreport as of May 4.csv') as file:
+    with open('extra files/stockreport as of May 19.csv') as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
 
         total_fish_stocked = 0
         for stock_count, row in enumerate(reader):
-            # print (row)
+            print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
                 # print (lake_id)
