@@ -1,22 +1,43 @@
-from pathlib import Path
-import os
+# from pathlib import Path
+# import os
+# import environ
+
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# # Initialise environment variables
+# env = environ.Env()
+# environ.Env.read_env()
+
+# SECRET_KEY = env('SECRET_KEY')
+
 import environ
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+# Set the project base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, 'FishingLog/.env'))
+
+# DEBUG = env('DEBUG')
+
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
+
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
 # APIs
 GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
 OW_API_KEY = env('OW_api_key')
 CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
-
-DEBUG = env('DEBUG')
 
 if not DEBUG:
     # PRODUCTION
@@ -31,6 +52,7 @@ if not DEBUG:
     ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
 else:
     ALLOWED_HOSTS = ['*']
+    print ('We are in DEBUG mode')
 
 # Application definition
 
@@ -192,7 +214,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'emails'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR,  'emails')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
