@@ -7,6 +7,7 @@ As of March 18
 - In the tags list, show how many media, lakes, fish, flys.....
 - Break insects down to specific ones.
 - Make a carosel for the pictures.
+- in flys and bugs add a logs column
 
 Favorites 
     - make a flag that says that a new log has been added.

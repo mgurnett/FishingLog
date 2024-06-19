@@ -20,6 +20,8 @@ STRAIN = (
     ("ACAC", 'Westslope Cutthroat'),
     ("RD", 'Riverance'),
     ("RVRV", 'Riverance'),
+    ("MC", 'Marie Creek'),
+    ("RI", 'RockIsland'),
 )
 
 GENTOTYPE = (
