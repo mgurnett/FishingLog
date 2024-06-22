@@ -1,8 +1,0 @@
-I am using screen to manage the home server.
-
-screen -ls shows all the active screens
-screen -r get you into an active screen
-If you are in an active screen then ^a d detqaches you from it.
-
-
-
