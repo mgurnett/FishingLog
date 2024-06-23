@@ -52,7 +52,7 @@ if not DEBUG:
     ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
 else:
     ALLOWED_HOSTS = ['*']
-    print ('We are in DEBUG mode')
+    print (f"Operating in: DEBUG mode - using: {env('DB_NAME')} / MariaDB at {env('DB_HOST')}:{env('DB_PORT')}")
 
 # Application definition
 
