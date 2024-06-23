@@ -131,6 +131,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
     },
 }
+# DATABASES = {
+#     "default": {
+#         "NAME": "/home/michael/Desktop/FishingLog/db.sqlite3",
+#         "ENGINE": "django.db.backends.sqlite3",
+#     },
+# }
 
 
 # Password validation
