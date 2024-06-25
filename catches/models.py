@@ -601,7 +601,7 @@ class Picture(models.Model):
         if img.height > 300 or img.width > 300:
             output_size = (300,300)
             img.thumbnail(output_size)
-            img.save(self.image.path) 
+            img.save(self.image.path)  
     
 class Chart(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")

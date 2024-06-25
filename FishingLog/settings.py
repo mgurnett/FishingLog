@@ -52,7 +52,7 @@ if not DEBUG:
     ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
 else:
     ALLOWED_HOSTS = ['*']
-    print ('We are in DEBUG mode')
+    print (f"Operating in: DEBUG mode - using: {env('DB_NAME')} / MariaDB at {env('DB_HOST')}:{env('DB_PORT')}")
 
 # Application definition
 
@@ -117,20 +117,26 @@ WSGI_APPLICATION = 'FishingLog.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
-    # 'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
-   },
+    "default": {
+        "NAME": env('DB_NAME'),
+        "ENGINE": "django.db.backends.mysql",
+        "USER": env('DB_USER'),
+        "PASSWORD": env('DB_PASSWORD'),
+        "HOST": env('DB_HOST'),
+        "PORT": env('DB_PORT'),
+    },
+    "sqlite": {
+        # "NAME": BASE_DIR / 'db.sqlite3',
+        "NAME": "/home/michael/Desktop/FishingLog/db.sqlite3",
+        "ENGINE": "django.db.backends.sqlite3",
+    },
 }
+# DATABASES = {
+#     "default": {
+#         "NAME": "/home/michael/Desktop/FishingLog/db.sqlite3",
+#         "ENGINE": "django.db.backends.sqlite3",
+#     },
+# }
 
 
 # Password validation
