@@ -460,8 +460,9 @@ class LakeListView_districts (SuccessMessageMixin, UserAccessMixin, TemplateView
         context ['lakes'] = Lake.objects.filter (district = dist[0])
         context ['district'] = dist[1]
         context ['id'] = dist[0]
+        # context ['lake_count'] = Lake.objects.filter (district = dist[0]).count()
         return context
-
+ 
 class LakeDetailView (FormMixin, DetailView):  
     # permission_required = 'catches.view_lake'
     model = Lake
