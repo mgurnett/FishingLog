@@ -1,18 +1,6 @@
 # from pathlib import Path
-# import os
-# import environ
-
-# # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-
-# # Initialise environment variables
-# env = environ.Env()
-# environ.Env.read_env()
-
-# SECRET_KEY = env('SECRET_KEY')
-
-import environ
 import os
+import environ
 
 env = environ.Env(
     # set casting, default value
@@ -24,8 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, 'FishingLog/.env'))
-
-# DEBUG = env('DEBUG')
 
 # False if not in os.environ because of casting above
 DEBUG = env('DEBUG')
@@ -52,7 +38,7 @@ if not DEBUG:
     ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
 else:
     ALLOWED_HOSTS = ['*']
-    print (f"Operating in: DEBUG mode - using: {env('DB_NAME')} / MariaDB at {env('DB_HOST')}:{env('DB_PORT')}")
+    print (f"Operating in: DEBUG mode - using: {env('DB_NAME')} / MariaDB at {env('DB_HOST')}:{env('DB_PORT')} located at {BASE_DIR}")
 
 # Application definition
 
@@ -125,11 +111,11 @@ DATABASES = {
         "HOST": env('DB_HOST'),
         "PORT": env('DB_PORT'),
     },
-    "sqlite": {
-        # "NAME": BASE_DIR / 'db.sqlite3',
-        "NAME": "/home/michael/Desktop/FishingLog/db.sqlite3",
-        "ENGINE": "django.db.backends.sqlite3",
-    },
+    # "sqlite": {
+    #     # "NAME": BASE_DIR / 'db.sqlite3',
+    #     "NAME": "/home/michael/Desktop/FishingLog/db.sqlite3",
+    #     "ENGINE": "django.db.backends.sqlite3",
+    # },
 }
 # DATABASES = {
 #     "default": {
@@ -209,10 +195,10 @@ GRAPH_MODELS = {
 STATIC_URL = '/public/assets/'
 MEDIA_URL  = '/public/uploads/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/assets')]
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
-)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+# )
 
 # PRODUCTION
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/assets')
