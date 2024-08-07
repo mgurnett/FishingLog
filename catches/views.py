@@ -1170,9 +1170,9 @@ class Plan(TemplateView):
  
 INFO_LIST = [
     {'tag': 'how-to-fish', 'title': 'How To Fish', 'description': 'How-to information', 
-     'image': '/media/pictures/Cardiff.jpeg'},
+     'image': 'pictures/Cardiff.jpeg'},
     {'tag': 'equipment', 'title': 'Equipment', 'description': 'Equipment specific information', 
-     'image': '/media/pictures/fly_rods.jpeg'},
+     'image': 'uploads/pictures/fly_rods.jpeg'},
     {'tag': 'technique', 'title': 'Technique', 'description': 'Different Techniques', 
      'image': '/media/pictures/Cardiff_May_2022.jpeg'},
     {'tag': 'ice-out', 'title': 'Ice out', 'description': 'Fishing right after ice out', 
