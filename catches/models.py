@@ -432,10 +432,18 @@ class Log(models.Model):
     @property 
     def card_top (self):
         if self.lake.other_name:
-            lake_name = self.lake.name + ' (' + self.lake.other_name + ')'
+            lake_name = (f'{self.lake.name} ({self.lake.other_name})')
         else:
             lake_name = self.lake.name
-        output = (f'{lake_name} a {self.fish.name} was caught with a {self.fly.name}')
+        if self.fly:
+            fly_name = (f' was caught with a {self.fly.name}')
+        else:
+            fly_name = ''
+        if self.fish:
+            fish_name = (f' a {self.fish.name}')
+        else:
+            fish_name = ''
+        output = (f'{lake_name} {fish_name} {fly_name}')
         return output
 
     @property 

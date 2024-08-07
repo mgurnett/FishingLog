@@ -1167,7 +1167,7 @@ class Plan(TemplateView):
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['lpk'], user_pk = self.request.user.id)
         return context
-
+ 
 INFO_LIST = [
     {'tag': 'how-to-fish', 'title': 'How To Fish', 'description': 'How-to information', 
      'image': '/media/pictures/Cardiff.jpeg'},

@@ -4,7 +4,7 @@ from django.forms import ModelForm, DateInput
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Button, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
-from ckeditor.widgets import CKEditorWidget
+# from ckeditor.widgets import CKEditorWidget
 from .models import *
 
 class DateInput(DateInput):
@@ -15,7 +15,7 @@ class New_Bug_Form (forms.ModelForm):
         model = Bug
         fields = '__all__'
     name = forms.CharField ( required = True )       
-    notes = forms.CharField ( widget = CKEditorWidget(), max_length = 100, required = False ) 
+    notes = forms.CharField ( max_length = 100, required = False ) 
     image = forms.ImageField ( required = True )
     static_tag = forms.CharField ( required = False )
     
@@ -123,7 +123,7 @@ class New_Lake_Form (forms.ModelForm):
 
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
-    notes = forms.CharField ( widget = CKEditorWidget(), max_length = 100, required = False )      
+    notes = forms.CharField ( max_length = 100, required = False )      
     ats = forms.CharField ( max_length = 100, required = False ) 
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
@@ -174,7 +174,7 @@ class New_Hatch_Form (forms.ModelForm):
     class Meta:
         model = Hatch
         fields = '__all__'     
-    notes = forms.CharField ( widget = CKEditorWidget(), required = False )  
+    notes = forms.CharField ( required = False )  
     static_tag = forms.CharField ( required = False )
     sight_date = forms.DateField(
         initial=timezone.now,
@@ -291,7 +291,7 @@ class New_Log_Form (forms.ModelForm):
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=DateInput )
-    notes = forms.CharField ( widget = CKEditorWidget(), required = False )
+    notes = forms.CharField ( required = False )
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all())
     location = forms.CharField ( required = False ) 
