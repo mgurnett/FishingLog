@@ -1167,26 +1167,26 @@ class Plan(TemplateView):
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['lpk'], user_pk = self.request.user.id)
         return context
- 
+  
 INFO_LIST = [
     {'tag': 'how-to-fish', 'title': 'How To Fish', 'description': 'How-to information', 
-     'image': 'pictures/Cardiff.jpeg'},
+     'image': 'Cardiff.jpeg'},
     {'tag': 'equipment', 'title': 'Equipment', 'description': 'Equipment specific information', 
-     'image': 'uploads/pictures/fly_rods.jpeg'},
+     'image': 'catches/site/fly_rods.jpeg'},
     {'tag': 'technique', 'title': 'Technique', 'description': 'Different Techniques', 
-     'image': '/media/pictures/Cardiff_May_2022.jpeg'},
+     'image': 'pictures/Cardiff_May_2022.jpeg'},
     {'tag': 'ice-out', 'title': 'Ice out', 'description': 'Fishing right after ice out', 
-     'image': '/media/pictures/Cardiff_April_2022.jpeg'},
+     'image': 'pictures/Cardiff_April_2022.jpeg'},
     {'tag': 'spring', 'title': 'Spring fishing', 'description': 'Fishing in the spring', 
-     'image': '/media/pictures/Cardiff_May_2022_3.jpeg'},
+     'image': 'pictures/Cardiff_May_2022_3.jpeg'},
     {'tag': 'fall', 'title': 'Fall fishing', 'description': 'Fall fishing', 
-     'image': '/media/pictures/Cardiff_May_2022_2.jpeg'},
+     'image': 'pictures/Cardiff_May_2022_2.jpeg'},
     {'tag': 'heat', 'title': 'Fishing in the heat', 'description': 'How to fish in the heat', 
-     'image': '/media/pictures/Hay_lakes.jpeg'},
+     'image': 'pictures/Hay_lakes.jpeg'},
     {'tag': 'hatch', 'title': 'Hatch and Entomology', 'description': 'Hatch and Entomology', 
-     'image': '/media/bug/dragon_nymph.jpeg'},
+     'image': 'bug/dragon_nymph.jpeg'},
     {'tag': 'misc', 'title': 'Miscellaneous', 'description': 'Miscellaneous information', 
-     'image': '/media/pictures/Cardiff.jpeg'},
+     'image': 'pictures/Cardiff.jpeg'},
 ]
     
 class LibraryListView(TemplateView):
