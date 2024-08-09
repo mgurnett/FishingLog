@@ -48,14 +48,20 @@ STRAIN = (
 
 
 def run():
+    print ("Deleting all stocks from 2024")
     Stock.objects.filter(date_stocked__year=2024).delete()
-
-    with open('extra files/epa-alberta-fish-stocking-report-2024_1.csv') as file:
+    print ("Done")
+    with open('extra files/epa-alberta-fish-stocking-report-2024_2.csv') as file:
+        numline = len(file.readlines()) - 1
+    line_count = 0
+    with open('extra files/epa-alberta-fish-stocking-report-2024_2.csv') as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
-
         total_fish_stocked = 0
+        total_trout_stocked = 0
+        total_non_trout_stocked = 0
         for stock_count, row in enumerate(reader):
+            line_count += 1
             # print (row)
             try:  # check to see if we have the lake in the database already
                 lake_id = Lake.objects.get(ats=row[2])
@@ -65,6 +71,11 @@ def run():
 
             try:  # check to see if we have the fish in the database already
                 fish_id = Fish.objects.get(abbreviation=row[3])
+                if fish_id.id in [7,8,9,10,14]:
+                    total_non_trout_stocked += int(row[7])
+                else:
+                    total_trout_stocked += int(row[7])
+
             except:
                 # print (f'We are looking for {row[3]} and we failed')
                 print (f'FISH missing: {row[3]} from Lake: {row[0]} ({row[1]}')
@@ -102,4 +113,6 @@ def run():
             # print (f'{stock_count+2} - {stock}')
             stock.save()
             # print (f'{stock_count+2} - {stock}')
-        print (f'total number of fish stocked is: {total_fish_stocked}')
+            percent = round(line_count/numline*100,1)
+            print (f'Line count: {line_count} of {numline} or {percent}% | {total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked', end="\r")
+        print (f'{total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked for a total of {total_fish_stocked:,}')

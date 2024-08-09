@@ -1167,37 +1167,11 @@ class Plan(TemplateView):
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['lpk'], user_pk = self.request.user.id)
         return context
-  
-INFO_LIST = [
-    {'tag': 'how-to-fish', 'title': 'How To Fish', 'description': 'How-to information', 
-     'image': 'Cardiff.jpeg'},
-    {'tag': 'equipment', 'title': 'Equipment', 'description': 'Equipment specific information', 
-     'image': 'catches/site/fly_rods.jpeg'},
-    {'tag': 'technique', 'title': 'Technique', 'description': 'Different Techniques', 
-     'image': 'pictures/Cardiff_May_2022.jpeg'},
-    {'tag': 'ice-out', 'title': 'Ice out', 'description': 'Fishing right after ice out', 
-     'image': 'pictures/Cardiff_April_2022.jpeg'},
-    {'tag': 'spring', 'title': 'Spring fishing', 'description': 'Fishing in the spring', 
-     'image': 'pictures/Cardiff_May_2022_3.jpeg'},
-    {'tag': 'fall', 'title': 'Fall fishing', 'description': 'Fall fishing', 
-     'image': 'pictures/Cardiff_May_2022_2.jpeg'},
-    {'tag': 'heat', 'title': 'Fishing in the heat', 'description': 'How to fish in the heat', 
-     'image': 'pictures/Hay_lakes.jpeg'},
-    {'tag': 'hatch', 'title': 'Hatch and Entomology', 'description': 'Hatch and Entomology', 
-     'image': 'bug/dragon_nymph.jpeg'},
-    {'tag': 'misc', 'title': 'Miscellaneous', 'description': 'Miscellaneous information', 
-     'image': 'pictures/Cardiff.jpeg'},
-]
     
 class LibraryListView(TemplateView):
     model = Tag
     template_name = 'catches/library_list.html'
     context_object_name = 'tag'
-
-    def get_context_data(self, **kwargs): 
-        context = super(LibraryListView, self).get_context_data(**kwargs)
-        context ['info_list'] = INFO_LIST
-        return context
     
 class LibraryDetailView(TemplateView):
     model = Tag
@@ -1207,9 +1181,11 @@ class LibraryDetailView(TemplateView):
     def get_context_data(self, **kwargs): 
         context = super(LibraryDetailView, self).get_context_data(**kwargs)
         tag_to_use = self.kwargs['tag']
-        tag_info = list(filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST))
-        tag_detail = tag_info[0].get('tag')
-        context ['tag'] = tag_info[0]
+        # tag_info = list(filter(lambda tag: tag['tag'] == tag_to_use, INFO_LIST))
+        # tag_detail = tag_info[0].get('tag')
+        # context ['tag'] = tag_info[0]
+        tag_detail = tag_to_use
+        context ['tag'] = tag_to_use
         context ['videos_list'] = Video.objects.filter (tags__name__contains = tag_detail )
         context ['articles_list'] = Article.objects.filter (tags__name__contains = tag_detail )
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains = tag_detail )
