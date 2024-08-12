@@ -2,8 +2,8 @@
 {% block title %}Library{% endblock %}
 <!-- This is the media page. -->
 {% load tz %}
+{% load static %}
 {% block content %}
-{% load static %} 
  
 <div class="row">
     <div class="col-md-8 text-center">
@@ -13,183 +13,31 @@
 </div>   
 <div class="album py-5 ">
     <div class="container">
-        <div class = "row"> <!-- Top row -->
-            <div class="col-md-4"><!-- How To Fish -->
+        <div class = "row">
+            {% for il in info_list %}
+            <div class="col-md-4">
                 <div class="card mb-2 border-0 bg-transparent">
                     <div class="row">
                         <div class="col-md-12">
                             <h4>
-								<a href="{% url 'library_detail' 'how-to-fish'  %}"> How To Fish </a>
+								<a href="{% url 'library_detail' il.tag  %}"> {{ il.title }} </a>
 							</h4>
                         </div>
                     </div>
                     <div class="card-body">
                         <p>
-                            <a href="{% url 'library_detail' 'how-to-fish'  %}"> 
-                                <img src="{% static 'catches/site/Cardiff.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
+                            {% if il.image %}
+								<a href="{% url 'library_detail' il.tag  %}">
+                                    <img src="{% static il.image %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
+								</a>
+                            {% endif %}
 						</p>
-                        <p>How-to information</p>
+                        <p>{{ il.description }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4"><!-- Equipment -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'equipment'  %}"> Equipment </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'equipment'  %}"> 
-                                <img src="{% static 'catches/site/fly_rods.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-                        </p>
-                        <p>Equipment specific information</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"><!-- Technique -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'technique'  %}"> Technique </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'technique'  %}"> 
-                                <img src="{% static 'catches/site/Cardiff_May_2022.jpeg' %}" class="img-thumbnail" style="height:75%">
-                            </a>
-                        </p>
-                        <p>Different Techniques</p>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- Top row -->
-        <div class = "row"> <!-- Middle row -->
-            <div class="col-md-4"><!-- Ice out -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-								<a href="{% url 'library_detail' 'ice-out'  %}"> Ice out </a>
-							</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'ice-out'  %}"> 
-                                <img src="{% static 'catches/site/Cardiff_April_2022.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-						</p>
-                        <p>Fishing right after ice out</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"><!-- Spring fishing -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'spring'  %}"> Spring fishing </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'spring'  %}"> 
-                                <img src="{% static 'catches/site/Cardiff_May_2022_3.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-                        </p>
-                        <p>Fishing in the spring</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"><!-- Fall fishing -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'fall'  %}"> Fall fishing </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'fall'  %}"> 
-                                <img src="{% static 'catches/site/Cardiff_May_2022_2.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-                        </p>
-                        <p>Fall fishing</p>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- Middle row -->
-        <div class = "row"> <!-- Bottom row -->
-            <div class="col-md-4"><!-- Fishing in the heat -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-								<a href="{% url 'library_detail' 'heat'  %}"> Fishing in the heat </a>
-							</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'heat'  %}"> 
-                                <img src="{% static 'catches/site/Hay_lakes.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-						</p>
-                        <p>How to fish in the heat</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"><!-- Hatch and Entomology -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'hatch'  %}"> Hatch and Entomology </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'hatch'  %}"> 
-                                <img src="{% static 'catches/site/dragon_nymph.jpeg' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-                        </p>
-                        <p>Hatch and Entomology</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"><!-- Miscellaneous -->
-                <div class="card mb-2 border-0 bg-transparent">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>
-                                <a href="{% url 'library_detail' 'misc'  %}"> Miscellaneous </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <a href="{% url 'library_detail' 'misc'  %}"> 
-                                <img src="{% static 'catches/site/Mosquito.png' %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
-                            </a>
-                        </p>
-                        <p>Miscellaneous information</p>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- Bottom row -->
+            {% endfor %}
+        </div>
     </div>
 </div> 
 <div class="container">
