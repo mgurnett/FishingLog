@@ -152,7 +152,7 @@ class Lake(models.Model):
     
     class Meta:
         ordering = ['name']
-
+ 
     @staticmethod 
     def is_favorite (lake_pk, user_pk):
         try:

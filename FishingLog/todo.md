@@ -4,7 +4,7 @@
 - [ ] In the tags list, show how many media, lakes, fish, flys.....
 - [ ] Break insects down to specific ones.
 - [ ] Make a carousel for the pictures.
-- [ ] in flys and bugs add a logs column
+- [ *] in flys and bugs add a logs column
 - [ ] look into ice cream for replacing print for debugging
 - [ ] look at adding coloram for added colours to debugging.
 

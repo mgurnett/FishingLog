@@ -51,10 +51,10 @@ def run():
     print ("Deleting all stocks from 2024")
     Stock.objects.filter(date_stocked__year=2024).delete()
     print ("Done")
-    with open('extra files/epa-alberta-fish-stocking-report-2024_2.csv') as file:
+    with open('extra files/epa-alberta-fish-stocking-report-2024.csv') as file:
         numline = len(file.readlines()) - 1
     line_count = 0
-    with open('extra files/epa-alberta-fish-stocking-report-2024_2.csv') as file:
+    with open('extra files/epa-alberta-fish-stocking-report-2024.csv') as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
         total_fish_stocked = 0
@@ -98,7 +98,11 @@ def run():
                 geo = ""
 
             # Date convert
-            date_object = datetime.strptime(str(row[8]), '%d-%b-%y').date()
+            try:
+                date_object = datetime.strptime(str(row[8]), '%d-%b-%y').date() #dd-mm-yyyy
+            except:
+                date_object = datetime.strptime(str(row[8]), '%Y-%m-%d').date() #yyyy-mm-dd
+
 
             stock = Stock (
                 date_stocked = date_object,
