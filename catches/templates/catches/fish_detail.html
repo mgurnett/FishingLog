@@ -47,22 +47,22 @@
 				<h5 class="col-12"><!-- Nav tabs -->
 					<ul class="nav nav-tabs ">
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#LOGS"><b>Fishing Logs</b></a>
+							<a class="nav-link active" data-toggle="tab" href="#LOGS"><b>Fishing Logs</b><span class="badge badge-dark badge-pill">{{ fish.log_set.count }}</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab" href="#STOCKS"><b>Stock report</b></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+							<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b><span class="badge badge-dark badge-pill">{{ fish.num_of_vids }}</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
+							<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b><span class="badge badge-dark badge-pill">{{ fish.num_of_arts }}</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
+							<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b><span class="badge badge-dark badge-pill">{{ fish.num_of_pics }}</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+							<a class="nav-link" data-toggle="tab" href="#BLOGS"><b>Blog Posts</b><span class="badge badge-dark badge-pill">{{ fish.num_of_posts }}</span></a>
 						</li>
 					</ul>
 				</h5>

@@ -14,6 +14,7 @@ import pandas as pd
 from django.contrib.auth.models import User 
 from .fish_data import *
 from users.models import Profile
+from blog.models import Post
 
 class Week(models.Model):
     number = models.IntegerField()
@@ -96,6 +97,22 @@ class Fish(models.Model):
     def get_absolute_url (self):  
         return reverse ('fish_detail', kwargs = {'pk': self.pk})
 
+    @property 
+    def num_of_vids (self):
+        return Video.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_pics (self):
+        return Picture.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_arts (self):
+        return Article.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_posts (self):
+        return Post.objects.filter (tags__name__contains=self.static_tag).count
+
 class Bug(models.Model):
     name = models.CharField ('Insect name', max_length=100)
     notes = models.TextField (blank=True, null=True)
@@ -135,6 +152,22 @@ class Bug(models.Model):
     def fly_kind_count (self):
         return Fly.objects.filter(fly_type=self.id).count()
 
+    @property 
+    def num_of_vids (self):
+        return Video.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_pics (self):
+        return Picture.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_arts (self):
+        return Article.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_posts (self):
+        return Post.objects.filter (tags__name__contains=self.static_tag).count
+
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True, null=True)
@@ -169,6 +202,22 @@ class Lake(models.Model):
     @property 
     def num_of_hatch (self):
         return self.hatch_set.count
+
+    @property 
+    def num_of_vids (self):
+        return Video.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_pics (self):
+        return Picture.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_arts (self):
+        return Article.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_posts (self):
+        return Post.objects.filter (tags__name__contains=self.static_tag).count
 
     @property 
     def lake_info (self):
@@ -375,6 +424,22 @@ class Fly(models.Model):
     def tag_title (self):
         return self.tag_name
 
+    @property 
+    def num_of_vids (self):
+        return Video.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_pics (self):
+        return Picture.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_arts (self):
+        return Article.objects.filter (tags__name__contains=self.static_tag).count
+
+    @property 
+    def num_of_posts (self):
+        return Post.objects.filter (tags__name__contains=self.static_tag).count
+
     def save(self, *args, **kwargs):
         super(Fly, self).save(*args, **kwargs)
 
@@ -504,7 +569,7 @@ class Hatch(models.Model):
             week_num = Week.objects.get(number = int(self.sight_date.strftime('%U')))
             self.week = week_num
         super().save (*args, **kwargs)
-
+ 
 class Video(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)

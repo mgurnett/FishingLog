@@ -1,10 +1,10 @@
 ## As of March 18
 - [ ] sort out picture and sizes
 - [ ] work on validations
-- [ ] In the tags list, show how many media, lakes, fish, flys.....
+- [*] In the tags list, show how many media, lakes, fish, flys.....
 - [ ] Break insects down to specific ones.
 - [ ] Make a carousel for the pictures.
-- [ *] in flys and bugs add a logs column
+- [*] in flys and bugs add a logs column
 - [ ] look into ice cream for replacing print for debugging
 - [ ] look at adding coloram for added colours to debugging.
 
@@ -20,6 +20,7 @@
 - add depth and retrieve, line tippet.
 ### USERS
 - Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
+- I get an email when someone regiters.
 ### EMAIL 
 - figure out why it is sending 2 for PW reset
 - figure out gmail

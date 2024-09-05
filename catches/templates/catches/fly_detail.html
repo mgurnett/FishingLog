@@ -60,22 +60,19 @@
                 <ul class="nav nav-tabs ">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab"  
-                        href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill"></span></a>
+                        href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ fly.log_set.count }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" 
-                        href="#VIDS">Videos</a>
+                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos<span class="badge badge-dark badge-pill">{{ fly.num_of_vids }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" 
-                        href="#ARTS">Articles</a>
+                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles<span class="badge badge-dark badge-pill">{{ fly.num_of_arts }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab"
-                        href="#PICS">Pictures</a>
+                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures<span class="badge badge-dark badge-pill">{{ fly.num_of_pics }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+                        <a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts<span class="badge badge-dark badge-pill">{{ fly.num_of_posts }}</span></a>
                     </li>
                 </ul>
             </h5>

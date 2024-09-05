@@ -498,13 +498,14 @@ class LakeDetailView (FormMixin, DetailView):
 
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
+        data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
+
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
         context ['logs'] = logs_list
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['pk'], user_pk = self.request.user.id)
-        data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
@@ -517,7 +518,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['distance'] = distance_to_lake
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context
- 
+  
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()

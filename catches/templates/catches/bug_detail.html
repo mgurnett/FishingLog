@@ -53,9 +53,9 @@
 				</div>
 				<div class = "row">
 					<div class="col-md-2 "></div>
-					<div class="col-md-2 text-center">Fly count: <b>{{ bug.fly_ent_count }}</b></div>
-					<div class="col-md-4 "></div>
-					<div class="col-md-2 text-center">Tag: <b>{{ bug.static_tag }}</b></div>
+					<div class="col-md-2 "></div>
+					<div class="col-md-2 "></div>
+					<div class="col-md-4 text-center">Tag: <b>{{ bug.static_tag }}</b></div>
 					<div class="col-md-2 "></div>
 				</div>
 			</div>
@@ -88,22 +88,22 @@
 		<h5 class="col-12"><!-- Nav tabs -->
 			<ul class="nav nav-tabs ">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#FLYS"><b>Flys</b></a>
+					<a class="nav-link active" data-toggle="tab" href="#FLYS"><b>Flys</b><span class="badge badge-dark badge-pill">{{ bug.fly_ent_count }}</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#HATCH"><b>Hatch</b></a>
+					<a class="nav-link" data-toggle="tab" href="#HATCH"><b>Hatch</b><span class="badge badge-dark badge-pill">{{ bug.hatch_set.count }}</span></a>
 				</li> 
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b></a>
+					<a class="nav-link" data-toggle="tab" href="#VIDS"><b>Videos</b><span class="badge badge-dark badge-pill">{{ bug.num_of_vids }}</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b></a>
+					<a class="nav-link" data-toggle="tab" href="#ARTS"><b>Articles</b><span class="badge badge-dark badge-pill">{{ bug.num_of_arts }}</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b></a>
+					<a class="nav-link" data-toggle="tab" href="#PICS"><b>Pictures</b><span class="badge badge-dark badge-pill">{{ bug.num_of_pics }}</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#BLOGS"><b>Blog Posts</b></a>
+					<a class="nav-link" data-toggle="tab" href="#BLOGS"><b>Blog Posts</b><span class="badge badge-dark badge-pill">{{ bug.num_of_posts }}</span></a>
 				</li>
 			</ul>
 		</h5>
