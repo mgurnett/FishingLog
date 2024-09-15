@@ -15,6 +15,7 @@ def collect_tw_from_logs_and_hatches(**kwargs):
     data = []
     for log in logs:
         if log.temp.id > 1:
+            # print (f'{log.catch_date = }, type is {type (log.catch_date)}')
             log_data = {
                 'week': log.week.number, 
                 'week_id': log.week.id, 
@@ -23,7 +24,8 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                 'temp_id': log.temp.id, 
                 'temp_name': log.temp.name, 
                 'log': log.id,
-                'type': 'L'
+                'type': 'L', 
+                'year': int(log.catch_date.year)
                 }
             data.append(log_data)
 
@@ -38,7 +40,8 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                     'temp_id': hatch.temp.id, 
                     'temp_name': hatch.temp.name, 
                     'log': hatch.id,
-                    'type': 'H'
+                    'type': 'H',
+                    'year': str(log.catch_date.year)
                     }
                 data.append(log_data)
     return data  #  list of dictionaries 
@@ -173,7 +176,7 @@ def favorite_filter_for_lake (lake_id, current_user) -> int:
   
 def log_filter_for_private (log_list, current_user):
         object_list = log_list.filter(Q(private=False) | Q(angler=current_user))
-        return object_list
+        return object_list.order_by('-catch_date')
 
 def get_regions_with_lake_for_current_user (lake_id, current_user):
     """

@@ -1016,7 +1016,7 @@ def TagsDetailView(request, pk):
     return render (request, 'catches/tags_detail.html', context)
 
 
-class Graph(TemplateView):
+class Graph (TemplateView):   # this is for all temps at all lakes
     template_name = 'catches/graph.html'
     context_object_name = 'graph'
 
@@ -1026,7 +1026,7 @@ class Graph(TemplateView):
         data = collect_tw_from_logs_and_hatches()
 
         df = pd.DataFrame.from_dict( data )
-        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
+        df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type', 'year' ]
         # df['date'] = pd.to_datetime(df['date'])
         # df = df.set_index('date') 
         
@@ -1035,19 +1035,32 @@ class Graph(TemplateView):
         # df = df.groupby(df.Date.dt.year)
         # df.to_csv('graph_data.csv')
 
-        fig = px.scatter(df, 
-            x='Week',
-            y='Temperature',
-            trendline="rolling",  
-            trendline_options=dict(window=10),
+        # fig = px.scatter(df, 
+        #     x='Week',
+        #     y='Temperature',
+        #     trendline="rolling",  
+        #     trendline_options=dict(window=10),
+        #     height = 750,
+        #     text='Date',
+        #     color="year",
+        #     )            
+        fig = px.scatter(
+            df, 
+            x="Week", 
+            y="Temperature", 
+            color = "year",
+            trendline_scope="overall",
+            trendline="lowess",
+            trendline_options=dict(frac=0.1),
             height = 750,
-            text='Date'
-            )
+            hover_name='Date'
+        )
+        fig.update_traces(marker=dict(size=20))
 
         context = {'graph': fig.to_html()}
         return context
 
-class Graph_lake(TemplateView):
+class Graph_lake (TemplateView):   # this is for all temps at one lakes
     template_name = 'catches/graph.html'
     context_object_name = 'graph'
 
@@ -1060,20 +1073,22 @@ class Graph_lake(TemplateView):
         if data:
 
             df = pd.DataFrame.from_dict( data )
-            df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type' ]
+            df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type', 'year' ]
             
-            # df = df.groupby(df.Date.dt.year)
             df = df.sort_values(by='temp_id')
-            # df.to_csv('graph_data.csv')
 
-            fig = px.line(df, 
-                x='Week',
-                y='Temperature',
-                # trendline="rolling",  
-                # trendline_options=dict(window=5),
-                height = 650,
-                text='Date'
-                )
+            fig = px.scatter(
+                df, 
+                x="Week", 
+                y="Temperature", 
+                color = "year",
+                trendline_scope="overall",
+                trendline="lowess",
+                trendline_options=dict(frac=0.1),
+                height = 750,
+                hover_name='Date'
+            )
+            fig.update_traces(marker=dict(size=20))
 
             context = {'graph': fig.to_html()}
             context ['lake'] = lake
@@ -1081,6 +1096,9 @@ class Graph_lake(TemplateView):
         else:
             context ['lake'] = lake
             return context
+
+
+
 
 class ChartGraph(TemplateView):
     template_name = 'catches/chart_graph.html'
