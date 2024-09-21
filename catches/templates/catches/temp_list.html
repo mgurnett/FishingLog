@@ -19,20 +19,15 @@
                     <div class="card-header">
                         <div class = "row">
                             <div class="col-md-6">
-                                <a href="{% url 'temp_detail' temp.id %}">
-                                    <b>{{ temp.name }}</b>
-                                </a>
+                                <a href="{% url 'temp_detail' temp.id %}"><b>{{ temp.name }}</b></a>
                             </div>
                             <div class="col-md-6">
+                                <p class="card-text">Number of logs: <b>{{ temp.log_count }}</b></p>
                             </div>
-                            <div class="col-md-2">  </div>
                         </div>
                     </div>
                     <div class="card-body">
                         {% if temp.notes %}{{ temp.notes | safe }}{% endif %}
-                    </div>
-                    <div class="card-footer text-muted text-end">
-                        <p class="card-text">Number of logs: <b>{{ temp.log_count }}</b></p>
                     </div>
                 </div>
             </div>

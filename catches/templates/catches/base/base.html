@@ -23,7 +23,7 @@
         padding-top: 65px; 
     }
 </style>
-
+ 
 <body>
     <!-- Fixed navbar -->
     {% include "catches/base/navbar.html" %}
@@ -45,7 +45,7 @@
             </div>
             <div class="col-md-1 pt-3">  <!-- message WEEK link -->
                 <p class="text-center ">
-                    <a href="{% url 'week_list' %}">
+                    <a href="{% url 'week_detail' weekID %}"> 
                         <b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
                     </a>
                 </p>
