@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="17">
+        <Placemark id="19">
+            <name>Boyle Pond</name>
+            <description>Boyle Pond</description>
+            <Point id="18">
+                <coordinates>-112.80524000000000000000,54.53741400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="21">
+            <name>Horseshoe Lake</name>
+            <description>Horseshoe Lake</description>
+            <Point id="20">
+                <coordinates>-113.78318300000000000000,54.48943900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="23">
+            <name>Lower Chain Lake</name>
+            <description>Lower Chain Lake</description>
+            <Point id="22">
+                <coordinates>-113.51131100000000000000,54.96403600000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="25">
+            <name>Skeleton Lake</name>
+            <description>Skeleton Lake</description>
+            <Point id="24">
+                <coordinates>-112.72820300000000000000,54.61565000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="29">
+            <name>Dolberg Lake</name>
+            <description>Dolberg Lake</description>
+            <Point id="28">
+                <coordinates>-115.05319100000000000000,54.15768500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="31">
+            <name>Peanut Lake</name>
+            <description>Peanut Lake</description>
+            <Point id="30">
+                <coordinates>-114.35259100000000000000,54.01739900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="33">
+            <name>Rainbow Park Pond</name>
+            <description>Rainbow Park Pond (Westlock Recreation Pond)</description>
+            <Point id="32">
+                <coordinates>-113.72752500000000000000,54.14570600000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="35">
+            <name>Salter'S Lake</name>
+            <description>Salter'S Lake</description>
+            <Point id="34">
+                <coordinates>-114.19103200000000000000,53.69015600000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="39">
+            <name>Bonnyville Town Pond</name>
+            <description>Bonnyville Town Pond (Slawuta Lake)</description>
+            <Point id="38">
+                <coordinates>-110.74537200000000000000,54.26572300000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="41">
+            <name>Chatwin Lake</name>
+            <description>Chatwin Lake</description>
+            <Point id="40">
+                <coordinates>-110.84171200000000000000,54.24779000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="43">
+            <name>Crane Lake</name>
+            <description>Crane Lake (Moore Lake)</description>
+            <Point id="42">
+                <coordinates>-110.60967910000000000000,54.51744270000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="45">
+            <name>Elk Point Pond</name>
+            <description>Elk Point Pond</description>
+            <Point id="44">
+                <coordinates>-110.91063500000000000000,53.88794000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="47">
+            <name>Lac Delorme</name>
+            <description>Lac Delorme (George'S Lake)</description>
+            <Point id="46">
+                <coordinates>-111.15090000000000000000,53.89621400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="49">
+            <name>Lara Fish Pond</name>
+            <description>Lara Fish Pond</description>
+            <Point id="48">
+                <coordinates>-110.61054000000000000000,54.30890000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="3">
+            <name>Daysland Pond</name>
+            <description>Daysland Pond</description>
+            <Point id="2">
+                <coordinates>-112.26360700000000000000,52.86884000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="5">
+            <name>Diplomat Mine Pond</name>
+            <description>Diplomat Mine Pond</description>
+            <Point id="4">
+                <coordinates>-112.18011800000000000000,52.50583000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="7">
+            <name>Lougheed Trout Pond</name>
+            <description>Lougheed Trout Pond</description>
+            <Point id="6">
+                <coordinates>-111.53976100000000000000,52.75092900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="9">
+            <name>Pleasure Island Reservoir</name>
+            <description>Pleasure Island Reservoir</description>
+            <Point id="8">
+                <coordinates>-112.72939200000000000000,52.97976600000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="11">
+            <name>Telegraph Park Pond</name>
+            <description>Telegraph Park Pond (Hay Lakes)</description>
+            <Point id="10">
+                <coordinates>-113.04430000000000000000,53.18860000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="53">
+            <name>Coronation Reservoir</name>
+            <description>Coronation Reservoir</description>
+            <Point id="52">
+                <coordinates>-111.44958000000000000000,52.10580900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="55">
+            <name>Gooseberry Park Pond</name>
+            <description>Gooseberry Park Pond</description>
+            <Point id="54">
+                <coordinates>-110.77123600000000000000,52.11066100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="57">
+            <name>Huber Reservoir</name>
+            <description>Huber Reservoir</description>
+            <Point id="56">
+                <coordinates>-111.73291700000000000000,52.22161100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="15">
+            <name>Brazeau Canal</name>
+            <description>Brazeau Canal</description>
+            <Point id="14">
+                <coordinates>-115.53610300000000000000,52.94961200000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="17">
+            <name>Lodgepole Pond</name>
+            <description>Lodgepole Pond</description>
+            <Point id="16">
+                <coordinates>-115.32017100000000000000,53.11946900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="19">
+            <name>Sardine Lake</name>
+            <description>Sardine Lake</description>
+            <Point id="18">
+                <coordinates>-114.55115900000000000000,53.19348200000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="23">
+            <name>Fort Lions Park Pond</name>
+            <description>Fort Lions Park Pond (West Rivers Edge Pond)</description>
+            <Point id="22">
+                <coordinates>-113.27413600000000000000,53.68321900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="25">
+            <name>Gibbons Pond</name>
+            <description>Gibbons Pond</description>
+            <Point id="24">
+                <coordinates>-113.33208400000000000000,53.83051400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="27">
+            <name>Hermitage Park Pond</name>
+            <description>Hermitage Park Pond</description>
+            <Point id="26">
+                <coordinates>-113.37133700000000000000,53.58170200000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="29">
+            <name>Lacombe Park Pond</name>
+            <description>Lacombe Park Pond</description>
+            <Point id="28">
+                <coordinates>-113.65373400000000000000,53.63754700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="33">
+            <name>Dandurand Lake</name>
+            <description>Dandurand Lake</description>
+            <Point id="32">
+                <coordinates>-116.73653300000000000000,53.56580300000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="35">
+            <name>Emerson Lakes</name>
+            <description>Emerson Lakes</description>
+            <Point id="34">
+                <coordinates>-117.12285000000000000000,53.72385900000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="37">
+            <name>Fairfax Lake</name>
+            <description>Fairfax Lake</description>
+            <Point id="36">
+                <coordinates>-116.57653200000000000000,52.97113100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="39">
+            <name>Lambert Pond</name>
+            <description>Lambert Pond</description>
+            <Point id="38">
+                <coordinates>-116.48149300000000000000,53.56638300000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="41">
+            <name>Lovett Lake</name>
+            <description>Lovett Lake</description>
+            <Point id="40">
+                <coordinates>-116.70600000000000000000,53.04152300000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="43">
+            <name>Millers Lake</name>
+            <description>Millers Lake</description>
+            <Point id="42">
+                <coordinates>-116.76889600000000000000,53.56007500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="45">
+            <name>Minnow Lake</name>
+            <description>Minnow Lake</description>
+            <Point id="44">
+                <coordinates>-116.04035700000000000000,53.35753100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="47">
+            <name>Muskiki Lake</name>
+            <description>Muskiki Lake</description>
+            <Point id="46">
+                <coordinates>-116.87353600000000000000,52.84934700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="49">
+            <name>Pit 24</name>
+            <description>Pit 24</description>
+            <Point id="48">
+                <coordinates>-116.71444700000000000000,53.03053100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="51">
+            <name>Pit 35</name>
+            <description>Pit 35</description>
+            <Point id="50">
+                <coordinates>-116.64931300000000000000,52.99204400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="53">
+            <name>Pit 44</name>
+            <description>Pit 44</description>
+            <Point id="52">
+                <coordinates>-116.65350300000000000000,53.00469500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="55">
+            <name>Pit 45</name>
+            <description>Pit 45</description>
+            <Point id="54">
+                <coordinates>-116.64568700000000000000,52.99281500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="57">
+            <name>Silkstone Lake</name>
+            <description>Silkstone Lake</description>
+            <Point id="56">
+                <coordinates>-116.71743400000000000000,53.04360000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="59">
+            <name>Wolf Creek Pond</name>
+            <description>Wolf Creek Pond</description>
+            <Point id="58">
+                <coordinates>-116.22850000000000000000,53.57450700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="61">
+            <name>Niton Lake</name>
+            <description>Niton Lake</description>
+            <Point id="60">
+                <coordinates>-115.72596600000000000000,53.61607800000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="63">
+            <name>Wildwood Pond</name>
+            <description>Wildwood Pond</description>
+            <Point id="62">
+                <coordinates>-115.31890400000000000000,53.60129100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="67">
+            <name>Fox Creek Trout Pond</name>
+            <description>Fox Creek Trout Pond</description>
+            <Point id="66">
+                <coordinates>-116.88879800000000000000,54.45359000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="63">
+            <name>Grande Cache Lake</name>
+            <description>Grande Cache Lake</description>
+            <Point id="62">
+                <coordinates>-119.05000000000000000000,53.90000000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="65">
+            <name>Pierre Greys Lake (Lower)</name>
+            <description>Pierre Greys Lake (Lower)</description>
+            <Point id="64">
+                <coordinates>-118.60656000000000000000,53.91042700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="67">
+            <name>Pierre Greys Lakes (middle)</name>
+            <description>Pierre Greys Lakes (middle)</description>
+            <Point id="66">
+                <coordinates>-118.58869200000000000000,53.90135000000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="69">
+            <name>Pierre Greys Lakes (upper)</name>
+            <description>Pierre Greys Lakes (upper)</description>
+            <Point id="68">
+                <coordinates>-118.58569200000000000000,53.90854800000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="71">
+            <name>Victor Lake</name>
+            <description>Victor Lake</description>
+            <Point id="70">
+                <coordinates>-119.09020700000000000000,53.88201400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="75">
+            <name>Atlantic Richfield Reservoir</name>
+            <description>Atlantic Richfield Reservoir</description>
+            <Point id="74">
+                <coordinates>-115.32674900000000000000,54.83238800000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="77">
+            <name>Edith Lake</name>
+            <description>Edith Lake</description>
+            <Point id="76">
+                <coordinates>-115.38226300000000000000,54.80185400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="81">
+            <name>Dunn Lake</name>
+            <description>Dunn Lake</description>
+            <Point id="80">
+                <coordinates>-117.68576200000000000000,53.65492500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="83">
+            <name>Hinton F &amp; G Pond</name>
+            <description>Hinton F &amp; G Pond (Hinton Borrow Pit)</description>
+            <Point id="82">
+                <coordinates>-117.60519700000000000000,53.34106500000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="85">
+            <name>Jarvis Creek Pond</name>
+            <description>Jarvis Creek Pond</description>
+            <Point id="84">
+                <coordinates>-117.81005700000000000000,53.50891700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="87">
+            <name>Kinky Lake</name>
+            <description>Kinky Lake</description>
+            <Point id="86">
+                <coordinates>-117.78314500000000000000,53.28083600000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="89">
+            <name>Lower Wildhorse Lake</name>
+            <description>Lower Wildhorse Lake</description>
+            <Point id="88">
+                <coordinates>-117.79275900000000000000,53.26949100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="91">
+            <name>Mary Gregg Lake</name>
+            <description>Mary Gregg Lake</description>
+            <Point id="90">
+                <coordinates>-117.45406400000000000000,53.11260200000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="93">
+            <name>Mayan Lake</name>
+            <description>Mayan Lake</description>
+            <Point id="92">
+                <coordinates>-117.38983000000000000000,53.90214400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="95">
+            <name>Obed Lake</name>
+            <description>Obed Lake</description>
+            <Point id="94">
+                <coordinates>-117.13333300000000000000,53.56666700000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="97">
+            <name>Petite Lake</name>
+            <description>Petite Lake</description>
+            <Point id="96">
+                <coordinates>-117.70258500000000000000,53.65568100000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="99">
+            <name>South Sundance Lake</name>
+            <description>South Sundance Lake</description>
+            <Point id="98">
+                <coordinates>-116.97984400000000000000,53.72214400000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="101">
+            <name>Upper Wildhorse Lake</name>
+            <description>Upper Wildhorse Lake</description>
+            <Point id="100">
+                <coordinates>-117.80152000000000000000,53.27133800000000000000,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
