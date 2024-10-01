@@ -45,16 +45,16 @@ STRAIN = (
     ("MC", 'Marie Creek'),
     ("RI", 'Rock Island'),
 )
-
+FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2024.csv'
 
 def run():
     print ("Deleting all stocks from 2024")
     Stock.objects.filter(date_stocked__year=2024).delete()
     print ("Done")
-    with open('extra files/epa-alberta-fish-stocking-report-2024.csv') as file:
+    with open(FILE_NAME) as file:
         numline = len(file.readlines()) - 1
     line_count = 0
-    with open('extra files/epa-alberta-fish-stocking-report-2024.csv') as file:
+    with open(FILE_NAME) as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
         total_fish_stocked = 0

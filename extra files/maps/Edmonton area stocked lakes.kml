@@ -1,0 +1,2411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Edmonton area stocked lakes</name>
+    <description/>
+    <Style id="icon-1548-E65100-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1548-E65100-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1548-E65100">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1548-E65100-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1548-E65100-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1548-E65100-nodesc-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1548-E65100-nodesc-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1548-E65100-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1548-E65100-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1548-E65100-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1573-0097A7-normal">
+      <IconStyle>
+        <color>ffa79700</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1573-0097A7-highlight">
+      <IconStyle>
+        <color>ffa79700</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1573-0097A7">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1573-0097A7-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1573-0097A7-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1573-0097A7-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1573-0097A7-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-F57C00-normal">
+      <IconStyle>
+        <color>ff007cf5</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-F57C00-highlight">
+      <IconStyle>
+        <color>ff007cf5</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-F57C00">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-F57C00-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-F57C00-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-FBC02D-normal">
+      <IconStyle>
+        <color>ff2dc0fb</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-FBC02D-highlight">
+      <IconStyle>
+        <color>ff2dc0fb</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-FBC02D">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-FBC02D-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-FBC02D-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Ed_area.kml</name>
+      <Placemark>
+        <name>Boyle Pond</name>
+        <description>Boyle Pond</description>
+        <styleUrl>#icon-1899-FBC02D</styleUrl>
+        <Point>
+          <coordinates>
+            -112.80524,54.537414,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Horseshoe Lake</name>
+        <description>Horseshoe Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.783183,54.489439,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lower Chain Lake</name>
+        <description>Lower Chain Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.511311,54.964036,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Skeleton Lake</name>
+        <description>Skeleton Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.728203,54.61565,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dolberg Lake</name>
+        <description>Dolberg Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.053191,54.157685,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Peanut Lake</name>
+        <description>Peanut Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.352591,54.017399,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rainbow Park Pond</name>
+        <description>Rainbow Park Pond (Westlock Recreation Pond)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.727525,54.145706,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Salter'S Lake]]></name>
+        <description><![CDATA[Salter'S Lake]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.191032,53.690156,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bonnyville Town Pond</name>
+        <description>Bonnyville Town Pond (Slawuta Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.745372,54.265723,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chatwin Lake</name>
+        <description>Chatwin Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.841712,54.24779,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Crane Lake</name>
+        <description>Crane Lake (Moore Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.609679,54.517443,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Elk Point Pond</name>
+        <description>Elk Point Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.910635,53.88794,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lac Delorme</name>
+        <description><![CDATA[Lac Delorme (George'S Lake)]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.1509,53.896214,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lara Fish Pond</name>
+        <description>Lara Fish Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.61054,54.3089,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Daysland Pond</name>
+        <description>Daysland Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.263607,52.86884,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Diplomat Mine Pond</name>
+        <description>Diplomat Mine Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.180118,52.50583,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lougheed Trout Pond</name>
+        <description>Lougheed Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.539761,52.750929,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pleasure Island Reservoir</name>
+        <description>Pleasure Island Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.729392,52.979766,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Telegraph Park Pond</name>
+        <description>Telegraph Park Pond (Hay Lakes)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.0443,53.1886,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Coronation Reservoir</name>
+        <description>Coronation Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.44958,52.105809,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gooseberry Park Pond</name>
+        <description>Gooseberry Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.771236,52.110661,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Huber Reservoir</name>
+        <description>Huber Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.732917,52.221611,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brazeau Canal</name>
+        <description>Brazeau Canal</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.536103,52.949612,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lodgepole Pond</name>
+        <description>Lodgepole Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.320171,53.119469,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sardine Lake</name>
+        <description>Sardine Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.551159,53.193482,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Lions Park Pond</name>
+        <description>Fort Lions Park Pond (West Rivers Edge Pond)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.274136,53.683219,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gibbons Pond</name>
+        <description>Gibbons Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.332084,53.830514,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hermitage Park Pond</name>
+        <description>Hermitage Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.371337,53.581702,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lacombe Park Pond</name>
+        <description>Lacombe Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.653734,53.637547,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dandurand Lake</name>
+        <description>Dandurand Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.736533,53.565803,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Emerson Lakes</name>
+        <description>Emerson Lakes</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.12285,53.723859,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fairfax Lake</name>
+        <description>Fairfax Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.576532,52.971131,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lambert Pond</name>
+        <description>Lambert Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.481493,53.566383,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lovett Lake</name>
+        <description>Lovett Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.706,53.041523,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Millers Lake</name>
+        <description>Millers Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.768896,53.560075,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Minnow Lake</name>
+        <description>Minnow Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.040357,53.357531,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Muskiki Lake</name>
+        <description>Muskiki Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.873536,52.849347,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pit 24</name>
+        <description>Pit 24</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.714447,53.030531,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pit 35</name>
+        <description>Pit 35</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.649313,52.992044,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pit 44</name>
+        <description>Pit 44</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.653503,53.004695,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pit 45</name>
+        <description>Pit 45</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.645687,52.992815,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Silkstone Lake</name>
+        <description>Silkstone Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.717434,53.0436,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wolf Creek Pond</name>
+        <description>Wolf Creek Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.2285,53.574507,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Niton Lake</name>
+        <description>Niton Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.725966,53.616078,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wildwood Pond</name>
+        <description>Wildwood Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.318904,53.601291,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fox Creek Trout Pond</name>
+        <description>Fox Creek Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.888798,54.45359,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Grande Cache Lake</name>
+        <description>Grande Cache Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -119.05,53.9,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pierre Greys Lake (Lower)</name>
+        <description>Pierre Greys Lake (Lower)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -118.60656,53.910427,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pierre Greys Lakes (middle)</name>
+        <description>Pierre Greys Lakes (middle)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -118.588692,53.90135,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pierre Greys Lakes (upper)</name>
+        <description>Pierre Greys Lakes (upper)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -118.585692,53.908548,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Victor Lake</name>
+        <description>Victor Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -119.090207,53.882014,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Atlantic Richfield Reservoir</name>
+        <description>Atlantic Richfield Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.326749,54.832388,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Edith Lake</name>
+        <description>Edith Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.382263,54.801854,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dunn Lake</name>
+        <description>Dunn Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.685762,53.654925,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Hinton F & G Pond]]></name>
+        <description><![CDATA[Hinton F & G Pond (Hinton Borrow Pit)]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.605197,53.341065,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jarvis Creek Pond</name>
+        <description>Jarvis Creek Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.810057,53.508917,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kinky Lake</name>
+        <description>Kinky Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.783145,53.280836,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lower Wildhorse Lake</name>
+        <description>Lower Wildhorse Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.792759,53.269491,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mary Gregg Lake</name>
+        <description>Mary Gregg Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.454064,53.112602,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mayan Lake</name>
+        <description>Mayan Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.38983,53.902144,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Obed Lake</name>
+        <description>Obed Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.133333,53.566667,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Petite Lake</name>
+        <description>Petite Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.702585,53.655681,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>South Sundance Lake</name>
+        <description>South Sundance Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.979844,53.722144,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Upper Wildhorse Lake</name>
+        <description>Upper Wildhorse Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.80152,53.271338,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lac La Biche Trout Pond</name>
+        <description>Lac La Biche Trout Pond (Alexander Hamilton Pond)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.953265,54.775532,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mile 07 Lake</name>
+        <description>Mile 07 Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.015324,55.021444,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Abraham Lake</name>
+        <description>Abraham Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.442638,52.145416,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Allstones Lake</name>
+        <description>Allstones Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.411436,52.300809,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Entry Lake</name>
+        <description>Entry Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.564829,52.106097,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fish Lake</name>
+        <description>Fish Lake (Shunda Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.149976,52.451617,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Goldeye Lake</name>
+        <description>Goldeye Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.192114,52.449584,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Harleck Pond</name>
+        <description>Harleck Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.972609,52.494632,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kinglet Lake</name>
+        <description>Kinglet Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.472996,52.04958,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lake Of The Falls</name>
+        <description>Lake Of The Falls</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.628437,52.084305,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Landslide Lake</name>
+        <description>Landslide Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.552683,52.080411,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nordegg Borrow Pit (East)</name>
+        <description>Nordegg Borrow Pit (East) (small one)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.122018,52.480398,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nordegg Borrow Pit (West)</name>
+        <description>Nordegg Borrow Pit (West)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.128512,52.484878,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Obstruction Lakes</name>
+        <description>Obstruction Lakes</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.864833,52.417978,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bashaw Pond</name>
+        <description>Bashaw Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.966507,52.581079,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>East Stormwater Pond</name>
+        <description>East Stormwater Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.709921,52.469538,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mirror Reservoir</name>
+        <description>Mirror Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.138878,52.464155,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nuggent Pond</name>
+        <description>Nuggent Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.317013,52.791495,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Parlby Reservoir</name>
+        <description>Parlby Reservoir (Tees Fish Pond)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.316718,52.471946,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ponoka Centennial Park Pond</name>
+        <description>Ponoka Centennial Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.584991,52.680354,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Windsor Lake</name>
+        <description>Windsor Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.093667,52.595848,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Boulder Lake</name>
+        <description>Boulder Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.871506,52.355924,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dickson Trout Pond</name>
+        <description>Dickson Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.309334,52.011001,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Hansen'S Reservoir]]></name>
+        <description><![CDATA[Hansen'S Reservoir]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.394522,52.297145,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Len Thompson Pond</name>
+        <description>Len Thompson Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.712706,52.476805,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Niemela Reservoir</name>
+        <description><![CDATA[Niemela Reservoir (Ray'S Pond)]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.292729,52.322935,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sylvan Lake</name>
+        <description>Sylvan Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.187701,52.374063,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Alford Lake</name>
+        <description>Alford Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.092202,52.063523,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brazeau Borrow Pit #1</name>
+        <description>Brazeau Borrow Pit #1</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.414317,52.916194,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brazeau Borrow Pit #2</name>
+        <description>Brazeau Borrow Pit #2</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.492258,52.934075,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp 9 Trout Pond</name>
+        <description>Camp 9 Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.125149,52.84209,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cow Lake</name>
+        <description>Cow Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.005926,52.260185,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Elk Creek Pond</name>
+        <description>Elk Creek Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.657217,52.056822,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ironside Pond</name>
+        <description>Ironside Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.996541,52.246795,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lost Guide Lake</name>
+        <description>Lost Guide Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.933169,51.904668,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mitchell Lake</name>
+        <description>Mitchell Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.007692,52.216312,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Open Creek Reservoir</name>
+        <description>Open Creek Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.729184,52.648629,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Peppers Lake</name>
+        <description>Peppers Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.705653,52.038779,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Phyllis Lake</name>
+        <description>Phyllis Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.966667,52.1,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rat Lake</name>
+        <description>Rat Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.183801,52.247523,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Rocky Children'S Pond]]></name>
+        <description><![CDATA[Rocky Children'S Pond]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.949741,52.398682,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Strubel Lake</name>
+        <description>Strubel Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.001395,52.203976,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tay Lake</name>
+        <description>Tay Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.11934,52.061406,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Twin Lakes</name>
+        <description>Twin Lakes</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.001806,52.413889,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chrystina Lake</name>
+        <description>Chrystina Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.194645,54.786102,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lily Lake</name>
+        <description>Lily Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.766667,55.483333,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Parker Lake</name>
+        <description>Parker Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.621162,55.084708,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Winagami Lake</name>
+        <description>Winagami Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.924936,55.641408,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bellis Beach Lake</name>
+        <description>Bellis Beach Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.15247,54.100613,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Radway Fish Pond</name>
+        <description>Radway Fish Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.95596,54.056793,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shemeluk Lake</name>
+        <description>Shemeluk Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.423089,54.212986,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cardiff Park Pond</name>
+        <description>Cardiff Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.584073,53.763266,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chickakoo Lake</name>
+        <description>Chickakoo Lake (Chickako Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.074339,53.618628,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cottage</name>
+        <description>Cottage (Spring Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.138808,53.517861,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>East Pit Lake</name>
+        <description>East Pit Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.473822,53.584969,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hasse Lake</name>
+        <description>Hasse Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.173756,53.487212,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Heritage Lake</name>
+        <description>Heritage Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.66643,53.799728,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Legal Reservoir</name>
+        <description>Legal Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.586428,53.947431,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Morinville Fish And Game Pond</name>
+        <description>Morinville Fish And Game Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.658398,53.811699,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Muir Lake</name>
+        <description>Muir Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.956437,53.624675,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sauer Lake</name>
+        <description>Sauer Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.078152,53.612875,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Star Lake</name>
+        <description>Star Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.273086,53.510057,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Goose Lake</name>
+        <description>Goose Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.13823,54.315096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jane Lake</name>
+        <description>Jane Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.113618,54.875914,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jessie Lake</name>
+        <description>Jessie Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.961186,54.897794,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Marigold Lake</name>
+        <description>Marigold Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.628279,54.671776,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schuman Lake</name>
+        <description>Schuman Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.077728,54.318086,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tamarack Lake</name>
+        <description>Tamarack Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.71791,54.702083,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tea Lakes</name>
+        <description>Tea Lakes</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.019037,54.797707,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Blue Lake</name>
+        <description>Blue Lake (Little Blue Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.445171,54.96864,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>East Dollar Lake</name>
+        <description>East Dollar Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.204628,55.314926,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mcclennan Reservoir</name>
+        <description>Mcclennan Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.919773,55.709784,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Swan Lake</name>
+        <description>Swan Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.813668,55.059122,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Valleyview Children'S Pond]]></name>
+        <description><![CDATA[Valleyview Children'S Pond]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.284529,55.076591,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>West Dollar Lake</name>
+        <description>West Dollar Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -117.209194,55.317308,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Black Nugget Mine Pit</name>
+        <description>Black Nugget Mine Pit</description>
+        <styleUrl>#icon-1899-F57C00</styleUrl>
+        <Point>
+          <coordinates>
+            -112.532662,53.217685,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Castaway Trout Pond</name>
+        <description>Castaway Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.79091,53.097592,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Innisfree Trout Pond</name>
+        <description>Innisfree Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.629354,53.39796,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lamont Pond</name>
+        <description>Lamont Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.749283,53.775627,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Two Hills Pond</name>
+        <description>Two Hills Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.744946,53.703308,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Vegreville Children'S Pond]]></name>
+        <description><![CDATA[Vegreville Children'S Pond]]></description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.035539,53.492329,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vegreville Trout Pond</name>
+        <description>Vegreville Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -112.05988,53.474312,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Irma Fish And Game Pond</name>
+        <description>Irma Fish And Game Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.236446,52.918593,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Jack Fish Lake</name>
+        <description>Jack Fish Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -111.296351,53.594311,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Shuster Lake</name>
+        <description>Shuster Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.609119,52.740747,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vermilion Park Pond</name>
+        <description>Vermilion Park Pond (Claude N. Brennan Memorial Pond)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.884936,53.364531,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wallace Park Pond</name>
+        <description>Wallace Park Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -110.85653,52.8425,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ashland Reservoir</name>
+        <description>Ashland Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.409999,53.147371,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Beaumont Pond</name>
+        <description>Beaumont Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.430512,53.346482,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>By The Lake Park</name>
+        <description>By The Lake Park</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.408198,52.976846,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Genesee Trout Pond</name>
+        <description>Genesee Trout Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.309875,53.376492,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kramer Pond</name>
+        <description>Kramer Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -114.745933,52.906846,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Leduc Reservoir</name>
+        <description>Leduc Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.567083,53.259984,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mound Red Reservoir</name>
+        <description>Mound Red Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.961579,52.867842,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wetaskiwin Pond</name>
+        <description>Wetaskiwin Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -113.353311,52.987222,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Emerald Lake</name>
+        <description>Emerald Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.61828,54.333426,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Goodwin Reservoir</name>
+        <description>Goodwin Reservoir</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.91843,54.08493,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mcleod Lake</name>
+        <description>Mcleod Lake (Carson Lake)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.652786,54.298603,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Trapper Lake</name>
+        <description>Trapper Lake</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -116.362574,54.022698,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whitecourt Town Pond</name>
+        <description>Whitecourt Town Pond</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.685342,54.149158,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whiteridge Recreation Area Pond</name>
+        <description>Whiteridge Recreation Area Pond (Blueridge Pit)</description>
+        <styleUrl>#icon-1573-0097A7</styleUrl>
+        <Point>
+          <coordinates>
+            -115.364319,54.15613,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Districts</name>
+      <Placemark>
+        <name>Edmonton</name>
+        <description>4 lakes</description>
+        <styleUrl>#icon-1548-E65100</styleUrl>
+        <Point>
+          <coordinates>
+            -113.493727,53.546098,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Calgary</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.071883,51.044733,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Red Deer</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.811496,52.269033,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Athabasca</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.285826,54.721266,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Barrhead</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.40175,54.122982,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brooks</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.897787,50.565709,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bonnyville</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.739783,54.267966,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camrose</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.825118,53.017344,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Canmore</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -115.34791,51.088367,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cardston</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.301763,49.196943,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Grande Prairie</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.788481,55.170691,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Claresholm</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.578771,50.019252,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cochrane</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.466753,51.191744,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Saint Paul</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.297145,53.991472,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Vermilion</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -116.019701,58.387332,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Grande Cache</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -119.114282,53.888572,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cold Lake</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.173178,54.464249,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Coronation</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.448274,52.094303,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Drayton Valley</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.976746,53.221494,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Drumheller</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.710659,51.461944,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Edson</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -116.433722,53.585422,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Evansburg</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -115.017701,53.599848,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fairview</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.392277,56.069591,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Foremost</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.440706,49.479011,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vegreville</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.053777,53.494048,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vermilion</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.85861,53.353932,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vulcan</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.262169,50.403815,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wetaskiwin</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.365928,52.968796,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whitecourt</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -115.67664,54.14252,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Stettler</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.719174,52.323511,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Spirit River</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.836966,55.777275,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Smoky Lake</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.468519,54.115042,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Slave Lake</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.780149,55.272392,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rocky Mountain House</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.913754,52.37762,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Provost</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.260386,52.355715,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ponoka</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.583372,52.675904,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pincher Creek</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.944035,49.484885,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Peace River</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -117.334046,56.233124,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Oyen</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.483369,51.350722,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Olds</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.119906,51.79506,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Medicine Hat</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.703198,50.029022,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Manning</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -117.630091,56.922216,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lloydminster</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -110.006145,53.277962,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lethbridge</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -112.845107,49.695618,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lac la Biche</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.966145,54.774209,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hinton</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -117.579406,53.399067,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High River</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.871561,50.576748,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Prairie</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -116.488581,55.432845,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>High Level</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -117.140307,58.507062,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fox Creek</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -116.804467,54.400943,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hanna</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.925829,51.644256,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Blairmore</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.451191,49.610266,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort McMurray</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -111.37901,56.726623,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nordegg</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -116.081488,52.467986,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Stony Plain</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.001818,53.529142,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Strathmore</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -113.400334,51.037741,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sundre</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -114.6393,51.797066,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Swan Hills</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -115.402775,54.716667,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Valleyview</name>
+        <styleUrl>#icon-1548-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -117.280896,55.068634,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
