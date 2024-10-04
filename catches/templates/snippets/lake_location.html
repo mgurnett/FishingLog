@@ -2,13 +2,14 @@
   <div class="col-md-1"></div>      
   <div class="col-md-10">
     <div class="row">
-      <div class="col-md-6">{% if lake.ats %} Location: <b> {{ lake.ats }}</b> {% endif %}</div>      
-      <div class="col-md-6">{% if not lake.waterbody_id == None %} Government of Alberta waterbody ID: <b>{{ lake.waterbody_id }} </b>{% endif %}</div> 
+      <div class="col-md-4">{% if lake.ats %} Location: <b> {{ lake.ats }}</b> {% endif %}</div>
+      <div class="col-md-4">{% if lake.long %} Longitute: <b> {{ lake.long |floatformat:8 }}</b> {% endif %}</div>      
+      <div class="col-md-4">{% if lake.long %} Latitute: <b> {{ lake.lat |floatformat:8 }}</b> {% endif %}</div> 
     </div>
 
     <div class="row">
-      <div class="col-md-6">{% if lake.long %} Longitute: <b> {{ lake.long |floatformat:8 }}</b> {% endif %}</div>      
-      <div class="col-md-6">{% if lake.long %} Latitute: <b> {{ lake.lat |floatformat:8 }}</b> {% endif %}</div> 
+      <div class="col-md-6">{% if lake.reg_location %} Fish Management Zones: <b> {{ lake.reg_location }}</b> {% endif %}</div>    
+      <div class="col-md-6">{% if not lake.waterbody_id == None %} Government of Alberta waterbody ID: <b>{{ lake.waterbody_id }} </b>{% endif %}</div> 
     </div>
   </div>
   <div class="col-md-1"></div> 

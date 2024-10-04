@@ -13,8 +13,9 @@
                     <tr>
                         <td scope="row">   
                             <a href="{% url 'lake_detail' lake.id %}" class="list-group-item">
-                                {{ lake.lake_info }}
-                                {% if lake.favourite %}
+                                <!-- {{ lake.lake_info }} -->
+								{{ lake.lake_full_name}}
+                                {% if lake %}
                                     <i class="fas fa-check-circle"></i>
                                 {% endif %}
                             </a>

@@ -447,8 +447,10 @@ class LakeListView (ListView):
             fav_objs = None
             region_objs = None
 
+        print (f'{fav_objs = }')
+
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
-        context ['favs'] = fav_objs
+        context ['favs'] = fav_objs  # a list of all lake that are this user's favorites.
         context ['regions'] = region_objs
         context ['districts'] = dists
         return context

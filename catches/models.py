@@ -174,6 +174,7 @@ class Lake(models.Model):
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
     ats = models.CharField (max_length=100, blank=True)
+    reg_location = models.CharField (max_length=100, blank=True)
     lat = models.DecimalField (max_digits = 25, decimal_places=20, blank=True, null=True)
     long = models.DecimalField (max_digits = 25, decimal_places=20, blank=True, null=True)
     # district = models.CharField (max_length=100, blank=True, choices = DISTRICTS)
@@ -185,15 +186,6 @@ class Lake(models.Model):
     
     class Meta:
         ordering = ['name']
- 
-    @staticmethod 
-    def is_favorite (lake_pk, user_pk):
-        try:
-            fav = Favorite.objects.get(lake=lake_pk, user=user_pk)
-        except:
-            return None
-        else:
-            return fav.id
 
     @property 
     def num_of_stock (self):
@@ -228,6 +220,14 @@ class Lake(models.Model):
         return output   
 
     @property 
+    def lake_full_name (self):
+        if self.other_name:
+            output = f'{self.name} ({self.other_name}) - {self.reg_location}' 
+        else:
+            output = f'{self.name} - {self.reg_location}' 
+        return output 
+
+    @property 
     def dist_name (self):
         dist = DISTRICTS[self.district][1]
         return dist 
@@ -239,9 +239,11 @@ class Lake(models.Model):
     # https://stackoverflow.com/questions/8609192/what-is-the-difference-between-null-true-and-blank-true-in-django/8609425#8609425
     def __str__(self):
         if self.other_name == "":
-            return f'{self.name} at {self.ats} of {self.dist_name}'
+            # return f'{self.name} at {self.ats} of {self.dist_name}'
+            return f'{self.name} of {self.dist_name} in {self.reg_location}'
         else:
-            return f'{self.name} ({self.other_name}) at {self.ats} of {self.dist_name}'  # used in the admin to set the name of the model
+            # return f'{self.name} ({self.other_name}) at {self.ats} of {self.dist_name}'
+            return f'{self.name} ({self.other_name}) of {self.dist_name} in {self.reg_location}'
     
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.
@@ -574,8 +576,7 @@ class Video(models.Model):
     name = models.CharField(max_length = 100)
     notes = models.TextField (blank=True)
     author = models.CharField (max_length = 100, blank=True)
-    url = models.URLField(max_length = 200, 
-                    unique = True)
+    url = models.URLField(max_length = 200, unique = True)
     date_added = models.DateField(default=timezone.now)
     tags = TaggableManager(blank=True)
     snippet = models.CharField (max_length = 255, blank=True)
@@ -711,6 +712,15 @@ class Favorite(models.Model):
 
     def __str__ (self):
         return self.lake.name
+    
+    # def is_favorite (lake, user):
+    #     try:
+    #         fav = Favorite.objects.get(lake=lake, user=user)
+    #     except:
+    #         return None
+    #     else:
+    #         return fav.id
+
 
     def get_absolute_url (self):
         return reverse ('favorite_list')
