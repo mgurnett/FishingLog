@@ -443,11 +443,13 @@ class LakeListView (ListView):
             fav_objs = Favorite.objects.filter (user=self.request.user)
             profile_ob = convert_user_to_profile (self.request.user)
             region_objs = Region.objects.filter (profile_id = profile_ob)
+            # for fav in fav_objs:
+            #     print (f'{fav.lake.lake_full_name = }')
         else:
             fav_objs = None
             region_objs = None
+            # print ('Not autorized')
 
-        print (f'{fav_objs = }')
 
         context = super (LakeListView, self).get_context_data (*args, **kwargs)
         context ['favs'] = fav_objs  # a list of all lake that are this user's favorites.
