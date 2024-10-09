@@ -6,7 +6,7 @@ from django.templatetags.static import static
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 # from ckeditor.fields import models.TextField
-from PIL import Image
+from PIL import Image, ImageOps
 from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
 # from django.utils.text import slugify
@@ -69,7 +69,7 @@ class Fish(models.Model):
     notes = models.TextField (blank=True, null=True)
     abbreviation = models.CharField (max_length=10, blank=True)    
     static_tag = models.SlugField()
-    image = models.ImageField ('Picture of the bug', 
+    image = models.ImageField ('Picture of the fish', 
         default=None, 
         upload_to='fish/', 
         height_field=None, 
@@ -77,7 +77,7 @@ class Fish(models.Model):
         max_length=100, 
         blank=True, null=True
         )
-
+ 
     def save(self, *args, **kwargs):
         super(Fish, self).save(*args, **kwargs)
 
@@ -671,6 +671,7 @@ class Picture(models.Model):
         super(Picture, self).save(*args, **kwargs)
 
         img = Image.open(self.image.path)
+        img = ImageOps.exif_transpose(img)
 
         if img.height > 300 or img.width > 300:
             output_size = (300,300)

@@ -45,7 +45,7 @@ class UserAccessMixin (PermissionRequiredMixin):
             return redirect('home/')
         return super(UserAccessMixin, self).dispatch (request, *args, **kwargs)
 
-class Home (TemplateView):
+class Home (TemplateView): 
     template_name = 'catches/home.html'
     model = Announcment
 
