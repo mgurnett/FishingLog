@@ -8,7 +8,7 @@
 - [ ] Break insects down to specific ones.
 - [ ] sort out picture and sizes
 - [ ] work on validations
-- [ ]  make a flag that says that a new log has been added.
+- [ ] make a flag that says that a new log has been added.
 - [ ] move blog in to catches so that the colouring follows.
 - [ ] make a comment system.
 - [ ] take pictures of fish
