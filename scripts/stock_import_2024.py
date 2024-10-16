@@ -99,9 +99,11 @@ def run():
 
             # Date convert
             try:
-                date_object = datetime.strptime(str(row[8]), '%d-%b-%y').date() #dd-mm-yyyy
+                date_object = datetime.strptime(str(row[8]), '%d-%m-%Y').date() #dd-mm-yyyy
             except:
-                date_object = datetime.strptime(str(row[8]), '%Y-%m-%d').date() #yyyy-mm-dd
+                # date_object = datetime.strptime(str(row[8]), '%Y-%m-%d').date() #yyyy-mm-dd
+                print (f'date not right {row[8]}')
+                break
 
 
             stock = Stock (
@@ -120,3 +122,5 @@ def run():
             percent = round(line_count/numline*100,1)
             print (f'Line count: {line_count} of {numline} or {percent}% | {total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked', end="\r")
         print (f'{total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked for a total of {total_fish_stocked:,}')
+
+        #https://www.ilovepdf.com/pdf_to_excel
