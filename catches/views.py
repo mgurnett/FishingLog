@@ -494,11 +494,16 @@ class LakeDetailView (FormMixin, DetailView):
         
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
-            logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)
-            # favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user)             
+            logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)    
+            favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user) 
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
+
+        if favorite_id:
+            favorite_info = Favorite.objects.get(pk=favorite_id)
+        else:
+            favorite_info = None
 
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
@@ -509,7 +514,7 @@ class LakeDetailView (FormMixin, DetailView):
         context ['subts'] = subtotals 
         context ['logs'] = logs_list 
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
-        context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['pk'], user_pk = self.request.user.id)
+        context ['fav'] = favorite_info
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
         context ['articles_list'] = Article.objects.filter (tags__name__contains=data)
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)

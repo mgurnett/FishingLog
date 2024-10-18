@@ -186,6 +186,16 @@ class Lake(models.Model):
     
     class Meta:
         ordering = ['name']
+        
+    @property 
+    def is_favorite (lake_pk,  user_pk):
+        print (f'{lake_pk = } {user_pk = }')
+        try:
+            fav = Favorite.objects.get(lake=lake_pk, user=user_pk)
+        except:
+            return False
+        else:
+            return True
 
     @property 
     def num_of_stock (self):
@@ -713,15 +723,6 @@ class Favorite(models.Model):
 
     def __str__ (self):
         return self.lake.name
-    
-    # def is_favorite (lake, user):
-    #     try:
-    #         fav = Favorite.objects.get(lake=lake, user=user)
-    #     except:
-    #         return None
-    #     else:
-    #         return fav.id
-
 
     def get_absolute_url (self):
         return reverse ('favorite_list')
