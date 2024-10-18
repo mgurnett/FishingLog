@@ -51,8 +51,10 @@ def run():
     print ("Deleting all stocks from 2024")
     Stock.objects.filter(date_stocked__year=2024).delete()
     print ("Done")
+    
     with open(FILE_NAME) as file:
-        numline = len(file.readlines()) - 1
+        numline = len(file.readlines()) - 1   # not accurate because of the \n s in the file.
+
     line_count = 0
     with open(FILE_NAME) as file:
         reader = csv.reader(file)
@@ -83,12 +85,13 @@ def run():
             found=0
             strain = ""
             for index, str_look in enumerate(STRAIN_lookup):
-                if row[4] == str_look[0]:
+                strain_to_find = row[4].replace('\n', ' ')
+                if strain_to_find == str_look[0]:
                     found=index
             if found == 0:
                 # print (f'We are going to look for {row[4]} in lake {lake_id} with fish {fish_id}')
                 # print (row)
-                print (f'STRAIN missing: {row[4]} from Lake: {row[0]} ({row[1]}')
+                print (f'STRAIN missing: {strain_to_find} from Lake: {row[0]} ({row[1]}')
             else:
                 strain = STRAIN_lookup[found][1]
 
@@ -107,7 +110,7 @@ def run():
 
 
             stock = Stock (
-                date_stocked = date_object,
+                date_stocked = date_object, 
                 number = row[7],
                 length = row[6],
                 lake = lake_id,
