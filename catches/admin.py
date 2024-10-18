@@ -48,7 +48,7 @@ class LogAdmin (admin.ModelAdmin):
 
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):
-    list_display = ['name', 'lat', 'long', 'static_tag','district']
+    list_display = ['name', 'lat', 'long', 'static_tag','district','reg_location']
 
 @admin.register (Region)
 class RegionAdmin (admin.ModelAdmin):

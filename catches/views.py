@@ -507,7 +507,7 @@ class LakeDetailView (FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
-        context ['logs'] = logs_list
+        context ['logs'] = logs_list 
         context ['hatches'] = Hatch.objects.filter (lake=self.kwargs['pk'])
         context ['fav'] = Lake.is_favorite (lake_pk = self.kwargs['pk'], user_pk = self.request.user.id)
         context ['videos_list'] = Video.objects.filter (tags__name__contains=data)
