@@ -499,16 +499,18 @@ class LakeDetailView (FormMixin, DetailView):
         else:
             distance_to_lake = ""
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), None)
+            favorite_id = None
 
         if favorite_id:
             favorite_info = Favorite.objects.get(pk=favorite_id)
+            print (f'{favorite_id = } {favorite_info = }')
         else:
             favorite_info = None
 
         # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
-
+ 
         context = super().get_context_data(**kwargs)
         context ['stockings'] = stock_list
         context ['subts'] = subtotals 
