@@ -503,7 +503,7 @@ class LakeDetailView (FormMixin, DetailView):
 
         if favorite_id:
             favorite_info = Favorite.objects.get(pk=favorite_id)
-            print (f'{favorite_id = } {favorite_info = }')
+            # print (f'{favorite_id = } {favorite_info = }')
         else:
             favorite_info = None
 

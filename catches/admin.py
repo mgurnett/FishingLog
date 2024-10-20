@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 # admin.site.register (Lake)
-admin.site.register (Stock)
+# admin.site.register (Stock)
 # admin.site.register (Region)
 admin.site.register (Fish)
 # admin.site.register (Fly)
@@ -12,6 +12,11 @@ admin.site.register (Hatch)
 admin.site.register (Chart)
 admin.site.register (Week)
 admin.site.register (Fly_type)
+
+
+@admin.register (Stock)
+class StockAdmin (admin.ModelAdmin):
+    list_display = ['date_stocked', 'lake', 'fish', 'number', 'length', 'strain', 'gentotype']
 
 @admin.register (Video)
 class VideoAdmin (admin.ModelAdmin):
@@ -48,7 +53,16 @@ class LogAdmin (admin.ModelAdmin):
 
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):
-    list_display = ['name', 'lat', 'long', 'static_tag','district','reg_location']
+    list_display = ['name', 'landl', 'static_tag', 'dist_name', 'reg_location']
+
+    def landl (self, obj):
+        return str(f'{obj.lat:.5f} & {obj.long:.5f}')
+
+    def dist_name (self, obj):
+        dis = int(obj.district)
+        dis_name = DISTRICTS[dis][1]
+        print (f'{dis = } & {dis_name = }')
+        return str(f'{dis_name}')
 
 @admin.register (Region)
 class RegionAdmin (admin.ModelAdmin):
