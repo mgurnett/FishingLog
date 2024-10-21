@@ -4,9 +4,11 @@ import simplekml
 from .models import *
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
+
 # https://python-gmaps.readthedocs.io/en/latest/gmaps.html#gmaps.directions.Directions.directions
 # Requires API key
 # Tea lakes does not work in google maps either.  I need to be able to deal with this.
+
 def find_dist (lake, user):
     gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
     address_str = f"{user.profile.address}, {user.profile.city}, {user.profile.prov}"
@@ -51,10 +53,12 @@ def make_kml_file (request, *args, **kwargs):
     return response
 
 def kml_help(request):
-    # return FileResponse("How to use the kml file.pdf", as_attachment=True, filename="How to use the kml file.pdf")        
-    response = FileResponse("How to use the kml file.pdf", 
-                            as_attachment=True, 
-                            filename='How to use the kml file.pdf')
+    # return FileResponse("How to use the kml file.pdf", as_attachment=True, filename="How to use the kml file.pdf")    
+   
+    response = FileResponse(open 
+                            ('catches/static/catches/site/How to use the kml file.pdf', 'rb'), 
+                            as_attachment = False 
+                            )
     return response
 
 if __name__ == "__main__":
