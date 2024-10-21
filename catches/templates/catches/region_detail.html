@@ -43,7 +43,8 @@
 									Make KML file
 								</abbr>
 							</a> 
-							<a class="btn btn-primary btn-md mt-1 mb-1" href='{{ MEDIA_URL }}/media/How to use the kml file.pdf' target="_blank" >KML file help </a>
+							{% load static %}
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
 							<!-- This is how you make a download button: https://youtu.be/1x_ACMFzGYM?si=8xMlwoIQ4chCkhHV -->
 						</div>
                         <div class="col-md-4 text-end">

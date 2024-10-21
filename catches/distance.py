@@ -50,9 +50,12 @@ def make_kml_file (request, *args, **kwargs):
     response['Content-Disposition'] = f'attachment; filename="{file_name}"'
     return response
 
-
 def kml_help(request):
-    return FileResponse("media/How to use the kml file.pdf", as_attachment=True, filename="KML help.pdf")
+    # return FileResponse("How to use the kml file.pdf", as_attachment=True, filename="How to use the kml file.pdf")        
+    response = FileResponse("How to use the kml file.pdf", 
+                            as_attachment=True, 
+                            filename='How to use the kml file.pdf')
+    return response
 
 if __name__ == "__main__":
     Lat = 53.6832190000
