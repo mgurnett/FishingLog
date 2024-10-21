@@ -1,8 +1,6 @@
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
-- [ ] Fix the broken and missing KML help files.
 - [ ] add depth and retrieve, line tippet.
-- [ ] Add regulations location field to lake model.
 
 ## Medium
 - [ ] Break insects down to specific ones.
@@ -29,3 +27,5 @@
 ## DONE
 - [*] in flys and bugs add a logs column
 - [*] In the tags list, show how many media, lakes, fish, flys.....
+- [*] Fix the broken and missing KML help files.
+- [*] Add regulations location field to lake model.

@@ -119,7 +119,7 @@ class New_Lake_Form (forms.ModelForm):
     class Meta:
         model = Lake
         fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
-        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url']
+        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location']
 
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
@@ -130,6 +130,7 @@ class New_Lake_Form (forms.ModelForm):
     district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
     static_tag = forms.CharField( max_length = 100, required = False )
     gps_url = forms.CharField( max_length = 100, required = False )
+    reg_location = forms.CharField( max_length = 10, required = False )
     waterbody_id = forms.IntegerField( required = False )
     favourite = forms.BooleanField( required = False )
     
@@ -146,6 +147,7 @@ class New_Lake_Form (forms.ModelForm):
             Row(
                 Column('district',      css_class='form-group col-md-3 mb-0'),
                 Column('static_tag',    css_class='form-group col-md-4 mb-0'),
+                Column('reg_location',  css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
