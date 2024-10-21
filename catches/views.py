@@ -68,7 +68,7 @@ class Home (TemplateView):
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
     model = Region
-    paginate_by = 9
+    paginate_by = 6
 
     def get_context_data(self, *args, **kwargs):
         profile_ob = convert_user_to_profile (self.request.user)  # I have to convert user id into profile.   They are not the same.
@@ -1180,9 +1180,6 @@ class Plan(TemplateView):
 
     def get_context_data(self, **kwargs): 
 
-        favorite_id = favorite_filter_for_lake (self.kwargs['lpk'], self.request.user) 
-        favorite_info = Favorite.objects.get(pk=favorite_id)
-
         context = super(Plan, self).get_context_data(**kwargs)
         # current_week = int(timezone.now().strftime("%W"))
         week_obj = Week.objects.get (id= self.kwargs['wpk'])
@@ -1205,7 +1202,6 @@ class Plan(TemplateView):
         )
         context ['array'] = array_list
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
-        context ['fav'] = favorite_info
         return context
  
 INFO_LIST = [

@@ -11,7 +11,6 @@
 				<b>Fishing plan</b> for: <a href="{% url 'lake_detail' lake.id %}">
                     <b>{{ lake.lake_info | title  }}</b>
                 </a>
-				{% if fav %}<i class="fas fa-check-circle"></i>{% endif %} on 
                 <a href="{% url 'week_list' %}"> <!--  TODO Make this look up to see if it is a good week or send it to all weeks -->
 					Week: <b>{{ week.number }}</b> ({{ week.dates_in_week.start_date }} - {{ week.dates_in_week.end_date }})
                 </a>
