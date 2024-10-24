@@ -51,7 +51,7 @@ def current (response):
         except:
             current['wind_gust'] = 0
     return current
-
+ '''
 def temp_graph (response):
     pofp = []
 
@@ -103,6 +103,20 @@ def temp_graph (response):
     else:
         return ""
     return fig.to_html()
+
+
+  <div class="row">  <!-- Temp graph-->
+    <div class="col">
+      <div class="card border-1 bg-transparent">
+        <div class="card-body">
+          <div class="container">
+            {{ temp_graph | safe }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+'''
 
 def hourly_forcast (response):
     forcast = []
