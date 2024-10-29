@@ -22,24 +22,24 @@ NONE = ["Abraham Lake" ,  "Aster Lake" ,  "Badger Lake" ,  "Blue Lake" ,  "Boehl
         "Wedge Pond"]
 '''
 
-def get_lakes():
-    old = []
-    none = []
-    lakes = Lake.objects.all()
-    for lake in lakes:
-        stocks = Stock.objects.filter(lake=lake)
-        biggest_year = 0
-        for stock in stocks:
-            if stock.date_stocked.year > biggest_year:
-                biggest_year = stock.date_stocked.year
+# def get_lakes():
+#     old = []
+#     none = []
+#     lakes = Lake.objects.all()
+#     for lake in lakes:
+#         stocks = Stock.objects.filter(lake=lake)
+#         biggest_year = 0
+#         for stock in stocks:
+#             if stock.date_stocked.year > biggest_year:
+#                 biggest_year = stock.date_stocked.year
 
-        if biggest_year != 0 and biggest_year != 2024:  #old
-            old.append(lake)
+#         if biggest_year != 0 and biggest_year != 2024:  #old
+#             old.append(lake)
 
-        if biggest_year == 0: #none
-            # print (f""" "{lake.name}" """, end =', ')
-            none.append(lake)
-    return old, none
+#         if biggest_year == 0: #none
+#             # print (f""" "{lake.name}" """, end =', ')
+#             none.append(lake)
+#     return old, none
 
 def check_lakes(name):
     old = ""
@@ -90,27 +90,27 @@ def read_file(file_name):
 
     return list_of_name, all_placemarks
 
-def make_setlist (full_list, old, none):
-    lakes_to_change = []
-    for o in old:
-        if o.name in full_list:
-            # print (f'{o} not stocked in 2024')
-            lake_set = {
-                "lake": o,
-                "name": o.name,
-                "change": "old"
-            }
-            lakes_to_change.append (lake_set)
-    for n in none:
-        if n.name in full_list:
-            # print (f'{n} has not been stocked since 2020')
-            lake_set = {
-                "lake": n,
-                "name": n.name,
-                "change": "none"
-            }
-            lakes_to_change.append (lake_set)
-    return lakes_to_change
+# def make_setlist (full_list, old, none):
+#     lakes_to_change = []
+#     for o in old:
+#         if o.name in full_list:
+#             # print (f'{o} not stocked in 2024')
+#             lake_set = {
+#                 "lake": o,
+#                 "name": o.name,
+#                 "change": "old"
+#             }
+#             lakes_to_change.append (lake_set)
+#     for n in none:
+#         if n.name in full_list:
+#             # print (f'{n} has not been stocked since 2020')
+#             lake_set = {
+#                 "lake": n,
+#                 "name": n.name,
+#                 "change": "none"
+#             }
+#             lakes_to_change.append (lake_set)
+#     return lakes_to_change
     
 
 def run():
