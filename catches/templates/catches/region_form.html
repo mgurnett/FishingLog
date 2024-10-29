@@ -1,6 +1,9 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Regions{% endblock %}
 
+{% block header %}
+    {{ form.media }} # Required for styling/js to make ckeditor5 work
+{% endblock %}
 {% load crispy_forms_tags %}
 
 <h2>Regions</h2>

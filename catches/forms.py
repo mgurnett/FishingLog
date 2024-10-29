@@ -5,6 +5,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Button, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
 # from ckeditor.widgets import CKEditorWidget
+from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import *
 
 class DateInput(DateInput):
@@ -14,6 +15,12 @@ class New_Bug_Form (forms.ModelForm):
     class Meta:
         model = Bug
         fields = '__all__'
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( max_length = 100, required = False ) 
     image = forms.ImageField ( required = True )
@@ -51,6 +58,12 @@ class New_Regions_Form (forms.ModelForm):
         model = Region
         # fields = '__all__'
         fields = ['name', 'notes']
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     name = forms.CharField(required=True)       
     notes = forms.CharField(required=False)
     
@@ -77,6 +90,12 @@ class New_Temp_Form (forms.ModelForm):
     class Meta:
         model = Temp
         fields = ['name', 'notes', 'search_keys']
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
     search_keys = forms.CharField ( required = True )     
@@ -120,10 +139,15 @@ class New_Lake_Form (forms.ModelForm):
         model = Lake
         fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
         'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location']
-
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     name = forms.CharField ( max_length = 100, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )      
-    notes = forms.CharField ( max_length = 100, required = False )      
+    notes = forms.CharField ( required = False )      
     ats = forms.CharField ( max_length = 100, required = False ) 
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
@@ -176,6 +200,12 @@ class New_Hatch_Form (forms.ModelForm):
     class Meta:
         model = Hatch
         fields = '__all__'     
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     notes = forms.CharField ( required = False )  
     static_tag = forms.CharField ( required = False )
     sight_date = forms.DateField(
@@ -290,6 +320,12 @@ class New_Log_Form (forms.ModelForm):
         # fields = '__all__' 
         fields = ['catch_date', 'notes', 'lake', 'location', 
         'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed', 'private']  
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     catch_date = forms.DateField(
         initial=timezone.now,
         widget=DateInput )
@@ -376,6 +412,12 @@ class New_Fly_type_Form (forms.ModelForm):
     class Meta:
         model = Fly_type
         fields = '__all__'
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
     name = forms.CharField ( required = True )       
     notes = forms.CharField ( required = False )
     image = forms.ImageField (required = False )  
@@ -407,8 +449,15 @@ class New_Fish_Form (forms.ModelForm):
     class Meta:
         model = Fish
         fields = '__all__'
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+
     name = forms.CharField ( required = True )       
-    notes = forms.CharField ( required = False )      
+    notes = forms.CharField ( required = False )             
+    # notes = forms.CharField(widget = CKEditor5Widget())
     abbreviation = forms.CharField ( required = False )
     image = forms.ImageField (required = False )
     static_tag = forms.CharField ( required = False )
