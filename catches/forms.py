@@ -132,68 +132,6 @@ class Lake_to_Region_form(forms.ModelForm):
         fields = ['lake']
 
     lake = forms.ModelChoiceField(queryset=Lake.objects.all(), label="Lake to add:")
-
-class New_Lake_Form (forms.ModelForm):
-    
-    class Meta:
-        model = Lake
-        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
-        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location']
-        widgets = {
-            "notes": CKEditor5Widget(
-                attrs={"class": "django_ckeditor_5"}, config_name="notes"
-            )
-        }
-        
-    name = forms.CharField ( max_length = 100, required = True )  
-    other_name = forms.CharField ( max_length = 100, required = False )      
-    notes = forms.CharField ( required = False )      
-    ats = forms.CharField ( max_length = 100, required = False ) 
-    lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
-    long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
-    district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
-    static_tag = forms.CharField( max_length = 100, required = False )
-    gps_url = forms.CharField( max_length = 100, required = False )
-    reg_location = forms.CharField( max_length = 10, required = False )
-    waterbody_id = forms.IntegerField( required = False )
-    favourite = forms.BooleanField( required = False )
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('name',          css_class='form-group col-md-5 mb-0'),
-                Column('other_name',    css_class='form-group col-md-4 mb-0'),
-                Column('favourite',     css_class='form-group col-md-2 mt-4'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('district',      css_class='form-group col-md-3 mb-0'),
-                Column('static_tag',    css_class='form-group col-md-4 mb-0'),
-                Column('reg_location',  css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('ats',           css_class='form-group col-md-2 mb-0'),
-                Column('lat',           css_class='form-group col-md-3 mb-0'),
-                Column('long',          css_class='form-group col-md-3 mb-0'),
-                Column('waterbody_id',  css_class='form-group col-md-2 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('notes',         css_class='form-group col-md-10 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('gps_url',       css_class='form-group col-md-7 mb-0'),
-                Column(Submit('submit', 'Submit', css_class='btn-primary col-md-5 mb-0')),
-                Column(FormActions(
-                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
-                ), 
-                css_class='btn-primary col-md-3 mb-0')
-            ),
-        )
               
 class New_Hatch_Form (forms.ModelForm):
     
@@ -430,7 +368,10 @@ class New_Fly_type_Form (forms.ModelForm):
                 Column('name', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
-            'notes',
+            Row(
+                Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
             Row(
                 Column('image', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
@@ -487,5 +428,67 @@ class New_Fish_Form (forms.ModelForm):
                     HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
                 ),  css_class='btn-primary col-md-3'),
                 css_class='form-row'
+            ),
+        )
+
+class New_Lake_Form (forms.ModelForm):
+    
+    class Meta:
+        model = Lake
+        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
+        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location']
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+        
+    name = forms.CharField ( max_length = 100, required = True )  
+    other_name = forms.CharField ( max_length = 100, required = False )       
+    notes = forms.CharField ( required = False )      
+    ats = forms.CharField ( max_length = 100, required = False ) 
+    lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
+    long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
+    district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
+    static_tag = forms.CharField( max_length = 100, required = False )
+    gps_url = forms.CharField( max_length = 100, required = False )
+    reg_location = forms.CharField( max_length = 10, required = False )
+    waterbody_id = forms.IntegerField( required = False )
+    favourite = forms.BooleanField( required = False )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name',          css_class='form-group col-md-5 mb-0'),
+                Column('other_name',    css_class='form-group col-md-4 mb-0'),
+                Column('favourite',     css_class='form-group col-md-2 mt-4'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('district',      css_class='form-group col-md-3 mb-0'),
+                Column('static_tag',    css_class='form-group col-md-4 mb-0'),
+                Column('reg_location',  css_class='form-group col-md-3 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('ats',           css_class='form-group col-md-2 mb-0'),
+                Column('lat',           css_class='form-group col-md-3 mb-0'),
+                Column('long',          css_class='form-group col-md-3 mb-0'),
+                Column('waterbody_id',  css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes',         css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('gps_url',       css_class='form-group col-md-7 mb-0'),
+                Column(Submit('submit', 'Submit', css_class='btn-primary col-md-5 mb-0')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ), 
+                css_class='btn-primary col-md-3 mb-0')
             ),
         )
