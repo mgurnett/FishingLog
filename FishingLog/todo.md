@@ -1,5 +1,6 @@
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
+- [ ] Get CHedit5 working
 - [ ] add depth and retrieve, line tippet.
 
 ## Medium
@@ -7,7 +8,6 @@
 - [ ] sort out picture and sizes
 - [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
-- [ ] move blog in to catches so that the colouring follows.
 - [ ] make a comment system.
 - [ ] take pictures of fish
 - [ ] Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
@@ -23,6 +23,7 @@
 - [ ] look into ice cream for replacing print for debugging
 - [ ] look at adding coloram for added colours to debugging.
 - [ ] distance - run each lake once from a script and put in the distance into a separate model.  Then I can sort by distance.
+- [ ] move blog in to catches so that the colouring follows.
 
 ## DONE
 - [*] in flys and bugs add a logs column

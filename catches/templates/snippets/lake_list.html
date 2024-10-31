@@ -18,8 +18,7 @@
                                 {% for fav in favs %}
                                     There are {{fav}}
                                 {% endfor %}
-                                This is a the list of favs {{ favs }}
-                                {% if lake %}
+                                {% if Favorite.is_favorite (lake.id,  user.pk) %}
                                     <i class="fas fa-check-circle"></i>
                                 {% endif %}
                             </a>
