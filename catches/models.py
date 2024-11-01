@@ -6,6 +6,7 @@ from django.templatetags.static import static
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 # from ckeditor.fields import models.TextField
+from django_ckeditor_5.fields import CKEditor5Field
 from PIL import Image, ImageOps
 from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
@@ -66,7 +67,7 @@ class Week(models.Model):
               
 class Fish(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     abbreviation = models.CharField (max_length=10, blank=True)    
     static_tag = models.SlugField()
     image = models.ImageField ('Picture of the fish', 
@@ -115,7 +116,7 @@ class Fish(models.Model):
 
 class Bug(models.Model):
     name = models.CharField ('Insect name', max_length=100)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     static_tag = models.SlugField()
     image = models.ImageField ('Picture of the bug', 
         default=None, 
@@ -170,7 +171,7 @@ class Bug(models.Model):
 
 class Lake(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     fish = models.ManyToManyField (Fish, through='Stock', blank=True)
     other_name = models.CharField (max_length=100, blank=True)
     ats = models.CharField (max_length=100, blank=True)
@@ -251,7 +252,7 @@ class Lake(models.Model):
     
 class Region(models.Model):
     name = models.CharField (max_length=100)
-    notes = models.TextField (blank=True)
+    notes = CKEditor5Field (blank=True, null=True)
     # Many-to-Many relationship with lakes (a region can have many lakes, and a lake can belong to many regions)
     lakes = models.ManyToManyField (to='Lake', blank=True)
     profile = models.ForeignKey (Profile, on_delete=models.CASCADE) 
@@ -343,7 +344,7 @@ class Temp(models.Model):
     name = models.CharField(max_length = 100)
     search_keys = models.CharField(max_length = 400, blank=True)
     week = models.ManyToManyField (Week, blank=True)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     deg = models.IntegerField ()
     direction = models.CharField(max_length = 10)
 
@@ -359,7 +360,7 @@ class Temp(models.Model):
 
 class Fly_type(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     image = models.ImageField ('Picture of fly type', 
         default=None, 
         upload_to='fly_type/', 
@@ -392,7 +393,7 @@ class Fly(models.Model):
     name = models.CharField(max_length = 100)
     bug = models.ForeignKey(Bug, blank=True, null= True, on_delete=models.SET_NULL )
     fly_type = models.ForeignKey(Fly_type, blank=True, null= True, on_delete=models.SET_NULL) 
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     size_range = models.CharField ( max_length=100, blank=True)
     author = models.CharField (max_length=100, blank=True)
     static_tag = models.SlugField()
@@ -465,7 +466,7 @@ class Log(models.Model):
     fly = models.ForeignKey(Fly, blank=True, null=True, on_delete=models.SET_NULL)
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     fish_swami = models.IntegerField (blank=True)
     num_landed = models.IntegerField (default=0)
     angler = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -553,7 +554,7 @@ class Hatch(models.Model):
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     static_tag = models.SlugField()
     sight_date = models.DateField(default=timezone.now)
      
@@ -574,7 +575,7 @@ class Hatch(models.Model):
  
 class Video(models.Model):
     name = models.CharField(max_length = 100)
-    notes = models.TextField (blank=True)
+    notes = CKEditor5Field (blank=True, null=True)
     author = models.CharField (max_length = 100, blank=True)
     url = models.URLField(max_length = 200, unique = True)
     date_added = models.DateField(default=timezone.now)
@@ -609,7 +610,7 @@ class Article(models.Model):
     name = models.CharField(max_length = 100)
     author = models.CharField (max_length = 100, blank=True)
     url = models.URLField(max_length = 200, blank=True)
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     file = models.FileField( upload_to='files/', blank=True )
     date_added = models.DateField(default=timezone.now)
     tags = TaggableManager(blank=True)
@@ -642,7 +643,7 @@ class Article(models.Model):
 class Picture(models.Model):
     name = models.CharField(max_length = 100)
     image = models.ImageField( upload_to='pictures/', blank=True )
-    notes = models.TextField (blank=True, null=True)
+    notes = CKEditor5Field (blank=True, null=True)
     date_added = models.DateField(default=timezone.now)
     tags = TaggableManager(blank=True)
     snippet = models.CharField (max_length = 255, blank=True)

@@ -44,12 +44,14 @@ def run():
     # for stength in Strength.objects.filter(week__number = 44):
     #     print (stength.hatch.bug)
 
-    '''bug = Bug.objects.get(name = "Mayflys")
+    '''
+    bug = Bug.objects.get(name = "Mayflys")
     print (bug)    #Mayflys
     bug = Bug.objects.get(name__contains = "Mayfly")
     print (bug)    #Mayflys
     print (bug.id)    #10
-    print (bug.insect.all()) #worked  Found all hatches with Mayflies.'''
+    print (bug.insect.all()) #worked  Found all hatches with Mayflies.
+    '''
 
     # Find the strength of the Mayfly during week 30
     # bug = Bug.objects.get(name__contains = "Mayfly")
@@ -78,9 +80,19 @@ def run():
     #     if log.temp:
     #         print (f'temp { log.temp.name } with a date of { log.catch_date.format("Y-m-d") }')
 
-    week = Week.objects.get (number = 21)
-    logs = Log.objects.filter(week = week.id)
-    for log in logs:
-        if log.fly:
-            print (log.fly.name)
+    # week = Week.objects.get (number = 21)
+    # logs = Log.objects.filter(week = week.id)
+    # for log in logs:
+    #     if log.fly:
+    #         print (log.fly.name)
 
+    lakes = Lake.objects.all()
+    for lake in lakes:
+        stocks = Stock.objects.filter(lake=lake)
+        biggest_year = 0
+        for stock in stocks:
+            if stock.date_stocked.year > biggest_year:
+                biggest_year = stock.date_stocked.year
+        # if biggest_year != 0 and biggest_year != 2024:  #old
+        if biggest_year == 0: #none
+            print (f""" "{lake.name}" """, end =', ')

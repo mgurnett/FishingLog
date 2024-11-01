@@ -51,8 +51,7 @@ def current (response):
         except:
             current['wind_gust'] = 0
     return current
-
-'''
+ '''
 def temp_graph (response):
     pofp = []
 

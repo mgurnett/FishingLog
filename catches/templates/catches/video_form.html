@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+{{ form.media }}
     <form method="post" novalidate>
       {% for hidden_field in form.hidden_fields %}
           {{ hidden_field.error }}
@@ -34,8 +35,9 @@
           <div class="col-1"> </div>
         <div class="row">
           <div class="col-1"> </div>
-          <div class="col-10">
-            {{ form.notes|as_crispy_field }}
+          <div class="col-10 text-truncate">
+            <p class="text-center">
+              {{ form.notes|as_crispy_field }}</p>
           </div>
           <div class="col-1"> </div>
         </div>
