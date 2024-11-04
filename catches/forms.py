@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateInput
 #https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#topics-forms-modelforms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Button, Row, Column, HTML
+from crispy_forms.layout import Layout, Fieldset, Submit, Button, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
 # from ckeditor.widgets import CKEditorWidget
 from django_ckeditor_5.widgets import CKEditor5Widget
@@ -53,38 +53,41 @@ class New_Bug_Form (forms.ModelForm):
             ),
         )
 
-class New_Regions_Form (forms.ModelForm): 
-    class Meta:
-        model = Region
-        # fields = '__all__'
-        fields = ['name', 'notes']
-        widgets = {
-            "notes": CKEditor5Widget(
-                attrs={"class": "django_ckeditor_5"}, config_name="notes"
-            )
-        }
+# class New_Regions_Form (forms.ModelForm): 
+#     class Meta:
+#         model = Region
+#         fields = '__all__'
+#         # fields = ['name', 'notes']
+#         widgets = {
+#             "notes": CKEditor5Widget(
+#                 attrs={"class": "django_ckeditor_5"}, config_name="notes"
+#             )
+#         }
         
-    name = forms.CharField(required=True)       
-    notes = forms.CharField(required=False)
+#     name = forms.CharField(required=True)       
+#     notes = forms.CharField(required=False)
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            'notes',
-            Row(
-                Column(css_class='form-group col-md-7 text-end'),
-                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
-                Column(FormActions(
-                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
-                ),  css_class='btn-primary col-md-3'),
-                css_class='form-row'
-            ),
-        )
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.helper = FormHelper()
+#         self.helper.layout = Layout(
+#             Row(
+#                 Column('name', css_class='form-group col-md-4 mb-0'),
+#                 css_class='form-row'
+#             ),
+#             Row(
+#                 Column('notes', css_class='form-group col-md-12 mb-0'),
+#                 css_class='form-row'
+#             ),
+#             Row(
+#                 Column(css_class='form-group col-md-7 text-end'),
+#                 Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+#                 Column(FormActions(
+#                     HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+#                 ),  css_class='btn-primary col-md-3'),
+#                 css_class='form-row'
+#             ),
+#         )
 
 class New_Temp_Form (forms.ModelForm): 
     class Meta:
@@ -492,3 +495,34 @@ class New_Lake_Form (forms.ModelForm):
                 css_class='btn-primary col-md-3 mb-0')
             ),
         )
+
+
+# class New_Regions_Form (forms.Form):
+
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.helper = FormHelper()
+#         self.helper.layout = Layout(
+#             Fieldset(
+#                 'first arg is the legend of the fieldset',
+#                 'name',
+#                 'notes'
+#             ),
+#             Submit('submit', 'Submit', css_class='button white'),
+#         )
+
+class New_Regions_For (forms.ModelForm):
+      """Form for comments to the article."""
+
+      def __init__(self, *args, **kwargs):
+          super().__init__(*args, **kwargs)
+          self.fields["notes"].required = False
+
+      class Meta:
+          model = Region
+          fields = ("name", "notes")
+          widgets = {
+              "notes": CKEditor5Widget(
+                  attrs={"class": "django_ckeditor_5"}, config_name="region"
+              )
+          }

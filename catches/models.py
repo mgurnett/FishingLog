@@ -257,7 +257,7 @@ class Region(models.Model):
     lakes = models.ManyToManyField (to='Lake', blank=True)
     profile = models.ForeignKey (Profile, on_delete=models.CASCADE) 
     
-    class Meta: 
+    class Meta:  
         ordering = ['name']
 
     def __str__ (self):
