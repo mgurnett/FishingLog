@@ -49,7 +49,7 @@ class TempAdmin (admin.ModelAdmin):
 
 @admin.register (Log)
 class LogAdmin (admin.ModelAdmin):
-    list_display = ['catch_date', 'lake', 'fish', 'temp', 'week']
+    list_display = ['catch_date', 'lake', 'fish', 'temp', 'week', 'angler']
 
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):

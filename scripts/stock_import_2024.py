@@ -126,4 +126,10 @@ def run():
             print (f'Line count: {line_count} of {numline} or {percent}% | {total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked', end="\r")
         print (f'{total_trout_stocked:,} trout stocked and {total_non_trout_stocked:,} non-trout stocked for a total of {total_fish_stocked:,}')
 
-        #https://www.ilovepdf.com/pdf_to_excel
+        '''
+        https://www.ilovepdf.com/pdf_to_excel
+        Set stock number to have no comma
+        Set date to dd-mm-yyyy
+        Remove the top row - blank
+        python3 manage.py runscript stock_import_2024
+        '''

@@ -456,7 +456,7 @@ class Fly(models.Model):
 class Log(models.Model):  
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE) 
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
-    temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
+    temp = models.ForeignKey(Temp, default = 1, on_delete=models.SET_DEFAULT)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
     record_date = models.DateField(default=timezone.now) # another option is (auto_now_add = True)
