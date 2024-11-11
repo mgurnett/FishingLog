@@ -45,6 +45,7 @@ else:
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     'jazzmin',
+    'django_admin_logs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -309,3 +310,8 @@ CKEDITOR_5_CONFIGS = {
 
 # Define a constant in settings.py to specify file upload permissions
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"  # Possible values: "staff", "authenticated", "any"
+
+# Django Admin Logs 
+DJANGO_ADMIN_LOGS_DELETABLE = True
+DJANGO_ADMIN_LOGS_ENABLED = False
+DJANGO_ADMIN_LOGS_IGNORE_UNCHANGED = True

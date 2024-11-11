@@ -31,6 +31,7 @@ from catches.forms import *
 from .weather_stuff import *
 from .Open_Weather import *
 from .distance import *
+from .ai_plan import *
 from .queries import *
 
 class UserAccessMixin (PermissionRequiredMixin):
@@ -1208,6 +1209,16 @@ class Plan(TemplateView):
         )
         context ['array'] = array_list
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
+        return context
+
+class Plan_ai(TemplateView):
+    model = Lake
+    template_name = 'catches/plan_ai.html'
+    context_object_name = 'lake'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Plan_ai, self).get_context_data(**kwargs)
+        context ['ai_plan'] = get_ai_plan (self.kwargs['tpk'], self.kwargs['wpk'])
         return context
  
 INFO_LIST = [

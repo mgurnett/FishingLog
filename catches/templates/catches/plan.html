@@ -19,7 +19,7 @@
 	</div>
 	<hr>
 	<div class="row"> <!-- Temperature Row-->
-		<div class="col-md-12 text-start">
+		<div class="col-md-8 text-start">
 			{% if hl.low %} Lowest recorded temperature <b>{{ hl.low }}&deg;C</b>{% endif %}  - 
 			{% if hl.high %} Highest recorded temperature <b>{{ hl.high }}&deg;C</b>{% endif %} - 
 			{% if ave_data.ave_temp %}
@@ -28,6 +28,11 @@
 						Number of records: <b>{{ ave_data.n }}</b> 
 				</a>
 			{% endif %}
+		</div>
+		<div class="col-md-8 text-end">
+			<a href="{% url 'plan_ai' temp.id week.id %}">
+					Create an AI plan
+			</a>
 		</div>
 	</div>
 	{% if ave_temp %}

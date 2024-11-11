@@ -1,0 +1,15 @@
+{% extends "catches/base/base.html" %}
+{% block title %}AI-Plan for: {{ lake.name | title  }}{% endblock %}
+<!-- This is the AI plan page. -->
+{% load tz %}
+{% block content %}
+ 
+<div class="container">
+	<div class="row"> <!-- Title Row-->
+		<div class="col-md-12 text-center">
+            {{ ai_plan }}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
