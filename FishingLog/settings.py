@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY')
 # APIs
 GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
 OW_API_KEY = env('OW_api_key')
-GEMINI_KEY = env('Gemini_key')
+GEMINI_KEY = env('GEMINI_KEY')
 CSRF_TRUSTED_ORIGINS = ['https://*.stillwaterflyfishing.com']
 
 if not DEBUG:

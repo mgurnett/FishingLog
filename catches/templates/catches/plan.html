@@ -30,7 +30,14 @@
 			{% endif %}
 		</div>
 		<div class="col-md-2 text-end">
-			<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'plan_ai' ave_data.ave_temp.deg week.dates_in_week.start_date %}" type="submit" >AI plan</a>
+			{% if ave_data.ave_temp %}  <!-- This prevents the AI button if there is no average temp-->
+				<a class="btn btn-primary btn-md mt-1 mb-1" 
+					href="{% url 'plan_ai' ave_data.ave_temp.deg week.dates_in_week.start_date %}" 
+					type="submit" >
+					AI plan
+				</a>
+			{% endif %}
+            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
 		</div>
 	</div>
 	{% if ave_temp %}
