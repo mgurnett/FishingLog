@@ -14,7 +14,6 @@
 						<div class="col-md-7 text-center"> 
 							<h2>
 								{{ lake.lake_info | title }}{% if fav %} <i class="fas fa-check-circle"></i>{% endif %}
-								{{ Favorite.is_favorite  }}
 							</h2>
 						</div>
                         <div class="col-md-5 text-end">
@@ -97,7 +96,7 @@
 								</abbr>
 							</a>
 						</div>	
-                        <div class="col-md-5 text-center">
+                        <div class="col-md-4 text-center">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='lake' pk=lake.id tag=lake.static_tag %}">New article</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='lake' pk=lake.id tag=lake.static_tag %}">New picture</a>
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='lake' pk=lake.id tag=lake.static_tag %}">New video</a>
@@ -105,7 +104,7 @@
                         <div class="col-md-1 text-end">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'favorite_list'  %}">Favorites</a>
 						</div>
-                        <div class="col-md-2 text-muted text-end mt-2 ">
+                        <div class="col-md-3 text-muted text-end mt-2 ">
 							{% if fav %}
 								Date added: {{ fav.date_added}}
 							{% endif %}
