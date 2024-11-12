@@ -23,5 +23,5 @@ def ai_plan (temp, date, wind = "lite", direction = "north", sky = "partly cloud
             }
         ]
     )
-    print (response.choices[0].message.content)
+    # print (response.choices[0].message.content)
     return (response.choices[0].message.content)

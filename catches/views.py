@@ -13,6 +13,7 @@ from django.template.defaultfilters import slugify
 from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
+import markdown
 
 from catches.num_array import get_array
 
@@ -1217,8 +1218,10 @@ class Plan_ai(TemplateView):
     context_object_name = 'lake'
 
     def get_context_data(self, **kwargs): 
+        ai_answer = ai_plan (self.kwargs['temp'], self.kwargs['date'])
+        html = markdown.markdown(ai_answer)
         context = super(Plan_ai, self).get_context_data(**kwargs)
-        context ['ai_plan'] = ai_plan (self.kwargs['temp'], self.kwargs['date'])
+        context ['ai_plan'] = html
         return context
  
 INFO_LIST = [
