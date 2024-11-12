@@ -31,6 +31,7 @@ from catches.forms import *
 from .weather_stuff import *
 from .Open_Weather import *
 from .distance import *
+from .ai_plan import *
 from .queries import *
 
 class UserAccessMixin (PermissionRequiredMixin):
@@ -114,7 +115,9 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
 class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_region'
     model = Region
-    form_class = New_Regions_Form
+    # form_class = New_Regions_Form
+    fields = ['name', 'notes']
+    # fields = '__all__'
     success_message = "New region saved"
 
     def form_valid(self, form):
@@ -125,7 +128,9 @@ class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView)
 class RegionUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_region'
     model = Region
-    form_class = New_Regions_Form
+    # form_class = New_Regions_Form
+    fields = ['name', 'notes']
+    # fields = '__all__'
     success_message = "Region fixed"
 
     def form_valid(self, form):
@@ -322,7 +327,8 @@ class BugDetailView (PermissionRequiredMixin,  DetailView):
 class BugCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_bug'
     model = Bug
-    form_class = New_Bug_Form
+    fields = '__all__' 
+    # form_class = New_Bug_Form
     success_url = reverse_lazy ('bug_list')
     success_message = "New Bug saved" 
 
@@ -334,7 +340,8 @@ class BugCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
 class BugUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_bug'
     model = Bug
-    form_class = New_Bug_Form
+    fields = '__all__' 
+    # form_class = New_Bug_Form
     success_url = reverse_lazy ('bug_list')
     success_message = "Bug fixed"
 
@@ -1202,6 +1209,16 @@ class Plan(TemplateView):
         )
         context ['array'] = array_list
         context ['ave_data'] = get_average_temp_for_week (week_obj.number)
+        return context
+
+class Plan_ai(TemplateView):
+    model = Lake
+    template_name = 'catches/plan_ai.html'
+    context_object_name = 'lake'
+
+    def get_context_data(self, **kwargs): 
+        context = super(Plan_ai, self).get_context_data(**kwargs)
+        context ['ai_plan'] = ai_plan (self.kwargs['temp'], self.kwargs['date'])
         return context
  
 INFO_LIST = [
