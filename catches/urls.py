@@ -120,7 +120,7 @@ urlpatterns = [
     path ('search/', views.searchview, name = 'search_list'),
 
     path ('plan/<int:lpk>/<int:wpk>/', views.Plan.as_view(), name ="plan" ),
-    path ('plan_ai/<int:tpk>/<int:wpk>/', views.Plan_ai.as_view(), name ="plan_ai" ),
+    path ('plan_ai/<int:temp>/<str:date>/', views.Plan_ai.as_view(), name ="plan_ai" ),
     # path ('kml/<int:pk>/', make_kml_file, name ='make_kml' ),
     re_path(r'^kml/(?P<pk>[0-9]+)/(?P<model>[D,R]+)/$', make_kml_file, name ='make_kml' ),
     path ('kml_help/', kml_help, name ="kml_help" ),

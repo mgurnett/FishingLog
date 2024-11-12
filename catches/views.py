@@ -1218,7 +1218,7 @@ class Plan_ai(TemplateView):
 
     def get_context_data(self, **kwargs): 
         context = super(Plan_ai, self).get_context_data(**kwargs)
-        context ['ai_plan'] = get_ai_plan (self.kwargs['tpk'], self.kwargs['wpk'])
+        context ['ai_plan'] = ai_plan (self.kwargs['temp'], self.kwargs['date'])
         return context
  
 INFO_LIST = [

@@ -7,9 +7,20 @@
 <div class="container">
 	<div class="row"> <!-- Title Row-->
 		<div class="col-md-12 text-center">
-            {{ ai_plan }}
+            {{ ai_plan | safe}}
+		</div>
+	</div>
+	<div class="row"> <!-- Title Row-->
+		<div class="col-md-12 text-center">
+            <div id="content"><textarea>{{ ai_plan }}</textarea></div>
+		</div>
+	</div>
+	<div class="row"> <!-- back button-->
+		<div class="col-md-12 text-end">
+            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
 		</div>
 	</div>
 </div>
 
 {% endblock content %}
+
