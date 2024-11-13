@@ -17,10 +17,13 @@ from .fish_data import *
 from users.models import Profile
 from blog.models import Post
 
+DEGREE_C = str(u"\u00b0" + "C")
+
 class Week(models.Model):
     number = models.IntegerField()
     prev_num = models.IntegerField()
     next_num = models.IntegerField()
+    ave_temp = models.IntegerField()
 
     class Meta:
         ordering = ['number']
@@ -35,6 +38,10 @@ class Week(models.Model):
     @property 
     def hatch_count (self):
         return self.hatch_set.count
+
+    @property 
+    def avereage_temp (self):
+        return str(self.ave_temp) + DEGREE_C
     
     @property 
     def dates_in_week(self):

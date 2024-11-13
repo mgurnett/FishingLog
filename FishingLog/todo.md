@@ -21,6 +21,7 @@
 - [ ] figure out how to modify it.
 - [ ] add button to request contribute
 - [ ] WEEKS - Figure out a better way to pars them than over and over.
+- [ ] Graphs - look into a graph menu so all graphs can be on one screen. https://plotly.com/python/dropdowns/#update-dropdown
 
 ## Low
 - [ ] Make a carousel for the pictures.

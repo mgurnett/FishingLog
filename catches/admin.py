@@ -10,7 +10,7 @@ admin.site.register (Bug)
 # admin.site.register (Log)
 admin.site.register (Hatch)
 admin.site.register (Chart)
-admin.site.register (Week)
+# admin.site.register (Week)
 admin.site.register (Fly_type)
 
 
@@ -75,3 +75,8 @@ class FavoriteAdmin (admin.ModelAdmin):
 @admin.register (Announcment)
 class AnnouncmentAdmin (admin.ModelAdmin):
     list_display = ['notes', 'lake_id']
+
+
+@admin.register (Week)
+class WeekAdmin (admin.ModelAdmin):
+    list_display = ['number', 'ave_temp']

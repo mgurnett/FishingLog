@@ -7,7 +7,7 @@
                 <div class="col-4">
                     <h3>Fishing logs - by week</h3>
                 </div> 
-                <div class="col-5">
+                <div class="col-4">
                     <form class="form-inline my-2 my-lg-0 ml-md-auto" action="{% url 'log_search_list' %}" method="get">
                         {% csrf_token %}
                         <input class="form-control me-2" name="q" type="search" placeholder="Water Temp search">
@@ -16,7 +16,12 @@
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div> 
                     </form>
-                <div class="col-1"></div> 
+                <div class="col-md-2 text-end">
+                    <p>
+                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_graph' %}">Averages</a>
+                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                    </p>
+                </div>
             </div>
             <div class = "row">
                 {% for week in weeks %}
@@ -35,10 +40,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6 text-start">
-                                        log count: {{ week.log_count }}
+                                        log count: <b>{{ week.log_count }}</b>
                                     </div>
-                                    <div class="col-md-6 text-end">
-                                        hatch count: {{ week.hatch_count }}
+                                    <div class="col-md-6 text-center">
+                                        Average Temp
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-start">
+                                        hatch count: <b>{{ week.hatch_count }}</b>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <b>{{ week.avereage_temp }}</b>
                                     </div>
                                 </div>
                             </div>

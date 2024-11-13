@@ -66,7 +66,8 @@ urlpatterns = [
     path ('hatch/delete/<int:pk>/', HatchDeleteView.as_view(), name = 'hatch_delete'),    
     
     path ('week/', WeekListView.as_view(), name = 'week_list'), 
-    path ('week/<int:pk>/', WeekDetailView.as_view(), name = 'week_detail'),    
+    path ('week/<int:pk>/', WeekDetailView.as_view(), name = 'week_detail'),   
+    path ('week/graph/', views.Graph_weeks.as_view(), name ="week_graph" ), 
     
     path ('log/', LogListView.as_view(), name = 'log_list'), 
     path ('log/<int:pk>/', LogDetailView.as_view(), name = 'log_detail'), 

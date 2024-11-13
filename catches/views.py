@@ -1049,21 +1049,36 @@ class Graph (TemplateView):   # this is for all temps at all lakes
         # df['date'] = pd.to_datetime(df['date'])
         # df = df.set_index('date') 
         
-        df = df.sort_values(by='temp_id')
+        # df = df.sort_values(by='temp_id')
         # df = df.groupby(pd.Grouper(key='Date', axis=0, freq='YS', sort=True)).sum()  
         # df = df.groupby(df.Date.dt.year)
-        # df.to_csv('graph_data.csv')
+        # df.to_csv('graph_data.csv')        
+        
+        all_weeks = Week.objects.all()
+        week_ave_temp_list = []
+        for week in all_weeks:
+            week_data = {
+                'Week': int(week.number), 
+                'Temperature': int(week.ave_temp), 
+            }
+            week_ave_temp_list.append (week_data)
+        
+        # print (week_ave_temp_list)
+        df_week = pd.DataFrame.from_dict( week_ave_temp_list )
+        df_week.columns = [ 'Week', 'Temperature' ]
 
-        # fig = px.scatter(df, 
-        #     x='Week',
-        #     y='Temperature',
-        #     trendline="rolling",  
-        #     trendline_options=dict(window=10),
-        #     height = 750,
-        #     text='Date',
-        #     color="year",
-        #     )            
+        # fig.add_trace(all_weeks)
+           
+        # fig.add_scatter (
         fig = px.scatter(
+        #     df_week, 
+        #     x="Week", 
+        #     y="Temperature", 
+        #     height = 750,
+        # )
+        # # fig.update_traces(marker=dict(color="black"))
+
+        # fig.add_scatter(
             df, 
             x="Week", 
             y="Temperature", 
@@ -1117,6 +1132,36 @@ class Graph_lake (TemplateView):   # this is for all temps at one lakes
             return context
 
 
+class Graph_weeks (TemplateView):   # this is for all temps at all lakes
+    template_name = 'catches/graph.html'
+    context_object_name = 'graph'
+
+    def get_context_data(self, **kwargs):
+        context = super(Graph_weeks, self).get_context_data(**kwargs)
+
+        all_weeks = Week.objects.all()
+        week_ave_temp_list = []
+        for week in all_weeks:
+            week_data = {
+                'Week': int(week.number), 
+                'Temperature': int(week.ave_temp), 
+            }
+            week_ave_temp_list.append (week_data)
+        
+        # print (week_ave_temp_list)
+        df_week = pd.DataFrame.from_dict( week_ave_temp_list )
+        df_week.columns = [ 'Week', 'Temperature' ]
+
+        fig = px.line(
+            df_week, 
+            x="Week", 
+            y="Temperature", 
+            height = 750,
+        )
+        fig.update_traces(marker=dict(color="black"))
+
+        context = {'graph': fig.to_html()}
+        return context
 
 
 class ChartGraph(TemplateView):
