@@ -435,12 +435,16 @@ class New_Fish_Form (forms.ModelForm):
             ),
         )
 
+
 class New_Lake_Form (forms.ModelForm):
     
     class Meta:
         model = Lake
-        fields = ['name', 'other_name', 'notes', 'ats', 'lat', 'long', 
-        'district', 'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location']
+        fields = [
+            'name', 'other_name', 'ats', 'lat', 'long', 'district', 
+            'waterbody_id', 'favourite', 'static_tag', 'gps_url', 'reg_location', 'notes'
+        ]
+        
         widgets = {
             "notes": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name="notes"
@@ -448,8 +452,8 @@ class New_Lake_Form (forms.ModelForm):
         }
         
     name = forms.CharField ( max_length = 100, required = True )  
-    other_name = forms.CharField ( max_length = 100, required = False )       
-    notes = forms.CharField ( required = False )      
+    other_name = forms.CharField ( max_length = 100, required = False )   
+    notes = forms.CharField ( required = False )       
     ats = forms.CharField ( max_length = 100, required = False ) 
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
@@ -484,7 +488,7 @@ class New_Lake_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('notes',         css_class='form-group col-md-12 mb-0'),
+                Column('notes',         css_class='form-group col-md-10 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -524,6 +528,6 @@ class New_Regions_For (forms.ModelForm):
           fields = ("name", "notes")
           widgets = {
               "notes": CKEditor5Widget(
-                  attrs={"class": "django_ckeditor_5"}, config_name="region"
+                  attrs={"class": "django_ckeditor_5"}, config_name="notes"
               )
           }
