@@ -24,6 +24,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic import (
     ListView,
     DetailView,
+)
+from django.views.generic.edit import (
     CreateView,
     UpdateView,
     DeleteView,
@@ -552,7 +554,13 @@ class LakeDetailView (FormMixin, DetailView):
 class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_lake'
     model = Lake
-    form_class = New_Lake_Form
+    # fields = '__all__'
+    fields = [
+        'name', 'other_name', 'district', 'static_tag', 'reg_location', 
+        'ats', 'lat', 'long', 'waterbody_id', 'notes', 'gps_url'
+    ]
+    
+    # form_class = New_Lake_Form
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
 
