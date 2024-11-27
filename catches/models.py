@@ -13,7 +13,7 @@ from taggit.managers import TaggableManager
 # from django.utils.text import slugify
 import pandas as pd 
 from django.contrib.auth.models import User 
-from .fish_data import *
+from helpers.fish_data import *
 from users.models import Profile
 from blog.models import Post
 

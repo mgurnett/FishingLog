@@ -1,7 +1,7 @@
 # importing googlemaps module
 import googlemaps
 import simplekml
-from .models import *
+from catches.models import *
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
 

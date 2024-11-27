@@ -1,5 +1,5 @@
 from openai import OpenAI
-from .models import *
+from catches.models import *
 from django.conf import settings
 
 def ai_plan (temp, date, wind = "lite", direction = "north", sky = "partly cloudy" ):

@@ -1,4 +1,4 @@
-from .models import *
+from ..models import *
 from django.db.models import Q
 
 def convert_user_to_profile (user):

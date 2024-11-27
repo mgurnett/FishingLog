@@ -7,6 +7,7 @@ from crispy_forms.bootstrap import FormActions
 # from ckeditor.widgets import CKEditorWidget
 from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import *
+from helpers.fish_data import *
 
 class DateInput(DateInput):
     input_type = 'date'

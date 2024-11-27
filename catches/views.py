@@ -15,8 +15,6 @@ import pandas as pd
 import plotly.express as px
 import markdown
 
-from catches.num_array import get_array
-
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
@@ -31,11 +29,12 @@ from django.views.generic.edit import (
     DeleteView,
 )
 from catches.forms import *
-from .weather_stuff import *
-from .Open_Weather import *
-from .distance import *
-from .ai_plan import *
-from .queries import *
+from .helpers.weather_stuff import *
+from .helpers.Open_Weather import *
+from .helpers.distance import *
+from .helpers.ai_plan import *
+from .helpers.queries import *
+from .helpers.num_array import get_array
 
 class UserAccessMixin (PermissionRequiredMixin):
     def dispatch (self, request, *args, **kwargs):
