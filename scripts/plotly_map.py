@@ -63,36 +63,3 @@ def run():
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     fig.update_layout(showlegend=True)
     fig.show()
-
-'''
-    import dash
-    import dash_core_components as dcc
-    import dash_html_components as html
-    from dash.dependencies import Input, Output
-    import plotly.express as px
-    
-    # assume you have a dataframe with a column 'url' containing the URLs
-    
-    fig = px.scatter(df, x='x', y='y', hover_name='name')
-    
-    app = dash.Dash(__name__)
-    
-    app.layout = html.Div([
-        dcc.Graph(id='graph', figure=fig),
-        html.Div(id='click-data')
-    ])
-    
-    @app.callback(
-        Output('click-data', 'children'),
-        [Input('graph', 'clickData')]
-    )
-    def display_click_data(click_data):
-        if click_data:
-            url = df.loc[click_data['points'][0]['pointIndex'], 'url']
-            return html.A('Click to visit', href=url, target='_blank')
-        return ''
-    
-    if __name__ == '__main__':
-        app.run_server()
-
-'''
