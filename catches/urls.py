@@ -1,7 +1,7 @@
 from django.urls import path,re_path
 from . import views
 from .views import *
-from helpers.fish_data import *
+from catches.helpers.fish_data import *
         
 urlpatterns = [
     path ('', views.Home.as_view(), name = 'catch_home'),

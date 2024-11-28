@@ -563,6 +563,12 @@ class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
 
+    def lake_form_view(request):
+        print("View function called")
+        form = New_Lake_Form()
+        print(form)  # Add this line
+        return render(request, 'catches/lake_form.html', {'form': form})
+    
     def form_valid(self, form):
         if not form.instance.static_tag:
             form.instance.static_tag = slugify(form.instance.name)

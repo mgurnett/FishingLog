@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-from helpers.fish_data import *
+from catches.helpers.fish_data import *
 
 # admin.site.register (Lake)
 # admin.site.register (Stock)
