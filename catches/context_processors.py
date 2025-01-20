@@ -4,4 +4,7 @@ from datetime import date
 def week_context(request):
     today = date.today()
     weekID = int(today.strftime("%U")) - 12
-    return {'weekID': weekID}
+    if weekID > 13 and weekID <49:
+        return {'weekID': weekID}
+    else:
+        return {'weekID': 0}

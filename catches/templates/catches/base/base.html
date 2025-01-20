@@ -45,9 +45,13 @@
             </div>
             <div class="col-md-1 pt-3">  <!-- message WEEK link -->
                 <p class="text-center ">
-                    <a href="{% url 'week_detail' weekID %}"> 
-                        <b>{% timezone "America/Edmonton" %} Week:{% now "W" %} {% endtimezone %}</b>
-                    </a>
+                    {% if weekID != 0 %}  <!-- see contexct_processor  -->
+                        <a href="{% url 'week_detail' weekID %}"> 
+                            <b>{% timezone "America/Edmonton" %} Week: {% now "W" %} {% endtimezone %}</b>
+                        </a>
+                    {% else %}
+                        <b>{% timezone "America/Edmonton" %} Week: {% now "W" %} {% endtimezone %}</b>
+                    {% endif %}
                 </p>
             </div>
             <div class="col-md-2 pt-3"></div>
