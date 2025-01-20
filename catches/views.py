@@ -14,6 +14,7 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import markdown
+from .context_processors import *
 
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
@@ -499,7 +500,7 @@ class LakeDetailView (FormMixin, DetailView):
         stock_list = Stock.objects.filter (lake=self.kwargs['pk'])
         subtotals = stock_with_subtotals (stock_list)
 
-        week_now = int(timezone.now().strftime("%W"))
+        week_current = int(timezone.now().strftime("%W"))
         
         if self.request.user.is_authenticated:
             distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
@@ -531,7 +532,10 @@ class LakeDetailView (FormMixin, DetailView):
         context ['pictures_list'] = Picture.objects.filter (tags__name__contains=data)
         context ['pictures_list_bath'] = Picture.objects.filter (tags__name__contains=data) & Picture.objects.filter (tags__name__contains='bathymetric')
         context ['form'] = Plan_form()
-        context ['ave_data'] = get_average_temp_for_week (week_now)
+        if week_current >13 and week_current < 49:
+            context ['ave_data'] = get_average_temp_for_week (week_current)
+        else:
+            context ['ave_data'] = None
         # if current_weather != "":
         #     context ['current'] = current_weather  #<class 'dict'>
         #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
