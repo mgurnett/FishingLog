@@ -28,6 +28,8 @@ STRAIN_lookup = [
     ('Riverence', "RD"),
     ('Marie Creek', 'MC'),
     ('Rock Island', 'RI'),
+    ('Ethel Lake', 'EL'),
+    ('Graham Lake', 'GL'),
  ]
 STRAIN = (
     ("BEBE", "Beitty x Beitty"),
@@ -44,6 +46,8 @@ STRAIN = (
     ("RD", 'Riverence'),
     ("MC", 'Marie Creek'),
     ("RI", 'Rock Island'),
+    ('EL', 'Ethel Lake'),
+    ('GL', 'Graham Lake'),
 )
 FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
 
