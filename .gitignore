@@ -42,6 +42,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+fly_env
 
 # mkdocs documentation
 /site

@@ -67,4 +67,3 @@ if __name__ == "__main__":
     distance = find_dist (Lat, Lon)
     # Printing the result
     print(distance['rows'][0]['elements'][0]['distance']['text'])
-    print(distance['rows'][0]['elements'][0]['duration']['text'])

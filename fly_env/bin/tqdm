@@ -1,4 +1,4 @@
-#!/home/nginx/FishingLog/fly_env/bin/python3
+#!/home/michael/Desktop/FishingLog/fly_env/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
