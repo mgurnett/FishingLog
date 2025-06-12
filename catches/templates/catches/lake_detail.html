@@ -75,7 +75,9 @@
 									{% if distance.distance_text == 'Distance not available' %}
 										<b>Distance not available</b>
 									{% else %}
+										{% comment "This section is temporarily disabled" %}
 										<b>{{ distance.distance_text }} or {{ distance.time_text }}</b>
+										{% endcomment %}
 									{% endif %}
 								{% else %}
 									Login to see distance
