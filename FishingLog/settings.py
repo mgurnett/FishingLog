@@ -30,15 +30,24 @@ if not DEBUG:
     # PRODUCTION
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+    # Keep SECURE_SSL_REDIRECT = False for now, as Cloudflare handles redirection externally.
+    # If you want Django to enforce it internally *after* Cloudflare, you can set it True later.
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    SECURE_HSTS_SECONDS = 86400 
-    SECURE_HSTS_PRELOAD = True 
+    SECURE_HSTS_SECONDS = 86400
+    SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    ALLOWED_HOSTS = ['www.stillwaterflyfishing.com']
+
+    # Ensure all production hostnames (including the wildcard for subdomains) are listed.
+    # The IP address is only needed if you are directly accessing by IP,
+    # which Cloudflare Tunnels generally bypass. For tunnel usage, you only need the domain names.
+    ALLOWED_HOSTS = ['www.stillwaterflyfishing.com', 'stillwaterflyfishing.com', '*.stillwaterflyfishing.com']
+
+    # You can remove '174.3.100.79' from ALLOWED_HOSTS if you are ONLY using Cloudflare Tunnels.
+    # If you still want direct IP access for debugging, keep it.
 else:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['*'] # This is fine for development
     print (f"Operating in: DEBUG mode - using: {env('DB_NAME')} / MariaDB at {env('DB_HOST')}:{env('DB_PORT')} located at {BASE_DIR}")
 
 # Application definition
@@ -63,22 +72,37 @@ INSTALLED_APPS = [
     # 'ckeditor',    
     'django_ckeditor_5',
     'easyaudit',
-    'blacklist',
+#    'blacklist',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # Keep only one AuthenticationMiddleware
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.common.CommonMiddleware', # CommonMiddleware should process proxy headers
     'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'blacklist.middleware.BlacklistMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    # Move BlacklistMiddleware AFTER CommonMiddleware
+#    'blacklist.middleware.BlacklistMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # Remove the duplicate AuthenticationMiddleware if it was here
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# These are needed for Django to correctly determine the original client IP and if the request was secure.
+X_FORWARDED_FOR_HEADERS = [
+    'HTTP_X_REAL_IP',
+    'HTTP_X_FORWARDED_FOR',
+]
+# SECURE_PROXY_SSL_HEADER is already defined in your 'if not DEBUG' block, which is correct.
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Ensure this is here for the blacklist app
+BLACKLIST_ADDRESS_SOURCE = 'HTTP_X_REAL_IP'
+
 
 ROOT_URLCONF = 'FishingLog.urls'
 

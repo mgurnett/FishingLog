@@ -500,10 +500,11 @@ class LakeDetailView (FormMixin, DetailView):
         stock_list = Stock.objects.filter (lake=self.kwargs['pk'])
         subtotals = stock_with_subtotals (stock_list)
 
-        week_current = int(timezone.now().strftime("%W"))
+        week_current = int(timezone.now().strftime("%W")) 
         
         if self.request.user.is_authenticated:
-            distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
+            # distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
+            distance_to_lake = None  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)    
             favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user) 
         else:
