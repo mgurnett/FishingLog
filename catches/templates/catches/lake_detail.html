@@ -68,7 +68,7 @@
 						</div>
 						<div class="col-md-4">
 							<p>
-								<abbr title = "Distance from address recorded in your profile according to Google Maps.">
+								{% comment %} <abbr title = "Distance from address recorded in your profile according to Google Maps.">
 								Distance: 
 								</abbr>
 								{% if user.is_authenticated %}
@@ -79,7 +79,7 @@
 									{% endif %}
 								{% else %}
 									Login to see distance
-								{% endif %}
+								{% endif %} {% endcomment %}
 							</p>
 						</div> 
 						<div class="col-md-4 text-end">

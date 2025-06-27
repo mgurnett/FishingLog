@@ -22,6 +22,8 @@ STRAIN = (
     ("RVRV", 'Riverance'),
     ("MC", 'Marie Creek'),
     ("RI", 'RockIsland'),
+    ("GL", 'Graham Lake'),
+    ("EL", 'Ethel Lake'),
 )
 
 GENTOTYPE = (
