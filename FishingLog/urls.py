@@ -5,8 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 from django.urls import re_path
-from django.views.static import serve
-from django.urls import path, include,re_path
+# from django.views.static import serve
+# from django.urls import path, include,re_path
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,13 +21,16 @@ urlpatterns = [
     path ('', include ('catches.urls')),
     path ('blog/', include ('blog.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
-	re_path(r'^uploads/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
+	# re_path(r'^uploads/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]
 
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # The STATIC_ROOT here corresponds to your production path for collected static files,
+    # but the dev server can use it to find them too.
+    # For STATIC_URL, your settings.py has '/public/assets/'.
+    # For MEDIA_URL, your settings.py has '/public/uploads/'.
     
 admin.site.site_header = 'FishingLog administration'              # default: "Django Administration"
 admin.site.index_title = 'Welcome to the FishingLog admin area'   # default: "Site administration"  browser title

@@ -35,7 +35,7 @@ class ArticleAdmin (admin.ModelAdmin):
 
 @admin.register (Picture)
 class PictureAdmin (admin.ModelAdmin):
-    list_display = ['name', 'get_tags']
+    list_display = ['name', "image", 'get_tags']
 
     def get_tags (self, obj):
         return ", ".join(o for o in obj.tags.names())
