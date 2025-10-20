@@ -1,5 +1,5 @@
 ,,,,,,,,
-Alford Lake,,SW4-36-8-W5,RNTR,Riverence,AF3N,20,3000,02-05-2025
+Alford Lake,,SW4-36-8-W5,RNTR,Riverence,AF3N,20.0,3000,02-05-2025
 Allstones Lake,,NW30-38-17-W5,BKTR,Beitty Resort,3N,12.1,650,25-09-2025
 Aster Lake,,SE5-19-9-W5,CTTR,Allison Creek,2N,4.2,1300,09-09-2025
 Bear Pond,,NW36-14-4-W5,TGTR,Beitty/Bow River,3N,21.2,750,03-06-2025
@@ -10,29 +10,31 @@ Beaver Lake,,NE16-35-6-W5,TGTR,Beitty/Bow River,3N,10.6,800,01-10-2025
 Beaver Mines Lake,,NE11-5-3-W5,CTTR,Allison Creek,2N,12.3,16000,25-04-2025
 Beaver Mines Lake,,NE11-5-3-W5,CTTR,Allison Creek,2N,37.8,200,26-06-2025
 Birch Lake,,SE18-35-6-W5,BNTR,Bow River,3N,19.4,500,07-05-2025
-Birch Lake,,SE18-35-6-W5,RNTR,Riverence,AF3N,20,3500,07-05-2025
+Birch Lake,,SE18-35-6-W5,RNTR,Riverence,AF3N,20.0,3500,07-05-2025
 Birch Lake,,SE18-35-6-W5,BKTR,Beitty Resort,3N,19.3,5000,07-05-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,BNTR,Bow River,3N,17.9,7500,24-04-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,TGTR,Beitty/Bow River,3N,22.2,7500,29-04-2025
-Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Riverence,AF2N,22.3,7000,29-04-2025
 "Blood Indian Creek
-Reservoir",,SW28-26-9-W4,RNTR,Campbell Lake,2N,20,10000,09-05-2025
+Reservoir",,SW28-26-9-W4,RNTR,Riverence,AF2N,22.3,7000,29-04-2025
+"Blood Indian Creek
+Reservoir",,SW28-26-9-W4,RNTR,Campbell Lake,2N,20.0,10000,09-05-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,WALL,Lac Ste. Anne,2N,11.9,183,18-09-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,WALL,Lac Ste. Anne,2N,12.1,96,19-09-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,WALL,Lac Ste. Anne,2N,11.7,1000,25-09-2025
 "Blood Indian Creek
 Reservoir",,SW28-26-9-W4,RNTR,Campbell Lake,2N,19.8,9590,02-10-2025
 Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Campbell Lake,2N,21.4,5910,02-10-2025
+Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Campbell Lake,2N,20.5,5414,06-10-2025
+Blood Indian Creek Reservoir,,SW28-26-9-W4,RNTR,Riverence,AF3N,11.8,2500,09-10-2025
+Blood Indian Creek Reservoir,,SW28-26-9-W4,BNTR,Bow River,3N,9.7,3395,09-10-2025
 Burnstick Lake,,SE11-35-7-W5,WALL,Lac Ste. Anne,2N,6.1,1805,23-07-2025
-Burstall Lakes,"Lower Burstall
-Lake",NE16-21-10-W5,CTTR,Allison Creek,2N,4.2,1300,09-09-2025
-Burstall Lakes,"Upper Burstall
-Lake",SW16-21-10-W5,CTTR,Allison Creek,2N,4.2,1200,09-09-2025
+Burstall Lakes,Lower Burstall Lake,NE16-21-10-W5,CTTR,Allison Creek,2N,4.2,1300,09-09-2025
+Burstall Lakes,Upper Burstall Lake,SW16-21-10-W5,CTTR,Allison Creek,2N,4.2,1200,09-09-2025
 Butcher's Lake,,NW15-4-1-W5,BKTR,Beitty Resort,3N,19.8,1500,15-05-2025
 Butcher's Lake,,NW15-4-1-W5,BKTR,Beitty Resort,3N,19.8,1500,16-05-2025
 Captain Eyre Lake,Capt Ayre,NW30-38-5-W4,RNTR,Riverence,AF2N,20.3,5000,02-05-2025
-Captain Eyre Lake,Capt Ayre,NW30-38-5-W4,TGTR,Beitty/Bow River,3N,20,2000,02-05-2025
-Cavan Lake,,SW30-11-3-W4,RNTR,Riverence,AF3N,20,2351,15-05-2025
+Captain Eyre Lake,Capt Ayre,NW30-38-5-W4,TGTR,Beitty/Bow River,3N,20.0,2000,02-05-2025
+Cavan Lake,,SW30-11-3-W4,RNTR,Riverence,AF3N,20.0,2351,15-05-2025
 Cavan Lake,,SW30-11-3-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.1,9817,15-05-2025
 Chain Lakes,Lower Chain Lake,NW7-69-23-W4,RNTR,Campbell Lake,2N,20.7,1600,02-05-2025
 Chain Lakes,Lower Chain Lake,NW7-69-23-W4,RNTR,Campbell Lake,2N,20.8,6000,05-05-2025
@@ -42,32 +44,34 @@ Chain Lakes,Lower Chain Lake,NW7-69-23-W4,RNTR,Campbell Lake,2N,18.6,3000,15-09-
 Chain Lakes,Lower Chain Lake,NW7-69-23-W4,RNTR,Campbell Lake,3N,19.9,3000,15-09-2025
 Chain Lakes,Lower Chain Lake,NW7-69-23-W4,RNTR,Campbell Lake,2N,24.4,3000,15-09-2025
 Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Riverence,AF3N,20.2,15348,23-04-2025
-Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,"Trout
-Lodge/Kamloops",AF3N,17.5,2702,30-04-2025
+Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Trout Lodge/Kamloops,AF3N,17.5,2702,30-04-2025
 Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Trout Lodge/Kamloops,AF3N,16.3,29304,30-04-2025
 Chain Lakes Reservoir,,NE4-15-2-W5,CTTR,Allison Creek,2N,37.8,425,24-06-2025
-Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Campbell Lake,3N,20,24836,11-09-2025
+Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Campbell Lake,3N,20.0,24836,11-09-2025
 Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Campbell Lake,3N,20.4,20164,15-09-2025
-Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,6.4,9401,22-09-2025
-Champion Lakes,Lower Champion Lake,NW26-21-5-W5,CTTR,Allison Creek,2N,14.1,300,03-06-2025
-Champion Lakes,Upper Champion Lake,NW26-21-5-W5,CTTR,Allison Creek,2N,14.1,300,03-06-2025
+Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Trout Lodge/Jumpers,AF3N,6.4,9401,22-09-2025
+Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Campbell Lake,3N,19.8,10611,08-10-2025
+Chain Lakes Reservoir,,NE4-15-2-W5,RNTR,Campbell Lake,3N,19.8,10747,09-10-2025
+Champion Lakes,"Lower Champion
+Lake",NW26-21-5-W5,CTTR,Allison Creek,2N,14.1,300,03-06-2025
+Champion Lakes,"Upper Champion
+Lake",NW26-21-5-W5,CTTR,Allison Creek,2N,14.1,300,03-06-2025
 Chatwin Lake,,NE4-61-6-W4,RNTR,Campbell Lake,2N,20.2,2000,07-05-2025
 Chatwin Lake,,NE4-61-6-W4,RNTR,Campbell Lake,2N,20.5,8000,30-05-2025
 Chrystina Lake,,NW8-67-8-W5,BKTR,Beitty Resort,3N,19.1,2600,22-05-2025
 "Claude N. Brennan
 Memorial Pond","Vermilion Park
 Pond",NE36-50-7-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,21,1250,13-05-2025
+Lodge/Kamloops",AF3N,21.0,1250,13-05-2025
 Commonwealth Lake,Birdwood Lake,SE29-21-10-W5,CTTR,Allison Creek,2N,4.2,400,09-09-2025
 Cow Lake,,NE12-38-8-W5,RNTR,Riverence,AF3N,20.1,4032,01-05-2025
 Cow Lake,,NE12-38-8-W5,RNTR,Riverence,AF3N,20.1,5411,01-05-2025
 Cow Lake,,NE12-38-8-W5,RNTR,Riverence,AF3N,11.4,15332,01-05-2025
-Cow Lake,,NE12-38-8-W5,RNTR,Riverence,AF3N,20,4557,02-05-2025
+Cow Lake,,NE12-38-8-W5,RNTR,Riverence,AF3N,20.0,4557,02-05-2025
 Cow Lake,,NE12-38-8-W5,BNTR,Bow River,3N,18.7,5000,02-05-2025
 Cow Lake,,NE12-38-8-W5,RNTR,Trout Lodge/Kamloops,AF3N,17.1,16000,23-05-2025
 Crowsnest Lake,,NE8-8-5-W5,CTTR,Allison Creek,2N,12.3,7000,25-04-2025
-Crowsnest Lake,,NE8-8-5-W5,CTTR,Allison Creek,2N,20,2600,16-09-2025
+Crowsnest Lake,,NE8-8-5-W5,CTTR,Allison Creek,2N,20.0,2600,16-09-2025
 Dillberry Lake,,NE36-41-1-W4,RNTR,Pit Lakes,2N,21.4,8000,02-05-2025
 Dillberry Lake,,NE36-41-1-W4,TGTR,Beitty/Bow River,3N,22.9,3500,02-05-2025
 Dillberry Lake,,NE36-41-1-W4,RNTR,Campbell Lake,2N,20.7,7000,03-05-2025
@@ -83,14 +87,15 @@ Emerald Lake,,SW5-62-11-W5,BKTR,Beitty Resort,3N,20.9,2600,29-05-2025
 Emerson Lake,,SW5-19-28-W4,RNTR,Riverence,AF3N,20.1,1400,17-04-2025
 Emerson Lake,,SW5-19-28-W4,BNTR,Bow River,3N,18.5,200,17-04-2025
 Emerson Lake,,SW5-19-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2362,12-06-2025
-Engstrom Lake,,NW17-83-6-W4,RNTR,Campbell Lake,2N,20,20000,08-05-2025
+Engstrom Lake,,NW17-83-6-W4,RNTR,Campbell Lake,2N,20.0,20000,08-05-2025
 Engstrom Lake,,NW17-83-6-W4,RNTR,Riverence,AF3N,17.1,4760,24-09-2025
 Engstrom Lake,,NW17-83-6-W4,RNTR,Riverence,AF3N,18.4,10170,24-09-2025
 Engstrom Lake,,NW17-83-6-W4,RNTR,Riverence,AF3N,17.9,10070,24-09-2025
 Entry Lake,,SW19-36-18-W5,CTTR,Allison Creek,2N,4.7,668,25-09-2025
 Fairfax Lake,,NW17-46-18-W5,RNTR,Trout Lodge/Kamloops,AF3N,19.6,10000,10-06-2025
 Fickle Lake,,NW32-51-19-W5,WALL,Rock Island,2N,0.4,343980,04-06-2025
-Forty Mile Coulee Reservoir,,SW14-8-11-W4,WALL,Lac Ste. Anne,2N,10.2,976,29-07-2025
+"Forty Mile Coulee
+Reservoir",,SW14-8-11-W4,WALL,Lac Ste. Anne,2N,10.2,976,29-07-2025
 Frog Lake,,NE14-57-3-W4,WALL,Lac Ste. Anne,2N,0.4,1678203,27-05-2025
 Frog Lake,,NE14-57-3-W4,WALL,Lac Ste. Anne,2N,0.4,3005431,28-05-2025
 Frog Lake,,NE14-57-3-W4,WALL,Lac Ste. Anne,2N,0.4,725182,31-05-2025
@@ -98,44 +103,44 @@ Gap Lake,,NE5-39-13-W5,CTTR,Allison Creek,2N,4.7,1335,25-09-2025
 Goldeye Lake,,NE14-40-16-W5,RNTR,Trout Lodge/Kamloops,AF3N,18.2,2250,23-05-2025
 Goldeye Lake,,NE14-40-16-W5,RNTR,Trout Lodge/Kamloops,AF3N,18.4,10000,02-06-2025
 Goose Lake,,NW33-61-8-W5,WALL,Rock Island,2N,0.4,272700,01-06-2025
-Grande Cache Lake,,NE1-57-8-W6,RNTR,Riverence,AF3N,12,15000,14-05-2025
+Grande Cache Lake,,NE1-57-8-W6,RNTR,Riverence,AF3N,12.0,15000,14-05-2025
 Grande Cache Lake,,NE1-57-8-W6,RNTR,Campbell Lake,3N,20.5,10037,19-06-2025
 Grande Cache Lake,,NE1-57-8-W6,RNTR,Campbell Lake,3N,20.4,15000,17-09-2025
 Grotto Mountain Pond,,NW21-24-9-W5,CTTR,Allison Creek,2N,13.2,800,16-05-2025
 Grotto Mountain Pond,,NW21-24-9-W5,CTTR,Allison Creek,2N,37.8,100,25-06-2025
-Grotto Mountain Pond,,NW21-24-9-W5,CTTR,Allison Creek,2N,17,800,31-07-2025
-Hasse Lake,,SW13-52-2-W5,RNTR,Riverence,AF3N,20,10000,29-04-2025
+Grotto Mountain Pond,,NW21-24-9-W5,CTTR,Allison Creek,2N,17.0,800,31-07-2025
+Hasse Lake,,SW13-52-2-W5,RNTR,Riverence,AF3N,20.0,10000,29-04-2025
 Hasse Lake,,SW13-52-2-W5,TGTR,Beitty/Bow River,3N,20.3,1500,29-04-2025
 Hasse Lake,,SW13-52-2-W5,RNTR,Campbell Lake,2N,20.1,5580,03-10-2025
 Hasse Lake,,SW13-52-2-W5,TGTR,Beitty/Bow River,3N,26.8,500,03-10-2025
 Hasse Lake,,SW13-52-2-W5,RNTR,Campbell Lake,2N,25.7,200,03-10-2025
-High Level Community Park Pond,High Level Town Pond,SE6-110-19-W5,RNTR,Riverence,AF2N,23.6,500,13-05-2025
+"High Level Community
+Park Pond","High Level Town
+Pond",SE6-110-19-W5,RNTR,Riverence,AF2N,23.6,500,13-05-2025
 Hinton F & G Pond,Hinton Borrow Pit,SW28-50-25-W5,RNTR,Riverence,AF3N,23.7,300,20-05-2025
 Hogarth Lakes,Lower Hogarth Lake,SE21-21-10-W5,CTTR,Allison Creek,2N,4.2,1200,09-09-2025
-Hogarth Lakes,Upper Hogarth Lake,SE21-21-10-W5,CTTR,Allison Creek,2N,4.2,1200,09-09-2025
+Hogarth Lakes,"Upper Hogarth
+Lake",SE21-21-10-W5,CTTR,Allison Creek,2N,4.2,1200,09-09-2025
 Invincible Lake,,SW5-20-9-W5,CTTR,Allison Creek,2N,4.2,450,09-09-2025
-Ironside Pond,,SW7-38-7-W5,RNTR,Riverence,AF3N,20,500,20-05-2025
+Ironside Pond,,SW7-38-7-W5,RNTR,Riverence,AF3N,20.0,500,20-05-2025
 Ironside Pond,,SW7-38-7-W5,TGTR,Beitty/Bow River,3N,30.6,400,16-09-2025
 Island Lake,,NW12-8-6-W5,CTTR,Allison Creek,2N,12.5,3500,30-04-2025
 Jack Fish Lake,,NW20-53-9-W4,RNTR,Campbell Lake,2N,20.4,5000,03-05-2025
 Jack Fish Lake,,NW20-53-9-W4,TGTR,Beitty/Bow River,3N,22.5,1000,03-05-2025
 Jackfish Lake,,SW6-41-11-W5,WALL,Lac Ste. Anne,2N,6.1,500,23-07-2025
-Jane Lake,,NW11-68-8-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,5.9,1800,18-09-2025
+Jane Lake,,NW11-68-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,5.9,1800,18-09-2025
 Jessie Lake,,SW23-68-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,5.9,3500,18-09-2025
 Kakut Lake,,SW34-76-4-W6,RNTR,Campbell Lake,2N,20.6,1500,21-05-2025
 Kehiwin Lake,Kehewin Lake,NE36-58-7-W4,WALL,Ethel Lake,2N,0.4,530560,03-06-2025
 Kinky Lake,,SE6-50-26-W5,BKTR,Beitty Resort,3N,19.8,1839,20-05-2025
 Kinky Lake,,SE6-50-26-W5,BKTR,Beitty Resort,3N,19.1,8161,20-05-2025
 Lac La Biche Trout Pond,Alexander Hamilton Pond,NW5-67-13-W4,RNTR,Riverence,AF2N,22.8,600,01-05-2025
-"Lac La Biche Trout
-Pond","Alexander
-Hamilton Pond",NW5-67-13-W4,RNTR,Campbell Lake,2N,23.8,600,25-09-2025
+Lac La Biche Trout Pond,Alexander Hamilton Pond,NW5-67-13-W4,RNTR,Campbell Lake,2N,23.8,600,25-09-2025
 Lake Of Falls,,NE10-36-19-W5,CTTR,Allison Creek,2N,4.7,2627,25-09-2025
 Lambert Pond,,NW8-53-17-W5,RNTR,Trout Lodge/Kamloops,AF3N,17.8,2000,15-05-2025
 Landslide Lake,,NE7-36-18-W5,CTTR,Allison Creek,2N,4.7,4007,25-09-2025
 Lees Lake,,SW8-7-2-W5,RNTR,Riverence,AF3N,10.7,3000,14-04-2025
-Lees Lake,,SW8-7-2-W5,BNTR,Bow River,3N,19,1895,14-04-2025
+Lees Lake,,SW8-7-2-W5,BNTR,Bow River,3N,19.0,1895,14-04-2025
 Lees Lake,,SW8-7-2-W5,RNTR,Riverence,AF3N,20.1,17000,14-04-2025
 Lees Lake,,SW8-7-2-W5,RNTR,Campbell Lake,3N,20.1,20000,22-09-2025
 Lees Lake,,SW8-7-2-W5,RNTR,Campbell Lake,3N,6.4,5943,22-09-2025
@@ -148,12 +153,11 @@ Little Bear Lake,Hasse Lake,NW19-64-2-W4,RNTR,Campbell Lake,2N,20.5,4000,10-05-2
 Little Bear Lake,Hasse Lake,NW19-64-2-W4,RNTR,Campbell Lake,2N,18.2,2500,10-05-2025
 Little Bear Lake,Hasse Lake,NW19-64-2-W4,RNTR,Pit Lakes,2N,23.2,5000,10-05-2025
 Little Bear Lake,Hasse Lake,NW19-64-2-W4,TGTR,Bow River,3N,22.7,2000,10-05-2025
-Lower Kananaskis Lake,,NW26-19-9-W5,CTTR,Allison Creek,2N,15,5000,25-06-2025
+Lower Kananaskis Lake,,NW26-19-9-W5,CTTR,Allison Creek,2N,15.0,5000,25-06-2025
 Lower Kananaskis Lake,,NW26-19-9-W5,CTTR,Allison Creek,2N,19.2,8044,18-09-2025
 Margaret Lake,,NW15-28-9-W5,RNTR,Riverence,AF3N,12.6,3100,03-06-2025
 Marigold Lake,,NW32-65-11-W5,BKTR,Beitty Resort,3N,11.7,70000,18-09-2025
-Mary Gregg Lake,,NW4-48-24-W5,RNTR,"Trout
-Lodge/Kamloops",AF3N,18.1,4000,12-06-2025
+Mary Gregg Lake,,NW4-48-24-W5,RNTR,Trout Lodge/Kamloops,AF3N,18.1,4000,12-06-2025
 Maude Lake,,SW14-20-10-W5,CTTR,Allison Creek,2N,4.2,2300,09-09-2025
 Mclean Pond,,NW20-22-5-W5,CTTR,Allison Creek,2N,13.2,2300,16-05-2025
 Mclean Pond,,NW20-22-5-W5,CTTR,Allison Creek,2N,37.8,200,24-06-2025
@@ -176,9 +180,10 @@ McLeod Lake,Carson Lake,SE25-61-12-W5,RNTR,Campbell Lake,3N,20.4,10590,01-10-202
 Medley River,,SE11-65-2-W4,RNTR,Campbell Lake,3N,22.1,1500,12-06-2025
 Michel Reservoir,"Michel Creek
 Reservoir",NE5-7-3-W4,RNTR,Riverence,AF2N,20.3,7500,08-05-2025
-Michel Reservoir,Michel Creek Reservoir,NE5-7-3-W4,BNTR,Bow River,3N,19.4,1500,08-05-2025
+Michel Reservoir,"Michel Creek
+Reservoir",NE5-7-3-W4,BNTR,Bow River,3N,19.4,1500,08-05-2025
 Michichi Reservoir,,SW19-30-18-W4,RNTR,Riverence,AF3N,20.1,4200,23-04-2025
-Michichi Reservoir,,SW19-30-18-W4,RNTR,Riverence,AF2N,22.86,1400,24-04-2025
+Michichi Reservoir,,SW19-30-18-W4,RNTR,Riverence,AF2N,22.9,1400,24-04-2025
 Millers Lake,,SW8-53-19-W5,RNTR,Campbell Lake,3N,20.5,7671,09-05-2025
 Millers Lake,,SW8-53-19-W5,RNTR,Campbell Lake,3N,21.7,3350,09-05-2025
 Millers Lake,,SW8-53-19-W5,RNTR,Campbell Lake,3N,20.5,2479,09-05-2025
@@ -189,119 +194,132 @@ Lodge/Jumpers",AF3N,20.1,2000,06-05-2025
 Mitchell Lake,,NE25-37-8-W5,BNTR,Bow River,3N,18.8,500,06-05-2025
 Mitchell Lake,,NE25-37-8-W5,TGTR,Beitty/Bow River,3N,30.6,1200,16-09-2025
 Mitchell Lake,,NE25-37-8-W5,TGTR,Beitty/Bow River,3N,10.9,1000,16-09-2025
-Mitchell Pond,Waskasoo Park Pond,NW18-38-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,30,50,08-05-2025
-Mitchell Pond,"Waskasoo Park
-Pond",NW18-38-27-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,20.4,2100,08-05-2025
+Mitchell Pond,Waskasoo Park Pond,NW18-38-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,30.0,50,08-05-2025
+Mitchell Pond,Waskasoo Park Pond,NW18-38-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,2100,08-05-2025
 Montaganeusse Lake,Stoney Lake,NE31-86-3-W6,RNTR,"Trout
 Lodge/Kamloops",AF3N,17.7,10000,20-05-2025
 Montaganeusse Lake,Stoney Lake,NE31-86-3-W6,TGTR,Beitty/Bow River,3N,23.9,1975,20-05-2025
 Moonshine Lake,Mirage Lake,SE31-79-8-W6,BNTR,Bow River,3N,19.7,1000,20-05-2025
-Moonshine Lake,Mirage Lake,SE31-79-8-W6,RNTR,Trout Lodge/Kamloops,AF3N,17.3,9300,21-05-2025
+Moonshine Lake,Mirage Lake,SE31-79-8-W6,RNTR,"Trout
+Lodge/Kamloops",AF3N,17.3,9300,21-05-2025
 Moonshine Lake,Mirage Lake,SE31-79-8-W6,TGTR,Beitty/Bow River,3N,30.9,2350,15-09-2025
 Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,13.2,800,16-05-2025
-Mount Lorette Ponds,,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.1,400,16-05-2025
+Mount Lorette Ponds,,SW19-23-8-W5,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.1,400,16-05-2025
 Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,37.8,100,25-06-2025
-Mount Lorette Ponds,,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,23,400,25-06-2025
-Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,15,800,25-06-2025
+Mount Lorette Ponds,,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,23.0,400,25-06-2025
+Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,15.0,800,25-06-2025
 Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,16.8,800,17-07-2025
-Mount Lorette Ponds,,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,25.2,400,17-07-2025
+Mount Lorette Ponds,,SW19-23-8-W5,RNTR,"Trout
+Lodge/Jumpers",AF3N,25.2,400,17-07-2025
 Mount Lorette Ponds,,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,25.3,400,31-07-2025
 Mount Lorette Ponds,,SW19-23-8-W5,CTTR,Allison Creek,2N,17.2,600,31-07-2025
 Muir Lake,,NW32-53-27-W4,BNTR,Bow River,3N,18.9,500,01-05-2025
 Muir Lake,,NW32-53-27-W4,RNTR,Riverence,AF3N,23.1,1500,01-05-2025
-Muir Lake,,NW32-53-27-W4,RNTR,Riverence,AF3N,20,1500,01-05-2025
+Muir Lake,,NW32-53-27-W4,RNTR,Riverence,AF3N,20.0,1500,01-05-2025
 Muskiki Lake,,NW5-45-20-W5,CTTR,Allison Creek,2N,13.4,2500,26-05-2025
 Muskiki Lake,,NW5-45-20-W5,CTTR,Allison Creek,2N,19.2,2000,17-09-2025
 Niemela Reservoir,Ray's Pond,SE1-39-3-W5,TGTR,Beitty/Bow River,3N,20.3,250,30-04-2025
-Niemela Reservoir,Ray's Pond,SE1-39-3-W5,RNTR,Trout Lodge/Kamloops,AF3N,23.1,500,17-09-2025
+Niemela Reservoir,Ray's Pond,SE1-39-3-W5,RNTR,"Trout
+Lodge/Kamloops",AF3N,23.1,500,17-09-2025
 Obed Lake,,SW11-53-22-W5,BNTR,Bow River,3N,19.2,13062,22-05-2025
 Obed Lake,,SW11-53-22-W5,BNTR,Bow River,3N,19.2,938,26-05-2025
 Obed Lake,,SW11-53-22-W5,BNTR,Bow River,3N,9.1,5000,25-09-2025
 Obstruction Lakes,,NE6-40-20-W5,CTTR,Allison Creek,2N,4.7,1068,25-09-2025
 Ole Lake,,NW30-84-12-W6,RNTR,Campbell Lake,2N,20.6,3000,21-05-2025
 Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Riverence,AF3N,23.1,2500,16-04-2025
-Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Riverence,AF3N,20,2500,16-04-2025
-Parker Lake,,SE25-70-5-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,5.9,7000,18-09-2025
-Parlby Reservoir,Tees Fish Pond,NE25-40-24-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,400,06-05-2025
-Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Trout Lodge/Jumpers,AF3N,20,2487,14-04-2025
+Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Riverence,AF3N,20.0,2500,16-04-2025
+Parker Lake,,SE25-70-5-W5,RNTR,Trout Lodge/Jumpers,AF3N,5.9,7000,18-09-2025
+Parlby Reservoir,Tees Fish Pond,NE25-40-24-W4,RNTR,"Trout
+Lodge/Kamloops",AF3N,20.4,400,06-05-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,20,10913,15-04-2025
+Lodge/Jumpers",AF3N,20.0,2487,14-04-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.0,10913,15-04-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Riverence,AF3N,11.2,63037,15-04-2025
-Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,15.9,32000,22-04-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,"Trout
+Lodge/Kamloops",AF3N,15.9,32000,22-04-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,"Trout
 Lodge/Kamloops",AF3N,15.7,25033,09-05-2025
-Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,20,24718,16-09-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,20.0,24718,16-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,19.5,7732,22-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,19.7,7419,22-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,19.7,9288,22-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,19.8,7371,22-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,16.5,10190,22-09-2025
 Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Riverence,AF3N,7.9,8362,22-09-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,16.9,20137,06-10-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,20.1,12465,06-10-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,20.1,2207,06-10-2025
+Payne Lake,Mami Lake,NE10-2-28-W4,RNTR,Campbell Lake,3N,17.0,20047,07-10-2025
 Peanut Lake,,NE15-58-3-W5,BKTR,Beitty Resort,3N,19.5,5000,30-04-2025
+Peanut Lake,,NE15-58-3-W5,RNTR,Campbell Lake,2N,20.4,13200,08-10-2025
+Peanut Lake,,NE15-58-3-W5,RNTR,Campbell Lake,3N,20.4,3000,08-10-2025
 Peppers Lake,,NW30-35-12-W5,BKTR,Beitty Resort,3N,19.2,4000,26-05-2025
 Peppers Lake,,NW30-35-12-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.2,2800,26-05-2025
-Petite Lake,,NW12-54-26-W5,RNTR,Trout Lodge/Kamloops,AF3N,17.7,2000,23-05-2025
+Petite Lake,,NW12-54-26-W5,RNTR,"Trout
+Lodge/Kamloops",AF3N,17.7,2000,23-05-2025
 Phyllis Lake,,SE17-36-7-W5,RNTR,"Trout
 Lodge/Jumpers",AF3N,20.1,10000,03-05-2025
 Pierre Greys Lakes,Lower Pierre Greys Lake,SE12-57-5-W6,RNTR,Trout Lodge/Kamloops,AF3N,17.7,7000,15-05-2025
 Pierre Greys Lakes,Middle Pierre Greys Lake,NW6-57-4-W6,RNTR,Trout Lodge/Kamloops,AF3N,19.6,15000,26-05-2025
 Pierre Greys Lakes,Upper Pierre Greys Lake,SW7-57-4-W6,BKTR,Beitty Resort,3N,19.8,2000,14-05-2025
 Pierre Greys Lakes,Upper Pierre Greys Lake,SW7-57-4-W6,BKTR,Beitty Resort,3N,20.3,3562,26-06-2025
-Pierre Greys Lakes,Upper Pierre Greys Lake,SW7-57-4-W6,BKTR,Beitty Resort,3N,12.3,9500,25-09-2025
+Pierre Greys Lakes,"Upper Pierre
+Greys Lake",SW7-57-4-W6,BKTR,Beitty Resort,3N,12.3,9500,25-09-2025
 Pinehurst Lake,,NE27-65-10-W4,WALL,Ethel Lake,2N,0.4,918256,30-05-2025
 Pinehurst Lake,,NE27-65-10-W4,WALL,Ethel Lake,2N,0.4,1035348,31-05-2025
 Pinehurst Lake,,NE27-65-10-W4,WALL,Ethel Lake,2N,0.4,181675,03-06-2025
 Pinehurst Lake,,NE27-65-10-W4,WALL,Ethel Lake,2N,0.4,349736,05-06-2025
 Rainbow Park Pond,"Westlock
 Recreation Pond",NE31-59-25-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,21,1200,14-05-2025
+Lodge/Kamloops",AF3N,21.0,1200,14-05-2025
 Rat Lake,,SW11-38-9-W5,TGTR,Beitty/Bow River,3N,30.6,700,01-10-2025
 Rat Lake,,SW11-38-9-W5,TGTR,Beitty/Bow River,3N,10.6,500,01-10-2025
 Rattlesnake Lake,"Sauder (Rattlesnake)
 Reservoir",SE8-12-8-W4,WALL,Lac Ste. Anne,2N,6.1,595,25-07-2025
-Rattlesnake Lake,"Sauder (Rattlesnake)
-Reservoir",SE8-12-8-W4,WALL,Lac Ste. Anne,2N,11.7,655,26-09-2025
+Rattlesnake Lake,"Sauder
+(Rattlesnake) Reservoir",SE8-12-8-W4,WALL,Lac Ste. Anne,2N,11.7,655,26-09-2025
 Reesor Lake,,NW20-8-1-W4,RNTR,Pit Lakes,2N,20.3,9000,15-05-2025
 Reesor Lake,,NW20-8-1-W4,RNTR,Campbell Lake,2N,19.9,7000,15-05-2025
-Reesor Lake,,NW20-8-1-W4,RNTR,Pit Lakes,2N,28,200,29-09-2025
-Rocky Children's Pond,,SW33-39-7-W5,RNTR,Riverence,AF3N,23,500,09-05-2025
+Reesor Lake,,NW20-8-1-W4,RNTR,Pit Lakes,2N,28.0,200,29-09-2025
+Reesor Lake,,NW20-8-1-W4,RNTR,Campbell Lake,2N,20.5,7000,06-10-2025
+Reesor Lake,,NW20-8-1-W4,RNTR,Campbell Lake,3N,21.2,5000,06-10-2025
+Rocky Children's Pond,,SW33-39-7-W5,RNTR,Riverence,AF3N,23.0,500,09-05-2025
 Rocky Children's Pond,,SW33-39-7-W5,RNTR,Riverence,AF3N,25.3,550,22-08-2025
 Running Lake,,SW34-88-7-W6,BKTR,Beitty Resort,3N,19.8,3000,20-05-2025
 Salter's Lake,,SW26-54-2-W5,RNTR,Riverence,AF2N,20.3,7500,08-05-2025
 Salter's Lake,,SW26-54-2-W5,TGTR,Beitty/Bow River,3N,19.9,2000,08-05-2025
+Salter's Lake,,SW26-54-2-W5,RNTR,Campbell Lake,2N,20.4,2500,09-10-2025
+Salter's Lake,,SW26-54-2-W5,RNTR,Campbell Lake,3N,25.7,2681,09-10-2025
 Sandy Lake,,NE9-79-22-W4,WALL,Graham Lake,2N,0.4,3208231,08-06-2025
-Sardine Lake,,SW5-49-4-W5,RNTR,Riverence,AF3N,20,2500,09-05-2025
+Sardine Lake,,SW5-49-4-W5,RNTR,Riverence,AF3N,20.0,2500,09-05-2025
 Sauer Lake,,NE28-53-1-W5,RNTR,Riverence,AF2N,20.3,6000,05-05-2025
 Sawn Lake,,SE18-92-12-W5,WALL,Graham Lake,2N,0.4,1984992,06-06-2025
 Schuman Lake,,SE35-61-8-W5,TGTR,Beitty/Bow River,3N,23.9,500,20-05-2025
-Schuman Lake,,SE35-61-8-W5,RNTR,Campbell Lake,2N,20,9500,20-05-2025
+Schuman Lake,,SE35-61-8-W5,RNTR,Campbell Lake,2N,20.0,9500,20-05-2025
 Shark Lake,,NW1-22-11-W5,CTTR,Allison Creek,2N,4.2,500,09-09-2025
 Shunda Lake,Fish Lake,SW19-40-15-W5,RNTR,Riverence,AF3N,20.3,10000,13-05-2025
 Shunda Lake,Fish Lake,SW19-40-15-W5,RNTR,Riverence,AF3N,20.3,10000,13-05-2025
 "Sibbald Meadows
 Pond",,SW20-24-7-W5,RNTR,Riverence,AF3N,23.4,2000,16-05-2025
-"Sibbald Meadows
-Pond",,SW20-24-7-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,20.6,1395,05-06-2025
+Sibbald Meadows Pond,,SW20-24-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.6,1395,05-06-2025
 Sibbald Meadows Pond,,SW20-24-7-W5,RNTR,Riverence,AF3N,23.7,605,05-06-2025
 Sparrow's Egg Lake,,NW6-20-8-W5,CTTR,Allison Creek,2N,14.1,900,03-06-2025
 Spring Lake,Cottage,SW30-52-1-W5,BNTR,Bow River,3N,19.6,500,05-05-2025
 Spring Lake,Cottage,SW30-52-1-W5,RNTR,Campbell Lake,2N,20.9,10000,06-05-2025
 Spring Lake,Cottage,SW30-52-1-W5,TGTR,Bow River,3N,22.5,1500,06-05-2025
 Spring Lake,Cottage,SW30-52-1-W5,RNTR,Campbell Lake,2N,19.2,5000,24-09-2025
-"Spruce Coulee
-Reservoir",,SW26-8-2-W4,BKTR,Beitty Resort,3N,19.6,8500,09-05-2025
+Spruce Coulee Reservoir,,SW26-8-2-W4,BKTR,Beitty Resort,3N,19.6,8500,09-05-2025
 Spruce Coulee Reservoir,,SW26-8-2-W4,BKTR,Beitty Resort,3N,12.2,15000,23-09-2025
+Spruce Coulee Reservoir,,SW26-8-2-W4,BNTR,Bow River,3N,13.0,7004,09-10-2025
 Star Lake,,NE19-52-2-W5,RNTR,Riverence,AF2N,20.2,8040,28-04-2025
 Star Lake,,NE19-52-2-W5,BNTR,Bow River,3N,18.8,1000,28-04-2025
 Star Lake,,NE19-52-2-W5,TGTR,Beitty/Bow River,3N,19.6,1000,28-04-2025
-Stenton Lake,,SE35-25-10-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,5.4,400,09-09-2025
+Stenton Lake,,SE35-25-10-W5,RNTR,Trout Lodge/Jumpers,AF3N,5.4,400,09-09-2025
 Strubel Lake,,SW30-37-7-W5,RNTR,Riverence,AF3N,20.1,12800,06-05-2025
 Sulphur Lake,,NW7-89-2-W6,BKTR,Beitty Resort,3N,19.8,4500,20-05-2025
-Swan Lake,,SW18-70-25-W5,RNTR,Campbell Lake,3N,20,15000,08-05-2025
+Swan Lake,,SW18-70-25-W5,RNTR,Campbell Lake,3N,20.0,15000,08-05-2025
 Swan Lake,,SW18-70-25-W5,RNTR,Campbell Lake,3N,20.1,9393,01-10-2025
 Swan Lake,,SW18-70-25-W5,RNTR,Campbell Lake,3N,19.2,10617,01-10-2025
 Sylvan Lake,,NW23-39-2-W5,WALL,Lac Ste. Anne,2N,0.4,2300000,26-05-2025
@@ -321,18 +339,22 @@ Two Lakes,South Two Lake,NE7-62-12-W6,CTTR,Allison Creek,2N,19.3,2500,25-09-2025
 Unnamed,Acadia Valley Reservoir,SW5-25-2-W4,RNTR,Riverence,AF2N,20.7,5000,23-04-2025
 Unnamed,"Acadia Valley
 Reservoir",SW5-25-2-W4,BKTR,Beitty Resort,3N,19.5,2000,23-04-2025
-Unnamed,Acadia Valley Reservoir,SW5-25-2-W4,RNTR,Riverence,AF2N,20.7,5000,24-04-2025
+Unnamed,"Acadia Valley
+Reservoir",SW5-25-2-W4,RNTR,Riverence,AF2N,20.7,5000,24-04-2025
 Unnamed,Acadia Valley Reservoir,SW5-25-2-W4,BKTR,Beitty Resort,3N,19.5,2000,24-04-2025
 Unnamed,Allison Lake,SW27-8-5-W5,CTTR,Allison Creek,2N,13.2,2500,29-05-2025
-Unnamed,Allison Lake,SW27-8-5-W5,CTTR,Allison Creek,2N,35,41,16-09-2025
-Unnamed,Allison Lake,SW27-8-5-W5,CTTR,Allison Creek,2N,20,1068,16-09-2025
-Unnamed,Anderson Dam,SW25-28-21-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,900,17-04-2025
-Unnamed,Ardmore Community Pond,NW1-62-4-W4,RNTR,Riverence,AF2N,22.8,400,28-04-2025
+Unnamed,Allison Lake,SW27-8-5-W5,CTTR,Allison Creek,2N,35.0,41,16-09-2025
+Unnamed,Allison Lake,SW27-8-5-W5,CTTR,Allison Creek,2N,20.0,1068,16-09-2025
+Unnamed,Anderson Dam,SW25-28-21-W4,RNTR,"Trout
+Lodge/Kamloops",AF3N,20.3,900,17-04-2025
+Unnamed,"Ardmore
+Community Pond",NW1-62-4-W4,RNTR,Riverence,AF2N,22.8,400,28-04-2025
 Unnamed,Ardmore Community Pond,NW1-62-4-W4,RNTR,Campbell Lake,2N,23.8,200,25-09-2025
-Unnamed,"Ashland
-Reservoir",NW17-48-3-W5,RNTR,Riverence,AF2N,20.3,8000,10-05-2025
-Unnamed,Atlantic Richfield Reservoir,NE29-67-9-W5,RNTR,Campbell Lake,2N,22.5,1800,11-06-2025
-Unnamed,Bashaw Pond,SE4-42-21-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,500,25-04-2025
+Unnamed,Ashland Reservoir,NW17-48-3-W5,RNTR,Riverence,AF2N,20.3,8000,10-05-2025
+Unnamed,"Atlantic Richfield
+Reservoir",NE29-67-9-W5,RNTR,Campbell Lake,2N,22.5,1800,11-06-2025
+Unnamed,Bashaw Pond,SE4-42-21-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.3,500,25-04-2025
 Unnamed,Bashaw Pond,SE4-42-21-W4,BKTR,Beitty Resort,3N,20.2,200,25-04-2025
 Unnamed,Bathing Lake,SE11-4-1-W5,CTTR,Allison Creek,2N,13.2,1000,15-05-2025
 Unnamed,Beaumont Pond,NW27-50-24-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,1000,08-05-2025
@@ -343,8 +365,7 @@ Unnamed,Big Iron Lake,NW1-15-4-W5,TGTR,Beitty/Bow River,3N,21.2,750,03-06-2025
 Unnamed,Black Nugget Mine Pit,NW11-49-18-W4,TGTR,Beitty/Bow River,3N,19.8,5000,23-04-2025
 Unnamed,"Black Nugget
 Mine Pit",NW11-49-18-W4,RNTR,Campbell Lake,2N,20.4,6571,28-04-2025
-Unnamed,"Black Nugget
-Mine Pit",NW11-49-18-W4,RNTR,Campbell Lake,2N,20.4,5929,28-04-2025
+Unnamed,Black Nugget Mine Pit,NW11-49-18-W4,RNTR,Campbell Lake,2N,20.4,5929,28-04-2025
 Unnamed,Boulder Lake,NE18-39-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,1200,30-04-2025
 Unnamed,Boulder Lake,NE18-39-27-W4,TGTR,Beitty/Bow River,3N,20.3,200,30-04-2025
 Unnamed,Boulder Lake,NE18-39-27-W4,RNTR,"Trout
@@ -352,8 +373,9 @@ Lodge/Kamloops",AF3N,23.1,1000,17-09-2025
 Unnamed,Bow City East Ponds,NE15-17-17-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2000,18-04-2025
 Unnamed,Boyle Pond,NE16-64-19-W4,RNTR,Riverence,AF2N,24.2,2200,23-05-2025
 Unnamed,"Brooks Aquaduct
-Pond",NE15-18-14-W4,RNTR,Riverence,AF2N,20,10000,16-04-2025
-Unnamed,Bud Miller Park Pond,NE26-49-1-W4,RNTR,Riverence,AF2N,23.5,1500,02-05-2025
+Pond",NE15-18-14-W4,RNTR,Riverence,AF2N,20.0,10000,16-04-2025
+Unnamed,"Bud Miller Park
+Pond",NE26-49-1-W4,RNTR,Riverence,AF2N,23.5,1500,02-05-2025
 Unnamed,Burmis Lake,SE14-7-3-W5,CTTR,Allison Creek,2N,12.5,1000,30-04-2025
 Unnamed,Burn's Reservoir,NE23-6-30-W4,CTTR,Allison Creek,2N,13.2,1000,16-05-2025
 Unnamed,By The Lake Park,SW22-46-24-W4,RNTR,Riverence,AF2N,20.2,5000,25-04-2025
@@ -363,286 +385,286 @@ Unnamed,Cardiff Park Pond,SW24-55-25-W4,TGTR,Beitty/Bow River,3N,19.6,2550,01-05
 Unnamed,Cardiff Park Pond,SW24-55-25-W4,RNTR,Campbell Lake,2N,19.2,5000,25-09-2025
 Unnamed,Cardiff Park Pond,SW24-55-25-W4,RNTR,Campbell Lake,3N,20.4,5000,03-10-2025
 Unnamed,Cardiff Park Pond,SW24-55-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,29.1,612,03-10-2025
-Unnamed,Castaway Trout Pond,NE35-47-13-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,350,13-05-2025
-Unnamed,Castaway Trout Pond,NE35-47-13-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,1100,13-05-2025
+Unnamed,Castaway Trout Pond,NE35-47-13-W4,RNTR,Trout Lodge/Kamloops,AF3N,21.0,350,13-05-2025
+Unnamed,Castaway Trout Pond,NE35-47-13-W4,RNTR,Trout Lodge/Kamloops,AF3N,21.0,1100,13-05-2025
 Unnamed,"Castor Eastside
 Trout Pond",SE34-37-14-W4,RNTR,"Trout
 Lodge/Kamloops",AF3N,20.6,500,29-05-2025
-Unnamed,Castor Eastside Trout Pond,SE34-37-14-W4,RNTR,Trout Lodge/Kamloops,AF3N,32,40,29-05-2025
+Unnamed,Castor Eastside Trout Pond,SE34-37-14-W4,RNTR,Trout Lodge/Kamloops,AF3N,32.0,40,29-05-2025
 Unnamed,Cecil Thompson Pond,SW23-83-21-W5,RNTR,Campbell Lake,2N,20.8,1000,13-05-2025
-Unnamed,Coleman Fish and Game Pond,SW24-8-5-W5,CTTR,Allison Creek,2N,14,1600,30-05-2025
-Unnamed,Corner Lake,NW4-6-20-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.4,5000,10-04-2025
-Unnamed,Corner Lake,NW4-6-20-W4,RNTR,Pit Lakes,2N,28,50,29-09-2025
+Unnamed,Coleman Fish and Game Pond,SW24-8-5-W5,CTTR,Allison Creek,2N,14.0,1600,30-05-2025
+Unnamed,Corner Lake,NW4-6-20-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.4,5000,10-04-2025
+Unnamed,Corner Lake,NW4-6-20-W4,RNTR,Pit Lakes,2N,28.0,50,29-09-2025
 Unnamed,Corner Lake,NW4-6-20-W4,RNTR,Campbell Lake,3N,20.4,3609,01-10-2025
 Unnamed,Corner Lake,NW4-6-20-W4,RNTR,Campbell Lake,3N,20.4,1391,01-10-2025
-Unnamed,Coronation Reservoir,SW24-36-11-W4,RNTR,Riverence,AF2N,20,5300,22-04-2025
-Unnamed,Coronation Reservoir,SW24-36-11-W4,TGTR,Beitty/Bow River,3N,19.9,1000,22-04-2025
+Unnamed,Coronation Reservoir,SW24-36-11-W4,RNTR,Riverence,AF2N,20.0,5300,22-04-2025
+Unnamed,"Coronation
+Reservoir",SW24-36-11-W4,TGTR,Beitty/Bow River,3N,19.9,1000,22-04-2025
 Unnamed,"Coronation
 Reservoir",SW24-36-11-W4,BNTR,Bow River,3N,18.7,1000,22-04-2025
-Unnamed,"County Sportplex
-Pond",NW14-72-6-W6,RNTR,Riverence,AF2N,23.8,2000,21-05-2025
-Unnamed,Crossfield Trout Pond,SE27-28-1-W5,RNTR,Riverence,AF2N,22.86,1400,24-04-2025
+Unnamed,County Sportplex Pond,NW14-72-6-W6,RNTR,Riverence,AF2N,23.8,2000,21-05-2025
+Unnamed,Crossfield Trout Pond,SE27-28-1-W5,RNTR,Riverence,AF2N,22.9,1400,24-04-2025
 Unnamed,Dandurand Lake,NE9-53-19-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.2,1000,28-05-2025
-Unnamed,Daysland Pond,NE9-45-16-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,400,25-04-2025
+Unnamed,Daysland Pond,NE9-45-16-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.3,400,25-04-2025
 Unnamed,Dewitt's Pond,SE31-26-1-W5,RNTR,"Trout
 Lodge/Kamloops",AF3N,20.3,1000,17-04-2025
 Unnamed,Dewitt's Pond,SE31-26-1-W5,BNTR,Bow River,3N,19.3,2595,15-05-2025
-Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Riverence,AF3N,20,7462,30-04-2025
-Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Riverence,AF3N,20,6538,30-04-2025
+Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Riverence,AF3N,20.0,7462,30-04-2025
 Unnamed,"Dickson Trout
-Pond",NW13-35-3-W5,TGTR,Beitty/Bow River,3N,20.3,1700,30-04-2025
+Pond",NW13-35-3-W5,RNTR,Riverence,AF3N,20.0,6538,30-04-2025
+Unnamed,Dickson Trout Pond,NW13-35-3-W5,TGTR,Beitty/Bow River,3N,20.3,1700,30-04-2025
 Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Campbell Lake,3N,19.9,6010,18-06-2025
 Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Campbell Lake,3N,20.4,5000,01-10-2025
 Unnamed,Dickson Trout Pond,NW13-35-3-W5,TGTR,Beitty/Bow River,3N,6.9,1311,01-10-2025
-Unnamed,Dickson Trout Pond,NW13-35-3-W5,TGTR,Beitty/Bow River,3N,28.4,1172,03-10-2025
+Unnamed,"Dickson Trout
+Pond",NW13-35-3-W5,TGTR,Beitty/Bow River,3N,28.4,1172,03-10-2025
 Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Campbell Lake,3N,20.7,5410,03-10-2025
 Unnamed,Dickson Trout Pond,NW13-35-3-W5,RNTR,Campbell Lake,3N,25.7,2030,03-10-2025
+Unnamed,Diplomat Mine Pond,NW1-41-16-W4,RNTR,Riverence,AF2N,20.0,5000,16-04-2025
 Unnamed,"Diplomat Mine
-Pond",NW1-41-16-W4,RNTR,Riverence,AF2N,20,5000,16-04-2025
-Unnamed,Diplomat Mine Pond,NW1-41-16-W4,TGTR,Beitty/Bow River,3N,20,520,16-04-2025
+Pond",NW1-41-16-W4,TGTR,Beitty/Bow River,3N,20.0,520,16-04-2025
 Unnamed,Diplomat Mine Pond,NW1-41-16-W4,TGTR,Beitty/Bow River,3N,18.6,980,16-04-2025
-Unnamed,East Pit Lake,SE23-53-4-W5,RNTR,Pit Lakes,2N,22,11600,07-05-2025
+Unnamed,East Pit Lake,SE23-53-4-W5,RNTR,Pit Lakes,2N,22.0,11600,07-05-2025
 Unnamed,"East Stormwater
 Pond",SE29-40-26-W4,RNTR,"Trout
 Lodge/Kamloops",AF3N,20.3,1000,30-04-2025
 Unnamed,East Stormwater Pond,SE29-40-26-W4,BNTR,Bow River,3N,18.9,100,01-05-2025
-Unnamed,Elk Creek Pond,NW33-35-12-W5,RNTR,Riverence,AF3N,20,500,26-05-2025
+Unnamed,Elk Creek Pond,NW33-35-12-W5,RNTR,Riverence,AF3N,20.0,500,26-05-2025
 Unnamed,Elk Point Pond,NW36-56-7-W4,BKTR,Beitty Resort,3N,20.2,500,25-04-2025
 Unnamed,Elk Point Pond,NW36-56-7-W4,RNTR,Riverence,AF2N,22.8,900,30-04-2025
 Unnamed,Elk Point Pond,NW36-56-7-W4,TGTR,Beitty/Bow River,3N,22.2,150,30-04-2025
 Unnamed,Enchant Pond,NW8-14-18-W4,TGTR,Beitty/Bow River,3N,20.3,200,17-04-2025
-Unnamed,Enchant Pond,NW8-14-18-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,20.3,2000,18-04-2025
-Unnamed,"Fairview College
-Pond",SW34-81-3-W6,RNTR,Campbell Lake,2N,20.6,500,21-05-2025
-Unnamed,Fiesta Lake,NE12-35-6-W5,RNTR,Riverence,AF3N,20,550,14-05-2025
+Unnamed,Enchant Pond,NW8-14-18-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2000,18-04-2025
+Unnamed,Fairview College Pond,SW34-81-3-W6,RNTR,Campbell Lake,2N,20.6,500,21-05-2025
+Unnamed,Fiesta Lake,NE12-35-6-W5,RNTR,Riverence,AF3N,20.0,550,14-05-2025
 Unnamed,Figure Eight Lake,NE20-84-25-W5,RNTR,Campbell Lake,3N,20.3,9000,15-05-2025
 Unnamed,Footner Pond,SE5-111-19-W5,RNTR,Riverence,AF2N,23.6,500,13-05-2025
-Unnamed,"Fort Saskatchewan
-Fish & Game Pond",NE6-54-20-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,2000,29-05-2025
+Unnamed,"Fort Saskatchewan Fish & Game
+Pond",NE6-54-20-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,2000,29-05-2025
 Unnamed,"Fox Creek Trout
 Pond",NW13-63-20-W5,RNTR,Riverence,AF2N,23.6,500,12-05-2025
-Unnamed,"Genesee Trout
-Pond",NW1-51-3-W5,RNTR,Riverence,AF3N,23.7,500,05-05-2025
+Unnamed,Genesee Trout Pond,NW1-51-3-W5,RNTR,Riverence,AF3N,23.7,500,05-05-2025
 Unnamed,Gibbons Pond,NE10-56-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,300,29-05-2025
-Unnamed,Gibbons Pond,NE10-56-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,32,25,29-05-2025
-Unnamed,Gooseberry Park Pond,NE22-36-6-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,3000,06-05-2025
+Unnamed,Gibbons Pond,NE10-56-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,32.0,25,29-05-2025
+Unnamed,"Gooseberry Park
+Pond",NE22-36-6-W4,RNTR,"Trout
+Lodge/Kamloops",AF3N,20.4,3000,06-05-2025
 Unnamed,Granum Pond,NW31-10-26-W4,RNTR,"Trout
 Lodge/Kamloops",AF3N,20.3,600,01-05-2025
-Unnamed,Harleck Pond,SE5-41-14-W5,RNTR,Riverence,AF3N,20,400,28-05-2025
+Unnamed,Harleck Pond,SE5-41-14-W5,RNTR,Riverence,AF3N,20.0,400,28-05-2025
 Unnamed,Helmer Reservoir,SW18-31-14-W4,RNTR,Riverence,AF2N,20.4,5000,23-04-2025
 Unnamed,Helmer Reservoir,SW18-31-14-W4,RNTR,Riverence,AF2N,20.4,5000,24-04-2025
 Unnamed,Heritage Lake,NW33-55-25-W4,BKTR,Beitty Resort,3N,19.6,1600,29-04-2025
 Unnamed,Heritage Lake,NW33-55-25-W4,BNTR,Bow River,3N,19.1,1000,29-04-2025
+Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,2050,29-04-2025
 Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,20.2,2050,29-04-2025
-Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2000,10-06-2025
+Lodge/Kamloops",AF3N,20.3,2000,10-06-2025
 Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,Campbell Lake,3N,20.3,340,29-09-2025
-Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,24.1,2660,29-09-2025
+Unnamed,Heritage Lake,NW33-55-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,24.1,2660,29-09-2025
+Unnamed,Hermitage Park Pond,NE18-53-23-W4,BNTR,Bow River,3N,19.4,300,07-05-2025
 Unnamed,"Hermitage Park
-Pond",NE18-53-23-W4,BNTR,Bow River,3N,19.4,300,07-05-2025
-Unnamed,Hermitage Park Pond,NE18-53-23-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.1,1395,07-05-2025
+Pond",NE18-53-23-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.1,1395,07-05-2025
 Unnamed,Hermitage Park Pond,NE18-53-23-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.6,1000,05-06-2025
 Unnamed,Hermitage Park Pond,NE18-53-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2300,10-06-2025
 Unnamed,Highway 40 Pond,SW12-69-6-W6,RNTR,Campbell Lake,2N,20.6,1000,21-05-2025
-Unnamed,Highway 63 Pond,NE35-87-9-W4,RNTR,Campbell Lake,2N,21,1000,08-05-2025
-Unnamed,"Highway 686
-Pond",NE17-85-19-W5,RNTR,Campbell Lake,2N,20.8,500,13-05-2025
-Unnamed,Hiller's Reservoir,SE13-32-29-W4,RNTR,Riverence,AF2N,20,7500,17-04-2025
+Unnamed,Highway 63 Pond,NE35-87-9-W4,RNTR,Campbell Lake,2N,21.0,1000,08-05-2025
+Unnamed,Highway 686 Pond,NE17-85-19-W5,RNTR,Campbell Lake,2N,20.8,500,13-05-2025
+Unnamed,Hiller's Reservoir,SE13-32-29-W4,RNTR,Riverence,AF2N,20.0,7500,17-04-2025
 Unnamed,Huber Reservoir,SW36-37-13-W4,RNTR,Riverence,AF2N,20.3,6000,22-04-2025
 Unnamed,Huber Reservoir,SW36-37-13-W4,TGTR,Beitty/Bow River,3N,20.1,1250,22-04-2025
 Unnamed,Innisfree Trout Pond,SE13-51-12-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,400,25-04-2025
-Unnamed,"Innisfree Trout
-Pond",SE13-51-12-W4,BKTR,Beitty Resort,3N,20.2,600,25-04-2025
-Unnamed,"Irma Fish And
-Game Pond",SW34-45-9-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,20.3,200,25-04-2025
-Unnamed,Irma Fish And Game Pond,SW34-45-9-W4,BKTR,Beitty Resort,3N,20.2,300,25-04-2025
-Unnamed,Jarvis Creek Pond,NE19-52-26-W5,RNTR,Riverence,AF3N,23.3,700,14-05-2025
+Unnamed,Innisfree Trout Pond,SE13-51-12-W4,BKTR,Beitty Resort,3N,20.2,600,25-04-2025
+Unnamed,Irma Fish and Game Pond,SW34-45-9-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,200,25-04-2025
+Unnamed,"Irma Fish and
+Game Pond",SW34-45-9-W4,BKTR,Beitty Resort,3N,20.2,300,25-04-2025
+Unnamed,"Jarvis Creek
+Pond",NE19-52-26-W5,RNTR,Riverence,AF3N,23.3,700,14-05-2025
 Unnamed,Kerbe's Pond,NE19-36-20-W4,RNTR,Riverence,AF3N,23.7,1000,12-05-2025
 Unnamed,Kerbe's Pond,NE19-36-20-W4,TGTR,Beitty/Bow River,3N,19.8,1000,12-05-2025
 Unnamed,Kerbe's Pond,NE19-36-20-W4,BNTR,Bow River,3N,19.8,250,12-05-2025
+Unnamed,Kids Can Catch Pond,SW13-24-1-W5,RNTR,Riverence,AF3N,24.6,40,30-04-2025
 Unnamed,"Kids Can Catch
-Pond",SW13-24-1-W5,RNTR,Riverence,AF3N,24.6,40,30-04-2025
-Unnamed,Kids Can Catch Pond,SW13-24-1-W5,RNTR,Riverence,AF3N,26.9,65,17-07-2025
+Pond",SW13-24-1-W5,RNTR,Riverence,AF3N,26.9,65,17-07-2025
 Unnamed,Kraft Wimborne Pond,SE28-33-26-W4,BKTR,Beitty Resort,3N,19.6,230,01-05-2025
-Unnamed,"Kraft Wimborne
-Pond",SE28-33-26-W4,TGTR,Beitty/Bow River,3N,20.3,70,01-05-2025
-Unnamed,"Kraft Wimborne
-Pond",SE28-33-26-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,20.1,180,22-05-2025
+Unnamed,Kraft Wimborne Pond,SE28-33-26-W4,TGTR,Beitty/Bow River,3N,20.3,70,01-05-2025
+Unnamed,Kraft Wimborne Pond,SE28-33-26-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.1,180,22-05-2025
 Unnamed,Kramer Pond,SW25-45-6-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.1,3500,09-05-2025
 Unnamed,Kramer Pond,SW25-45-6-W5,RNTR,Campbell Lake,3N,20.4,1500,01-10-2025
 Unnamed,La Crete Pond,SW15-106-12-W5,RNTR,Campbell Lake,2N,20.8,1500,13-05-2025
-Unnamed,Lacombe Park Pond,NW5-54-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,500,12-05-2025
+Unnamed,"Lacombe Park
+Pond",NW5-54-25-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.3,500,12-05-2025
 Unnamed,Lacombe Park Pond,NW5-54-25-W4,BKTR,Beitty Resort,3N,19.4,600,12-05-2025
 Unnamed,Lara Fish Pond,NE25-61-5-W4,RNTR,Campbell Lake,2N,23.8,200,25-09-2025
 Unnamed,Leduc Reservoir,NE27-49-25-W4,RNTR,Riverence,AF2N,20.2,1181,25-04-2025
-Unnamed,Leduc Reservoir,NE27-49-25-W4,RNTR,Riverence,AF2N,21,3819,25-04-2025
+Unnamed,Leduc Reservoir,NE27-49-25-W4,RNTR,Riverence,AF2N,21.0,3819,25-04-2025
 Unnamed,Legal Reservoir,NW24-57-25-W4,RNTR,Riverence,AF2N,23.9,1150,25-05-2025
+Unnamed,Len Thompson Pond,NW29-40-26-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,1735,01-05-2025
 Unnamed,"Len Thompson
-Pond",NW29-40-26-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,20.2,1735,01-05-2025
-Unnamed,Len Thompson Pond,NW29-40-26-W4,TGTR,Beitty/Bow River,3N,20.3,150,01-05-2025
+Pond",NW29-40-26-W4,TGTR,Beitty/Bow River,3N,20.3,150,01-05-2025
 Unnamed,Len Thompson Pond,NW29-40-26-W4,TGTR,Beitty/Bow River,3N,20.3,500,01-05-2025
 Unnamed,Len Thompson Pond,NW29-40-26-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,872,11-06-2025
-Unnamed,Len Thompson Pond,NW29-40-26-W4,BNTR,Bow River,2N,33,50,01-10-2025
-Unnamed,"Little Beaverdam
-Lake",SE34-1-28-W4,TGTR,Beitty/Bow River,3N,19.6,1000,14-05-2025
+Unnamed,Len Thompson Pond,NW29-40-26-W4,BNTR,Bow River,2N,33.0,50,01-10-2025
+Unnamed,Little Beaverdam Lake,SE34-1-28-W4,TGTR,Beitty/Bow River,3N,19.6,1000,14-05-2025
 Unnamed,"Lloydminster
-Pond",SE6-50-1-W4,RNTR,Riverence,AF2N,23,500,29-04-2025
-Unnamed,Lodgepole Pond,NE1-48-10-W5,RNTR,Riverence,AF3N,20,200,27-05-2025
-Unnamed,"Lougheed Trout
-Pond",NE33-43-11-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,21,600,13-05-2025
+Pond",SE6-50-1-W4,RNTR,Riverence,AF2N,23.0,500,29-04-2025
+Unnamed,Lodgepole Pond,NE1-48-10-W5,RNTR,Riverence,AF3N,20.0,200,27-05-2025
+Unnamed,Lougheed Trout Pond,NE33-43-11-W4,RNTR,Trout Lodge/Kamloops,AF3N,21.0,600,13-05-2025
 Unnamed,Lovett Lake,NW10-47-19-W5,RNTR,"Trout
 Lodge/Jumpers",AF3N,21.2,1000,27-05-2025
-Unnamed,Lower Smuts Lake,SE24-21-11-W5,CTTR,Allison Creek,2N,4.2,200,09-09-2025
-Unnamed,Machesis Lake,NW27-107-16-W5,RNTR,Campbell Lake,2N,20,4000,13-05-2025
+Unnamed,"Lower Smuts
+Lake",SE24-21-11-W5,CTTR,Allison Creek,2N,4.2,200,09-09-2025
+Unnamed,Machesis Lake,NW27-107-16-W5,RNTR,Campbell Lake,2N,20.0,4000,13-05-2025
+Unnamed,Magrath Childrens Pond,SW26-5-22-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,500,01-05-2025
 Unnamed,"Magrath
 Childrens Pond",SW26-5-22-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,20.3,500,01-05-2025
-Unnamed,Magrath Childrens Pond,SW26-5-22-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,300,13-06-2025
-Unnamed,Magrath Childrens Pond,SW26-5-22-W4,RNTR,Trout Lodge/Kamloops,AF3N,30,25,13-06-2025
+Lodge/Kamloops",AF3N,20.3,300,13-06-2025
+Unnamed,Magrath Childrens Pond,SW26-5-22-W4,RNTR,Trout Lodge/Kamloops,AF3N,30.0,25,13-06-2025
 Unnamed,Mayan Lake,NW5-57-23-W5,RNTR,Trout Lodge/Kamloops,AF3N,18.2,2000,09-06-2025
-Unnamed,"McClennan
-Reservoir",SW32-77-19-W5,RNTR,Riverence,AF2N,23.6,500,12-05-2025
+Unnamed,McClennan Reservoir,SW32-77-19-W5,RNTR,Riverence,AF2N,23.6,500,12-05-2025
+Unnamed,Mclaren's Reservoir,SW23-33-18-W4,RNTR,Riverence,AF3N,20.6,4200,23-04-2025
 Unnamed,"Mclaren's
-Reservoir",SW23-33-18-W4,RNTR,Riverence,AF3N,20.6,4200,23-04-2025
-Unnamed,Mclaren's Reservoir,SW23-33-18-W4,RNTR,Riverence,AF2N,22.86,1400,24-04-2025
+Reservoir",SW23-33-18-W4,RNTR,Riverence,AF2N,22.9,1400,24-04-2025
 Unnamed,McQuillan Reservoir,SW13-8-19-W4,RNTR,Riverence,AF2N,22.7,1900,15-04-2025
 Unnamed,McQuillan Reservoir,SW13-8-19-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,1400,04-06-2025
 Unnamed,McVinnie Reservoir,SW33-12-21-W4,TGTR,Beitty/Bow River,3N,19.9,400,11-04-2025
-Unnamed,"McVinnie
-Reservoir",SW33-12-21-W4,RNTR,Riverence,AF2N,22.7,1155,15-04-2025
+Unnamed,McVinnie Reservoir,SW33-12-21-W4,RNTR,Riverence,AF2N,22.7,1155,15-04-2025
 Unnamed,McVinnie Reservoir,SW33-12-21-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,1645,04-06-2025
-Unnamed,Md Peace Pond #1,SW27-83-23-W5,RNTR,Riverence,AF2N,23.6,1000,13-05-2025
+Unnamed,"Md Peace Pond
+#1",SW27-83-23-W5,RNTR,Riverence,AF2N,23.6,1000,13-05-2025
 Unnamed,Md Peace Pond #2,SW27-83-23-W5,RNTR,Riverence,AF2N,23.6,1000,13-05-2025
 Unnamed,Midway Reservoir,SE16-30-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,1800,18-04-2025
-Unnamed,Mile 07 Lake,NE35-69-14-W4,RNTR,Campbell Lake,2N,20,11000,05-05-2025
-Unnamed,Mitford Ponds,SE4-26-4-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.1,350,15-05-2025
+Unnamed,Mile 07 Lake,NE35-69-14-W4,RNTR,Campbell Lake,2N,20.0,11000,05-05-2025
+Unnamed,Mitford Ponds,SE4-26-4-W5,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.1,350,15-05-2025
 Unnamed,Mitford Ponds,SE4-26-4-W5,BNTR,Bow River,3N,19.1,61,15-05-2025
-Unnamed,Morinville Fish And Game Pond,NW4-56-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,1425,29-04-2025
-Unnamed,Morinville Fish And Game Pond,NW4-56-25-W4,BNTR,Bow River,3N,19,100,29-04-2025
-Unnamed,Morinville Fish And Game Pond,NW4-56-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,29.1,1100,03-10-2025
-Unnamed,"Mound Red
-Reservoir",NW11-45-28-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,20.4,3000,08-05-2025
-Unnamed,"Mound Red
-Reservoir",NW11-45-28-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,30,50,08-05-2025
+Unnamed,Morinville Fish and Game Pond,NW4-56-25-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,1425,29-04-2025
+Unnamed,"Morinville Fish
+and Game Pond",NW4-56-25-W4,BNTR,Bow River,3N,19.0,100,29-04-2025
+Unnamed,"Morinville Fish
+and Game Pond",NW4-56-25-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,29.1,1100,03-10-2025
+Unnamed,Mound Red Reservoir,NW11-45-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,3000,08-05-2025
+Unnamed,Mound Red Reservoir,NW11-45-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,30.0,50,08-05-2025
 Unnamed,Muskoseepi Pond,SE26-71-6-W6,RNTR,Riverence,AF2N,23.8,500,15-05-2025
 Unnamed,Nardam Lake,NE17-78-5-W6,RNTR,Campbell Lake,2N,20.6,500,21-05-2025
+Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,2N,40.1,250,27-03-2025
 Unnamed,"Nicholas Sheran
-Park Pond",SE26-8-22-W4,BKTR,Beitty Resort,2N,40.1,250,27-03-2025
-Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,2N,40.1,250,01-04-2025
-Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River,3N,18,2000,11-04-2025
+Park Pond",SE26-8-22-W4,BKTR,Beitty Resort,2N,40.1,250,01-04-2025
+Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River,3N,18.0,2000,11-04-2025
 Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,RNTR,Riverence,AF3N,23.1,2000,11-04-2025
-Unnamed,"Nicholas Sheran
-Park Pond",SE26-8-22-W4,BKTR,Beitty Resort,3N,19.5,2000,11-04-2025
+Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,3N,19.5,2000,11-04-2025
 Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,RNTR,Trout Lodge/Jumpers,AF3N,29.1,1000,01-10-2025
-Unnamed,Nicholas Sheran Park Pond,SE26-8-22-W4,RNTR,Campbell Lake,3N,20.4,1500,01-10-2025
+Unnamed,"Nicholas Sheran
+Park Pond",SE26-8-22-W4,RNTR,Campbell Lake,3N,20.4,1500,01-10-2025
 Unnamed,Niton Lake,SE32-53-12-W5,RNTR,Riverence,AF3N,23.7,1500,14-05-2025
+Unnamed,Nordegg Borrow Pit (East),SE32-40-15-W5,RNTR,Riverence,AF3N,23.0,300,29-05-2025
 Unnamed,"Nordegg Borrow
-Pit (East)",SE32-40-15-W5,RNTR,Riverence,AF3N,23,300,29-05-2025
-Unnamed,Nordegg Borrow Pit (West),SW32-40-15-W5,RNTR,Riverence,AF3N,23,400,29-05-2025
-Unnamed,Nose Creek Pond,NE1-27-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,21,350,15-05-2025
-Unnamed,Nose Creek Pond,NE1-27-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,30,50,15-05-2025
-Unnamed,Nuggent Pond,SE14-44-3-W5,RNTR,"Trout
-Lodge/Kamloops",AF3N,20.4,600,05-05-2025
-Unnamed,Open Creek Reservoir,NE25-42-6-W5,RNTR,Riverence,AF2N,20.3,6000,10-05-2025
+Pit (West)",SW32-40-15-W5,RNTR,Riverence,AF3N,23.0,400,29-05-2025
+Unnamed,Nose Creek Pond,NE1-27-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,21.0,350,15-05-2025
+Unnamed,Nose Creek Pond,NE1-27-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,30.0,50,15-05-2025
+Unnamed,Nuggent Pond,SE14-44-3-W5,RNTR,Trout Lodge/Kamloops,AF3N,20.4,600,05-05-2025
+Unnamed,"Open Creek
+Reservoir",NE25-42-6-W5,RNTR,Riverence,AF2N,20.3,6000,10-05-2025
 Unnamed,Oyen (Concrete Plant) Pond,NW34-27-4-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,300,06-05-2025
 Unnamed,Pine Coulee Reservoir,NE15-14-28-W4,RNTR,Riverence,AF3N,20.1,5000,17-04-2025
 Unnamed,Pine Coulee Reservoir,NE15-14-28-W4,RNTR,Campbell Lake,3N,20.2,5000,23-09-2025
-Unnamed,Pit 24,NE4-47-19-W5,RNTR,"Trout
-Lodge/Jumpers",AF3N,21.2,750,27-05-2025
+Unnamed,Pit 24,NE4-47-19-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.2,750,27-05-2025
 Unnamed,Pit 35,SW26-46-19-W5,RNTR,"Trout
 Lodge/Jumpers",AF3N,21.1,390,26-05-2025
-Unnamed,Pit 44,SW35-46-19-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.1,1100,26-05-2025
+Unnamed,Pit 44,SW35-46-19-W5,RNTR,"Trout
+Lodge/Jumpers",AF3N,21.1,1100,26-05-2025
 Unnamed,Pit 45,SE26-46-19-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.1,1100,26-05-2025
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,200,23-04-2025
+Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,TGTR,Beitty/Bow River,3N,19.3,200,23-04-2025
 Unnamed,"Pleasure Island
-Reservoir",SW20-46-19-W4,TGTR,Beitty/Bow River,3N,19.3,200,23-04-2025
-Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,BKTR,Beitty Resort,3N,20.2,1070,23-04-2025
+Reservoir",SW20-46-19-W4,BKTR,Beitty Resort,3N,20.2,1070,23-04-2025
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,BNTR,Bow River,3N,18.9,160,23-04-2025
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,RNTR,Trout Lodge/Jumpers,AF3N,29.1,1200,02-10-2025
 Unnamed,Pleasure Island Reservoir,SW20-46-19-W4,RNTR,Campbell Lake,3N,20.4,1000,02-10-2025
-Unnamed,"Ponoka Centennial Park
-Pond",NE5-43-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,1000,05-05-2025
-Unnamed,"Ponoka Centennial Park
-Pond",NE5-43-25-W4,TGTR,Beitty/Bow River,3N,19.6,100,09-05-2025
+Unnamed,Ponoka Centennial Park Pond,NE5-43-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.4,1000,05-05-2025
+Unnamed,"Ponoka
+Centennial Park Pond",NE5-43-25-W4,TGTR,Beitty/Bow River,3N,19.6,100,09-05-2025
 Unnamed,"Radway Fish
 Pond",SE31-58-20-W4,RNTR,Riverence,AF2N,23.6,1040,12-05-2025
-Unnamed,Rainbow Lake Pond,NE25-109-9-W6,RNTR,Riverence,AF2N,23.6,500,13-05-2025
+Unnamed,"Rainbow Lake
+Pond",NE25-109-9-W6,RNTR,Riverence,AF2N,23.6,500,13-05-2025
 Unnamed,Riverstone Pond,SW24-8-22-W4,RNTR,Riverence,AF3N,23.3,1830,10-04-2025
 Unnamed,Riverstone Pond,SW24-8-22-W4,RNTR,"Trout
 Lodge/Jumpers",AF3N,29.1,1000,02-10-2025
 Unnamed,Riverstone Pond,SW24-8-22-W4,RNTR,Campbell Lake,3N,20.4,1500,02-10-2025
-Unnamed,Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF2N,20,4200,17-04-2025
-Unnamed,Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF2N,22.86,1400,24-04-2025
+Unnamed,Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF2N,20.0,4200,17-04-2025
+Unnamed,Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF2N,22.9,1400,24-04-2025
+Unnamed,Shell True North Pond,SW10-79-8-W6,BKTR,Beitty Resort,3N,19.4,590,12-05-2025
 Unnamed,"Shell True North
-Pond",SW10-79-8-W6,BKTR,Beitty Resort,3N,19.4,590,12-05-2025
-Unnamed,Shell True North Pond,SW10-79-8-W6,TGTR,Beitty/Bow River,3N,23.9,50,15-05-2025
+Pond",SW10-79-8-W6,TGTR,Beitty/Bow River,3N,23.9,50,15-05-2025
 Unnamed,Shemeluk Lake,SW25-60-17-W4,RNTR,Pit Lakes,2N,22.3,6000,06-05-2025
 Unnamed,Shuster Lake,NE26-43-5-W4,BKTR,Beitty Resort,3N,19.6,6000,01-05-2025
 Unnamed,Sibbald Lake,NE14-24-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,29.1,421,03-10-2025
 Unnamed,Sibbald Lake,NE14-24-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.4,579,03-10-2025
 Unnamed,Silkstone Lake,NE9-47-19-W5,RNTR,Trout Lodge/Jumpers,AF3N,21.2,1300,27-05-2025
+Unnamed,South Heart Reservoir,NW20-77-17-W5,WALL,Rock Island,2N,0.4,1788736,01-06-2025
 Unnamed,"South Heart
-Reservoir",NW20-77-17-W5,WALL,Rock Island,2N,0.4,1788736,01-06-2025
-Unnamed,South Heart Reservoir,NW20-77-17-W5,WALL,Rock Island,2N,0.4,440563,04-06-2025
-Unnamed,Spring Coulee Park Pond,NE12-5-24-W4,RNTR,Trout Lodge/Jumpers,AF3N,20,2500,16-04-2025
+Reservoir",NW20-77-17-W5,WALL,Rock Island,2N,0.4,440563,04-06-2025
+Unnamed,"Spring Coulee
+Park Pond",NE12-5-24-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.0,2500,16-04-2025
 Unnamed,Spring Lake,NE23-75-11-W6,RNTR,Campbell Lake,3N,21.7,3840,15-05-2025
-Unnamed,Spring Lake,NE23-75-11-W6,RNTR,Campbell Lake,3N,20,2560,15-05-2025
+Unnamed,Spring Lake,NE23-75-11-W6,RNTR,Campbell Lake,3N,20.0,2560,15-05-2025
 Unnamed,St. Paul Fish Pond,SE9-58-9-W4,BNTR,Bow River,3N,19.8,400,02-05-2025
 Unnamed,St. Paul Fish Pond,SE9-58-9-W4,RNTR,Riverence,AF2N,22.7,1800,07-05-2025
-Unnamed,"St. Paul Fish
-Pond",SE9-58-9-W4,TGTR,Bow River,3N,22.9,300,07-05-2025
+Unnamed,St. Paul Fish Pond,SE9-58-9-W4,TGTR,Bow River,3N,22.9,300,07-05-2025
 Unnamed,"St. Paul Fish
 Pond",SE9-58-9-W4,RNTR,Campbell Lake,2N,24.8,1000,11-07-2025
 Unnamed,St. Paul Fish Pond,SE9-58-9-W4,TGTR,Beitty/Bow River,3N,28.1,500,11-07-2025
 Unnamed,Stirling Children's Pond,SW29-6-19-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,1000,01-05-2025
 Unnamed,Strathmore Children's Pond,SW14-24-25-W4,TGTR,Beitty/Bow River,3N,19.9,150,08-05-2025
+Unnamed,Taber Trout Pond,NW1-10-17-W4,RNTR,Trout Lodge/Kamloops,AF3N,21.0,2500,15-05-2025
 Unnamed,Taber Trout Pond,NW1-10-17-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,21,2500,15-05-2025
-Unnamed,Taber Trout Pond,NW1-10-17-W4,RNTR,Trout Lodge/Kamloops,AF3N,30,50,15-05-2025
+Lodge/Kamloops",AF3N,30.0,50,15-05-2025
 Unnamed,Taber Trout Pond,NW1-10-17-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,2500,04-06-2025
 Unnamed,Tamarack Lake,NE10-66-12-W5,RNTR,Trout Lodge/Jumpers,AF3N,5.9,8000,18-09-2025
 Unnamed,Telegraph Park Pond,NW32-48-21-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.3,1100,23-04-2025
-Unnamed,Telegraph Park Pond,NW32-48-21-W4,BKTR,Beitty Resort,3N,20.2,1200,23-04-2025
-Unnamed,Telegraph Park Pond,NW32-48-21-W4,BNTR,Bow River,3N,18.8,193,23-04-2025
 Unnamed,"Telegraph Park
-Pond",NW32-48-21-W4,RNTR,"Trout
-Lodge/Jumpers",AF3N,29.1,1000,02-10-2025
-Unnamed,Telegraph Park Pond,NW32-48-21-W4,RNTR,Campbell Lake,3N,20.4,1000,02-10-2025
-Unnamed,Texaco East Pond,NW15-88-8-W4,RNTR,Campbell Lake,2N,21,2700,08-05-2025
-Unnamed,Texaco Pond,SW20-88-8-W4,RNTR,Campbell Lake,2N,21,1500,08-05-2025
+Pond",NW32-48-21-W4,BKTR,Beitty Resort,3N,20.2,1200,23-04-2025
+Unnamed,Telegraph Park Pond,NW32-48-21-W4,BNTR,Bow River,3N,18.8,193,23-04-2025
+Unnamed,Telegraph Park Pond,NW32-48-21-W4,RNTR,Trout Lodge/Jumpers,AF3N,29.1,1000,02-10-2025
+Unnamed,"Telegraph Park
+Pond",NW32-48-21-W4,RNTR,Campbell Lake,3N,20.4,1000,02-10-2025
+Unnamed,Texaco East Pond,NW15-88-8-W4,RNTR,Campbell Lake,2N,21.0,2700,08-05-2025
+Unnamed,Texaco Pond,SW20-88-8-W4,RNTR,Campbell Lake,2N,21.0,1500,08-05-2025
 Unnamed,"Tim Horton
 Children's Pond",NW14-24-8-W5,CTTR,Allison Creek,2N,13.2,300,16-05-2025
-Unnamed,Tim Horton Children's Pond,NW14-24-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.1,300,16-05-2025
+Unnamed,"Tim Horton
+Children's Pond",NW14-24-8-W5,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.1,300,16-05-2025
 Unnamed,Twin Valley Reservoir,NE7-15-25-W4,WALL,Lac Ste. Anne,2N,0.4,1000000,05-06-2025
 Unnamed,Upper Smuts Lake,SE24-21-11-W5,CTTR,Allison Creek,2N,4.2,200,09-09-2025
-Unnamed,"Valleyview
-Children's Pond",NE21-70-22-W5,RNTR,Riverence,AF2N,23.6,500,12-05-2025
+Unnamed,Valleyview Children's Pond,NE21-70-22-W5,RNTR,Riverence,AF2N,23.6,500,12-05-2025
 Unnamed,"Vegreville
 Children's Pond",NW17-52-14-W4,RNTR,"Trout
-Lodge/Kamloops",AF3N,21,600,13-05-2025
-Unnamed,Vegreville Trout Pond,SW7-52-14-W4,RNTR,Campbell Lake,2N,20.6,10000,26-04-2025
-Unnamed,Wallace Park Pond,NE31-44-6-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,500,13-05-2025
+Lodge/Kamloops",AF3N,21.0,600,13-05-2025
+Unnamed,"Vegreville Trout
+Pond",SW7-52-14-W4,RNTR,Campbell Lake,2N,20.6,10000,26-04-2025
+Unnamed,Wallace Park Pond,NE31-44-6-W4,RNTR,Trout Lodge/Kamloops,AF3N,21.0,500,13-05-2025
 Unnamed,Weberville Pond,NW7-85-21-W5,RNTR,Campbell Lake,2N,20.8,1000,13-05-2025
-Unnamed,Wetaskiwin Pond,NE24-46-24-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.1,150,10-05-2025
+Unnamed,Wetaskiwin Pond,NE24-46-24-W4,RNTR,"Trout
+Lodge/Jumpers",AF3N,20.1,150,10-05-2025
 Unnamed,Wetaskiwin Pond,NE24-46-24-W4,BKTR,Beitty Resort,3N,19.6,250,10-05-2025
-Unnamed,"Whitecourt Town
-Pond",NE35-59-12-W5,RNTR,Riverence,AF2N,23.6,1500,12-05-2025
+Unnamed,Whitecourt Town Pond,NE35-59-12-W5,RNTR,Riverence,AF2N,23.6,1500,12-05-2025
 Unnamed,Wildwood Pond,SW30-53-9-W5,RNTR,Riverence,AF3N,23.7,1500,14-05-2025
-Unnamed,Winchell Lake,NW2-29-5-W5,RNTR,Riverence,AF3N,20,4000,07-05-2025
+Unnamed,Winchell Lake,NW2-29-5-W5,RNTR,Riverence,AF3N,20.0,4000,07-05-2025
+Unnamed,Winchell Lake,NW2-29-5-W5,RNTR,Riverence,AF3N,19.9,2760,09-10-2025
+Unnamed,Winchell Lake,NW2-29-5-W5,RNTR,Riverence,AF3N,26.8,2156,09-10-2025
 Unnamed,Wolf Creek Pond,SW13-53-16-W5,RNTR,Riverence,AF3N,23.1,750,27-05-2025
 Unnamed,Zama Community Pond,SW18-117-4-W6,RNTR,Riverence,AF2N,23.6,500,13-05-2025
-Upper Kananaskis Lake,,NW23-19-9-W5,CTTR,Allison Creek,2N,15,5000,25-06-2025
-"Upper Kananaskis
-Lake",,NW23-19-9-W5,CTTR,Allison Creek,2N,19.8,2300,11-09-2025
-Victor Lake,,SW35-56-8-W6,RNTR,Trout Lodge/Kamloops,AF3N,18.1,15000,28-05-2025
+Upper Kananaskis Lake,,NW23-19-9-W5,CTTR,Allison Creek,2N,15.0,5000,25-06-2025
+Upper Kananaskis Lake,,NW23-19-9-W5,CTTR,Allison Creek,2N,19.8,2300,11-09-2025
+Victor Lake,,SW35-56-8-W6,RNTR,"Trout
+Lodge/Kamloops",AF3N,18.1,15000,28-05-2025
 Wadlin Lake,,SW4-101-10-W5,WALL,Graham Lake,2N,0.4,1520390,10-06-2025
 West Dollar Lake,,SE18-73-21-W5,BNTR,Bow River,3N,19.1,250,12-05-2025
 West Dollar Lake,,SE18-73-21-W5,RNTR,Campbell Lake,3N,20.2,1000,12-05-2025
@@ -653,7 +675,7 @@ Pond","Fort Lions Park
 Pond",NE23-54-23-W4,BNTR,Bow River,3N,19.1,250,06-05-2025
 West Rivers Edge Pond,Fort Lions Park Pond,NE23-54-23-W4,TGTR,Beitty/Bow River,3N,20.4,250,12-05-2025
 West Rivers Edge Pond,Fort Lions Park Pond,NE23-54-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.6,1000,29-05-2025
-West Rivers Edge Pond,Fort Lions Park Pond,NE23-54-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,32,50,29-05-2025
+West Rivers Edge Pond,Fort Lions Park Pond,NE23-54-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,32.0,50,29-05-2025
 Whiteridge Recreation Area Pond,Blueridge Pit,SW1-60-10-W5,RNTR,Campbell Lake,3N,20.2,2100,12-05-2025
 Wildhorse Lakes,"Lower Wildhorse
 Lake",SW31-49-26-W5,RNTR,"Trout
