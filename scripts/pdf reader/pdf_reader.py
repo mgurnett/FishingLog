@@ -5,7 +5,7 @@ import re
 
 # --- Configuration ---
 PDF_PATH = "epa-alberta-fish-stocking-report-2025.pdf" 
-CSV_FILENAME = f"csv_data.csv"
+CSV_FILENAME = "csv_data.csv"
 
 # Official Column Names based on PDF structure
 COL_NAMES = [
@@ -156,12 +156,14 @@ def check_row_for_ats(row: pd.Series) -> bool:
     return matches.any()
 
 
-def validate_and_clean_row(row: pd.Series):
+def validate_and_clean_row(row: pd.Series, second_row: pd.Series):
     print ("===== cleaning a single row ======")
     row_dict = {'Lake_Name': "", 'Common_Name': "", 'ATS_Location': "", \
         'Species_Code': "", 'Strain': "", 'Genotype': "", 'Avg_Length': "", 'Quantity_Stocked': "", 'Stocking_Date': ""}
 
     string_series = row.astype(str)
+    string_series_second = second_row.astype(str) if second_row is not None else None
+    
     # print (string_series)
 
     # --- 1. Clean Lake Name (Logic is correct here as it uses direct string access) ---
@@ -310,12 +312,14 @@ def validate_and_clean_row(row: pd.Series):
         # print(f"Date Exception: {e}")
         pass # Date remains None
 
+    # print(f"ATS = {row_dict['ATS_Location']} and species is {row_dict['Species_Code']} and length is {row_dict['Avg_Length']} \
+    # {row_dict['Genotype']} # {row_dict['Quantity_Stocked']} on: {row_dict['Stocking_Date']}")
 
-
-    # 'Strain',       
-
-    print(f"ATS = {row_dict['ATS_Location']} and species is {row_dict['Species_Code']} and length is {row_dict['Avg_Length']} \
-    {row_dict['Genotype']} # {row_dict['Quantity_Stocked']} on: {row_dict['Stocking_Date']}")
+    if second_row is not None:
+        # print (second_row)
+        print (string_series_second ['Lake_Name']) if second_row is not None else None
+        print (string_series_second ['Common_Name']) if second_row is not None else None
+        print (string_series_second ['Strain']) if second_row is not None else None
 
     return row_dict
 
@@ -347,8 +351,6 @@ def validate_all_data (df):
         if found_ats:
             # print(f"  -> Match found in row: {current_row.to_dict()}")
             main_row = True
-            cleaned_current_row = validate_and_clean_row(current_row)
-            clean_rows_list.append(cleaned_current_row)
         
         try:
             advance_row = df.iloc[index + 1]
@@ -361,9 +363,16 @@ def validate_all_data (df):
             else:
                 aux_row = True
 
-        if main_row and aux_row: #this means that the two rows should be one row
-            index +=2
+        if main_row and not aux_row: # this means that the row is single
+            cleaned_current_row = validate_and_clean_row(current_row, None)
+            clean_rows_list.append(cleaned_current_row)
+            index +=1
+
+        elif main_row and aux_row: #this means that the two rows should be one row
             # print (f'{index} of {total_rows} {advance_row}')
+            cleaned_current_row = validate_and_clean_row(current_row, advance_row)
+            clean_rows_list.append(cleaned_current_row)
+            index +=2
 
         elif main_row and not aux_row: #this means that the second row is stand alone
             index +=1
