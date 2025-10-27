@@ -166,29 +166,31 @@ def check_lakes_with_name_transfer_logic(df):
     # Column 2: ATS (Input_ATS)
     df.columns = [f'Col{i}' for i in range(len(df.columns))]
     
-    # Assuming you have already performed the full cleaning: 
-    df['Input_Name_Clean'] = df['Col0'].str.replace('\n', ' ').str.strip().str.lower()
-    df['Input_Other_Name_Clean'] = df['Col1'].str.replace('\n', ' ').str.strip().str.lower()
+    # Apply full cleaning (including the necessary \n removal) and create CLEAN columns
+    df['Input_Name_Clean'] = df['Col0'].astype(str).str.replace('\n', ' ', regex=False).str.strip().str.lower().replace('nan', '')
+    df['Input_Other_Name_Clean'] = df['Col1'].astype(str).str.replace('\n', ' ', regex=False).str.strip().str.lower().replace('nan', '')
     df['Input_ATS'] = df['Col2'].astype(str).str.strip().str.upper().replace('nan', '')
 
-    # Identify unique lake entries in the input CSV (one record per unique lake/ATS/other name combination)
-    unique_lakes = df[['Input_Name', 'Input_Other_Name', 'Input_ATS']].drop_duplicates()
+    # Identify unique lake entries using the CLEAN columns
+    # NOTE: The original code had a KeyError here. Using the CLEAN columns fixes it.
+    unique_lakes = df[['Input_Name_Clean', 'Input_Other_Name_Clean', 'Input_ATS']].drop_duplicates().reset_index(drop=True)
 
     # Track lakes that couldn't be uniquely matched to suggest for database additions
     unmatched_lakes = []
 
     for index, row in unique_lakes.iterrows():
-        lake_name_input = row['Input_Name']
-        lake_name_other_input = row['Input_Other_Name']
+        # Use the CLEANED names consistently from the unique_lakes DataFrame
         ats_input = row['Input_ATS']
+        lake_name_input_clean = row['Input_Name_Clean']
+        lake_name_other_input_clean = row['Input_Other_Name_Clean']
         
         # Skip records missing essential identifying data
-        if not ats_input or (not lake_name_input and not lake_name_other_input):
-            print(f"Skipping incomplete record: Name='{lake_name_input}', Other='{lake_name_other_input}', ATS='{ats_input}'")
+        if not ats_input or (not lake_name_input_clean and not lake_name_other_input_clean):
+            # Using the cleaned names for printing consistency
+            print(f"Skipping incomplete record: Name='{lake_name_input_clean}', Other='{lake_name_other_input_clean}', ATS='{ats_input}'")
             continue
 
         # 1. Primary Match: Find all existing lakes in the database with this ATS
-        # Use Q object for case-insensitive ATS matching (as is common practice)
         lakes_with_matching_ats = Lake.objects.filter(Q(ats__iexact=ats_input))
         
         num_matches = lakes_with_matching_ats.count()
@@ -197,73 +199,81 @@ def check_lakes_with_name_transfer_logic(df):
 
         if num_matches == 0:
             # Case 3: No ATS match - suggest adding a new lake
-            print(f"FAIL: No lake found in DB for ATS '{ats_input}'. Suggest adding: Name='{lake_name_input}', Other='{lake_name_other_input}'.")
+            print(f"FAIL: No lake found in DB for ATS '{ats_input}'. Suggest adding: Name='{lake_name_input_clean}', Other='{lake_name_other_input_clean}'.")
             unmatched_lakes.append(row)
             continue
             
         elif num_matches == 1:
             # Case 1: Perfect ATS match (the '95% works great' scenario)
             matched_lake = lakes_with_matching_ats.first()
+            # If you want to see the 95% successes, uncomment the next line:
             # print(f"SUCCESS (ATS only): Matched DB Lake: {matched_lake.name.strip()} {matched_lake.other_name.strip()} {matched_lake.ats.strip()}")
             
         else:
             # Case 2: Multiple ATS matches - requires name-matching logic
             print(f"INFO: Multiple lakes ({num_matches}) found for ATS '{ats_input}'. Applying name logic...")
             
-            # This logic is based on your full_stock_import.py snippet and requirements 
-            
-        for lake in lakes_with_matching_ats:
-            db_name = lake.name.strip().lower()
-            db_other_name = lake.other_name.strip().lower()
+            # THE LOGIC LOOP AND RESULT CHECK MUST BE INSIDE THIS ELSE BLOCK
+            for lake in lakes_with_matching_ats:
+                db_name = lake.name.strip().lower()
+                db_other_name = lake.other_name.strip().lower()
 
-            # Input variables are already cleaned (from the previous step's fix)
-            lake_name_input = row['Input_Name_Clean']
-            lake_name_other_input = row['Input_Other_Name_Clean']
-            
-            # Rule 1: Full Match (Main and Other name match)
-            is_full_match = (db_name == lake_name_input) and \
-                            (db_other_name == lake_name_other_input)
+                # Rule 1: Full Match (Main and Other name match)
+                is_full_match = (db_name == lake_name_input_clean) and \
+                                (db_other_name == lake_name_other_input_clean)
 
-            # Rule 2: 'Unnamed' Transfer Logic (The original logic, which is likely for *other* data)
-            # This checks if the DB's OTHER name matches the input's MAIN name.
-            is_transfer_match_original = (db_name == "unnamed") and \
-                                        (db_other_name == lake_name_input)
+                # Rule 2: 'Unnamed' Transfer Logic (Original, where DB name is Unnamed)
+                # Matches if DB main name is "unnamed" AND DB other name matches input's MAIN name (unlikely for "unnamed" input records)
+                is_transfer_match_original = (db_name == "unnamed") and \
+                                            (db_other_name == lake_name_input_clean)
 
-            # Rule 3 (NEW/CORRECTED RULE FOR THIS DATA): 
-            # When Input Main Name is "unnamed," match the DB's main or other name 
-            # against the Input Other Name. This is the crucial step.
-            is_unnamed_input_match = (lake_name_input == "unnamed") and \
-                                    (db_name == lake_name_other_input or db_other_name == lake_name_other_input)
+                # Rule 3: Corrected Rule for "Unnamed" INPUT data (Fixes SE24-21-11-W5)
+                # Matches if Input Main Name is "unnamed" AND Input Other Name matches DB main or other name
+                is_unnamed_input_match = (lake_name_input_clean == "unnamed") and \
+                                         (db_name == lake_name_other_input_clean or db_other_name == lake_name_other_input_clean)
+                
+                # Combine all conditions
+                if is_full_match or is_transfer_match_original or is_unnamed_input_match:
+                    if matched_lake is None:
+                        matched_lake = lake
+                    else:
+                        # Ambiguous match found
+                        matched_lake = 'AMBIGUOUS' 
+                        ambiguous_match = True
+                        break # Stop checking for this ATS once ambiguity is confirmed
             
-            # Combine all conditions
-            if is_full_match or is_transfer_match_original or is_unnamed_input_match:
-                if matched_lake is None:
-                    matched_lake = lake
-                else:
-                    # Ambiguous match found
-                    matched_lake = 'AMBIGUOUS' 
-                    ambiguous_match = True
-                    break
-            
-            # Final check after the name logic loop
+            # Final check after the name logic loop (Only runs if num_matches > 1)
             if ambiguous_match:
-                print(f"FAIL: AMBIGUOUS name match for '{lake_name_input}' ({ats_input}). Manual resolution needed.")
+                print(f"FAIL: AMBIGUOUS name match for '{lake_name_input_clean}' ({ats_input}). Manual resolution needed.")
                 unmatched_lakes.append(row)
             elif matched_lake:
                 # A unique name match was found
                 print(f"*** SUCCESS (Name Logic): Matched DB Lake: {matched_lake.name.strip()} {matched_lake.other_name.strip()} {matched_lake.ats.strip()}")
             else:
-                # No name match was found among the multiple ATS matches
+                # No unique name match was found among the multiple ATS matches
                 print (f'FAIL: No unique lake found using name criteria among the multiples for ATS {ats_input}. Manual resolution needed.')
                 unmatched_lakes.append(row)
 
     print("\n--- Lake Matching Complete ---")
-    print(f"Lakes requiring potential new database entry or manual action: {len(unmatched_lakes)}")
+    return unmatched_lakes
 
 
-FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
+# Add the standard entry point for Django runscript
+# FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
+FILE_NAME = 'extra files/test.csv'
+# FILE_NAME = 'extra files/stocks_final_cleaned.csv'
 
 def run():
-    df = get_data (FILE_NAME)
-    # print(df.head())
-    check_lakes_with_name_transfer_logic (df)
+    # Placeholder for get_data, assuming it reads the CSV into a DataFrame
+    # In a real Django environment, you'd load the data here.
+    try:
+        df = pd.read_csv(FILE_NAME, header=None, skiprows=1)
+    except FileNotFoundError:
+        # Assuming the file is accessible since you are running it
+        df = pd.read_csv(FILE_NAME, header=None, skiprows=1)
+
+    unmatched_lakes = check_lakes_with_name_transfer_logic (df)
+
+    print(f"Lakes requiring potential new database entry or manual action: {len(unmatched_lakes)}")
+
+    
