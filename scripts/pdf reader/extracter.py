@@ -3,10 +3,6 @@ import pandas as pd
 import os # To manage file paths
 import re
 
-# --- Configuration ---
-PDF_PATH = "epa-alberta-fish-stocking-report-2025.pdf" 
-CSV_FILENAME = "csv_data.csv"
-
 # Official Column Names based on PDF structure
 COL_NAMES = [
     'Lake_Name',           
@@ -46,7 +42,6 @@ SPECIES_CODES = ["RNTR", "CTTR", "WALL", "BKTR", "BNTR", "TGTR"]
 
 GENOTYPE_CODES = ["2N", "3N", "AF2N", "AF3N"]
 
-ATS_PATTERN = r'^[NESW]{2}\d{1,2}-\d{1,3}-\d{1,2}-W\d{1}$'
 SIMPLE_ATS_PATTERN = r'([NnSs][EeWw]\d{1,2}-\d{1,3}-\d{1,2}-[Ww]\d{1})'
 AVG_LENGTH_PATTERN = r'(\d{1,3}[.,]\d{1,2})'
 # Quantity Pattern: Targets the large number with optional commas
@@ -55,65 +50,8 @@ QTY_PATTERN = r'(\d{1,3}(?:,\d{3})*)'
 DATE_PATTERN = r'(\d{1,2}\s*[\-\/]\s*[A-Za-z]{3}\s*[\-\/]\s*\d{2,4})'
 
 
-def extract_and_save_tables():
-    print(f"Attempting to extract tables from: {PDF_PATH}")
-    
-    # 1. Extraction: Get the list of DataFrames
-    # Use 'all' for all pages and 'stream' for better table recognition (default is 'lattice')
-    try:
-        list_of_dfs = tabula.read_pdf(
-            PDF_PATH, 
-            pages='all',
-            output_format='dataframe',
-            # Add other options here, like area='...', guess=False, etc.
-        )
-    except Exception as e:
-        print(f"An error occurred during PDF extraction: {e}")
-        return
-
-    if not list_of_dfs:
-        print("No tables were extracted. Check your PDF and extraction parameters.")
-        return
-
-    print(f"Successfully extracted {len(list_of_dfs)} table(s).")
-    
-    # ===============================================
-    # OPTION B: Combine All Tables and Save to One CSV
-    # ===============================================
-    print("\n--- Combining and Saving to One File ---")
-    
-    # Concatenate all DataFrames in the list into a single DataFrame
-    combined_df = pd.concat(list_of_dfs, ignore_index=True)
-    
-    # Save the combined DataFrame to a single CSV file
-    combined_df.to_csv(CSV_FILENAME, index=False, encoding='utf-8')
-    print(f"Saved all {len(list_of_dfs)} tables combined to: {CSV_FILENAME}")
-
-
-def load_csv_to_dataframe():    # --- Core Function: Data Loading ---
-    """
-    Loads the data from the specified CSV path into a pandas DataFrame.
-    
-    Args:
-        CSV_FILENAME (str): The path to the CSV file (e.g., 'csv_data.csv').
-        
-    Returns:
-        pd.DataFrame: The raw DataFrame loaded from the CSV, or an empty DataFrame if the file is not found.
-    """
-    if not os.path.exists(CSV_FILENAME):
-        print(f"Error: Required file '{CSV_FILENAME}' not found.")
-        print("Please ensure you run the extraction script first to create the CSV!")
-        return pd.DataFrame()
-
-    print(f"1. Loading raw data from: {CSV_FILENAME}")
-    # Read the CSV, skipping the two known header rows, but treating the first row as data
-    # (header=None) so we can refer to columns by index (0, 1, 2, etc.) easily.
-    df = pd.read_csv(CSV_FILENAME, header=None, skiprows=3)
-    
-    return df
-
-
 def is_valid_ats_code(text):
+    ATS_PATTERN = r'^[NESW]{2}\d{1,2}-\d{1,3}-\d{1,2}-W\d{1}$'
     """
     Checks if a given string matches the required ATS location code pattern.
     """
@@ -121,6 +59,7 @@ def is_valid_ats_code(text):
 
 
 def check_row_for_ats(row: pd.Series) -> bool:
+    ATS_PATTERN = r'^[NESW]{2}\d{1,2}-\d{1,3}-\d{1,2}-W\d{1}$'
     """
     Efficiently checks all cell values in a pandas Series (a DataFrame row) 
     to see if any value is a valid ATS location code.
@@ -141,6 +80,49 @@ def check_row_for_ats(row: pd.Series) -> bool:
     
     # 3. Check if ANY match was found in the row.
     return matches.any()
+
+
+def check_row_for_data(row: pd.Series) -> bool:
+    """
+    Efficiently checks all cell values in a pandas Series (a DataFrame row) 
+    to see if any value contains characters other than just commas (and is not NaN/None).
+
+    This is useful for identifying rows that are effectively empty (e.g., all cells 
+    are NaN, None, or only contain commas like ',,,' or just empty strings).
+
+    Args:
+        row: A single row from a pandas DataFrame (pd.Series).
+
+    Returns:
+        True if at least one cell contains non-comma data, False otherwise.
+    """
+    # Pattern to find: one or more characters that are NOT a comma.
+    # [^,] means "any character except a comma"
+    # + means "one or more times"
+    NON_COMMA_PATTERN = r'[^,]+'
+    
+    # 1. Convert all non-string values to strings for consistency.
+    #    NaNs will become the string 'nan'.
+    string_series = row.astype(str)
+    
+    # 2. Use vectorized string operations for speed.
+    #    .str.contains(pattern) returns a boolean Series (True if the string contains the pattern).
+    #    na=False ensures that actual NaN values (if they somehow slipped through astype(str))
+    #    or string 'nan' (from astype(str)) do not accidentally get a 'True' result, though
+    #    'nan' doesn't match the pattern anyway.
+    matches = string_series.str.contains(NON_COMMA_PATTERN, na=False)
+
+
+def check_for_and_cleanup_name (string_series: str) -> str:
+    if string_series['Lake_Name'] != "Unnamed":
+        return string_series['Lake_Name']
+    else:
+        return string_series['Common_Name']
+
+
+
+
+
 
 
 def validate_and_clean_row(row: pd.Series, second_row: pd.Series):
@@ -379,7 +361,7 @@ def validate_all_data (df):
 # ==============================================================================
 if __name__ == "__main__":
     # Step 1: Load the CSV into a raw DataFrame
-    extract_and_save_tables()
+    # extract_and_save_tables()
     
     # Step 2: Load csv into dataframe
     raw_df = load_csv_to_dataframe()
@@ -389,6 +371,6 @@ if __name__ == "__main__":
         print("\nDataFrame ready for next step!")
 
     # Step 3: Validate each line of data
-    # cleanedup_df = validate_all_data (raw_df)
+    cleanedup_df = validate_all_data (raw_df)
     # print (cleanedup_df.head)
 
