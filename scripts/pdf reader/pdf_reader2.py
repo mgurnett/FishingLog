@@ -1,8 +1,9 @@
-import tabula
+# import tabula
 import pandas as pd
 import os # To manage file paths
 import re
 from extracter import *
+from typing import Optional
 
 # Official Column Names based on PDF structure
 COL_NAMES = [
@@ -20,7 +21,8 @@ ROW_TYPE = ['main,', 'data', 'empty', 'unknown']
 
 # --- Configuration ---
 PDF_PATH = "epa-alberta-fish-stocking-report-2025.pdf" 
-CSV_FILENAME = "csv_data.csv"
+CSV_FILENAME_RAW = "csv_data_raw.csv"
+CSV_FILENAME_FILTERED = "csv_data_filtered.csv"
 
 # Step #1 - convert all PDF rows to csv and save CSV 
 def extract_and_save_tables():
@@ -54,7 +56,7 @@ def extract_and_save_tables():
     
     # Save the combined DataFrame to a single CSV file
     combined_df.to_csv(CSV_FILENAME, index=False, encoding='utf-8')
-    print(f"Saved table to: {CSV_FILENAME}")
+    print(f"Saved table to: {CSV_FILENAME_RAW}")
 
 # Step #2 - load csv into dataframe
 def load_csv_to_dataframe():    # --- Core Function: Data Loading ---
@@ -67,15 +69,15 @@ def load_csv_to_dataframe():    # --- Core Function: Data Loading ---
     Returns:
         pd.DataFrame: The raw DataFrame loaded from the CSV, or an empty DataFrame if the file is not found.
     """
-    if not os.path.exists(CSV_FILENAME):
-        print(f"Error: Required file '{CSV_FILENAME}' not found.")
+    if not os.path.exists(CSV_FILENAME_RAW):
+        print(f"Error: Required file '{CSV_FILENAME_RAW}' not found.")
         print("Please ensure you run the extraction script first to create the CSV!")
         return pd.DataFrame()
 
-    print(f"1. Loading raw data from: {CSV_FILENAME}")
+    print(f"1. Loading raw data from: {CSV_FILENAME_RAW}")
     # Read the CSV, skipping the two known header rows, but treating the first row as data
     # (header=None) so we can refer to columns by index (0, 1, 2, etc.) easily.
-    df = pd.read_csv(CSV_FILENAME, header=None, skiprows=3)
+    df = pd.read_csv(CSV_FILENAME_RAW, header=None, skiprows=3)
     
     return df
 
@@ -134,48 +136,138 @@ def load_csv_to_dataframe():    # --- Core Function: Data Loading ---
     df_new = pd.DataFrame(clean_rows_list, columns=COL_NAMES)
     return df_new
 
-def validate_rows (df):
+
+def check_row_for_ats(row: pd.Series) -> bool:
+    ATS_PATTERN = r'^[NESW]{2}\d{1,2}-\d{1,3}-\d{1,2}-W\d{1}$'
+    """
+    Efficiently checks all cell values in a pandas Series (a DataFrame row) 
+    to see if any value is a valid ATS location code.
+
+    Args:
+        row: A single row from a pandas DataFrame (pd.Series).
+
+    Returns:
+        True if at least one cell contains a valid ATS code, False otherwise.
+    """
+    # 1. Convert all non-string values (like numbers or NaNs) to strings for consistency.
+    #    This ensures the .str accessor works cleanly across the entire row.
+    string_series = row.astype(str)
+    
+    # 2. Use vectorized string operations for speed (much faster than looping).
+    #    .str.match(pattern) returns a boolean Series (True if the whole string matches the pattern).
+    matches = string_series.str.match(ATS_PATTERN, na=False)
+    
+    # 3. Check if ANY match was found in the row.
+    return matches.any()
+
+
+def check_row_for_keywords(row: pd.Series) -> str:
+    """
+    Checks if a row contains the specific keywords "Lodge/Jumpers" or 
+    "Lodge/Kamloops" in any cell.
+
+    Args:
+        row: A single row from a pandas DataFrame (pd.Series).
+
+    Returns:
+        The keyword string found ("Lodge/Jumpers" or "Lodge/Kamloops").
+        Returns an empty string ('') if neither is found.
+    """
+    
+    # Define the target keywords
+    TARGET_JUMPERS = "Lodge/Jumpers"
+    TARGET_KAMLOOPS = "Lodge/Kamloops"
+    
+    # Robust Cleaning: Replace NaN with empty string, convert all to string, 
+    # and strip leading/trailing whitespace.
+    string_series = row.fillna('').astype(str).str.strip()
+    
+    # Iterate through the cleaned string values to check for keywords
+    for cell_value in string_series.values:
+        if TARGET_JUMPERS in cell_value:
+            return TARGET_JUMPERS
+        if TARGET_KAMLOOPS in cell_value:
+            return TARGET_KAMLOOPS
+    return None
+
+
+def validate_rows(df: pd.DataFrame, COL_NAMES: list, check_row_for_ats) -> pd.DataFrame:
+    """
+    Validates, cleans, and merges supplementary keyword data into the preceding 
+    main data row's 'Strain' column.
+    """
     df.columns = COL_NAMES
-    # print (df.head())
     
-    # Create an empty DataFrame
+    # Define the index of the 'Strain' column (0-indexed: Strain is the 5th column)
+    STRAIN_COLUMN_INDEX = 4 
+
     clean_rows_list = []
-    df_new = pd.DataFrame(columns=COL_NAMES)
-
-    # --- While Loop Implementation ---
-    index = 0
-    mystry_rows = 0
-    total_rows = len(df)
     rows_summery = []
-
-    # print("Starting while loop iteration...")
-    while index < total_rows:
-
-        print (f'{index} of {total_rows}')
-
-
-        # 1. Access the current row using .iloc[]
-        current_row = df.iloc[index]
+    last_main_data_row_index = -1 # Keep track of the index of the last main data row
     
-        # Check to see if ats is there.
-        found_ats = check_row_for_ats(current_row) #True if at least one cell contains a valid ATS code, False otherwise.
+    index = 0
+    total_rows = len(df)
+    
+    print("Starting row validation and merging...")
+
+    while index < total_rows:
+        current_row = df.iloc[index].copy() # IMPORTANT: Use .copy() to allow modification
+        row_summary_entry = {"index": index, "row_type": 'unknown'}
         
-        # declare this to be a main row
+        found_ats = check_row_for_ats(current_row) 
+        keyword_found = check_row_for_keywords(current_row) 
+        
         if found_ats:
-            row_make_up = {"index":index, "row_type": 'main'}
+            # 🥇 CASE 1: Main Data Row (Has ATS)
+            row_summary_entry["row_type"] = 'main_data'
+            
+            # Add the row to the list (it's the primary record)
+            clean_rows_list.append(current_row)
+            
+            # Update the index of the last primary row for future merges
+            last_main_data_row_index = len(clean_rows_list) - 1 
+            
+        elif not found_ats and keyword_found:
+            # 🥉 CASE 2: Supplementary Keyword Row (No ATS, Has Keyword)
+            row_summary_entry["row_type"] = f'supplementary_keyword: {keyword_found}'
+            
+            if last_main_data_row_index != -1:
+                # Get the *last added* main data row from the clean_rows_list
+                target_row = clean_rows_list[last_main_data_row_index]
+                
+                # MERGE LOGIC: Prepend the keyword to the 'Strain' cell (index 4)
+                current_strain = str(target_row.iloc[STRAIN_COLUMN_INDEX]).strip()
+                
+                if current_strain.lower() in ('trout', 'riverence'):
+                    # Overwrite the generic "Trout" or "Riverence" with the specific keyword
+                    new_strain_value = f'Trout {keyword_found}'
+                else:
+                    # Append the keyword to the current strain value
+                    new_strain_value = f'Trout {keyword_found}'
+
+                # Update the value in the list of clean rows
+                target_row.iloc[STRAIN_COLUMN_INDEX] = new_strain_value
+                
+                print(f"    -> MERGED: Keyword '{keyword_found}' appended to Strain of row {index-1}.")
+            
+            # NOTE: Supplementary rows are NOT added to the final list.
+            
         else:
-            found_data = check_row_for_data (current_row)
-            if found_data:
-                print('====data row====')
-                row_make_up = {"index":index, "row_type": 'data'}
-            else:
-                row_make_up = {"index":index, "row_type": 'empty'}
+            # 👻 CASE 3: Empty or Garbage Row (No ATS, No Keywords)
+            row_summary_entry["row_type"] = 'empty_or_garbage'
 
-        rows_summery.append(row_make_up)
-        print (f'{index} of {total_rows} {row_make_up}')
-        index +=1
+        # Record the summary and advance the index
+        rows_summery.append(row_summary_entry)
+        print(f'{index} of {total_rows} {row_summary_entry}')
+        index += 1
+    
+    # Convert the list of clean, now-merged rows into a new DataFrame
+    df_new = pd.DataFrame(clean_rows_list, columns=COL_NAMES)
+    
+    print("\n--- Summary of All Rows ---")
+    print(pd.DataFrame(rows_summery).to_markdown(index=False))
 
-    print (f'{rows_summery}')
+    return df_new
         
 # ==============================================================================
 # 🚀 EXECUTION
@@ -192,6 +284,8 @@ if __name__ == "__main__":
         print("\nDataFrame ready for next step!")
 
     # Step 3: Validate each line of data
-    validate_rows (raw_df)
-    # print (cleanedup_df.head)
+    df_new = validate_rows (raw_df, COL_NAMES, check_row_for_ats)
+    print (df_new.head)
 
+    # Step 4: save the df to a new csv
+    df_new.to_csv(CSV_FILENAME_FILTERED, index=False, encoding='utf-8')
