@@ -301,7 +301,7 @@ FILE_NAME = 'extra files/test.csv'
 def run():
 
     print ("Deleting all stocks from 2025")
-    Stock.objects.filter(date_stocked__year=2025).delete()
+    Stock.objects.filter(date_stocked__year=2026).delete()
     print ("Done")
 
     # Placeholder for get_data, assuming it reads the CSV into a DataFrame
