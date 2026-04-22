@@ -20,7 +20,7 @@ COL_NAMES = [
 ROW_TYPE = ['main,', 'data', 'empty', 'unknown']
 
 # --- Configuration ---
-PDF_PATH = "epa-alberta-fish-stocking-report-2025.pdf" 
+PDF_PATH = "fp-alberta-fish-stocking-report-2026.pdf" 
 CSV_FILENAME_RAW = "csv_data_raw.csv"
 CSV_FILENAME_FILTERED = "csv_data_filtered.csv"
 
@@ -274,18 +274,18 @@ def validate_rows(df: pd.DataFrame, COL_NAMES: list, check_row_for_ats) -> pd.Da
 # ==============================================================================
 if __name__ == "__main__":
     # Step 1: Load the CSV into a raw DataFrame
-    # extract_and_save_tables()
+    extract_and_save_tables()
     
     # Step 2: Load csv into dataframe
-    raw_df = load_csv_to_dataframe()
+    # raw_df = load_csv_to_dataframe()
         
     # The DataFrame 'stocking_df' is now ready for further analysis
-    if not raw_df.empty:
-        print("\nDataFrame ready for next step!")
+    # if not raw_df.empty:
+    #     print("\nDataFrame ready for next step!")
 
     # Step 3: Validate each line of data
-    df_new = validate_rows (raw_df, COL_NAMES, check_row_for_ats)
-    print (df_new.head)
+    # df_new = validate_rows (raw_df, COL_NAMES, check_row_for_ats)
+    # print (df_new.head)
 
     # Step 4: save the df to a new csv
-    df_new.to_csv(CSV_FILENAME_FILTERED, index=False, encoding='utf-8')
+    # df_new.to_csv(CSV_FILENAME_FILTERED, index=False, encoding='utf-8')
