@@ -503,8 +503,8 @@ class LakeDetailView (FormMixin, DetailView):
         week_current = int(timezone.now().strftime("%W")) 
         
         if self.request.user.is_authenticated:
-            # distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
-            distance_to_lake = None  #<class 'dict'>
+            distance_to_lake = find_dist (Lake.objects.get (id=self.kwargs['pk']), self.request.user)  #<class 'dict'>
+            # distance_to_lake = None  #<class 'dict'>
             logs_list = log_filter_for_private (Log.objects.filter (lake=self.kwargs['pk']), self.request.user)    
             favorite_id = favorite_filter_for_lake (self.kwargs['pk'], self.request.user) 
         else:
@@ -518,7 +518,7 @@ class LakeDetailView (FormMixin, DetailView):
         else:
             favorite_info = None
 
-        # current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
+        current_weather = weather_data (Lake.objects.get (id=self.kwargs['pk']))
 
         data = Lake.objects.filter (id=self.kwargs['pk']).values_list('static_tag', flat=True)[0]
  
@@ -537,9 +537,9 @@ class LakeDetailView (FormMixin, DetailView):
             context ['ave_data'] = get_average_temp_for_week (week_current)
         else:
             context ['ave_data'] = None
-        # if current_weather != "":
-        #     context ['current'] = current_weather  #<class 'dict'>
-        #     context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
+        if current_weather != "":
+            context ['current'] = current_weather  #<class 'dict'>
+            context ['forecast'] = five_day_forcast (Lake.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
         context ['distance'] = distance_to_lake
         context ['posts'] = Post.objects.filter (tags__name__contains = data)
         return context

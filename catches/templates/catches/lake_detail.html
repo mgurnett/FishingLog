@@ -67,9 +67,8 @@
 							{% endif %}
 						</div>
 						<div class="col-md-4">
-							{% comment "This section is temporarily disabled" %}
 							<p>
-								{% comment %} <abbr title = "Distance from address recorded in your profile according to Google Maps.">
+								<abbr title = "Distance from address recorded in your profile according to Google Maps.">
 								Distance: 
 								</abbr>
 								{% if user.is_authenticated %}
@@ -82,7 +81,6 @@
 									Login to see distance
 								{% endif %}
 							</p>
-							{% endcomment %}
 						</div> 
 						<div class="col-md-4 text-end">
 							Tag: <b> {{ lake.static_tag }}</b>
