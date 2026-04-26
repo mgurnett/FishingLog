@@ -7,7 +7,6 @@ from django.http import HttpResponse, FileResponse
 
 # https://python-gmaps.readthedocs.io/en/latest/gmaps.html#gmaps.directions.Directions.directions
 # Requires API key
-# Tea lakes does not work in google maps either.  I need to be able to deal with this.
 
 def find_dist (lake, user):
     gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)

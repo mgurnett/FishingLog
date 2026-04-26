@@ -90,10 +90,47 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
         pk = self.object.pk
         return reverse_lazy('region_detail', kwargs={'pk': pk})
 
+    def get_the_distances(self, **kwargs):
+        distance_to_lakes = []
+        list_of_lakes = get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id)
+
+        # Get the current date and time
+        current_time = datetime.now()
+
+        # Access the year attribute
+        current_year = current_time.year
+
+        for lake_dis in list_of_lakes:
+            lake_distance = find_dist (Lake.objects.get (id=lake_dis.id), self.request.user)  #<class 'dict'>
+
+            stock_list = Stock.objects.filter (lake=lake_dis)        
+            subtotals = stock_with_subtotals (stock_list)
+
+            # The next() function is often considered the most "Pythonic" way to find a single item in an iterable. It’s efficient because it stops searching as soon as it finds a match and allows you to set a default value if the year isn't found.
+
+            # Syntax: next(generator, default_value)
+            this_year = next((item['subt'] for item in subtotals if item['year'] == current_year), 0)
+            last_year = next((item['subt'] for item in subtotals if item['year'] == current_year-1), 0)
+
+            distance_to_lakes.append ({
+                "lake_id": lake_dis.id,
+                "distance": lake_distance,
+                "last_year": last_year,
+                "this_year": this_year        
+            })
+        return distance_to_lakes
+
+
     def get_context_data(self, **kwargs):
+        # Get the current date and time
+        current_time = datetime.now()
+
         context = super().get_context_data(**kwargs)
         context['lakes'] = get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id)
         context['form'] = self.get_form()  # Use get_form() for consistency
+        context['distances'] = self.get_the_distances()
+        context['current_year'] = current_time.year
+        context['yester_year'] = current_time.year-1
         return context
 
     def post(self, request, *args, **kwargs):

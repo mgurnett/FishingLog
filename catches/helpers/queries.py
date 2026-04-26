@@ -46,7 +46,7 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                 data.append(log_data)
     return data  #  list of dictionaries 
 
-def stock_with_subtotals (stock_list):
+def stock_with_subtotals (stock_list): #stock_list is a list of lakes to get the stockings for as well as the subtotals
     year_list = []
     for x in stock_list:
         if not x.date_stocked.year in year_list:
