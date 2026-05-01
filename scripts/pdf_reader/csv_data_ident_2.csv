@@ -1,0 +1,45 @@
+Lake_Name,Common_Name,ATS_Location,Species_Code,Strain,Genotype,Avg_Length,Quantity_Stocked,Stocking_Date,row_type
+Beauvais Lake,,SW29-5-1-W5,WSCT,Allison Creek,2N,10.2,"16,000",21-Apr-26,main
+Beaver Mines Lake,,NE11-5-3-W5,WSCT,Allison Creek,2N,10.6,"16,000",21-Apr-26,main
+Blood Indian Creek,,SW28-26-9-W4,BNTR,Bow River,3N,17.6,"7,500",23-Apr-26,main
+Chain Lakes Reservoir,,NE4-15-2-W5,WSCT,Allison Creek,2N,10.8,"20,000",22-Apr-26,main
+Crowsnest Lake,,NE8-8-5-W5,WSCT,Allison Creek,2N,16.1,"3,000",20-Apr-26,main
+Crowsnest Lake,,NE8-8-5-W5,WSCT,Allison Creek,2N,12.5,"7,000",22-Apr-26,main
+Emerson Lake,,SW5-19-28-W4,BNTR,Bow River,3N,17.2,200,22-Apr-26,main
+Emerson Lake,,SW5-19-28-W4,RNTR,Riverence,AF3N,23.7,"1,400",22-Apr-26,main
+Island Lake,,NW12-8-6-W5,WSCT,Allison Creek,2N,12.5,"3,500",22-Apr-26,main
+Lees Lake,,SW8-7-2-W5,RNTR,Trout,AF3N,19.9,"20,000",13-Apr-26,main
+Lees Lake,,SW8-7-2-W5,BNTR,Bow River,3N,16.6,"1,895",13-Apr-26,main
+Michel Reservoir,Michel Creek,NE5-7-3-W4,RNTR,Riverence,AF2N,20.0,"7,500",22-Apr-26,main
+Michel Reservoir,Michel Creek,NE5-7-3-W4,BNTR,Bow River,3N,17.2,"1,500",22-Apr-26,main
+Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Riverence,AF3N,20.1,"2,500",20-Apr-26,main
+Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Riverence,AF3N,23.7,"2,500",20-Apr-26,main
+Outpost Lake,Police Lake,NE6-1-26-W4,RNTR,Trout,AF3N,20.2,"2,500",20-Apr-26,main
+Payne Lake Mami Lake,NE10-2-28-W4,RNTR,Riverence,,AF3N,12.3,"77,502",9-Apr-26,main
+Payne Lake Mami Lake,NE10-2-28-W4,RNTR,Trout,Lodge/Jumpers,AF3N,20.2,"13,400",14-Apr-26,main
+Payne Lake Mami Lake,NE10-2-28-W4,RNTR,Trout,Lodge/Kamloops,AF3N,15.8,"20,000",21-Apr-26,main
+Unnamed Acadia Valley,SW5-25-2-W4,RNTR,Riverence,,AF2N,20.5,"5,000",21-Apr-26,main
+Unnamed Acadia Valley,SW5-25-2-W4,BKTR,Beitty Resort,,3N,18.8,"2,000",21-Apr-26,main
+Unnamed Boulder Lake,NE18-39-27-W4,RNTR,Trout,Lodge/Kamloops,AF3N,22.3,"1,200",23-Apr-26,main
+Unnamed Brooks Aquaduct,NE15-18-14-W4,RNTR,Riverence,,AF2N,20.6,"10,000",15-Apr-26,main
+Unnamed Corner Lake,NW4-6-20-W4,RNTR,Trout,Lodge/Jumpers,AF3N,20.0,"5,000",15-Apr-26,main
+Unnamed Corner Lake,NW4-6-20-W4,BNTR,Bow River,,2N,42.1,50,24-Apr-26,main
+Unnamed Dewitt's Pond,SE31-26-1-W5,RNTR,Trout,Lodge/Kamloops,AF3N,22.3,"1,000",23-Apr-26,main
+Unnamed Enchant Pond,NW8-14-18-W4,TGTR,Beitty/Bow River,,3N,17.0,200,20-Apr-26,main
+Unnamed Foremost,NW17-6-11-W4,RNTR,Trout,,AF3N,20.3,"1,500",15-Apr-26,main
+Unnamed Goldspring Park,NE6-2-15-W4,RNTR,Trout,,AF3N,20.3,"2,363",15-Apr-26,main
+Unnamed Granum Pond,NW31-10-26-W4,RNTR,Trout,Lodge/Kamloops,AF3N,20.3,600,15-Apr-26,main
+Unnamed Helmer Reservoir,SW18-31-14-W4,RNTR,Riverence,,AF2N,20.0,"5,000",23-Apr-26,main
+Unnamed McQuillan,SW13-8-19-W4,RNTR,Riverence,,AF2N,24.5,"2,000",21-Apr-26,main
+Unnamed McVinnie,SW33-12-21-W4,TGTR,Beitty/Bow River,,3N,17.0,400,20-Apr-26,main
+Unnamed McVinnie,SW33-12-21-W4,RNTR,Riverence,,AF2N,26.2,"1,155",21-Apr-26,main
+Unnamed Nicholas Sheran,SE26-8-22-W4,BKTR,Beitty Resort,,2N,35.0,130,8-Apr-26,main
+Unnamed Nicholas Sheran,SE26-8-22-W4,RNTR,Riverence,,AF3N,24.0,"2,000",20-Apr-26,main
+Unnamed Nicholas Sheran,SE26-8-22-W4,BKTR,Beitty Resort,,3N,19.0,"2,000",20-Apr-26,main
+Unnamed Nicholas Sheran,SE26-8-22-W4,BNTR,Bow River,,3N,17.7,"2,000",20-Apr-26,main
+Unnamed Nicholas Sheran,SE26-8-22-W4,BNTR,Bow River,,2N,42.1,50,24-Apr-26,main
+,Unnamed,Nose Creek Pond,NE1-27-1-W5,RNTR,Trout,AF3N,22.3,350,main
+,Unnamed,Pine Coulee,NE15-14-28-W4,RNTR,Trout,AF3N,20.0,"5,000",main
+,Unnamed,Riverstone Pond,SW24-8-22-W4,RNTR,Riverence,AF3N,23.9,"1,830",main
+,Unnamed,Severn Creek,NW12-26-22-W4,RNTR,Riverence,AF2N,20.3,"4,200",main
+,Unnamed,Spring Coulee,NE12-5-24-W4,RNTR,Trout,AF3N,20.2,"2,500",main

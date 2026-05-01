@@ -6,6 +6,8 @@ import re
 # --- Configuration ---
 PDF_PATH = "fp-alberta-fish-stocking-report-2026.pdf" 
 CSV_FILENAME = "csv_data.csv"
+CSV_FILENAME_ident = "csv_data_ident.csv"
+
 
 # Official Column Names based on PDF structure
 COL_NAMES = [
@@ -311,71 +313,60 @@ def validate_and_clean_row(row: pd.Series, second_row: pd.Series):
     return row_dict
 
 
-def validate_all_data (df):
-
+def validate_all_data(df):
+    # 1. Rename columns and force to 'object' type to avoid TypeError/LossySetitemError
     df.columns = COL_NAMES
-    # print (df.head())
+    df = df.astype(object)
     
-    # Create an empty DataFrame
-    clean_rows_list = []
-    df_new = pd.DataFrame(columns=COL_NAMES)
-
-    # --- While Loop Implementation ---
-    index = 0
     total_rows = len(df)
-    main_row = False; aux_row = False; 
+    df['row_type'] = ""
 
-    # print("Starting while loop iteration...")
-    while index < total_rows:
-        # 1. Access the current row using .iloc[]
+    # --- Phase 1: Fix Alignment and Categorize ---
+    for index in range(total_rows):
         current_row = df.iloc[index]
-        # print (f'{index} of {total_rows} {current_row}')
-        print (f'{index+1} of {total_rows}')
-    
-        # Run the check function
-        found_ats = check_row_for_ats(current_row) #True if at least one cell contains a valid ATS code, False otherwise.
+
+        # Use .iloc[0] to avoid KeyError: 0
+        first_cell = str(current_row.iloc[0]).strip()
         
-        # declare this to be a main row
-        if found_ats:
-            main_row = True
-        
-        try:
-            advance_row = df.iloc[index + 1]
-        except:
-            pass
+        # Detect Shift: if first col is empty or "Unnamed"
+        if pd.isna(current_row.iloc[0]) or first_cell == "" or first_cell == "Unnamed":
+            # Shift data right
+            new_values = [None] + list(current_row.values[:-1])
+            df.iloc[index] = new_values
+            current_row = df.iloc[index] # Refresh snapshot
+
+        # Categorize the row
+        if check_row_for_ats(current_row):
+            df.at[index, 'row_type'] = "main"
+        elif pd.notna(current_row.get('Strain')) and str(current_row.get('Strain')).strip() != "":
+            df.at[index, 'row_type'] = "strain"
         else:
-            found_ats = check_row_for_ats(advance_row) #True if at least one cell contains a valid ATS code, False otherwise.
-            if found_ats:
-                aux_row = False
-            else:
-                aux_row = True
+            df.at[index, 'row_type'] = "delete"
 
-        if main_row and not aux_row: # this means that the row is single
-            # cleaned_current_row = validate_and_clean_row(current_row, None)
-            # clean_rows_list.append(cleaned_current_row)
-            index +=1            
-            print(f"  -> Match found in row: {current_row.to_dict()['Lake_Name']} and is a single line")
+    # --- Phase 2: Merge and Filter ---
+    # Drop "delete" rows and reset index for safe merging
+    df = df[df['row_type'] != "delete"].copy().reset_index(drop=True)
 
-        elif main_row and aux_row: #this means that the two rows should be one row
-            # print (f'{index} of {total_rows} {advance_row}')
-            # cleaned_current_row = validate_and_clean_row(current_row, advance_row)
-            # clean_rows_list.append(cleaned_current_row)
-            index +=2
-            print(f"  -> Match found in row: {current_row.to_dict()['Strain']} and is a secondary line")
+    last_main_index = None
+    for i in range(len(df)):
+        if df.at[i, 'row_type'] == "main":
+            last_main_index = i
+        elif df.at[i, 'row_type'] == "strain" and last_main_index is not None:
+            # Append orphaned strain text to the main row above it
+            extra_strain = str(df.at[i, 'Strain']).strip()
+            orig_strain = str(df.at[last_main_index, 'Strain']).strip()
+            
+            # Clean up potential 'nan' strings
+            orig_strain = "" if orig_strain.lower() == "nan" else orig_strain
+            df.at[last_main_index, 'Strain'] = f"{orig_strain} {extra_strain}".strip()
 
-        elif main_row and not aux_row: #this means that the second row is stand alone
-            index +=1
-            print(f"  -> Match found in row: {current_row.to_dict()['Lake_Name']} and is a single line")
+    # Final Step: Drop the 'strain' rows now that they've been merged
+    df = df[df['row_type'] == "main"].copy()
 
-        else: # this means that the row read is an aux line
-            index +=1
-            print(f"  -> Match found in row: {current_row.to_dict()['Lake_Name']} and is a aux line")
-
-        main_row = False; aux_row = False
-
-    # df_new = pd.DataFrame(clean_rows_list, columns=COL_NAMES)
-    # return df_new
-    return
+    # Save to your new filename
+    df.to_csv("csv_data_ident_2.csv", index=False, encoding='utf-8')
+    print("Success: csv_data_ident_2.csv has been created with merged strains.")
+    return df
 
 
         

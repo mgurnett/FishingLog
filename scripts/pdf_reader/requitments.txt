@@ -1,11 +1,8 @@
-Package         Version
---------------- -----------
-distro          1.9.0
-numpy           2.3.4
-pandas          2.3.3
-pip             24.0
-python-dateutil 2.9.0.post0
-pytz            2025.2
-six             1.17.0
-tabula-py       2.10.0
-tzdata          2025.2
+distro==1.9.0
+numpy==2.4.4
+pandas==3.0.2
+python-dateutil==2.9.0.post0
+pytz==2026.1.post1
+six==1.17.0
+tabula-py==2.10.0
+tzdata==2026.2
