@@ -36,6 +36,7 @@ STRAIN_lookup = [\
     ('Graham Lake', 'GL'),\
  ]
 
+
 def check_lakes_with_name_transfer_logic(df):
     """
     Identifies and matches unique lake entries in the fish stocking report (df)
@@ -296,12 +297,12 @@ def stock_import_process(df):
 
 # Add the standard entry point for Django runscript
 # FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
-FILE_NAME = 'extra files/test.csv'
+FILE_NAME = 'extra files/stocks_final_cleaned.csv'
 
 def run():
 
     print ("Deleting all stocks from 2025")
-    Stock.objects.filter(date_stocked__year=2026).delete()
+    Stock.objects.filter(date_stocked__year=2025).delete()
     print ("Done")
 
     # Placeholder for get_data, assuming it reads the CSV into a DataFrame

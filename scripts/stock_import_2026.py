@@ -25,6 +25,7 @@ STRAIN_lookup = [\
     ('Trout Lodge / Silvers', 'TLTLS'),\
     ("Trout Lodge/Silver's", 'TLTLS'),\
     ('Bow River', 'BRBE'),\
+    ('Bow River ', 'BRBE'),\
     ('Beitty/Bow River', 'BRBE'),\
     ('Lac Ste. Anne', 'LSE'),\
     ('Job Lake', 'JBL'),\
@@ -35,6 +36,7 @@ STRAIN_lookup = [\
     ('Ethel Lake', 'EL'),\
     ('Graham Lake', 'GL'),\
  ]
+
 
 def check_lakes_with_name_transfer_logic(df):
     """
@@ -47,7 +49,7 @@ def check_lakes_with_name_transfer_logic(df):
     """
     print("--- Starting Lake Identification and Matching Logic ---")
     
-    # Assuming CSV columns based on the 'epa-alberta-fish-stocking-report-2025.csv' structure:
+    # Assuming CSV columns based on the 'epa-alberta-fish-stocking-report-2026.csv' structure:
     # Column 0: Main Lake Name (Input_Name)
     # Column 1: Other Lake Name (Input_Other_Name)
     # Column 2: ATS (Input_ATS)
@@ -238,7 +240,7 @@ def stock_import_process(df):
         
         # --- 3. Strain Lookup ---
         found = 0
-        strain_to_find = str(row['Col4']).replace('\n', ' ')
+        strain_to_find = str(row['Col4']).replace('\n', '').strip()
         for index, str_look in enumerate(STRAIN_lookup):
             if strain_to_find == str_look[0]:
                 found = index
@@ -296,7 +298,7 @@ def stock_import_process(df):
 
 # Add the standard entry point for Django runscript
 # FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
-FILE_NAME = 'extra files/test.csv'
+FILE_NAME = 'extra files/fp-alberta-fish-stocking-report-2026.csv'
 
 def run():
 

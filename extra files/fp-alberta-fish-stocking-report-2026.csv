@@ -1,45 +1,45 @@
 Waterbody Official,Waterbody,ATS ,Species , Strain* ,Genotype** ,Average,Number,Stocking Date 
-Beauvais Lake ,,SW29-5-1-W5 ,WSCT ,Allison Creek ,2N ,10.2,16000,2026-04-21
-Beaver Mines Lake ,,NE11-5-3-W5 ,WSCT ,Allison Creek ,2N ,10.6,16000,2026-04-21
-Chain Lakes Reservoir ,,NE4-15-2-W5 ,WSCT ,Allison Creek ,2N ,10.8,20000,2026-04-22
-Crowsnest Lake ,,NE8-8-5-W5 ,WSCT ,Allison Creek ,2N ,16.1,3000,2026-04-20
-Crowsnest Lake ,,NE8-8-5-W5 ,WSCT ,Allison Creek ,2N ,12.5,7000,2026-04-22
-Island Lake ,,NW12-8-6-W5 ,WSCT ,Allison Creek ,2N ,12.5,3500,2026-04-22
-Unnamed ,Acadia Valley,SW5-25-2-W4 ,BKTR ,Beitty Resort ,3N ,18.8,2000,2026-04-21
-Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BKTR ,Beitty Resort ,2N ,35,130,2026-04-08
-Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BKTR ,Beitty Resort ,3N ,19,2000,2026-04-20
-Unnamed ,Enchant Pond ,NW8-14-18-W4 ,TGTR ,Beitty/Bow River ,3N ,17,200,2026-04-20
-Unnamed ,McVinnie ,SW33-12-21-W4 ,TGTR ,Beitty/Bow River ,3N ,17,400,2026-04-20
-Blood Indian Creek,,SW28-26-9-W4 ,BNTR ,Bow River ,3N ,17.6,7500,2026-04-23
-Emerson Lake ,,SW5-19-28-W4 ,BNTR ,Bow River ,3N ,17.2,200,2026-04-22
-Lees Lake ,,SW8-7-2-W5 ,BNTR ,Bow River ,3N ,16.6,1895,2026-04-13
-Michel Reservoir ,Michel Creek,NE5-7-3-W4 ,BNTR ,Bow River ,3N ,17.2,1500,2026-04-22
-Unnamed ,Corner Lake ,NW4-6-20-W4 ,BNTR ,Bow River ,2N ,42.1,50,2026-04-24
-Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BNTR ,Bow River ,3N ,17.7,2000,2026-04-20
-Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BNTR ,Bow River ,2N ,42.1,50,2026-04-24
-Emerson Lake ,,SW5-19-28-W4 ,RNTR ,Riverence ,AF3N ,23.7,1400,2026-04-22
-Michel Reservoir ,Michel Creek,NE5-7-3-W4 ,RNTR ,Riverence ,AF2N ,20,7500,2026-04-22
-Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Riverence ,AF3N ,20.1,2500,2026-04-20
-Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Riverence ,AF3N ,23.7,2500,2026-04-20
-Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Riverence ,AF3N ,12.3,77502,2026-04-09
-Unnamed ,Acadia Valley,SW5-25-2-W4 ,RNTR ,Riverence ,AF2N ,20.5,5000,2026-04-21
-Unnamed ,Brooks Aquaduct,NE15-18-14-W4 ,RNTR ,Riverence ,AF2N ,20.6,10000,2026-04-15
-Unnamed ,Helmer Reservoir ,SW18-31-14-W4 ,RNTR ,Riverence ,AF2N ,20,5000,2026-04-23
-Unnamed ,McQuillan ,SW13-8-19-W4 ,RNTR ,Riverence ,AF2N ,24.5,2000,2026-04-21
-Unnamed ,McVinnie ,SW33-12-21-W4 ,RNTR ,Riverence ,AF2N ,26.2,1155,2026-04-21
-Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,RNTR ,Riverence ,AF3N ,24,2000,2026-04-20
-Unnamed ,Riverstone Pond ,SW24-8-22-W4 ,RNTR ,Riverence ,AF3N ,23.9,1830,2026-04-15
-Unnamed ,Severn Creek,NW12-26-22-W4 ,RNTR ,Riverence ,AF2N ,20.3,4200,2026-04-23
-Lees Lake ,,SW8-7-2-W5 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,19.9,20000,2026-04-13
-Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,2500,2026-04-20
-Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,13400,2026-04-14
-Unnamed ,Corner Lake ,NW4-6-20-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20,5000,2026-04-15
-Unnamed ,Pine Coulee,NE15-14-28-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20,5000,2026-04-14
-Unnamed ,Spring Coulee,NE12-5-24-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,2500,2026-04-20
-Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,15.8,20000,2026-04-21
-Unnamed ,Boulder Lake ,NE18-39-27-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,1200,2026-04-23
-Unnamed ,Dewitt's Pond ,SE31-26-1-W5 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,1000,2026-04-23
-Unnamed ,Foremost,NW17-6-11-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,1500,2026-04-15
-Unnamed ,Goldspring Park,NE6-2-15-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,2363,2026-04-15
-Unnamed ,Granum Pond ,NW31-10-26-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,600,2026-04-15
-Unnamed ,Nose Creek Pond ,NE1-27-1-W5 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,350,2026-04-23
+Beauvais Lake ,,SW29-5-1-W5 ,WSCT ,Allison Creek ,2N ,10.2,16000,21-04-2026
+Beaver Mines Lake ,,NE11-5-3-W5 ,WSCT ,Allison Creek ,2N ,10.6,16000,21-04-2026
+Chain Lakes Reservoir ,,NE4-15-2-W5 ,WSCT ,Allison Creek ,2N ,10.8,20000,22-04-2026
+Crowsnest Lake ,,NE8-8-5-W5 ,WSCT ,Allison Creek ,2N ,16.1,3000,20-04-2026
+Crowsnest Lake ,,NE8-8-5-W5 ,WSCT ,Allison Creek ,2N ,12.5,7000,22-04-2026
+Island Lake ,,NW12-8-6-W5 ,WSCT ,Allison Creek ,2N ,12.5,3500,22-04-2026
+Unnamed ,Acadia Valley,SW5-25-2-W4 ,BKTR ,Beitty Resort ,3N ,18.8,2000,21-04-2026
+Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BKTR ,Beitty Resort ,2N ,35,130,08-04-2026
+Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BKTR ,Beitty Resort ,3N ,19,2000,20-04-2026
+Unnamed ,Enchant Pond ,NW8-14-18-W4 ,TGTR ,Beitty/Bow River ,3N ,17,200,20-04-2026
+Unnamed ,McVinnie ,SW33-12-21-W4 ,TGTR ,Beitty/Bow River ,3N ,17,400,20-04-2026
+Blood Indian Creek,,SW28-26-9-W4 ,BNTR ,Bow River ,3N ,17.6,7500,23-04-2026
+Emerson Lake ,,SW5-19-28-W4 ,BNTR ,Bow River ,3N ,17.2,200,22-04-2026
+Lees Lake ,,SW8-7-2-W5 ,BNTR ,Bow River ,3N ,16.6,1895,13-04-2026
+Michel Reservoir ,Michel Creek,NE5-7-3-W4 ,BNTR ,Bow River ,3N ,17.2,1500,22-04-2026
+Unnamed ,Corner Lake ,NW4-6-20-W4 ,BNTR ,Bow River ,2N ,42.1,50,24-04-2026
+Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BNTR ,Bow River ,3N ,17.7,2000,20-04-2026
+Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,BNTR ,Bow River ,2N ,42.1,50,24-04-2026
+Emerson Lake ,,SW5-19-28-W4 ,RNTR ,Riverence ,AF3N ,23.7,1400,22-04-2026
+Michel Reservoir ,Michel Creek,NE5-7-3-W4 ,RNTR ,Riverence ,AF2N ,20,7500,22-04-2026
+Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Riverence ,AF3N ,20.1,2500,20-04-2026
+Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Riverence ,AF3N ,23.7,2500,20-04-2026
+Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Riverence ,AF3N ,12.3,77502,09-04-2026
+Unnamed ,Acadia Valley,SW5-25-2-W4 ,RNTR ,Riverence ,AF2N ,20.5,5000,21-04-2026
+Unnamed ,Brooks Aquaduct,NE15-18-14-W4 ,RNTR ,Riverence ,AF2N ,20.6,10000,15-04-2026
+Unnamed ,Helmer Reservoir ,SW18-31-14-W4 ,RNTR ,Riverence ,AF2N ,20,5000,23-04-2026
+Unnamed ,McQuillan ,SW13-8-19-W4 ,RNTR ,Riverence ,AF2N ,24.5,2000,21-04-2026
+Unnamed ,McVinnie ,SW33-12-21-W4 ,RNTR ,Riverence ,AF2N ,26.2,1155,21-04-2026
+Unnamed ,Nicholas Sheran,SE26-8-22-W4 ,RNTR ,Riverence ,AF3N ,24,2000,20-04-2026
+Unnamed ,Riverstone Pond ,SW24-8-22-W4 ,RNTR ,Riverence ,AF3N ,23.9,1830,15-04-2026
+Unnamed ,Severn Creek,NW12-26-22-W4 ,RNTR ,Riverence ,AF2N ,20.3,4200,23-04-2026
+Lees Lake ,,SW8-7-2-W5 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,19.9,20000,13-04-2026
+Outpost Lake ,Police Lake ,NE6-1-26-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,2500,20-04-2026
+Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,13400,14-04-2026
+Unnamed ,Corner Lake ,NW4-6-20-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20,5000,15-04-2026
+Unnamed ,Pine Coulee,NE15-14-28-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20,5000,14-04-2026
+Unnamed ,Spring Coulee,NE12-5-24-W4 ,RNTR ,Trout Lodge/Jumpers ,AF3N ,20.2,2500,20-04-2026
+Payne Lake ,Mami Lake ,NE10-2-28-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,15.8,20000,21-04-2026
+Unnamed ,Boulder Lake ,NE18-39-27-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,1200,23-04-2026
+Unnamed ,Dewitt's Pond ,SE31-26-1-W5 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,1000,23-04-2026
+Unnamed ,Foremost,NW17-6-11-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,1500,15-04-2026
+Unnamed ,Goldspring Park,NE6-2-15-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,2363,15-04-2026
+Unnamed ,Granum Pond ,NW31-10-26-W4 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,20.3,600,15-04-2026
+Unnamed ,Nose Creek Pond ,NE1-27-1-W5 ,RNTR ,Trout Lodge/Kamloops ,AF3N ,22.3,350,23-04-2026
