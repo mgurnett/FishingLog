@@ -51,7 +51,6 @@ def current (response):
         except:
             current['wind_gust'] = 0
     return current
-'''
 def temp_graph (response):
     pofp = []
 
@@ -60,7 +59,7 @@ def temp_graph (response):
         timezone_offset = data['timezone_offset']
         index = -1
         percent = 0
-        for minute in data['minutely']:
+        for minute in data.get('minutely', []):
             index += 1
             percent += minute['precipitation']*100
             # print (f'{percent = }')
@@ -74,6 +73,9 @@ def temp_graph (response):
                 percent = 0
                 index = -1
             
+        if not pofp:
+            return ""
+
         df = pd.DataFrame(pofp)
         first_time = df['minutes'].iloc[0]
         last_time = df['minutes'].iloc[-1]
@@ -104,7 +106,7 @@ def temp_graph (response):
         return ""
     return fig.to_html()
 
-
+'''
   <div class="row">  <!-- Temp graph-->
     <div class="col">
       <div class="card border-1 bg-transparent">
