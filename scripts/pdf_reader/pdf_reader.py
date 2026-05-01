@@ -382,11 +382,11 @@ if __name__ == "__main__":
     extract_and_save_tables()
     
     # Step 2: Load csv into dataframe
-    raw_df = load_csv_to_dataframe()
+    # raw_df = load_csv_to_dataframe()
         
     # The DataFrame 'stocking_df' is now ready for further analysis
-    if not raw_df.empty:
-        print("\nDataFrame ready for next step!")
+    # if not raw_df.empty:
+    #     print("\nDataFrame ready for next step!")
 
     # Step 3: Validate each line of data
     # cleanedup_df = validate_all_data (raw_df)

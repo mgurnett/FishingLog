@@ -21,8 +21,8 @@ ROW_TYPE = ['main,', 'data', 'empty', 'unknown']
 
 # --- Configuration ---
 PDF_PATH = "fp-alberta-fish-stocking-report-2026.pdf" 
-CSV_FILENAME_RAW = "csv_data_raw.csv"
-CSV_FILENAME_FILTERED = "csv_data_filtered.csv"
+CSV_FILENAME_RAW = "csv_data_raw_2026.csv"
+CSV_FILENAME_FILTERED = "csv_data_filtered_2026.csv"
 
 # Step #1 - convert all PDF rows to csv and save CSV 
 def extract_and_save_tables():
