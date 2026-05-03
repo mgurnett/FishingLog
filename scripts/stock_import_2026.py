@@ -298,7 +298,7 @@ def stock_import_process(df):
 
 # Add the standard entry point for Django runscript
 # FILE_NAME = 'extra files/epa-alberta-fish-stocking-report-2025.csv'
-FILE_NAME = 'extra files/fp-alberta-fish-stocking-report-2026.csv'
+FILE_NAME = 'extra files/csv_data_final.csv'
 
 def run():
 
