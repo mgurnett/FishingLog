@@ -601,7 +601,7 @@ class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
         'ats', 'lat', 'long', 'waterbody_id', 'notes', 'gps_url'
     ]
     
-    # form_class = New_Lake_Form
+    form_class = New_Lake_Form
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
 

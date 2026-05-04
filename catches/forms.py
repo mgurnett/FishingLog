@@ -451,9 +451,9 @@ class New_Lake_Form (forms.ModelForm):
             )
         }
         
-    name = forms.CharField ( max_length = 100, required = True )  
+    name = forms.CharField ( max_length = 20, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )
-    district = forms.ChoiceField( required = False, choices=DISTRICTS, initial='', widget=forms.Select())
+    district = forms.ChoiceField( required = True, choices=DISTRICTS[1], initial='', widget=forms.Select())
     static_tag = forms.CharField( max_length = 100, required = False )      
     reg_location = forms.CharField( max_length = 10, required = False )
     ats = forms.CharField ( max_length = 100, required = False ) 
@@ -468,14 +468,11 @@ class New_Lake_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-md-5 mb-0'),
-                Column('other_name', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('district', css_class='form-group col-md-3 mb-0'),
-                Column('static_tag', css_class='form-group col-md-4 mb-0'),
-                Column('reg_location', css_class='form-group col-md-3 mb-0'),
+                Column('name',          css_class='form-group col-md-3 mb-0'),
+                Column('other_name',    css_class='form-group col-md-3 mb-0'),
+                Column('district',          css_class='form-group col-md-2 mb-0'),
+                Column('static_tag',    css_class='form-group col-md-2 mb-0'),
+                Column('reg_location',    css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(
