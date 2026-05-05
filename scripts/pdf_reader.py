@@ -4,9 +4,10 @@ import os # To manage file paths
 import re
 
 # --- Configuration ---
-PDF_PATH = "fp-alberta-fish-stocking-report-2026.pdf" 
-CSV_FILENAME = "csv_data.csv"
-CSV_FILENAME_ident = "csv_data_ident.csv"
+PDF_PATH = "scripts/fp-alberta-fish-stocking-report-2026.pdf" 
+CSV_FILENAME = "scripts/csv_data.csv"
+CSV_FILENAME_ident = "scripts/csv_data_ident.csv"
+CSV_FILENAME_final = "scripts/csv_data_ident.csv"
 
 
 # Official Column Names based on PDF structure
@@ -164,7 +165,7 @@ def validate_all_data(df):
         # Categorize the row
         if ats_index:
             df.at[index, 'row_type'] = "main"
-            df.at[index, 'ats_index'] = ats_index
+            df.at[index, 'ats_index'] = str(ats_index)
         elif pd.notna(current_row.get('Strain')):
             df.at[index-1, 'row_type'] = "short"
             df.at[index, 'row_type'] = "strain"
@@ -224,8 +225,8 @@ def validate_and_clean_row(df):
             row_dict['Lake_Name'] = string_series['Common_Name'] if string_series['Common_Name'] != "nan" else ""
         
         # --- 2. Robust ATS Location Extraction ---
-        full_row_string = ' '.join(string_series.values)
-
+        ffull_row_string = ' '.join(str(val) for val in string_series.values if pd.notna(val))
+        
         try:
             full_row_series = pd.Series([full_row_string])
             extracted_ats = full_row_series.str.extract(SIMPLE_ATS_PATTERN, expand=False).iloc[0]
@@ -311,7 +312,7 @@ def validate_and_clean_row(df):
 # ==============================================================================
 # 🚀 EXECUTION
 # ==============================================================================
-if __name__ == "__main__":
+def run():
     # Step 1: Load the CSV into a raw DataFrame
     extract_and_save_tables()
     
@@ -329,6 +330,5 @@ if __name__ == "__main__":
     final_df = validate_and_clean_row (cleanedup_df)
 
     # Save to your new filename
-    final_df.to_csv("csv_data_final.csv", index=False, encoding='utf-8')
+    final_df.to_csv(CSV_FILENAME_final, index=False, encoding='utf-8')
     print("Success: csv_data_final.csv has been created.")
-
