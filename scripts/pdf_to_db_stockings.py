@@ -1,4 +1,5 @@
 import os # To manage file paths
+import sys
 import re
 import csv
 from datetime import datetime
@@ -10,12 +11,13 @@ from catches.models import *
 # --- Configuration ---
 PDF_PATH = "scripts/fp-alberta-fish-stocking-report-2026.pdf" 
 CSV_FILENAME = "scripts/csv_data.csv"
+CSV_FILENAME_debug = "scripts/csv_data_debug.csv"
 
 
 # Official Column Names based on PDF structure
 COL_NAMES = [
     'Lake_Name',           
-    'Common_Name',         
+    # 'Common_Name',         
     'ATS_Location',        
     'Species_Code',        
     'Strain',       
@@ -75,16 +77,18 @@ def extract_and_save_tables():
         )
     except Exception as e:
         message = (f"An error occurred during PDF extraction: {e}")
-        return
+        return None, message
 
     if not list_of_dfs:
         message = ("No tables were extracted. Check your PDF and extraction parameters.")
-        return
+        return None, message
 
     message = (f"Successfully extracted {len(list_of_dfs)} table(s).\n Saved all {len(list_of_dfs)} tables combined")
       
     # Concatenate all DataFrames in the list into a single DataFrame
     combined_df = pd.concat(list_of_dfs, ignore_index=True)
+
+    # combined_df.to_csv(CSV_FILENAME_debug, index=False, encoding='utf-8')
     
     # Save the combined DataFrame to a single CSV file
     return combined_df, message
@@ -97,6 +101,7 @@ def is_valid_ats_code(text):
     """
     return bool(re.match(ATS_PATTERN, text))
 
+'''
 def get_ats_cell_index(row: pd.Series):
     """
     Finds the index of the cell containing a valid ATS code.
@@ -120,9 +125,27 @@ def get_ats_cell_index(row: pd.Series):
         return row.index.get_loc(column_label)
     
     return None
+    '''
+
+def get_ats_cell_index(row: pd.Series):
+    """
+    Finds the index of the cell containing a valid ATS code, 
+    even if it is joined with other text.
+    """
+    string_series = row.astype(str)
+    
+    # Use SIMPLE_ATS_PATTERN to find the code inside a string (e.g., "Emerson Lake SW5-19-28-W4")
+    mask = string_series.str.contains(SIMPLE_ATS_PATTERN, na=False, regex=True)
+    
+    if mask.any():
+        # Get the label (column name) of the first True match
+        column_label = mask.idxmax() 
+        return row.index.get_loc(column_label)
+    
+    return None
 
 def validate_all_data(df):
-        # 1. Rename columns and force to 'object' type to avoid TypeError/LossySetitemError
+    # 1. Rename columns and force to 'object' type
     df.columns = COL_NAMES
     df = df.astype(object)
     
@@ -130,21 +153,42 @@ def validate_all_data(df):
     df['row_type'] = ""
     df['ats_index'] = ""
 
-    # --- Phase 1: Fix Alignment and Categorize ---
+    # --- Phase 1: Fix Alignment, Split Merged Columns, and Categorize ---
     for index in range(total_rows):
         current_row = df.iloc[index]
         ats_index = get_ats_cell_index(current_row)
 
-        # Categorize the row
-        if ats_index:
+        # NEW: Check if ATS is stuck in the Lake_Name (Column 0)
+        if ats_index == 0:
+            full_text = str(current_row.iloc[0])
+            ats_match = re.search(SIMPLE_ATS_PATTERN, full_text)
+            
+            if ats_match:
+                actual_ats = ats_match.group(0)
+                # Strip the ATS out of the Lake Name
+                lake_name = full_text.replace(actual_ats, "").strip()
+                
+                # Update the DataFrame cells immediately
+                df.at[index, 'Lake_Name'] = lake_name
+                df.at[index, 'ATS_Location'] = actual_ats
+                
+                # Now categorize it as a standard 'main' row (ATS now at index 1)
+                df.at[index, 'row_type'] = "main"
+                df.at[index, 'ats_index'] = "1"
+        
+        # Standard categorization for rows where ATS is already separated
+        elif ats_index:
             df.at[index, 'row_type'] = "main"
             df.at[index, 'ats_index'] = str(ats_index)
-        elif pd.notna(current_row.get('Strain')):
+        
+        elif pd.notna(current_row.get('Strain')) and str(current_row.get('Strain')) != 'nan':
             df.at[index-1, 'row_type'] = "short"
             df.at[index, 'row_type'] = "strain"
-        elif pd.notna(current_row.get('Species_Code')):
+        
+        elif pd.notna(current_row.get('Species_Code')) and str(current_row.get('Species_Code')) != 'nan':
             df.at[index-1, 'row_type'] = "short"
             df.at[index, 'row_type'] = "species_code"
+        
         else:
             df.at[index, 'row_type'] = "delete"
 
@@ -154,14 +198,14 @@ def validate_all_data(df):
 
     for row in range(len(df)):
         if df.at[row, 'row_type'] == "strain":
-            first_part = df.at[row-1, 'Strain'].strip()
-            second_part = df.at[row, 'Strain'].strip()
+            first_part = str(df.at[row-1, 'Strain']).strip()
+            second_part = str(df.at[row, 'Strain']).strip()
             df.at[row-1, 'Strain'] = f"{first_part} {second_part}".strip()
             df.at[row-1, 'row_type'] = "fixed"
             df.at[row, 'row_type'] = "delete"
         if df.at[row, 'row_type'] == "species_code":
-            first_part = df.at[row-1, 'Species_Code'].strip()
-            second_part = df.at[row, 'Species_Code'].strip()
+            first_part = str(df.at[row-1, 'Species_Code']).strip()
+            second_part = str(df.at[row, 'Species_Code']).strip()
             df.at[row-1, 'Species_Code'] = f"{first_part} {second_part}".strip()
             df.at[row-1, 'row_type'] = "fixed"
             df.at[row, 'row_type'] = "delete"
@@ -176,6 +220,8 @@ def validate_all_data(df):
             df.at[row, 'Common_Name'] = ""
 
     message = ("Success, the columns have been cleaned up")
+
+    df.to_csv(CSV_FILENAME_debug, index=False, encoding='utf-8')
     return df, message
 
 
@@ -559,6 +605,8 @@ def run():
     print(f"Attempting to extract tables from: {PDF_PATH}")
     initial_df, message = extract_and_save_tables()
     print(f"STEP 1: {message}")
+    if initial_df is None:
+        sys.exit(1)  # Stop everything right now
 
 # ================ STEP 2 clean up the data ==============================================================
     cleanedup_df, message = validate_all_data (initial_df)
@@ -584,12 +632,12 @@ def run():
         print(f"STEP 5: {message}")
 
 # ================ STEP 6 data is good, now delete the old.=================================================
-    message = out_with_the_old(YEAR_TO_DELETE)
-    print(f"STEP 6: {message}")
+    # message = out_with_the_old(YEAR_TO_DELETE)
+    # print(f"STEP 6: {message}")
 
 # ================ STEP 7 push cleaned up data to the database ===============================================
-    message = stock_import_process(checked_df)
-    print(f"STEP 7: {message}")
+    # message = stock_import_process(checked_df)
+    # print(f"STEP 7: {message}")
 
 
     print("--- Stock Record Import Complete ---")
