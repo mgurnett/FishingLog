@@ -41,7 +41,7 @@ def collect_tw_from_logs_and_hatches(**kwargs):
                     'temp_name': hatch.temp.name, 
                     'log': hatch.id,
                     'type': 'H',
-                    'year': str(log.catch_date.year)
+                    'year': int(hatch.sight_date.year)
                     }
                 data.append(log_data)
     return data  #  list of dictionaries 

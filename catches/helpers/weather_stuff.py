@@ -6,54 +6,53 @@ localtz = ZoneInfo('America/Edmonton')
 utc = ZoneInfo('UTC')
 
 def get_alerts(data):
-    # print (data)
     title = ""
     alert_type = ""
     date = ""
     colour = "#000000"
 
-    endings = data.get('endings')
-    if endings.get('value'):
+    if not data:
+        return {'alert_type': alert_type, 'title': title, 'date': date, 'colour': colour }
+
+    endings = data.get('endings', {})
+    if endings and endings.get('value'):
         title = endings.get('value')[0].get('title')
         alert_type = "ending"
         date = endings.get('value')[0].get('date')
         colour = "#66CC66"
 
-    statements = data.get('statements')
-    if statements.get('value'):
+    statements = data.get('statements', {})
+    if statements and statements.get('value'):
         title = statements.get('value')[0].get('title')
         alert_type = "statement"
         date = statements.get('value')[0].get('date')
         colour = "#707070"
 
-    advisories = data.get('advisories')
-    if advisories.get('value'):
+    advisories = data.get('advisories', {})
+    if advisories and advisories.get('value'):
         title = advisories.get('value')[0].get('title')
         alert_type = "advisory"
         date = advisories.get('value')[0].get('date')
         colour = "#707070"
 
-    watches = data.get('watches')
-    if watches.get('watches'):
+    watches = data.get('watches', {})
+    if watches and watches.get('value'):
         title = watches.get('value')[0].get('title')
         alert_type = "warning"
         date = watches.get('value')[0].get('date')
         colour = "#FFFF00"
         
-    warnings = data.get('warnings')
-    if warnings.get('value'):
-        # print (f"This is a warning {warnings}")
+    warnings = data.get('warnings', {})
+    if warnings and warnings.get('value'):
         title = warnings.get('value')[0].get('title')
         alert_type = "warning"
         date = warnings.get('value')[0].get('date')
         colour = "#BB0000"
 
     data_dict = {'alert_type': alert_type, 'title': title, 'date': date, 'colour': colour }
-        
     return data_dict
 
 def weather_data (lake):
-    # print ("starting weather")
     current_conditions = {}
     ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
     try:
@@ -63,28 +62,37 @@ def weather_data (lake):
     else:  
         current_dict = {}
 
-        for measurement in ec_en.conditions:  #go through all lines of the current condition
-            label = str(ec_en.conditions[measurement].get('label')).lower() #grab the lables.
-            # print (label)
+        for measurement in ec_en.conditions:
+            label = str(ec_en.conditions[measurement].get('label', '')).lower()
+            if not label:
+                continue
             try:
-                value = ec_en.conditions.get(label).get('value') #see if you can get the value for that label
+                value = ec_en.conditions.get(label, {}).get('value')
             except:
-                value = "" # if not, disreguard 
+                value = ""
             else:
-                # print (type(value))
-                if value != None: #as long as its not a Classtype None
-                    current_dict [label] = value  #add the lable and the value to the current conditions
-            # if value !="" and value != None:
-            #     print (f'{label}: {value}')
+                if value is not None:
+                    current_dict [label] = value
         
         sunrise_time = current_dict.get("sunrise")
-        utctime = sunrise_time.replace(tzinfo=utc)
-        sunrise_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
-        # print (f'sunrise_time is: {sunrise_time.strftime("%-I:%M %p")} and sunrise_time_local is {sunrise_time_local}')
+        if sunrise_time:
+            try:
+                utctime = sunrise_time.replace(tzinfo=utc)
+                sunrise_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
+            except:
+                sunrise_time_local = ""
+        else:
+            sunrise_time_local = ""
 
         sunset_time = current_dict.get("sunset")
-        utctime = sunset_time.replace(tzinfo=utc)
-        sunset_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
+        if sunset_time:
+            try:
+                utctime = sunset_time.replace(tzinfo=utc)
+                sunset_time_local = utctime.astimezone(localtz).strftime("%-I:%M %p")
+            except:
+                sunset_time_local = ""
+        else:
+            sunset_time_local = ""
 
         current_conditions ["temperature"] = current_dict.get("temperature")
         current_conditions ["humidex"] = current_dict.get("humidex")
@@ -95,33 +103,32 @@ def weather_data (lake):
         current_conditions ["sunset"] = sunset_time_local
         current_conditions ["alerts"] = get_alerts (ec_en.alerts)
     finally:
-        # print ("Current conditions" + current_conditions)
-        return current_conditions #<class 'dict'>
+        return current_conditions
 
 def five_day_forcast (lake):
     ec_en = ECWeather(coordinates=(float(round(lake.lat,2)), float(round(lake.long,2))))
-    # ec_en = ECWeather(coordinates=(53.53, -113.49))
-    asyncio.run(ec_en.update())
     five_forecast = []
-    for x in range (0,5):
-        hour_forecast_dict = {}
-        hour_forecast = ec_en.hourly_forecasts[x].get('period')
-        utctime = hour_forecast.replace(tzinfo=utc)
-        localtime = utctime.astimezone(localtz)
-        hour_forecast_dict = { 
-            # 'fore_time': localtime.strftime("%a, %b %-d at %-I:%M %p"),
-            'fore_time': localtime.strftime("%-I:%M %p"),
-            'conditions': ec_en.hourly_forecasts[x].get('condition'),
-            'temperature': ec_en.hourly_forecasts[x].get('temperature'),
-            'pop': ec_en.hourly_forecasts[x].get('precip_probability'),
-            'icon': ec_en.hourly_forecasts[x].get('icon_code'),
-            }
-        # print (hour_forecast_dict)
-        five_forecast.append(hour_forecast_dict)
-        # print (five_forecast)
+    try:
+        asyncio.run(ec_en.update())
+    except:
+        pass
+    else:
+        if ec_en.hourly_forecasts:
+            for x in range (0, min(5, len(ec_en.hourly_forecasts))):
+                hour_forecast_dict = {}
+                hour_forecast = ec_en.hourly_forecasts[x].get('period')
+                if hour_forecast:
+                    try:
+                        utctime = hour_forecast.replace(tzinfo=utc)
+                        localtime = utctime.astimezone(localtz)
+                        hour_forecast_dict = { 
+                            'fore_time': localtime.strftime("%-I:%M %p"),
+                            'conditions': ec_en.hourly_forecasts[x].get('condition'),
+                            'temperature': ec_en.hourly_forecasts[x].get('temperature'),
+                            'pop': ec_en.hourly_forecasts[x].get('precip_probability'),
+                            'icon': ec_en.hourly_forecasts[x].get('icon_code'),
+                            }
+                        five_forecast.append(hour_forecast_dict)
+                    except:
+                        pass
     return five_forecast
-
-        # print (f'Forecast for the hour of {fore_time} there will be a {conditions}' + \
-        #     f' with a temperature of {temperature}C and a {precip_probability}% chance of precipitation')
-
-    #Icon code can be downloaded from: https://meteo.gc.ca/weathericons/09.gif
