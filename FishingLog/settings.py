@@ -72,7 +72,7 @@ INSTALLED_APPS = [
     # 'ckeditor',    
     'django_ckeditor_5',
     'easyaudit',
-#    'blacklist',
+    'blacklist',
 ]
 
 MIDDLEWARE = [
