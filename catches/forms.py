@@ -443,7 +443,7 @@ class New_Lake_Form (forms.ModelForm):
         # fields = '__all__'
         fields = [
             'name', 'other_name', 'district', 'static_tag', 'reg_location', 
-            'ats', 'lat', 'long', 'waterbody_id', 'notes', 'gps_url'
+            'ats', 'lat', 'long', 'waterbody_id', 'notes', 'gps_url', 'size'
         ]
         widgets = {
             "notes": CKEditor5Widget(
@@ -453,7 +453,7 @@ class New_Lake_Form (forms.ModelForm):
         
     name = forms.CharField ( max_length = 20, required = True )  
     other_name = forms.CharField ( max_length = 100, required = False )
-    district = forms.ChoiceField( required = True, choices=DISTRICTS[1], initial='', widget=forms.Select())
+    district = forms.ChoiceField( required = True, choices=DISTRICTS, initial='', widget=forms.Select())
     static_tag = forms.CharField( max_length = 100, required = False )      
     reg_location = forms.CharField( max_length = 10, required = False )
     ats = forms.CharField ( max_length = 100, required = False ) 
@@ -462,6 +462,7 @@ class New_Lake_Form (forms.ModelForm):
     waterbody_id = forms.IntegerField( required = False )        
     notes = forms.CharField (widget=forms.Textarea, required = False ) 
     gps_url = forms.CharField( max_length = 100, required = False )
+    size = forms.DecimalField( max_digits = 5, decimal_places=1, required = False ) 
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -480,6 +481,7 @@ class New_Lake_Form (forms.ModelForm):
                 Column('lat', css_class='form-group col-md-3 mb-0'),
                 Column('long', css_class='form-group col-md-3 mb-0'),
                 Column('waterbody_id', css_class='form-group col-md-2 mb-0'),
+                Column('size', css_class='form-group col-md-2 mb-0'),
                 css_class='form-row'
             ),
             Row(

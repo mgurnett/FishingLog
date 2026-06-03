@@ -191,6 +191,7 @@ class Lake(models.Model):
     # favourite = models.BooleanField (default = False)
     static_tag = models.SlugField() 
     gps_url = models.URLField(max_length = 200, blank=True)
+    size = models.FloatField (blank=True, null=True)
     
     class Meta:
         ordering = ['name']
@@ -236,9 +237,15 @@ class Lake(models.Model):
         return output 
 
     @property 
-    def dist_name (self):
-        dist = DISTRICTS[self.district][1]
-        return dist 
+    def dist_name(self):
+        # 1. Handle cases where district is None/Null in the database
+        if self.district is None:
+            return "Unknown District"
+            
+        # 2. Safely look up the display name from the DISTRICTS tuple/list
+        # This converts DISTRICTS to a dictionary for key-value lookup,
+        # fallback to the raw number if the key isn't found.
+        return dict(DISTRICTS).get(self.district, f"District {self.district}")
 
     @property 
     def kml_tooltip (self):

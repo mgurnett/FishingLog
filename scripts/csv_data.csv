@@ -1,4 +1,5 @@
 Lake_Name,ATS_Location,Species_Code,Strain,Genotype,Avg_Length,Quantity_Stocked,Stocking_Date
+Allison Lake,SW27-8-5-W5,WSCT,Allison Creek,2N,17.5,1500,14-05-2026
 Allison Lake,SW27-8-5-W5,WSCT,Allison Creek,2N,14.1,2500,14-05-2026
 Bathing Lake,SE11-4-1-W5,WSCT,Allison Creek,2N,13.2,500,29-04-2026
 Beauvais Lake,SW29-5-1-W5,WSCT,Allison Creek,2N,10.2,16000,21-04-2026
@@ -17,9 +18,11 @@ Mount Lorette Ponds,SW19-23-8-W5,WSCT,Allison Creek,2N,14.2,800,14-05-2026
 Tim Horton Children's Pond,NW14-24-8-W5,WSCT,Allison Creek,2N,14.2,600,14-05-2026
 Acadia Valley Reservoir,SW5-25-2-W4,BKTR,Beitty Resort,3N,18.8,2000,21-04-2026
 Bashaw Pond,SE4-42-21-W4,BKTR,Beitty Resort,3N,19.5,200,07-05-2026
+Birch Lake,SE18-35-6-W5,BKTR,Beitty Resort,3N,19.2,5000,21-05-2026
 Butcher's Lake,NW15-4-1-W5,BKTR,Beitty Resort,3N,18.6,3000,29-04-2026
 Elk Point Pond,NW36-56-7-W4,BKTR,Beitty Resort,3N,20,500,12-05-2026
 Heritage Lake,NW33-55-25-W4,BKTR,Beitty Resort,3N,18.8,1600,05-05-2026
+Horseshoe Lake,SW31-63-25-W4,BKTR,Beitty Resort,3N,4.9,1500,20-05-2026
 Innisfree Trout Pond,SE13-51-12-W4,BKTR,Beitty Resort,3N,20.2,600,09-05-2026
 Irma Fish And Game Pond,SW34-45-9-W4,BKTR,Beitty Resort,3N,20.6,300,01-05-2026
 Kinky Lake,SE6-50-26-W5,BKTR,Beitty Resort,3N,20.6,7000,08-05-2026
@@ -27,10 +30,13 @@ Kraft Wimborne Pond,SE28-33-26-W4,BKTR,Beitty Resort,2N,30.1,50,04-05-2026
 Kraft Wimborne Pond,SE28-33-26-W4,BKTR,Beitty Resort,3N,19.4,230,11-05-2026
 Lacombe Park Pond,NW5-54-25-W4,BKTR,Beitty Resort,2N,30.1,120,05-05-2026
 Lacombe Park Pond,NW5-54-25-W4,BKTR,Beitty Resort,3N,18.5,600,06-05-2026
+Little Bear Lake (Hasse,NW19-64-2-W4,BKTR,Beitty Resort,3N,20.4,2200,22-05-2026
 Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,2N,35,130,08-04-2026
 Nicholas Sheran Park Pond,SE26-8-22-W4,BKTR,Beitty Resort,3N,19,2000,20-04-2026
 Peanut Lake,NE15-58-3-W5,BKTR,Beitty Resort,3N,20.1,5000,14-05-2026
+Peppers Lake,NW30-35-12-W5,BKTR,Beitty Resort,3N,19.5,4000,21-05-2026
 Pleasure Island Reservoir,SW20-46-19-W4,BKTR,Beitty Resort,3N,18.7,1070,01-05-2026
+Rat Lake,SW11-38-9-W5,BKTR,Beitty Resort,3N,4.9,2500,21-05-2026
 Shell True North Pond,SW10-79-8-W6,BKTR,Beitty Resort,3N,20.5,590,08-05-2026
 Shuster Lake,NE26-43-5-W4,BKTR,Beitty Resort,3N,20.1,7000,12-05-2026
 Spruce Coulee Reservoir,SW26-8-2-W4,BKTR,Beitty Resort,3N,18.8,7000,01-05-2026
@@ -50,6 +56,8 @@ Coronation Reservoir,SW24-36-11-W4,TGTR,Bow River,3N,16.7,1000,27-04-2026
 Dickson Trout Pond,NW13-35-3-W5,TGTR,Bow River,3N,17.7,1700,04-05-2026
 Dillberry Lake,NE36-41-1-W4,TGTR,Bow River,3N,20.6,3500,06-05-2026
 Diplomat Mine Pond,NW1-41-16-W4,TGTR,Bow River,3N,17.6,1500,29-04-2026
+Dolberg Lake,SE1-60-8-W5,TGTR,Bow River,3N,21.9,2000,22-05-2026
+East Dollar Lake,NW8-73-21-W5,TGTR,Bow River,3N,21.8,300,19-05-2026
 Elk Point Pond,NW36-56-7-W4,TGTR,Bow River,3N,23.1,150,12-05-2026
 Enchant Pond,NW8-14-18-W4,TGTR,Bow River,3N,17,200,20-04-2026
 Hasse Lake,SW13-52-2-W5,TGTR,Bow River,3N,20.8,1500,07-05-2026
@@ -58,14 +66,19 @@ Jack Fish Lake,NW20-53-9-W4,TGTR,Bow River,3N,23.1,2000,13-05-2026
 Kerbe's Pond,NE19-36-20-W4,TGTR,Bow River,3N,16.7,1000,27-04-2026
 Kraft Wimborne Pond,SE28-33-26-W4,TGTR,Bow River,3N,19,70,11-05-2026
 Len Thompson Pond,NW29-40-26-W4,TGTR,Bow River,3N,17.3,650,04-05-2026
+Little Bear Lake (Hasse,NW19-64-2-W4,BNTR,Bow River,3N,18.7,1000,22-05-2026
+Little Bear Lake (Hasse,NW19-64-2-W4,TGTR,Bow River,3N,23.1,2200,22-05-2026
+Little Beaverdam Lake,SE34-1-28-W4,TGTR,Bow River,3N,18.3,1000,19-05-2026
 McVinnie Reservoir,SW33-12-21-W4,TGTR,Bow River,3N,17,400,20-04-2026
 Michel Reservoir (Michel,NE5-7-3-W4,BNTR,Bow River,3N,17.2,1500,22-04-2026
+Mitford Ponds,SE4-26-4-W5,BNTR,Bow River,3N,18.2,61,30-04-2026
 Morinville Fish and Game,NW4-56-25-W4,BNTR,Bow River,3N,17.9,100,05-05-2026
 Niemela Reservoir (Ray's,SE1-39-3-W5,TGTR,Bow River,3N,17.3,250,04-05-2026
 Pleasure Island Reservoir,SW20-46-19-W4,TGTR,Bow River,3N,17.4,200,01-05-2026
 Ponoka Centennial Park,NE5-43-25-W4,TGTR,Bow River,3N,18.4,100,07-05-2026
 Reesor Lake,NW20-8-1-W4,TGTR,Bow River,3N,20.9,3500,04-05-2026
 Salter's Lake,SW26-54-2-W5,TGTR,Bow River,3N,17.9,2000,07-05-2026
+Schuman Lake,SE35-61-8-W5,TGTR,Bow River,3N,20.1,500,19-05-2026
 Shell True North Pond,SW10-79-8-W6,TGTR,Bow River,3N,23.1,50,08-05-2026
 Spring Lake (Cottage),SW30-52-1-W5,TGTR,Bow River,3N,20.9,1500,07-05-2026
 St. Paul Fish Pond,SE9-58-9-W4,TGTR,Bow River,3N,23.1,300,13-05-2026
@@ -75,20 +88,23 @@ West Rivers Edge Pond,NE23-54-23-W4,TGTR,Bow River,3N,17.3,200,05-05-2026
 West Rivers Edge Pond,NE23-54-23-W4,TGTR,Bow River,3N,17.3,250,05-05-2026
 West Rivers Edge Pond,NE23-54-23-W4,BNTR,Bow River,3N,17.7,250,05-05-2026
 Beaumont Pond,NW27-50-24-W4,BNTR,Bow River x Beitty,3N,18.2,1141,07-05-2026
+Birch Lake,SE18-35-6-W5,BNTR,Bow River x Beitty,3N,19.1,500,21-05-2026
 Cardiff Park Pond,SW24-55-25-W4,BNTR,Bow River x Beitty,3N,18.2,500,08-05-2026
 Corner Lake,NW4-6-20-W4,BNTR,Bow River x Beitty,2N,42.1,50,24-04-2026
 Coronation Reservoir,SW24-36-11-W4,BNTR,Bow River x Beitty,3N,17.6,1000,27-04-2026
 Dewitt's Pond,SE31-26-1-W5,BNTR,Bow River x Beitty,3N,18.4,1345,30-04-2026
 Dewitt's Pond,SE31-26-1-W5,BNTR,Bow River x Beitty,3N,18.4,1250,30-04-2026
+Dolberg Lake,SE1-60-8-W5,BNTR,Bow River x Beitty,3N,20.1,2000,22-05-2026
+East Dollar Lake,NW8-73-21-W5,BNTR,Bow River x Beitty,3N,21.9,500,19-05-2026
 East Stormwater Pond,SE29-40-26-W4,BNTR,Bow River x Beitty,3N,18.1,100,04-05-2026
 Emerson Lake,SW5-19-28-W4,BNTR,Bow River x Beitty,3N,17.2,200,22-04-2026
 Heritage Lake,NW33-55-25-W4,BNTR,Bow River x Beitty,3N,17.9,1000,05-05-2026
 Hermitage Park Pond,NE18-53-23-W4,BNTR,Bow River x Beitty,3N,18.2,300,08-05-2026
 Kerbe's Pond,NE19-36-20-W4,BNTR,Bow River x Beitty,3N,17.6,250,27-04-2026
 Lees Lake,SW8-7-2-W5,BNTR,Bow River x Beitty,3N,16.6,1895,13-04-2026
+Len Thompson Pond,NW29-40-26-W4,BNTR,Bow River x Beitty,2N,64,50,14-05-2026
 Millers Lake,SW8-53-19-W5,BNTR,Bow River x Beitty,3N,20.3,2500,05-05-2026
 Mitchell Lake,NE25-37-8-W5,BNTR,Bow River x Beitty,3N,18.5,500,13-05-2026
-Mitford Ponds,SE4-26-4-W5,BNTR,Bow River x Beitty,3N,18.2,61,30-04-2026
 Muir Lake,NW32-53-27-W4,BNTR,Bow River x Beitty,3N,18.1,500,06-05-2026
 Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River x Beitty,3N,17.7,2000,20-04-2026
 Nicholas Sheran Park Pond,SE26-8-22-W4,BNTR,Bow River x Beitty,2N,42.1,50,24-04-2026
@@ -99,26 +115,42 @@ Spring Lake (Cottage),SW30-52-1-W5,BNTR,Bow River x Beitty,3N,19.5,500,08-05-202
 Spruce Coulee Reservoir,SW26-8-2-W4,BNTR,Bow River x Beitty,3N,20.9,1000,04-05-2026
 Star Lake,NE19-52-2-W5,BNTR,Bow River x Beitty,3N,19.7,1000,07-05-2026
 Telegraph Park Pond,NW32-48-21-W4,BNTR,Bow River x Beitty,3N,18,193,01-05-2026
+West Dollar Lake,SE18-73-21-W5,BNTR,Bow River x Beitty,3N,21.8,500,19-05-2026
 Bellis Beach Lake,SE15-59-15-W4,RNTR,Campbell Lake,2N,20.6,9835,14-05-2026
 Black Nugget Mine Pit,NW11-49-18-W4,RNTR,Campbell Lake,2N,20.7,3500,04-05-2026
 Black Nugget Mine Pit,NW11-49-18-W4,RNTR,Campbell Lake,2N,20.1,9000,04-05-2026
 Blood Indian Creek,SW28-26-9-W4,RNTR,Campbell Lake,2N,20.1,10000,28-04-2026
+Cecil Thompson Pond,SW23-83-21-W5,RNTR,Campbell Lake,2N,21.5,1000,20-05-2026
 Chain Lakes (Lower Chain,NW7-69-23-W4,RNTR,Campbell Lake,2N,20.1,8000,13-05-2026
 Dillberry Lake,NE36-41-1-W4,RNTR,Campbell Lake,2N,20.1,3546,06-05-2026
 Dillberry Lake,NE36-41-1-W4,RNTR,Campbell Lake,2N,20.2,9454,06-05-2026
+Dolberg Lake,SE1-60-8-W5,RNTR,Campbell Lake,2N,21.1,8000,22-05-2026
+East Dollar Lake,NW8-73-21-W5,RNTR,Campbell Lake,3N,20.3,3000,19-05-2026
+Fairview College Pond,SW34-81-3-W6,RNTR,Campbell Lake,2N,22.1,500,19-05-2026
+Highway 63 Pond,NE35-87-9-W4,RNTR,Campbell Lake,2N,21.4,1000,22-05-2026
+Highway 686 Pond,NE17-85-19-W5,RNTR,Campbell Lake,2N,21.5,500,20-05-2026
 Jack Fish Lake,NW20-53-9-W4,RNTR,Campbell Lake,2N,21.5,1895,13-05-2026
 Jack Fish Lake,NW20-53-9-W4,RNTR,Campbell Lake,2N,20.1,3105,13-05-2026
+Kramer Pond,SW25-45-6-W5,RNTR,Campbell Lake,AF3N,20.3,1500,14-05-2026
+Little Bear Lake (Hasse,NW19-64-2-W4,RNTR,Campbell Lake,2N,22.1,5000,22-05-2026
+Lougheed Trout Pond,NE33-43-11-W4,RNTR,Campbell Lake,AF3N,20.7,600,13-05-2026
 Millers Lake,SW8-53-19-W5,RNTR,Campbell Lake,3N,20.8,14199,05-05-2026
 Reesor Lake,NW20-8-1-W4,RNTR,Campbell Lake,2N,20.5,2700,04-05-2026
 Reesor Lake,NW20-8-1-W4,RNTR,Campbell Lake,2N,21.5,5294,05-05-2026
+Schuman Lake,SE35-61-8-W5,RNTR,Campbell Lake,2N,21.9,9500,19-05-2026
 Spring Lake (Cottage),SW30-52-1-W5,RNTR,Campbell Lake,2N,21.8,10000,07-05-2026
 Swan Lake,SW18-70-25-W5,RNTR,Campbell Lake,3N,20.1,15000,11-05-2026
+Texaco East Pond,NW15-88-8-W4,RNTR,Campbell Lake,2N,21.4,2700,22-05-2026
+Texaco Pond,SW20-88-8-W4,RNTR,Campbell Lake,2N,21.1,1500,22-05-2026
 Vegreville Trout Pond,SW7-52-14-W4,RNTR,Campbell Lake,2N,20.2,10000,12-05-2026
+Weberville Pond,NW7-85-21-W5,RNTR,Campbell Lake,2N,21.5,1000,20-05-2026
+West Dollar Lake,SE18-73-21-W5,RNTR,Campbell Lake,3N,20.3,1000,19-05-2026
 Whiteridge Recreation Area,SW1-60-10-W5,RNTR,Campbell Lake,3N,22,2100,11-05-2026
 Bellis Beach Lake,SE15-59-15-W4,RNTR,Pit Lake,2N,20.1,4165,14-05-2026
 Dillberry Lake,NE36-41-1-W4,RNTR,Pit Lake,2N,18.5,6300,06-05-2026
 Dillberry Lake,NE36-41-1-W4,RNTR,Pit Lake,2N,19.3,3700,06-05-2026
 East Pit Lake,SE23-53-4-W5,RNTR,Pit Lake,2N,20,11600,11-05-2026
+Little Bear Lake (Hasse,NW19-64-2-W4,RNTR,Pit Lake,2N,19.4,5000,22-05-2026
 Reesor Lake,NW20-8-1-W4,RNTR,Pit Lake,2N,19.8,8000,05-05-2026
 Shemeluk Lake,SW25-60-17-W4,RNTR,Pit Lake,2N,18.9,6000,14-05-2026
 Spring Lake (Cottage),SW30-52-1-W5,RNTR,Pit Lake,2N,35.1,135,04-05-2026
@@ -128,6 +160,8 @@ Ardmore Community Pond,NW1-62-4-W4,RNTR,Riverence,AF3N,23.5,400,11-05-2026
 Ashland Reservoir,NW17-48-3-W5,RNTR,Riverence,AF3N,20.4,8000,12-05-2026
 Bashaw Pond,SE4-42-21-W4,RNTR,Riverence,AF3N,24.2,500,07-05-2026
 Bathing Lake,SE11-4-1-W5,RNTR,Riverence,AF3N,23.8,500,29-04-2026
+Beaver Lake,NE16-35-6-W5,RNTR,Riverence,AF3N,20.6,2500,21-05-2026
+Birch Lake,SE18-35-6-W5,RNTR,Riverence,AF3N,20.1,3500,21-05-2026
 Blood Indian Creek,SW28-26-9-W4,RNTR,Riverence,AF3N,22.8,7000,27-04-2026
 Bonnyville Town Pond,NW7-61-5-W4,RNTR,Riverence,AF3N,22.9,500,14-05-2026
 Boyle Pond,NE16-64-19-W4,RNTR,Riverence,AF3N,22.9,2200,12-05-2026
@@ -143,6 +177,7 @@ Chain Lakes Reservoir,NE4-15-2-W5,RNTR,Riverence,AF3N,23.8,2420,30-04-2026
 Chain Lakes Reservoir,NE4-15-2-W5,RNTR,Riverence,AF3N,20.1,11580,30-04-2026
 Coronation Reservoir,SW24-36-11-W4,RNTR,Riverence,AF3N,20.6,5300,27-04-2026
 County Sportplex Pond,NW14-72-6-W6,RNTR,Riverence,AF3N,23.5,2000,08-05-2026
+Cow Lake,NE12-38-8-W5,RNTR,Riverence,AF2N,20.5,8000,15-05-2026
 Crossfield Trout Pond,SE27-28-1-W5,RNTR,Riverence,AF3N,23.5,1400,29-04-2026
 Daysland Pond,NE9-45-16-W4,RNTR,Riverence,AF3N,22.7,400,11-05-2026
 Dickson Trout Pond,NW13-35-3-W5,RNTR,Riverence,AF3N,20.6,4272,04-05-2026
@@ -151,10 +186,13 @@ Dickson Trout Pond,NW13-35-3-W5,RNTR,Riverence,AF3N,20.1,8793,04-05-2026
 Diplomat Mine Pond,NW1-41-16-W4,RNTR,Riverence,AF2N,19.9,5000,29-04-2026
 Elk Point Pond,NW36-56-7-W4,RNTR,Riverence,AF3N,23.1,900,12-05-2026
 Emerson Lake,SW5-19-28-W4,RNTR,Riverence,AF3N,23.7,1400,22-04-2026
+Footner Pond,SE5-111-19-W5,RNTR,Riverence,AF3N,23.7,500,20-05-2026
+Fox Creek Trout Pond,NW13-63-20-W5,RNTR,Riverence,AF3N,23.7,500,19-05-2026
 Hasse Lake,SW13-52-2-W5,RNTR,Riverence,AF2N,20.6,10000,06-05-2026
 Helmer Reservoir,SW18-31-14-W4,RNTR,Riverence,AF2N,20,5000,23-04-2026
 Heritage Lake,NW33-55-25-W4,RNTR,Riverence,AF3N,22.2,2160,05-05-2026
 Hermitage Park Pond,NE18-53-23-W4,RNTR,Riverence,AF3N,24.2,1100,08-05-2026
+High Level Community,SE6-110-19-W5,RNTR,Riverence,AF3N,23.7,500,20-05-2026
 Hiller's Reservoir,SE13-32-29-W4,RNTR,Riverence,AF2N,20.3,7500,30-04-2026
 Huber Reservoir,SW36-37-13-W4,RNTR,Riverence,AF3N,20.6,6000,27-04-2026
 Innisfree Trout Pond,SE13-51-12-W4,RNTR,Riverence,AF3N,23.1,400,09-05-2026
@@ -168,11 +206,15 @@ Lac La Biche Trout Pond,NW5-67-13-W4,RNTR,Riverence,AF3N,23.1,600,13-05-2026
 Lacombe Park Pond,NW5-54-25-W4,RNTR,Riverence,AF3N,24.2,500,06-05-2026
 Lara Fish Pond,NE25-61-5-W4,RNTR,Riverence,AF3N,23.5,400,11-05-2026
 Leduc Reservoir,NE27-49-25-W4,RNTR,Riverence,AF2N,20.3,5000,06-05-2026
+Legal Reservoir,NW24-57-25-W4,RNTR,Riverence,AF3N,22.9,1150,15-05-2026
 Len Thompson Pond,NW29-40-26-W4,RNTR,Riverence,AF3N,22.2,1235,04-05-2026
+McClennan Reservoir,SW32-77-19-W5,RNTR,Riverence,AF3N,23.7,500,19-05-2026
 Mclaren's Reservoir,SW23-33-18-W4,RNTR,Riverence,AF3N,20.3,4200,28-04-2026
 Mclaren's Reservoir,SW23-33-18-W4,RNTR,Riverence,AF3N,26.2,1400,29-04-2026
 McQuillan Reservoir,SW13-8-19-W4,RNTR,Riverence,AF2N,24.5,2000,21-04-2026
 McVinnie Reservoir,SW33-12-21-W4,RNTR,Riverence,AF2N,26.2,1155,21-04-2026
+Md Peace Pond #1,SW27-83-23-W5,RNTR,Riverence,AF3N,23.7,1000,20-05-2026
+Md Peace Pond #2,SW27-83-23-W5,RNTR,Riverence,AF3N,23.7,1000,20-05-2026
 Michel Reservoir (Michel,NE5-7-3-W4,RNTR,Riverence,AF2N,20,7500,22-04-2026
 Michichi Reservoir,SW19-30-18-W4,RNTR,Riverence,AF3N,20,4200,28-04-2026
 Michichi Reservoir,SW19-30-18-W4,RNTR,Riverence,AF3N,26.2,1400,29-04-2026
@@ -182,45 +224,59 @@ Muir Lake,NW32-53-27-W4,RNTR,Riverence,AF2N,24.2,1500,06-05-2026
 Muir Lake,NW32-53-27-W4,RNTR,Riverence,AF2N,20.6,1500,06-05-2026
 Muskoseepi Pond,SE26-71-6-W6,RNTR,Riverence,AF3N,23.5,500,08-05-2026
 Nicholas Sheran Park Pond,SE26-8-22-W4,RNTR,Riverence,AF3N,24,2000,20-04-2026
+Nordegg Borrow Pit (East),SE32-40-15-W5,RNTR,Riverence,AF3N,22.9,300,19-05-2026
+Nordegg Borrow Pit (West),SW32-40-15-W5,RNTR,Riverence,AF3N,22.9,400,19-05-2026
 Open Creek Reservoir,NE25-42-6-W5,RNTR,Riverence,AF2N,20.8,6000,14-05-2026
 Outpost Lake (Police Lake),NE6-1-26-W4,RNTR,Riverence,AF3N,20.1,2500,20-04-2026
 Outpost Lake (Police Lake),NE6-1-26-W4,RNTR,Riverence,AF3N,23.7,2500,20-04-2026
 Payne Lake (Mami Lake),NE10-2-28-W4,RNTR,Riverence,AF3N,12.3,77502,09-04-2026
 Pleasure Island Reservoir,SW20-46-19-W4,RNTR,Riverence,AF3N,23,200,01-05-2026
 Radway Fish Pond,SE31-58-20-W4,RNTR,Riverence,AF3N,23.5,1040,07-05-2026
+Rainbow Lake Pond,NE25-109-9-W6,RNTR,Riverence,AF3N,23.7,500,20-05-2026
 Riverstone Pond,SW24-8-22-W4,RNTR,Riverence,AF3N,23.9,1830,15-04-2026
 Salter's Lake,SW26-54-2-W5,RNTR,Riverence,AF2N,20.3,1303,07-05-2026
 Salter's Lake,SW26-54-2-W5,RNTR,Riverence,AF2N,20,6197,07-05-2026
+Sardine Lake,SW5-49-4-W5,RNTR,Riverence,AF3N,20.5,2500,15-05-2026
 Sauer Lake,NE28-53-1-W5,RNTR,Riverence,AF2N,20,6000,08-05-2026
 Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF2N,20.3,4200,23-04-2026
 Severn Creek Reservoir,NW12-26-22-W4,RNTR,Riverence,AF3N,26.2,1400,29-04-2026
+Shunda Lake (Fish Lake),SW19-40-15-W5,RNTR,Riverence,AF3N,20.8,20000,20-05-2026
 Sibbald Meadows Pond,SW20-24-7-W5,RNTR,Riverence,AF3N,22.7,1350,14-05-2026
 St. Paul Fish Pond,SE9-58-9-W4,RNTR,Riverence,AF3N,22.9,1800,13-05-2026
 Star Lake,NE19-52-2-W5,RNTR,Riverence,AF2N,20.6,8040,11-05-2026
 Strubel Lake,SW30-37-7-W5,RNTR,Riverence,AF3N,20.1,12800,13-05-2026
 Telegraph Park Pond,NW32-48-21-W4,RNTR,Riverence,AF3N,23,200,01-05-2026
+Valleyview Children's Pond,NE21-70-22-W5,RNTR,Riverence,AF3N,23.7,500,19-05-2026
 West Rivers Edge Pond,NE23-54-23-W4,RNTR,Riverence,AF3N,22.7,800,05-05-2026
 Wetaskiwin Pond,NE24-46-24-W4,RNTR,Riverence,AF3N,24.2,150,07-05-2026
 Whitecourt Town Pond,NE35-59-12-W5,RNTR,Riverence,AF3N,24.9,1500,11-05-2026
+Winchell Lake,NW2-29-5-W5,RNTR,Riverence,AF3N,21.3,4000,21-05-2026
+Rainbow Park Pond,NE31-59-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.7,1200,14-05-2026
 Parlby Reservoir (Tees,NE25-40-24-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,400,29-04-2026
 McLeod Lake (Carson,SE25-61-12-W5,RNTR,Trout Lodge/Kamloops,AF3N,15.4,27206,14-05-2026
-Claude N. Brennan,NE36-50-7-W4,RNTR,Trout Lodge/Jumpers,AF3N,21,1250,08-05-2026
 Alford Lake,SW4-36-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.9,3000,13-05-2026
 Corner Lake,NW4-6-20-W4,RNTR,Trout Lodge/Jumpers,AF3N,20,5000,15-04-2026
+Elk Creek Pond,NW33-35-12-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,500,21-05-2026
+Fiesta Lake,NE12-35-6-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.1,550,21-05-2026
+Harleck Pond,SE5-41-14-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,500,20-05-2026
+Ironside Pond,SW7-38-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,500,15-05-2026
 Kramer Pond,SW25-45-6-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.8,2000,12-05-2026
-Kramer Pond,SW25-45-6-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,1500,14-05-2026
 Lees Lake,SW8-7-2-W5,RNTR,Trout Lodge/Jumpers,AF3N,19.9,20000,13-04-2026
+Lodgepole Pond,NE1-48-10-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,200,15-05-2026
+McLeod Lake (Carson,SE25-61-12-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.5,10500,19-05-2026
 Mitchell Lake,NE25-37-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.9,2000,13-05-2026
 Mount Lorette Ponds,SW19-23-8-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,400,14-05-2026
 Open Creek Reservoir,NE25-42-6-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.4,3000,14-05-2026
 Outpost Lake (Police Lake),NE6-1-26-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,2500,20-04-2026
 Payne Lake (Mami Lake),NE10-2-28-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,13400,14-04-2026
+Peppers Lake,NW30-35-12-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,2800,21-05-2026
 Phyllis Lake,SE17-36-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.8,6818,12-05-2026
 Phyllis Lake,SE17-36-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.5,3182,12-05-2026
 Pine Coulee Reservoir,NE15-14-28-W4,RNTR,Trout Lodge/Jumpers,AF3N,20,5000,14-04-2026
 Sibbald Lake,NE14-24-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,1130,14-05-2026
 Sibbald Meadows Pond,SW20-24-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,650,14-05-2026
 Spring Coulee Park Pond,NE12-5-24-W4,RNTR,Trout Lodge/Jumpers,AF3N,20.2,2500,20-04-2026
+Twin Lakes,SW6-40-7-W5,RNTR,Trout Lodge/Jumpers,AF3N,20.3,7000,19-05-2026
 Boulder Lake,NE18-39-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,22.3,1200,23-04-2026
 Bow City East Ponds,NE15-17-17-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,2000,01-05-2026
 Castor Eastside Trout Pond,SE34-37-14-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,500,30-04-2026
@@ -229,9 +285,12 @@ Cow Lake,NE12-38-8-W5,RNTR,Trout Lodge/Kamloops,AF3N,15.1,8000,06-05-2026
 Cow Lake,NE12-38-8-W5,RNTR,Trout Lodge/Kamloops,AF3N,15.1,8000,07-05-2026
 Dewitt's Pond,SE31-26-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,22.3,1000,23-04-2026
 East Stormwater Pond,SE29-40-26-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,1000,29-04-2026
+Emerson Lakes,NW6-55-21-W5,RNTR,Trout Lodge/Kamloops,AF3N,16,2250,20-05-2026
 Enchant Pond,NW8-14-18-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,2000,01-05-2026
 Foremost Reservoir,NW17-6-11-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,1500,15-04-2026
+Gibbons Pond,NE10-56-23-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.7,300,14-05-2026
 Goldeye Lake,NE14-40-16-W5,RNTR,Trout Lodge/Kamloops,AF3N,15.1,3333,07-05-2026
+Goldeye Lake,NE14-40-16-W5,RNTR,Trout Lodge/Kamloops,AF3N,16,6667,19-05-2026
 Goldspring Park Pond,NE6-2-15-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,2363,15-04-2026
 Gooseberry Park Pond,NE22-36-6-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,2800,30-04-2026
 Granum Pond,NW31-10-26-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.3,600,15-04-2026
@@ -242,10 +301,15 @@ Mound Red Reservoir,NW11-45-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,3000,07-05-2
 Nose Creek Pond,NE1-27-1-W5,RNTR,Trout Lodge/Kamloops,AF3N,22.3,350,23-04-2026
 Nuggent Pond,SE14-44-3-W5,RNTR,Trout Lodge/Kamloops,AF3N,21,600,06-05-2026
 Payne Lake (Mami Lake),NE10-2-28-W4,RNTR,Trout Lodge/Kamloops,AF3N,15.8,20000,21-04-2026
+Petite Lake,NW12-54-26-W5,RNTR,Trout Lodge/Kamloops,AF3N,16,2000,21-05-2026
 Strathmore Children's Pond,SW14-24-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,1500,01-05-2026
+Telegraph Park Pond,NW32-48-21-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.7,900,13-05-2026
 Two Hills Pond,SW32-54-12-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,700,08-05-2026
+Vegreville Children's Pond,NW17-52-14-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.7,600,13-05-2026
+Wallace Park Pond,NE31-44-6-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.7,500,13-05-2026
 Windsor Lake,SW10-42-22-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,2000,29-04-2026
 McLeod Lake (Carson,SE25-61-12-W5,RNTR,Trout Lodge/Silver's,AF3N,15.9,28739,13-05-2026
+Claude N. Brennan,NE36-50-7-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,1250,08-05-2026
 Mitchell Pond (Waskasoo,NW18-38-27-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,2100,06-05-2026
 Oyen (Concrete Plant),NW34-27-4-W4,RNTR,Trout Lodge/Kamloops,AF3N,20.1,300,30-04-2026
 Ponoka Centennial Park,NE5-43-25-W4,RNTR,Trout Lodge/Kamloops,AF3N,21,1000,07-05-2026
