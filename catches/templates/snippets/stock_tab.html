@@ -1,3 +1,4 @@
+    {% load catches_tags %}
     <table class="table table-striped table-hover">
         <thead>
           <tr>
@@ -52,7 +53,12 @@
               <th scope="row">{{ s.year|stringformat:"d"}}</th>
               <td><b>{{ s.subt }}</b></td>
               <td></td>
-              <td></td>
+              <td>
+                <abbr title = "100 fish per ha">
+                  density:
+                </abbr> 
+                <b>{% density_display lake.size s.subt %}</b>
+              </td>
               <td></td>
             </tr>
             {% endfor %} 
