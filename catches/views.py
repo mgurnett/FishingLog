@@ -122,15 +122,27 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
 
 
     def get_context_data(self, **kwargs):
-        # Get the current date and time
         current_time = datetime.now()
-
         context = super().get_context_data(**kwargs)
-        context['lakes'] = get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id)
-        context['form'] = self.get_form()  # Use get_form() for consistency
+        
+        # 1. Fetch the user's lakes queryset for this region and convert to a list
+        lakes_qs = list(get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id))
+        
+        # 2. Check which lakes are favorites for the current user
+        if self.request.user.is_authenticated:
+            user_favorites = Favorite.objects.filter(user=self.request.user).values_list('lake_id', flat=True)
+            for lake in lakes_qs:
+                lake.is_favorite_user = lake.id in user_favorites
+        else:
+            for lake in lakes_qs:
+                lake.is_favorite_user = False
+
+        # 3. Inject updated context variables
+        context['lakes'] = lakes_qs
+        context['form'] = self.get_form()
         context['distances'] = self.get_the_distances()
         context['current_year'] = current_time.year
-        context['yester_year'] = current_time.year-1
+        context['yester_year'] = current_time.year - 1
         return context
 
     def post(self, request, *args, **kwargs):
@@ -516,7 +528,6 @@ class LakeListView_districts(SuccessMessageMixin, UserAccessMixin, TemplateView)
         current_year = datetime.now().year
 
         for lake_dis in lakes_queryset:
-            # Reusing your exact math logic from RegionDetailView
             lake_distance = find_dist(lake_dis, self.request.user)
             stock_list = Stock.objects.filter(lake=lake_dis)        
             subtotals = stock_with_subtotals(stock_list)
@@ -537,10 +548,22 @@ class LakeListView_districts(SuccessMessageMixin, UserAccessMixin, TemplateView)
         context = super(LakeListView_districts, self).get_context_data(*args, **kwargs)
         
         # 1. Fetch the lakes for this district
-        lakes_qs = Lake.objects.filter(district=dist[0])
+        lakes_qs = list(Lake.objects.filter(district=dist[0]))
         current_time = datetime.now()
 
-        # 2. Inject all the context fields expected by the template layout
+        # 2. Check which lakes are favorites for the current user
+        if self.request.user.is_authenticated:
+            # Get a list of lake IDs that the user has favorited
+            user_favorites = Favorite.objects.filter(user=self.request.user).values_list('lake_id', flat=True)
+            
+            # Dynamically inject a temporary dynamic attribute onto each lake object
+            for lake in lakes_qs:
+                lake.is_favorite_user = lake.id in user_favorites
+        else:
+            for lake in lakes_qs:
+                lake.is_favorite_user = False
+
+        # 3. Inject into context
         context['lakes'] = lakes_qs
         context['district'] = dist[1]
         context['id'] = dist[0]

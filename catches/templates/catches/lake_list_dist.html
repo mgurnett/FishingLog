@@ -7,21 +7,13 @@
         <div class="card border-0 bg-transparent">  
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-6 text-start"> 
+                    <div class="col-md-5 text-start"> 
                         <h5>
                             District: <b>{{ district | title }}</b>
                         </h5>
                     </div>
                     <div class="col-md-2 text-end">
                         Lakes in the district: <b>{{ lakes.count }}</b>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
-                    </div>
-                </div>
-                <hr> 
-                <div class="row">
-                    <div class="col-md-8">
                     </div>
                     <div class="col-md-4 text-end"> 
                         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >
@@ -30,6 +22,9 @@
                             </abbr>
                         </a> 
                         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
                     </div>
                 </div>
             </div>
@@ -51,18 +46,20 @@
                         <th>density</th>
                         <th></th>
                     </tr>
-                    {% for lake in lakes %} 
+                        {% for lake in lakes %} 
                         <tr>
                             <td scope="row">   
-                                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item">
-                                    {{ lake.lake_full_name }}
+                                <a href="{% url 'lake_detail' lake.id %}" class="list-group-item d-inline-block text-decoration-none">
+                                    <strong>{{ lake.lake_full_name }}</strong>
+                                    
+                                    {# Changed the icon styles to render a dark/black circle #}
+                                    {% if lake.is_favorite_user %}
+                                        <i class="fas fa-check-circle text-dark ms-1" title="Favorite Lake"></i>
+                                    {% endif %}
                                 </a>
-                                {% if lake.is_favourite %}
-                                    <i class="fas fa-check-circle"></i>
-                                {% endif %}
                                 
                                 {% if lake.size %}
-                                    {{ lake.size }} hectares
+                                    <br>{{ lake.size }} hectares</small>
                                 {% endif %}
                             </td>
                             <td>
