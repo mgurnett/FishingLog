@@ -1,66 +1,95 @@
-    {% load catches_tags %}
-    <table class="table table-striped table-hover">
-        <thead>
+{% load catches_tags humanize %}
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      {% if model == "fish" %}
+        <th scope="col">Lake</th>
+      {% else %}
+        <th scope="col">Fish</th>
+      {% endif %}
+      <th scope="col">Number</th>
+      <th scope="col">Genotype</th>
+      <th scope="col">Strain</th>
+      <th scope="col">Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in subts %}
+      {# Loop through stocks for this subtotal/year #}
+      {% for stock in stockings %}
+        {% if stock.date_stocked.year == s.year %}
           <tr>
-            <th scope="col">Date</th>
+            <th scope="row">
+              <a href="{% url 'stock_detail' stock.id %}">{{ stock.date_stocked }}</a>
+            </th>
+            
             {% if model == "fish" %}
-              <th scope="col">Lake</th>
-            {% else %}
-              <th scope="col">Fish</th>
-            {% endif %}
-            <th scope="col">Number</th>
-            <th scope="col">Genotype</th>
-            <th scope="col">Strain</th>
-            <th scope="col">Length</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for s in subts %}
-            <tr>
-              {% for stock in stockings %}
-              <tr>
-                {% if stock.date_stocked.year == s.year %}
-                  <th scope="row"><a href="{% url 'stock_detail' stock.id %}">{{stock.date_stocked}}</a></th>
-                  {% if model == "fish" %}
-                    <td>
-                      <a href="{% url 'lake_detail' stock.lake.id %}">{{stock.lake.name | title }}</a>  
-                      {% if stock.lake.is_favorite_ %} <i class="fas fa-check-circle"></i>{% endif %}
-                      (<a href="{% url 'lake_list_dist' stock.lake.district %}"> {{ stock.lake.dist_name | title  }}</a>)
-                    </td>
-                  {% else %}
-                    <td><a href="{% url 'fish_detail' stock.fish.id %}">{{stock.fish.name | title }}</a></td>
-                  {% endif %}
-                  <td>{{ stock.number }}</td>
-                  <td> 
-                    {% if stock.gentotype %}
-                      <abbr title = "{{ stock.geno_tooltip | safe }}">
-                        {{ stock.full_geno }}
-                      </abbr>
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if stock.strain %}
-                      <abbr title = "{{ stock.strain_tooltip | safe }}">
-                        {{ stock.full_strain }}
-                      </abbr>
-                    {% endif %}
-                  </td>
-                  <td>{{ stock.length }}cm ({{ stock.inch }}")</td>
-                {% endif %}
-              </tr>
-              {% endfor %} 
-              <td></td>
-              <th scope="row">{{ s.year|stringformat:"d"}}</th>
-              <td><b>{{ s.subt }}</b></td>
-              <td></td>
               <td>
-                <abbr title = "100 fish per ha">
-                  density:
-                </abbr> 
-                <b>{% density_display lake.size s.subt %}</b>
+                <a href="{% url 'lake_detail' stock.lake.id %}">{{ stock.lake.name | title }}</a>  
+                {% if stock.lake.is_favorite_ %} 
+                  <i class="fas fa-check-circle"></i>
+                {% endif %}
+                (<a href="{% url 'lake_list_dist' stock.lake.district %}">{{ stock.lake.dist_name | title }}</a>)
               </td>
-              <td></td>
-            </tr>
-            {% endfor %} 
-          </tbody>
-        </table>
+            {% else %}
+              <td>
+                <a href="{% url 'fish_detail' stock.fish.id %}">{{ stock.fish.name | title }}</a>
+              </td>
+            {% endif %}
+            
+            <td>{{ stock.number }}</td>
+            <td> 
+              {% if stock.genotype %}
+                <abbr title="{{ stock.geno_tooltip | safe }}">
+                  {{ stock.full_geno }}
+                </abbr>
+              {% endif %}
+            </td>
+            <td>
+              {% if stock.strain %}
+                <abbr title="{{ stock.strain_tooltip | safe }}">
+                  {{ stock.full_strain }}
+                </abbr>
+              {% endif %}
+            </td>
+            <td>{{ stock.length }}cm ({{ stock.inch }}")</td>
+          </tr>
+        {% endif %}
+      {% endfor %} 
+
+      {# Cleanly Aligned Year Subtotal Row #}
+      {% if s.year and s.year|slugify != "total" %}
+        <tr style="background-color: rgba(0, 0, 0, 0.04); font-weight: bold;" class="border-top border-bottom">
+          <td></td>
+          <td>{{ s.year|stringformat:"d" }} Total</td>
+          <td>{{ s.subt }}</td>
+          <td></td>
+          <td>
+            <abbr title="Density for this year at 100 fish">Density:</abbr> 
+            <strong>{% density_display lake.size s.subt %}</strong>
+          </td>
+          <td></td>
+        </tr>
+      {% endif %}
+    {% endfor %} 
+  </tbody>
+
+  {# 📊 Grand Summary Average Row #}
+  <tfoot>
+    <tr style="background-color: rgba(0, 0, 0, 0.08); font-weight: bold;" class="border-double-top">
+      <td>Annual Average</td>
+      <td></td>
+      <td>
+        {% full_history_average stockings as annual_avg %}
+        {{ annual_avg|intcomma }}
+      </td>
+      <td></td>
+      <td>
+        <abbr title="Average historical density at 100 fish">Avg Density:</abbr> 
+        <strong>{% density_display lake.size annual_avg %}</strong>
+      </td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
