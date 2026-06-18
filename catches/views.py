@@ -504,20 +504,50 @@ class LakeListView (ListView):
         context ['districts'] = dists
         return context
 
-class LakeListView_districts (SuccessMessageMixin, UserAccessMixin, TemplateView):
+class LakeListView_districts(SuccessMessageMixin, UserAccessMixin, TemplateView):
     permission_required = 'catches.view_lake'
     model = Lake
-    context_object_name = 'lakes' # this is the name that we are passing to the template
+    context_object_name = 'lakes'
     paginate_by = 30
     template_name = 'catches/lake_list_dist.html'
+
+    def get_the_distances(self, lakes_queryset):
+        distance_to_lakes = []
+        current_year = datetime.now().year
+
+        for lake_dis in lakes_queryset:
+            # Reusing your exact math logic from RegionDetailView
+            lake_distance = find_dist(lake_dis, self.request.user)
+            stock_list = Stock.objects.filter(lake=lake_dis)        
+            subtotals = stock_with_subtotals(stock_list)
+
+            this_year = next((item['subt'] for item in subtotals if item['year'] == current_year), 0)
+            last_year = next((item['subt'] for item in subtotals if item['year'] == current_year-1), 0)
+
+            distance_to_lakes.append({
+                "lake_id": lake_dis.id,
+                "distance": lake_distance,
+                "last_year": last_year,
+                "this_year": this_year        
+            })
+        return distance_to_lakes
  
     def get_context_data(self, *args, **kwargs):
         dist = DISTRICTS[self.kwargs['pk']]  
-        context = super (LakeListView_districts, self).get_context_data (*args, **kwargs)
-        context ['lakes'] = Lake.objects.filter (district = dist[0])
-        context ['district'] = dist[1]
-        context ['id'] = dist[0]
-        # context ['lake_count'] = Lake.objects.filter (district = dist[0]).count()
+        context = super(LakeListView_districts, self).get_context_data(*args, **kwargs)
+        
+        # 1. Fetch the lakes for this district
+        lakes_qs = Lake.objects.filter(district=dist[0])
+        current_time = datetime.now()
+
+        # 2. Inject all the context fields expected by the template layout
+        context['lakes'] = lakes_qs
+        context['district'] = dist[1]
+        context['id'] = dist[0]
+        context['distances'] = self.get_the_distances(lakes_qs)
+        context['current_year'] = current_time.year
+        context['yester_year'] = current_time.year - 1
+        
         return context
  
 class LakeDetailView (FormMixin, DetailView):  

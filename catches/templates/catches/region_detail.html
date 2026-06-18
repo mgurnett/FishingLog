@@ -1,6 +1,6 @@
 {% extends "catches/base/base.html" %} 
 {% block title %}Region: {{ region.name | title }}{% endblock %}
-{% block content %}
+{% block content %} 
 {% load catches_tags %}
 <div class="container">
 	<div class="row"> <!--  Top card--> 
@@ -22,7 +22,7 @@
 						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 					</div>
 				</div>
-				<hr>
+				<hr> 
 				<div class="row">
 					<div class="col-md-8">
 						{% if user.is_authenticated %}
