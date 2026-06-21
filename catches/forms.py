@@ -402,8 +402,8 @@ class New_Fish_Form (forms.ModelForm):
         }
 
     name = forms.CharField ( required = True )       
-    notes = forms.CharField ( required = False )             
-    # notes = forms.CharField(widget = CKEditor5Widget())
+    # notes = forms.CharField ( required = False )             
+    notes = forms.CharField(widget=CKEditor5Widget(), required=False)
     abbreviation = forms.CharField ( required = False )
     image = forms.ImageField (required = False )
     static_tag = forms.CharField ( required = False )
