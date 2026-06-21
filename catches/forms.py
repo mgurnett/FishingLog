@@ -436,7 +436,6 @@ class New_Fish_Form (forms.ModelForm):
             ),
         )
 
-
 class New_Lake_Form (forms.ModelForm):
     class Meta:
         model = Lake
@@ -460,7 +459,8 @@ class New_Lake_Form (forms.ModelForm):
     lat = forms.DecimalField( max_digits = 25, decimal_places=20, required = True )  
     long = forms.DecimalField( max_digits = 25, decimal_places=20, required = True)  
     waterbody_id = forms.IntegerField( required = False )        
-    notes = forms.CharField (widget=forms.Textarea, required = False ) 
+    # notes = forms.CharField (widget=forms.Textarea, required = False ) 
+    notes = forms.CharField(widget=CKEditor5Widget(), required=False)
     gps_url = forms.CharField( max_length = 100, required = False )
     size = forms.DecimalField( max_digits = 5, decimal_places=1, required = False ) 
     
