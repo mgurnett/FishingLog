@@ -37,6 +37,21 @@ from .helpers.ai_plan import *
 from .helpers.queries import *
 from .helpers.num_array import get_array
 
+
+def security_txt(request):
+    # Automatically set expiration to Dec 31st of next year
+    next_year = datetime.date.today().year + 1
+    content = f"""Contact: mailto:security@yourdomain.com
+    Expires: {next_year}-12-31T23:59:59.000Z
+    Preferred-Languages: en
+    """
+    return HttpResponse(content, content_type="text/plain")
+    # Crucial Fields to Include:
+    #     Contact: The URL or email address where security reports should be sent. (Must start with mailto: or https://).
+    #     Expires: This is a strict requirement of the internet standard. You must give the file an expiration date (usually less than a year in the future) so automated tools know the contact info is still actively monitored.
+    #     Preferred-Languages: A comma-separated list of languages your team speaks.
+    #     Encryption: A link to your public PGP key if you want researchers to encrypt their emails to you.
+
 class UserAccessMixin (PermissionRequiredMixin):
     def dispatch (self, request, *args, **kwargs):
         if (not self.request.user.is_authenticated):

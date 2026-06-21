@@ -1,11 +1,38 @@
-from django.urls import path,re_path
+from django.urls import path, re_path
+from django.views.generic import TemplateView
 from . import views
 from .views import *
 from catches.helpers.fish_data import *
         
 urlpatterns = [
-    path ('', views.Home.as_view(), name = 'catch_home'),
-    # path ('media/', views.NotAllowed.as_view()),
+    path('', views.Home.as_view(), name='catch_home'),
+    
+    # 1. Security Policy HTML page
+    path(
+        "security-policy/", 
+        TemplateView.as_view(template_name="catches/security_policy.html"), # Added catches/
+        name="security_policy"
+    ),
+    
+    # 2. Robots.txt
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="catches/robots.txt", content_type="text/plain"), # Added catches/
+    ),
+    
+    # 3. Security.txt (Inside .well-known/)
+    path(
+        ".well-known/security.txt", 
+        TemplateView.as_view(template_name="catches/security.txt", content_type="text/plain")
+    ),
+    
+    # 4. Security.txt (Root Fallback)
+    path(
+        "security.txt", 
+        TemplateView.as_view(template_name="catches/security.txt", content_type="text/plain")
+    ),
+
+    path('regions/', RegionListView.as_view(), name='region_list'),
 
     path ('regions/', RegionListView.as_view(), name = 'region_list'), 
     path ('regions/<int:pk>/', RegionDetailView.as_view(), name = 'region_detail'), 

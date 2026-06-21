@@ -1,0 +1,73 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Security Policy{% endblock %}
+
+{% block content %}
+<article class="security-policy" style="max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6;">
+    <h1>Vulnerability Disclosure Policy</h1>
+    <p><em>Last Updated: June 2026</em></p>
+
+    <hr>
+
+    <section>
+        <h2>1. Introduction</h2>
+        <p>At <strong>StillWaterFlyFishing</strong>, the security of our users and data is our top priority. We appreciate the critical role that independent security researchers play in keeping the internet safe. This policy is designed to give security researchers clear guidelines for conducting vulnerability discovery activities and to convey our commitment to working with you to validate and fix reported vulnerabilities.</p>
+    </section>
+
+    <section>
+        <h2>2. Safe Harbor</h2>
+        <p>If you make a good-faith effort to comply with this policy during your security research, we will consider your research to be <strong>authorized</strong>. We will work with you to understand and resolve the issue quickly, and <strong>[Your Site/Company Name]</strong> will not recommend or initiate legal action against you related to your research.</p>
+    </section>
+
+    <section>
+        <h2>3. Guidelines and Rules of Engagement</h2>
+        <p>To qualify for Safe Harbor under this policy, we ask that you adhere to the following rules:</p>
+        <ul>
+            <li><strong>No Disruption:</strong> Do not perform testing that degrades, disrupts, or crashes our services (e.g., Denial of Service attacks).</li>
+            <li><strong>Respect Privacy:</strong> Do not access, modify, or use data belonging to other users. If you accidentally access private data, stop immediately and delete it.</li>
+            <li><strong>No Exploitation:</strong> Do not exploit a vulnerability beyond the absolute minimum required to prove its existence (a "Proof of Concept").</li>
+            <li><strong>No Social Engineering:</strong> Do not target our team members, users, or support staff with phishing, spam, or social engineering attacks.</li>
+            <li><strong>Keep it Private:</strong> Give us a reasonable amount of time to remediate the vulnerability before you disclose it publicly.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. Scope</h2>
+        <p>This policy applies only to the following assets:</p>
+        <ul>
+            <li><code>StillWaterFlyFishing.com</code></li>
+            <li><code>*.StillWaterFlyFishing.com</code></li>
+        </ul>
+
+        <h3>Out of Scope</h3>
+        <p>Any third-party services, plugins, or infrastructure providers we use (e.g., our hosting provider, email delivery services) are outside the scope of this policy. Vulnerabilities in those platforms should be reported directly to those vendors.</p>
+    </section>
+
+    <section>
+        <h2>5. How to Submit a Report</h2>
+        <p>Please email your findings to <strong><a href="mailto:admin@StillWaterFlyFishing.com">security@yourdomain.com</a></strong>.</p>
+        <p>To help us triage and fix the issue quickly, please include:</p>
+        <ol>
+            <li><strong>Description:</strong> A detailed description of the vulnerability and its potential impact.</li>
+            <li><strong>Steps to Reproduce:</strong> Clear, step-by-step instructions to reproduce the issue (including URLs, request payloads, or Python script snippets if applicable).</li>
+            <li><strong>Proof of Concept (PoC):</strong> Screenshots, video recordings, or terminal outputs demonstrating the exploit.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>6. Our Commitments</h2>
+        <p>If you report a vulnerability to us in accordance with this policy, we promise to:</p>
+        <ul>
+            <li>Acknowledge receipt of your report within <strong>3 business days</strong>.</li>
+            <li>Keep you updated as we investigate and work on a fix.</li>
+            <li>Notify you once the vulnerability has been resolved.</li>
+        </ul>
+
+        <h3>Rewards and Recognition</h3>
+        <ul>
+            <li><strong>Rewards:</strong> We do not offer financial compensation (bug bounties) at this time.</li>
+            <li><strong>Recognition:</strong> With your permission, we are happy to provide public credit and recognize your contribution on our Hall of Fame page or social media once the bug is patched.</li>
+        </ul>
+    </section>
+</article>
+
+{% endblock content %}
