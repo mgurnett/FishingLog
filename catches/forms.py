@@ -255,11 +255,11 @@ class New_Stock_Form (forms.ModelForm):
             ),
         )
         
+
 class New_Log_Form (forms.ModelForm): 
     
     class Meta:
         model = Log
-        # fields = '__all__' 
         fields = ['catch_date', 'notes', 'lake', 'location', 
         'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed', 'private']  
         widgets = {
@@ -287,8 +287,25 @@ class New_Log_Form (forms.ModelForm):
     fly_colour = forms.CharField ( required = False ) 
     fish = forms.ModelChoiceField(
         queryset=Fish.objects.all(), required = False )
+    
+    # --- Length Setup ---
     length = forms.CharField ( required = False, initial=0.0 ) 
+    length_unit = forms.ChoiceField(
+        choices=[('cm', 'cm'), ('in', 'inches')],
+        widget=forms.RadioSelect,
+        initial='cm',
+        label="Unit"
+    )
+    
+    # --- Weight Setup ---
     weight = forms.CharField ( required = False, initial=0.0 ) 
+    weight_unit = forms.ChoiceField(
+        choices=[('kg', 'kg'), ('lbs', 'lbs')],
+        widget=forms.RadioSelect,
+        initial='kg',
+        label="Unit"
+    )
+    
     fish_swami = forms.IntegerField ( required = False, initial=0 ) 
     num_landed = forms.IntegerField ( required = False, initial=0 ) 
     private = forms.BooleanField( required = False, initial=False )
@@ -306,11 +323,14 @@ class New_Log_Form (forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('fish',          css_class='form-group col-md-4 mb-0'),
+                Column('fish',          css_class='form-group col-md-3 mb-0'),
                 Column('length',        css_class='form-group col-md-2 mb-0'),
+                Column('length_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
+                # Placed weight and weight_unit right next to length
                 Column('weight',        css_class='form-group col-md-2 mb-0'),
+                Column('weight_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
                 Column('num_landed',    css_class='form-group col-md-2 mb-0'),
-                Column('private',       css_class='form-group col-md-2 mt-12'),
+                Column('private',       css_class='form-group col-md-1 mb-0 pt-4'),
                 css_class='form-row'
             ),
             Row(
@@ -332,6 +352,36 @@ class New_Log_Form (forms.ModelForm):
                 css_class='form-row'
             ),
         )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # 1. Clean & Convert Length
+        length_val = cleaned_data.get('length')
+        l_unit = cleaned_data.get('length_unit')
+        if length_val:
+            try:
+                float_length = float(length_val)
+                if l_unit == 'in':
+                    float_length = float_length * 2.54
+                cleaned_data['length'] = str(round(float_length, 2))
+            except ValueError:
+                pass
+
+        # 2. Clean & Convert Weight
+        weight_val = cleaned_data.get('weight')
+        w_unit = cleaned_data.get('weight_unit')
+        if weight_val:
+            try:
+                float_weight = float(weight_val)
+                if w_unit == 'lbs':
+                    # Convert pounds to kilograms (1 lb ≈ 0.45359237 kg)
+                    float_weight = float_weight * 0.45359237
+                cleaned_data['weight'] = str(round(float_weight, 2))
+            except ValueError:
+                pass
+                
+        return cleaned_data
         
 class Plan_form (forms.ModelForm):
     class Meta:
