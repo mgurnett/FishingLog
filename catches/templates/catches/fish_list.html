@@ -22,7 +22,12 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <a href="{% url 'fish_detail' fish.id %}" class="card-link"><b>{{ fish.name | title}}</b> 
-                        <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}>
+                        {% comment %} <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}> {% endcomment %}
+                        {% if fish.image %}
+                            <img src="{{ fish.image.url }}" alt="{{ fish.name }}" class="img-fluid">
+                        {% else %}
+                            <img src="/static/images/placeholder-fish.png" alt="No image available" class="img-fluid">
+                        {% endif %}
                         </a>
                         <div class="card-body">
                             <p class="card-text">{{ fish.notes | safe }} </p>

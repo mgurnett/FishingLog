@@ -347,16 +347,22 @@ class FishDetailView (PermissionRequiredMixin, DetailView):
 class FishCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_fish'
     model = Fish
-    fields = '__all__' 
-    # form_class = New_Fish_Form
-    success_message = "New Fish saved"
+    form_class = New_Fish_Form  # Changed from fields = '__all__' to use your custom CKEditor5 form
+
+    def form_valid (self, form):
+        if not form.instance.static_tag:
+            form.instance.static_tag = slugify(form.instance.name)
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The fish was added'
+        )
+        return super().form_valid (form)
 
 class FishUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_fish'
-
     model = Fish
-    fields = '__all__' 
-    # form_class = New_Fish_Form
+    form_class = New_Fish_Form
     success_message = "Fish fixed"
 
 class FishDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
@@ -663,12 +669,7 @@ class LakeDetailView (FormMixin, DetailView):
 class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_lake'
     model = Lake
-    # fields = '__all__'
-    fields = [
-        'name', 'other_name', 'district', 'static_tag', 'reg_location', 
-        'ats', 'lat', 'long', 'waterbody_id', 'notes', 'gps_url'
-    ]
-    
+    # REMOVED: fields = [...]
     form_class = New_Lake_Form
     success_url = "/lakes/"
     success_message = "Lake was created successfully"
@@ -676,9 +677,9 @@ class LakeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     def lake_form_view(request):
         print("View function called")
         form = New_Lake_Form()
-        print(form)  # Add this line
+        print(form) # Add this line
         return render(request, 'catches/lake_form.html', {'form': form})
-    
+
     def form_valid(self, form):
         if not form.instance.static_tag:
             form.instance.static_tag = slugify(form.instance.name)

@@ -1,20 +1,11 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Lake{% endblock %}
-{% load static %}
-{% block header %}
-    {{ form.media }} # Required for styling/js to make ckeditor5 work
-{% endblock %}
+
 {% load crispy_forms_tags %}
 
 {% block content %}
-  {% csrf_token %}
   <div class="container">
+    {{ form.media }}
     {% crispy form %}
   </div>
-{% endblock %}  
-
-<script src="{% static 'django_ckeditor_5/assets/ckeditor5-build-classic/ckeditor.js' %}"></script>
-<script>
-    // Initialize CKEditor5
-    var editor = ClassicEditor.create(document.querySelector('.django-ckeditor5'));
-</script> 
+{% endblock %}
