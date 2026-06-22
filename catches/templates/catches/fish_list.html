@@ -8,9 +8,11 @@
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-primary">
-                <a href="{% url 'fish_create' %}">New Fish</a>
-            </button> 
+            {% if user.is_superuser %}            
+                <button type="button" class="btn btn-primary">
+                    <a href="{% url 'fish_create' %}">New Fish</a>
+                </button> 
+            {% endif %}
         </div>
     </div>
 </div>
@@ -20,14 +22,16 @@
         <div class = "row">
             {% for fish in fishes %}
                 <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <a href="{% url 'fish_detail' fish.id %}" class="card-link"><b>{{ fish.name | title}}</b> 
-                        {% comment %} <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}> {% endcomment %}
-                        {% if fish.image %}
-                            <img src="{{ fish.image.url }}" alt="{{ fish.name }}" class="img-fluid">
-                        {% else %}
-                            <img src="/static/images/placeholder-fish.png" alt="No image available" class="img-fluid">
-                        {% endif %}
+                    <!-- Added 'bg-transparent' and 'border-0' to clear the default card background -->
+                    <div class="card mb-4 box-shadow bg-transparent border-0">
+                        <a href="{% url 'fish_detail' fish.id %}" class="card-link">
+                            {% comment %} <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}> {% endcomment %}
+                            {% if fish.image %}
+                                <img src="{{ fish.image.url }}" alt="{{ fish.name }}" class="img-fluid">
+                            {% else %}
+                                <img src="/static/images/placeholder-fish.png" alt="No image available" class="img-fluid">
+                            {% endif %}
+                            <br><b>{{ fish.name | title}}</b> 
                         </a>
                         <div class="card-body">
                             <p class="card-text">{{ fish.notes | safe }} </p>
