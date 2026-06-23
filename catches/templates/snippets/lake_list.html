@@ -16,6 +16,9 @@
                                 <!-- {{ lake.lake_info }} -->
 								{{ lake.lake_full_name}}
                             </a>
+                            {% if lake.is_favorite_user %}
+                                <i class="fas fa-check-circle text-dark ms-1" title="Favorite Lake"></i>
+                            {% endif %}
                         </td>
                         <td>
                             {% if lake.log_set.count %}
