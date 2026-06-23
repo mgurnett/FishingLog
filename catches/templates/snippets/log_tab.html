@@ -7,15 +7,15 @@
                 <div class="card mb-4 border-1 bg-transparent">
                     <div class="card-header">
                         <div class = "row">
-                            <div class="col-md-5 text-start">
+                            <div class="col-md-4 text-start">
                                 <a href="{% url 'lake_detail' log.lake.id %}">{{log.lake.name | title }}</a>
                             </div>
                             {% if log.num_landed %}
-                                <div class="col-md-3 text-center">
+                                <div class="col-md-4 text-center">
                                     <a href="{% url 'log_detail' log.id%}">Fish caught: <b>{{ log.num_landed }}</a></b>
                                 </div>
                             {% else %}
-                                <div class="col-md-3 text-center"></div>
+                                <div class="col-md-4 text-center"></div>
                             {% endif %}
                             <div class="col-md-4 text-end">
                                 <a href="{% url 'log_detail' log.id%}"><b>{{ log.catch_date|date:"D, N j, y" }}</a></b>
