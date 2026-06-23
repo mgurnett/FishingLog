@@ -1170,13 +1170,6 @@ class Graph (TemplateView):   # this is for all temps at all lakes
 
         df = pd.DataFrame.from_dict( data )
         df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type', 'year' ]
-        # df['date'] = pd.to_datetime(df['date'])
-        # df = df.set_index('date') 
-        
-        # df = df.sort_values(by='temp_id')
-        # df = df.groupby(pd.Grouper(key='Date', axis=0, freq='YS', sort=True)).sum()  
-        # df = df.groupby(df.Date.dt.year)
-        # df.to_csv('graph_data.csv')        
         
         all_weeks = Week.objects.all()
         week_ave_temp_list = []
@@ -1187,26 +1180,22 @@ class Graph (TemplateView):   # this is for all temps at all lakes
             }
             week_ave_temp_list.append (week_data)
         
-        # print (week_ave_temp_list)
         df_week = pd.DataFrame.from_dict( week_ave_temp_list )
         df_week.columns = [ 'Week', 'Temperature' ]
 
-        # fig.add_trace(all_weeks)
+        # --- THE FIXES ---
+        # 1. Get unique years sorted chronologically (oldest to youngest) as strings
+        sorted_years_str = [str(y) for y in sorted(df['year'].unique())]
+        
+        # 2. Convert the 'year' column to strings for discrete mapping
+        df['year'] = df['year'].astype(str)
            
-        # fig.add_scatter (
         fig = px.scatter(
-        #     df_week, 
-        #     x="Week", 
-        #     y="Temperature", 
-        #     height = 750,
-        # )
-        # # fig.update_traces(marker=dict(color="black"))
-
-        # fig.add_scatter(
             df, 
             x="Week", 
             y="Temperature", 
             color = "year",
+            category_orders={"year": sorted_years_str},  # Forces oldest-to-youngest legend order
             trendline_scope="overall",
             trendline="lowess",
             trendline_options=dict(frac=0.1),
@@ -1229,11 +1218,18 @@ class Graph_lake (TemplateView):   # this is for all temps at one lakes
 
         data = collect_tw_from_logs_and_hatches(lake=lake)
         if data:
-
             df = pd.DataFrame.from_dict( data )
             df.columns = [ 'Week', 'week_id', 'Date', 'Temperature', 'temp_id', 'Temperature Name', 'log', 'type', 'year' ]
             
-            df = df.sort_values(by='temp_id')
+            # 1. Sort the DataFrame by the actual numeric year first (oldest to youngest)
+            df = df.sort_values(by=['year'])
+
+            # 2. Extract the unique years in chronological order before converting to string
+            sorted_years = sorted(df['year'].unique())
+            sorted_years_str = [str(y) for y in sorted_years]
+
+            # 3. Convert the column to string for discrete coloring
+            df['year'] = df['year'].astype(str)
 
             fig = px.scatter(
                 df, 
