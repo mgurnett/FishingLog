@@ -129,6 +129,10 @@ def hourly_forcast (response):
             hour_forcast['temp'] =               float(round(hour['temp'],1))
             hour_forcast['feels_like'] =         float(round(hour['feels_like'],1))
             
+            # --- Extract Hourly POP Here ---
+            hour_forcast['pop'] =                int(hour.get('pop', 0) * 100)
+            # -------------------------------
+
             # OpenWeather sends pressure in hPa (e.g., 1013). You divide by 10 for kPa (101.3 kPa).
             current_pressure = hour['pressure'] / 10
             hour_forcast['pressure'] =           current_pressure

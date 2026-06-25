@@ -87,6 +87,7 @@
                   <th class="text-center">Condition</th>
                   <th class="text-center">Temperature</th>
                   <th class="text-center">Wind</th>
+                  <th class="text-center">POP</th>
                   <th class="text-center">Pressure</th>
                   <th class="text-center">Notes</th>
                 </tr>
@@ -104,6 +105,22 @@
                         <td>
                           <b>{{ hour.wind_speed }}km ({{ hour.wind_gust }}km)</b> from <b>{{ hour.wind_direction }}</b> <i class="bi bi-arrow-up fs-3" style="display: inline-block; transform: rotate({{ hour.wind_deg }}deg);"></i>
                         </td>
+                        <td>
+                          {% if hour.pop == 0 %}
+                            {# completely clear - regular text #}
+                            {{ hour.pop }}%
+                          {% elif hour.pop < 50 %}
+                            {# low chance - bold text #}
+                            <b>{{ hour.pop }}%</b>
+                          {% elif hour.pop < 80 %}
+                            {# medium chance - orange text (45% to 79%) #}
+                            <b style="color: orange;">{{ hour.pop }}%</b>
+                          {% else %}
+                            {# high chance - red text (80%+) #}
+                            <b style="color: red;">{{ hour.pop }}%</b>
+                          {% endif %}
+                        </td>
+                          
                         <td scope="row">
                           {{ hour.pressure }} kPa
                           {% if hour.pressure_trend == 'rising' %}
