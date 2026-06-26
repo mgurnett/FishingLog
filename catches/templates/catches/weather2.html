@@ -152,6 +152,7 @@
                   <th class="text-center">Date</th>
                   <th class="text-center">High / Low</th>
                   <th class="text-center">Wind</th>
+                  <th class="text-center">POP</th>
                   <th class="text-center">Pressure</th>
                   <th class="text-center" colspan="2">Astronomical</th>
                 </tr>
@@ -161,12 +162,27 @@
                     <tr>
                         <td><b>{{ day.forcast_time }}</b> {{ day.summary }}
                           {% if day.icon %}
-                            <img src="https://openweathermap.org/img/wn/{{ day.icon }}.png" alt="{{ day.summary }}" title="{{ day.summary }}" style="width: 35px; height: 35px;"> ({{ day.pop }}%)
+                            <img src="https://openweathermap.org/img/wn/{{ day.icon }}.png" alt="{{ day.summary }}" title="{{ day.summary }}" style="width: 35px; height: 35px;">
                           {% endif %}
                         </td>
                         <td><b>{{ day.temp_hi }}&#8451;</b><br>{{ day.temp_low }}&#8451;</td>
                         <td>
                           <b>{{ day.wind_speed }}km ({{ day.wind_gust }}km)</b> from <b>{{ day.wind_direction }}</b> <i class="bi bi-arrow-up fs-3" style="display: inline-block; transform: rotate({{ day.wind_deg }}deg);"></i>
+                        </td>
+                        <td>
+                          {% if day.pop == 0 %}
+                            {# completely clear - regular text #}
+                            {{ day.pop }}%
+                          {% elif day.pop < 50 %}
+                            {# low chance - bold text #}
+                            <b>{{ day.pop }}%</b>
+                          {% elif day.pop < 80 %}
+                            {# medium chance - orange text (45% to 79%) #}
+                            <b style="color: orange;">{{ day.pop }}%</b>
+                          {% else %}
+                            {# high chance - red text (80%+) #}
+                            <b style="color: red;">{{ day.pop }}%</b>
+                          {% endif %}
                         </td>
                         <td>{{ day.pressure }}kPa</td>
                         <td>
@@ -179,7 +195,7 @@
                           </span>
                         </td>
                     </tr>
-                {% endfor %} 
+                {% endfor %}  
               </tbody>
             </table>
           </div>
