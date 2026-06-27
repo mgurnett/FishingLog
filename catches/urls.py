@@ -144,7 +144,7 @@ urlpatterns = [
     path ('pictures/delete/<int:pk>/',  views.PictureDeleteView.as_view(),  name ='picture_delete'), 
     
     path ('tags/', views.TagsListView, name ="tags_list" ),
-    path ('tags/<int:pk>/', views.TagsDetailView, name ="tag_detail" ),
+    path ('tags/<int:pk>/', views.TagsDetailView, name='tags_detail'),
 
     path ('search/', views.searchview, name = 'search_list'),
 

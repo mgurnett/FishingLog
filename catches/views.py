@@ -10,6 +10,7 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy  #lets you call urls by name 
 from django.core.management import BaseCommand
 from django.template.defaultfilters import slugify
+from django.db.models import Count
 from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
@@ -1140,8 +1141,14 @@ class PictureDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteVie
     success_message = "Picture was deleted"
 
 
+# def TagsListView(request):
+#     all_tags = Tag.objects.all().order_by('name')
+#     context = { 'tags_list': all_tags }
+#     return render (request, 'catches/tags_list.html', context)
+
 def TagsListView(request):
-    all_tags = Tag.objects.all().order_by('name')
+    # .annotate(num_times=Count('taggit_taggeditem_items')) populates tag.num_times automatically
+    all_tags = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).order_by('name')
     context = { 'tags_list': all_tags }
     return render (request, 'catches/tags_list.html', context)
 

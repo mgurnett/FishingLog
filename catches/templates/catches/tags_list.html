@@ -1,37 +1,90 @@
 {% extends "catches/base/base.html" %}
-{% block title %}Tags{% endblock %}
+{% block title %} Tags Index {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-1"> </div>
-    <div class="col-md-10">
-      <h1 class="h3">Tags</h1>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Slug</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% for tag in tags_list %}
-            <tr>
-              <td><a href="{% url 'tag_detail' tag.id %}">{{ tag.name }}</a></th>
-              <td>{{ tag.slug }}</th>
-            </tr>
-          {% endfor %} 
-        </tbody>
-      </table>
+<!-- Inline Styles for the Tag Cloud -->
+<style>
+    /* Responsive, wrapped flex row for tags */
+    .tag-cloud-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Uniform spacing between pills */
+        padding: 10px 0;
+    }
+
+    /* Modern Pill Styling */
+    .tag-badge-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        background-color: #ffffff;
+        color: #175873; /* Match your site's border palette */
+        border: 1px solid #e2e8f0;
+        text-decoration: none;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Hover effects */
+    .tag-badge-pill:hover {
+        background-color: #175873;
+        color: #ffffff;
+        border-color: #175873;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(23, 88, 115, 0.15);
+    }
+
+    /* Internal numeric badge style */
+    .tag-count {
+        font-size: 0.75rem;
+        background-color: #e2e8f0;
+        color: #4a5568;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 8px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Invert nested badge colors on hover */
+    .tag-badge-pill:hover .tag-count {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+    }
+</style>
+
+<div class="row mb-4"> <!-- Header -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10 d-flex justify-content-between align-items-center">
+        <h1>Website Tags</h1>
+        <button class="btn btn-primary btn-md" onclick="window.history.back()">back</button>
     </div>
-    <div class="col-md-1"> </div>
+    <div class="col-md-1"></div>
 </div>
 
-
-      <div class="row">
-          <div class="col-md-8"> </div>
-          <div class="col-md-4">
-              <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'catch_home' %}" type="submit" >home</a>
-          </div>
-      </div>
+<div class="row"> <!-- Modern Tag Cloud Container -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card shadow-sm border-0 bg-light p-4">
+            <!-- d-flex and flex-wrap manage rows layout gracefully, gap handles spacing -->
+            <div class="d-flex flex-wrap gap-2">
+                {% for tag in tags_list %}
+                    <!-- We turn the anchor directly into a pill button with a badge inside -->
+                    <a href="{% url 'tags_detail' tag.id %}" class="btn btn-dark rounded-pill d-inline-flex align-items-center">
+                        {{ tag.name }}
+                        {% if tag.num_times %}
+                            <span class="badge bg-dark ms-2">{{ tag.num_times }}</span>
+                        {% endif %}
+                    </a>
+                {% empty %}
+                    <p class="text-muted">No tags found.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 
 {% endblock content %}

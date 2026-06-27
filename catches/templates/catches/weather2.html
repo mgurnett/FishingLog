@@ -149,25 +149,28 @@
             <table class="table table-striped table-hover align-middle" style='font-size:100%'>
               <thead>
                 <tr>
-                  <th class="text-center">Date</th>
-                  <th class="text-center">High / Low</th>
+                  <th class="text-center">Time</th>
+                  <th class="text-center">Condition</th>
+                  <th class="text-center">Temperature</th>
                   <th class="text-center">Wind</th>
                   <th class="text-center">POP</th>
                   <th class="text-center">Pressure</th>
-                  <th class="text-center" colspan="2">Astronomical</th>
+                  <th class="text-center">Notes</th>
+                  <th class="text-center">Astronomical</th>
                 </tr>
               </thead>
               <tbody>
                 {% for day in daily %}
                     <tr>
-                        <td><b>{{ day.forcast_time }}</b> {{ day.summary }}
+                        <td><b>{{ day.forcast_time }}</b></td>
+                        <td>
                           {% if day.icon %}
                             <img src="https://openweathermap.org/img/wn/{{ day.icon }}.png" alt="{{ day.summary }}" title="{{ day.summary }}" style="width: 35px; height: 35px;">
                           {% endif %}
                         </td>
                         <td><b>{{ day.temp_hi }}&#8451;</b><br>{{ day.temp_low }}&#8451;</td>
                         <td>
-                          <b>{{ day.wind_speed }}km ({{ day.wind_gust }}km)</b> from <b>{{ day.wind_direction }}</b> <i class="bi bi-arrow-up fs-3" style="display: inline-block; transform: rotate({{ day.wind_deg }}deg);"></i>
+                          <b>{{ day.wind_speed }}km ({{ day.wind_gust }}km)</b> <br>from <b>{{ day.wind_direction }}</b> <i class="bi bi-arrow-up fs-3" style="display: inline-block; transform: rotate({{ day.wind_deg }}deg);"></i>
                         </td>
                         <td>
                           {% if day.pop == 0 %}
@@ -185,6 +188,7 @@
                           {% endif %}
                         </td>
                         <td>{{ day.pressure }}kPa</td>
+                        <td>{{ day.summary }}</td>
                         <td>
                           <i class="bi bi-sunrise fs-3"></i>{{ day.sunrise }}<br><i class="bi bi-sunset fs-3"></i>{{ day.sunset }}
                         </td>
