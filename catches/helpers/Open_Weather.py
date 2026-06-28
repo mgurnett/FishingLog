@@ -42,17 +42,29 @@ def get_moon_phase_info(val):
         return "Waning Crescent", "bi-moon-stars"
 
 def get_alerts (data):
-    # Grab the alerts array safely (it won't exist in the JSON if there are no active warnings)
     active_alerts = data.get('alerts', [])
     all_alerts = []
+    seen_alerts = set() # Tracking set to catch unique warning string identifiers
 
     for alert in active_alerts:
-        allalert = {}
-        allalert['event'] = alert.get('event')        # e.g., "Rainfall Warning"
-        allalert['agency'] = alert.get('sender_name')      # e.g., "Environment Canada"
-        allalert['details'] = alert.get('description')     # The full weather bulletin text
-        all_alerts.append(allalert)
-    return all_alerts   
+        event = alert.get('event')
+        agency = alert.get('sender_name')
+        details = alert.get('description')
+        
+        # Create a unique key hash combining event name and description string text
+        unique_key = (event, details)
+
+        if unique_key not in seen_alerts:
+            seen_alerts.add(unique_key)
+            
+            allalert = {
+                'event': event,
+                'agency': agency,
+                'details': details
+            }
+            all_alerts.append(allalert)
+            
+    return all_alerts 
 
 def current (response):
     current = {}
