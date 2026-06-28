@@ -14,7 +14,13 @@
         {% endif %}
         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" >temp list</a>
         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_list' %}" type="submit" >week list</a>
+        
+        <!-- Updated Forecast Button to blend perfectly with your native action links -->
+        <button id="get-local-weather" class="btn btn-primary btn-md mt-1 mb-1">local forecast</button>
         <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+        
+        <!-- Subtle status display text to ensure you still get tracking updates -->
+        <div id="weather-status" class="text-muted small position-absolute"></div>
     </div>
     <div class="col-md-1"></div>
 </div>

@@ -20,6 +20,7 @@ from .context_processors import *
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
+from django.contrib.auth.decorators import login_required
 from django.views.generic.base import TemplateView
 from django.views.generic import (
     ListView,
@@ -1141,10 +1142,6 @@ class PictureDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteVie
     success_message = "Picture was deleted"
 
 
-# def TagsListView(request):
-#     all_tags = Tag.objects.all().order_by('name')
-#     context = { 'tags_list': all_tags }
-#     return render (request, 'catches/tags_list.html', context)
 
 def TagsListView(request):
     # .annotate(num_times=Count('taggit_taggeditem_items')) populates tag.num_times automatically
@@ -1351,7 +1348,48 @@ class Weather2 (TemplateView):
         # except:
         #     context ['daily'] = ""
         return context
+
+class LocalWeatherView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'catches.view_lake' 
+    template_name = 'catches/weather2.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
+        lat = self.request.GET.get('lat')
+        lon = self.request.GET.get('lon')
+
+        if not lat or not lon:
+            context['error'] = 'Missing location data coordinates.'
+            return context
+
+        class DynamicLocation:
+            def __init__(self, latitude, longitude):
+                self.lat = float(latitude)
+                self.long = float(longitude)
+                self.name = "local forecast" 
+
+        lake_mock = DynamicLocation(lat, lon)
+        data = get_data(lake_mock)
+
+        context['lake'] = lake_mock
+        context['current'] = current(data)
+
+        
+        try:
+            context['temp_graph'] = temp_graph(data)
+        except Exception:
+            context['temp_graph'] = ""
+            
+        try:
+            context['forcast'] = hourly_forcast(data)
+        except Exception:
+            context['forcast'] = ""
+            
+        context['daily'] = daily_forcast(data)
+        
+        return context
+
 
 class Plan(TemplateView):
     model = Lake

@@ -41,6 +41,19 @@ def get_moon_phase_info(val):
     else:
         return "Waning Crescent", "bi-moon-stars"
 
+def get_alerts (data):
+    # Grab the alerts array safely (it won't exist in the JSON if there are no active warnings)
+    active_alerts = data.get('alerts', [])
+    all_alerts = []
+
+    for alert in active_alerts:
+        allalert = {}
+        allalert['event'] = alert.get('event')        # e.g., "Rainfall Warning"
+        allalert['agency'] = alert.get('sender_name')      # e.g., "Environment Canada"
+        allalert['details'] = alert.get('description')     # The full weather bulletin text
+        all_alerts.append(allalert)
+    return all_alerts   
+
 def current (response):
     current = {}
 
@@ -66,6 +79,7 @@ def current (response):
             current['wind_gust'] =          float(round(data['current']['wind_gust'],1))
         except:
             current['wind_gust'] = 0
+        current['alerts'] =             get_alerts(data)
     return current
 
 def temp_graph (response):

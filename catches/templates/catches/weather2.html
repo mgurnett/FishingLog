@@ -5,6 +5,22 @@
 {% block content %}
 
 <div class="container">
+  {% if current.alerts %}
+    <div class="row">  
+      <div class="col-md-12 mb-3">
+        <div class="card border-1 bg-transparent p-3"> <!-- Added padding for spacing -->
+          {% for alert in current.alerts %}
+            <p class="mb-1 text-danger">
+              ALERTS - <b>{{ alert.event | title }}</b> by <b>{{ alert.agency | title }}</b>
+            </p>
+            <div class="small text-muted">{{ alert.details | safe }}</div>
+            {% if not forloop.last %}<hr>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   <div class="row align-items-stretch">  <div class="col-md-4 mb-3">  <div class="card h-100 border-1 bg-transparent">
         <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
           {% if current.icon %}
@@ -76,9 +92,10 @@
     </div>
   </div>
 
+
   <div class="row mt-4">  <div class="col"> 
         <div class="card border-1 bg-transparent">
-          <div class="card-header bg-transparent"><h5>Hourly Forecast</h5></div>
+          <div class="card-header bg-transparent"><h5>Hourly Forecast for {{ lake.name | title }} </h5></div>
           <div class="card-body">
             <table class="table table-striped table-hover align-middle" style='font-size:100%'>
               <thead>

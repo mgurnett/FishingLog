@@ -158,5 +158,6 @@ urlpatterns = [
 
     path ('weather/<int:pk>/', views.Weather.as_view(), name ="weather" ),
     path ('weather2/<int:pk>/', views.Weather2.as_view(), name ="weather2" ),
+    path ('weather/local/', views.LocalWeatherView.as_view(), name='local_weather_view' ),
 
 ]

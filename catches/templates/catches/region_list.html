@@ -11,7 +11,7 @@
                         <a href="{% url 'region_detail' reg.id %}" class="card-link"><h3>{{ reg.name }}</h3></a> 
                         Lakes in the region: {{ reg.lake_count }}
                         <div class="card-body">
-                            <p class="card-text">{{ reg.notes }}</p>
+                            <p class="card-text">{{ reg.notes | safe }}</p>
                         </div>
                     </div>
                 </div>

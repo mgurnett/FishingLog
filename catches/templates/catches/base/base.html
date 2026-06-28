@@ -113,3 +113,39 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </body>  
 </html>
+
+<script>
+// Wrap the execution loop inside a DOMContentLoaded handler so it runs safely
+document.addEventListener("DOMContentLoaded", function() {
+    const weatherBtn = document.getElementById('get-local-weather');
+    
+    // Crucial Guard Check: Only run the rest of the script if the button exists on this page
+    if (weatherBtn) {
+        weatherBtn.addEventListener('click', function() {
+            const statusText = document.getElementById('weather-status');
+            
+            if (!navigator.geolocation) {
+                if (statusText) statusText.textContent = "Geolocation is not supported by your browser.";
+                return;
+            }
+
+            if (statusText) statusText.textContent = "Locating your position...";
+
+            navigator.geolocation.getCurrentPosition(
+                function success(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    if (statusText) statusText.textContent = "Coordinates locked. Fetching forecast...";
+
+                    // Redirect safely to your Class-Based View endpoint
+                    window.location.href = `/weather/local/?lat=${lat}&lon=${lon}`;
+                }, 
+                function error() {
+                    if (statusText) statusText.textContent = "Unable to retrieve your location. Check your browser permissions.";
+                }
+            );
+        });
+    }
+});
+</script>

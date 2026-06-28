@@ -1,0 +1,75 @@
+{% extends "catches/base/base.html" %}
+{% block title %} Local Weather {% endblock %}
+{% block content %}
+
+<div class="row mb-4"> <!-- Title Panel -->
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+        <h1>Local Weather Forecast</h1>
+        <p class="text-muted">Displaying weather updates for: <strong>{{ location_name }}</strong></p>
+    </div>
+    <div class="col-md-3 text-end">
+        <button class="btn btn-primary btn-md mt-1" onclick="window.history.back()">back</button>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row mb-4"> <!-- Current Conditions Block -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card shadow-sm border-0 bg-light p-4">
+            <h3 class="card-title text-primary mb-3">Current Conditions</h3>
+            {% if current %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="h1 mb-0">{{ current.temp }}°C</p>
+                        <p class="text-capitalize text-muted">{{ current.description }}</p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="list-unstyled row">
+                            <li class="col-sm-6"><strong>Feels Like:</strong> {{ current.feels_like }}°C</li>
+                            <li class="col-sm-6"><strong>Humidity:</strong> {{ current.humidity }}%</li>
+                            <li class="col-sm-6"><strong>Wind Speed:</strong> {{ current.wind_speed }} km/h</li>
+                            {% if current.wind_deg %}
+                                <li class="col-sm-6"><strong>Wind Direction:</strong> {{ current.wind_deg }}°</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-muted">No current weather data stream payload returned.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row"> <!-- Daily Multi-Day Forecast Layout Grid -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h3 class="mb-3">7-Day Extended Outlook</h3>
+        <div class="card border-0 bg-transparent">
+            <div class="d-flex flex-wrap gap-3">
+                {% for day in daily %}
+                    <div class="card shadow-sm border-0 p-3 flex-grow-1" style="min-width: 160px; max-width: 200px;">
+                        <div class="card-body text-center p-1">
+                            <!-- Patched keys matching weather2.html data structure[cite: 4] -->
+                            <h6 class="card-title text-muted font-weight-bold">{{ day.forcast_time }}</h6>
+                            <hr class="my-2" color="#175873">
+                            <p class="h4 my-2 text-dark">{{ day.temp_hi }}°</p>
+                            <p class="small text-muted mb-2">{{ day.temp_low }}° Low</p>
+                            <span class="badge bg-primary text-light text-wrap text-capitalize">{{ day.summary }}</span>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="card p-3 border-0 bg-light w-100">
+                        <p class="text-muted mb-0">Extended forecast information dataset unpopulated.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+{% endblock content %}
