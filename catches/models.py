@@ -265,11 +265,27 @@ class Lake(models.Model):
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
     
 class Region(models.Model):
-    name = models.CharField (max_length=100)
-    notes = CKEditor5Field (blank=True, null=True)
-    # Many-to-Many relationship with lakes (a region can have many lakes, and a lake can belong to many regions)
-    lakes = models.ManyToManyField (to='Lake', blank=True)
-    profile = models.ForeignKey (Profile, on_delete=models.CASCADE) 
+    name = models.CharField(max_length=100)
+    notes = CKEditor5Field(blank=True, null=True)
+    lakes = models.ManyToManyField(to='Lake', blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE) 
+    address = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=25, blank=True)
+    prov = models.CharField(max_length=5, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Check if fields are empty before saving, and populate from the profile
+        if not self.address and self.profile:
+            self.address = self.profile.address
+        if not self.city and self.profile:
+            self.city = self.profile.city
+        if not self.prov and self.profile:
+            self.prov = self.profile.prov
+            
+        super(Region, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
     
     class Meta:  
         ordering = ['name']

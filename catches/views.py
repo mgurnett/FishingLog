@@ -118,7 +118,8 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
         current_year = current_time.year
 
         for lake_dis in list_of_lakes:
-            lake_distance = find_dist (Lake.objects.get (id=lake_dis.id), self.request.user)  #<class 'dict'>
+            # lake_distance = find_dist (Lake.objects.get (id=lake_dis.id), self.request.user)  #<class 'dict'>
+            lake_distance = find_dist_region (Lake.objects.get (id=lake_dis.id), Region.objects.get (id=self.kwargs['pk']))  #<class 'dict'>
 
             stock_list = Stock.objects.filter (lake=lake_dis)        
             subtotals = stock_with_subtotals (stock_list)
@@ -184,9 +185,7 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
 class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_region'
     model = Region
-    # form_class = New_Regions_Form
-    fields = ['name', 'notes']
-    # fields = '__all__'
+    form_class = New_Regions_Form
     success_message = "New region saved"
 
     def form_valid(self, form):
@@ -197,15 +196,14 @@ class RegionCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView)
 class RegionUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_region'
     model = Region
-    # form_class = New_Regions_Form
-    fields = ['name', 'notes']
-    # fields = '__all__'
+    form_class = New_Regions_Form
     success_message = "Region fixed"
 
     def form_valid(self, form):
         profile = Profile.objects.get (user = self.request.user)
         form.instance.profile = profile
         return super().form_valid(form)
+
 
 class RegionDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
     permission_required = 'catches.delete_region'

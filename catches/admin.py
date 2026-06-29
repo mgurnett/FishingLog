@@ -67,7 +67,7 @@ class LakeAdmin (admin.ModelAdmin):
 
 @admin.register (Region)
 class RegionAdmin (admin.ModelAdmin):
-    list_display = ['name', 'profile']
+    list_display = ['name', 'profile', 'address', 'city', 'prov']
 
 @admin.register (Favorite)
 class FavoriteAdmin (admin.ModelAdmin):

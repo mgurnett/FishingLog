@@ -6,13 +6,10 @@
 	<div class="row"> <div class="card border-0 bg-transparent">	
 			<div class="card-header">
 				<div class="row">
-					<div class="col-md-6 text-start"> 
+					<div class="col-md-5 text-start"> 
 						<h5>
 							Region: <b>{{ region.name | title }}</b>
 						</h5>
-					</div>
-					<div class="col-md-2 text-end">
-						Lakes in the region: <b>{{ region.lake_count }}</b>
 					</div>
 					<div class="col-md-4 text-end">
 						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >New region</a>
@@ -20,10 +17,19 @@
 						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
 						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
 					</div>
+					<div class="col-md-3 text-end"> 
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >
+							<abbr title = "{{ region.kml_tooltip | safe }}">
+								Make KML file
+							</abbr>
+						</a> 
+						{% load static %}
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
+					</div>
 				</div>
 				<hr> 
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-6">
 						{% if user.is_authenticated %}
 							<form method="post">
 								{% csrf_token %}
@@ -32,14 +38,11 @@
 							</form>
 						{% endif %}  
 					</div>
-					<div class="col-md-4 text-end"> 
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >
-							<abbr title = "{{ region.kml_tooltip | safe }}">
-								Make KML file
-							</abbr>
-						</a> 
-						{% load static %}
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
+					<div class="col-md-2 text-end">
+						Lakes in region: <b>{{ region.lake_count }}</b>
+					</div>
+					<div class="col-md-4 text-end">
+						From: {{ region.address }}, {{ region.city }}, {{ region.prov }}
 					</div>
 				</div>
 			</div>

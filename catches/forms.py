@@ -552,32 +552,43 @@ class New_Lake_Form (forms.ModelForm):
         )
 
 
-# class New_Regions_Form (forms.Form):
+class New_Regions_Form (forms.ModelForm):
 
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Fieldset(
-#                 'first arg is the legend of the fieldset',
-#                 'name',
-#                 'notes'
-#             ),
-#             Submit('submit', 'Submit', css_class='button white'),
-#         )
+    class Meta:
+        model = Region
+        fields = ("name", "notes", "address", "city", "prov")
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
 
-class New_Regions_For (forms.ModelForm):
-      """Form for comments to the article."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["notes"].required = False
 
-      def __init__(self, *args, **kwargs):
-          super().__init__(*args, **kwargs)
-          self.fields["notes"].required = False
-
-      class Meta:
-          model = Region
-          fields = ("name", "notes")
-          widgets = {
-              "notes": CKEditor5Widget(
-                  attrs={"class": "django_ckeditor_5"}, config_name="notes"
-              )
-          }
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name',          css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('address', css_class='form-group col-md-6 mb-0'),
+                Column('city', css_class='form-group col-md-4 mb-0'),
+                Column('prov', css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )

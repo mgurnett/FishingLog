@@ -28,6 +28,26 @@ def find_dist (lake, user):
         }
     return (my_dist_dict)
 
+def find_dist_region (lake, region):
+    gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+    address_str = f"{region.address}, {region.city}, {region.prov}"
+
+    # Requires cities name 
+    # my_dist = gmaps.distance_matrix('Calgary, AB','Edmonton, AB')
+    # my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB','53.6832190000, -113.2741360000')
+    # my_dist = gmaps.distance_matrix('11940 52St NW, Edmonton, AB', str (lake.lat) + "," + str (lake.long) )
+    my_dist = gmaps.distance_matrix(address_str, str (lake.lat) + "," + str (lake.long) )
+    if my_dist['rows'][0]['elements'][0]['status'] == 'ZERO_RESULTS':
+        my_dist_dict = { 'distance_text': 'Distance not available' }
+    else:
+        my_dist_dict = { 
+            'distance_text': my_dist['rows'][0]['elements'][0]['distance']['text'],
+            'meters': my_dist['rows'][0]['elements'][0]['distance']['value'],
+            'time_text': my_dist['rows'][0]['elements'][0]['duration']['text'],
+            'minutes': my_dist['rows'][0]['elements'][0]['duration']['value'],
+        }
+    return (my_dist_dict)
+
 def make_kml_file (request, *args, **kwargs):
     # print (kwargs)  {'pk': '8', 'model': 'R'}
     id = kwargs['pk']

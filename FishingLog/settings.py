@@ -273,11 +273,13 @@ customColorPalette = [
             'label': 'Blue'
         },
     ]
+
+# Keep your customColorPalette definition where it is, then update this block:
+
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-
     },
     'extends': {
         'blockToolbar': [
@@ -302,7 +304,6 @@ CKEDITOR_5_CONFIGS = {
                 'alignRight',
                 'alignCenter',
             ]
-
         },
         'table': {
             'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
@@ -333,6 +334,9 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
+# Safely alias 'notes' to use the 'extends' setup without duplicating the dictionary text
+CKEDITOR_5_CONFIGS['notes'] = CKEDITOR_5_CONFIGS['extends']
 
 # Define a constant in settings.py to specify file upload permissions
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"  # Possible values: "staff", "authenticated", "any"
