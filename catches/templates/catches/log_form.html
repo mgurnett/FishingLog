@@ -4,10 +4,76 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
-  {% crispy form %}
-</div>
-{% endblock %} 
 <style>
   .custom-inline-radios ul { list-style: none; padding: 0; display: inline-flex; gap: 15px; margin-top: 5px; }
 </style>
+
+<div class="container">
+  {% crispy form %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const liveCheckbox = document.getElementById("id_live");
+        const latInput = document.getElementById("id_gps_lat");
+        const longInput = document.getElementById("id_gps_long");
+        const timeInput = document.getElementById("id_catch_time"); // Target the time field
+
+        function fetchGPSAndTime() {
+            // 1. Immediately set the time field to the current local time
+            if (timeInput) {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                timeInput.value = `${hours}:${minutes}`;
+            }
+
+            // 2. Fetch the GPS coordinates
+            if (navigator.geolocation) {
+                latInput.placeholder = "Locating...";
+                longInput.placeholder = "Locating...";
+                
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        latInput.value = position.coords.latitude.toFixed(6);
+                        longInput.value = position.coords.longitude.toFixed(6);
+                    },
+                    function (error) {
+                        console.warn("GPS tracking error: " + error.message);
+                        latInput.placeholder = "Unavailable";
+                        longInput.placeholder = "Unavailable";
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            }
+        }
+
+        function clearGPSAndTime() {
+            if (latInput && longInput) {
+                latInput.value = "";
+                longInput.value = "";
+                latInput.placeholder = "Check Live to fetch...";
+                longInput.placeholder = "Check Live to fetch...";
+            }
+            if (timeInput) {
+                timeInput.value = "";
+                timeInput.placeholder = "Check Live to set...";
+            }
+        }
+
+        if (liveCheckbox) {
+            liveCheckbox.addEventListener("change", function () {
+                if (this.checked) {
+                    fetchGPSAndTime();
+                } else {
+                    clearGPSAndTime();
+                }
+            });
+
+            if (liveCheckbox.checked && (!latInput.value || !timeInput.value)) {
+                fetchGPSAndTime();
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from catches.helpers.fish_data import *
 from users.models import Profile
 from blog.models import Post
+import datetime
 
 DEGREE_C = str(u"\u00b0" + "C")
 
@@ -489,7 +490,8 @@ class Log(models.Model):
     temp = models.ForeignKey(Temp, default = 1, on_delete=models.SET_DEFAULT)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     catch_date = models.DateField(default=timezone.now)
-    record_date = models.DateField(default=timezone.now) # another option is (auto_now_add = True)
+    record_date = models.DateField(default=datetime.date.today)
+    record_date = models.DateField(default=timezone.now)
     location = models.CharField (max_length=100, blank=True, null=True)
     length = models.FloatField ( blank=True, default=0.0 )
     weight = models.FloatField ( blank=True, default=0.0 )
@@ -501,7 +503,11 @@ class Log(models.Model):
     num_landed = models.IntegerField (default=0)
     angler = models.ForeignKey(User, on_delete=models.CASCADE)
     private = models.BooleanField (default = False)
-     
+    lake_depth = models.FloatField (blank=True, null=True)
+    gps_lat = models.FloatField (blank=True, null=True)
+    gps_long = models.FloatField (blank=True, null=True)
+    catch_depth = models.FloatField (blank=True, null=True)
+
     class Meta:
         ordering = ['temp']
 

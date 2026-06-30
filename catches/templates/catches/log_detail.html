@@ -2,103 +2,145 @@
 {% block title %}Log: {{ log.catch_date|date:"D, N j, y" }}{% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+    <div class="row"> <!-- information row div -->
+        <div class="col-md-12">
             <div class="card border-0 bg-transparent">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-4 text-start">
                             <h5>
-                                Fishing log for <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title  }}</b></a>{% if log.lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
+                                Fishing log for <a href="{% url 'lake_detail' log.lake.id %}"><b>{{ log.lake.lake_info | title }}</b></a>{% if log.lake.favourite %}<i class="fas fa-check-circle"></i>{% endif %}
                             </h5>
                         </div>
+                        <div class="col-md-4 text-center">
+                            <h5>
+                                {% if log.num_landed and log.fish %}
+                                    <b>{{ log.num_landed }}</b> <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a> were caught
+                                {% elif log.num_landed and not log.fish %}
+                                    <b>{{ log.num_landed }}</b> fish were caught
+                                {% elif log.fish and not log.num_landed %}
+                                    <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a> were caught
+                                {% else %}
+                                    Temperature log
+                                {% endif %}
+                            </h5> 
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <h5>
+                                <b>{{ log.catch_date }}</b>
+                                {% if log.catch_time %}
+                                    at <b>{{ log.catch_time }}</b>
+                                {% else %}
+                                     
+                                {% endif %}
+                            </h5> 
+                        </div>
+                    </div> <!-- FIXED: Correctly closing the row container -->
+                    <div class="row">                       
                         <div class="col-md-4">
-                            <h5 class="text-end">
-                                Angler: <b>{{ log.angler | title }}</b>
-                            </h5>
-                        </div>
-                        <div class="col-md-1">
-                            <h5 style="color: red">
-                                {% if log.private %}<i class="fas fa-eye-slash"></i>{% endif %}
-                            </h5>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class=row>
-                        <h5 class="col-md-4 text-start">
                             {% if log.temp %}
                                 <a href="{% url 'temp_detail' log.temp.id %}">
-                                    Water temp: <b>{{ log.temp.name }}</b>
+                                    <h5>Water temp: <b>{{ log.temp.name }}</b></h5>
                                 </a>
                             {% endif %}
-                        </h5>
-                            {% if log.num_landed %}
-                                <div class="col-md-4 text-center">
-                                    <h5>
-                                        Fish caught: <b>{{ log.num_landed }}</b>
-                                    </h5>    
-                                </div>
-                            {% else %}
-                                <div class="col-md-4 text-end"></div>
-                            {% endif %}
-                        <h5 class="col-md-4 text-end">
-                            <b>{{ log.catch_date|date:"D, N j, y" }} <a href="{% url 'week_detail' log.week.id %}"></b>   Week: <b>{{ log.week.number }}</a></b>
-                        </h5>
-                    </div>
-                </div>
+                        </div>  
+                        <div class="col-md-4 text-center">
+                            <h5>
+                                Angler: <b>{{ log.angler | title }}</b>{% if log.private %}<i class="fas fa-eye-slash ms-2" style="color: red;"></i>{% endif %}
+                            </h5>
+                        </div>                     
+                        <div class="col-md-4 text-end">
+                            <h5>
+                                <a href="{% url 'week_detail' log.week.id %}">   Week: <b>{{ log.week.number }}</b></a>
+                            </h5>
+                        </div> 
+                    </div> <!-- FIXED: Correctly closing the row container -->
+                </div> <!-- card-header div -->
+
                 <div class="card-body"> 
                     <div class="row">
-                        <div class="card  border-0 bg-transparent col-md-6">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {% if log.fish %}
-                                            Fish: <a href="{% url 'fish_detail' log.fish.id %}"><b>{{ log.fish.name | title }}</b></a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-6">
-                                        {% if log.fish_swami > 0 %}
-                                            <a href="https://www.fishswami.com/log_entries/{{ log.fish_swami }}" target="_blank" >Fish Swami log</a>
-                                        {% endif %}
-                                    </div>
+                        <div class="col-md-6"> <!-- card fish div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    Fish
                                 </div>
-                                
-                            </div>
-                            <div class="card-text pt-3">
-                                {% if log.length %}<p>length: <b>{{ log.length }}cm ({{ log.len_inch }}")</b></p>{% endif %}
-                                {% if log.weight %}<p>Weight: <b>{{ log.weight }}Kg ({{ log.wen_lbs }}lbs)</b></p>{% endif %}
-                            </div>
-                        </div>
-                        <div class="card  border-0 bg-transparent col-md-6">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        {% if log.fly %}
-                                            Fly: <a href="{% url 'fly_detail' log.fly.id %}"><b>{{ log.fly.name | title}}</b></a>  
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-4">
-                                        Bug: <b>{{ log.fly.bug.name | title}}</b></a>  
-                                    </div>
-                                    <div class="col-md-4">
-                                        Type: <b>{{ log.fly.fly_type | title}}</b></a>  
-                                    </div>
+                                <div class="card-body"> 
+                                    {% if log.length %}
+                                        Length: <b>{{ log.length }}</b><br>
+                                    {% endif %} 
+                                    {% if log.weight %}
+                                        Weight: <b>{{ log.weight }}</b><br>
+                                    {% endif %} 
                                 </div>
                             </div>
-                            <div class="card-text">
-                                {% if log.fly_size %}<p>Size: <b>{{ log.fly_size }}</b></p>{% endif %}
-                                {% if log.fly_colour %}<p>Colour: <b>{{ log.fly_colour }}</b></p>{% endif %}
+                        </div> <!-- card fish div -->
+
+                        <div class="col-md-6"> <!-- card fly div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    FLY
+                                </div>
+                                <div class="card-body"> 
+                                    {% if log.fly %}
+                                        Fly: <b>{{ log.fly.name | title }}</b><br>
+                                    {% endif %} 
+                                    {% if log.fly_size %}
+                                        Size: <b>{{ log.fly_size }}</b><br>
+                                    {% endif %} 
+                                    {% if log.fly_colour %}
+                                        Colour: <b>{{ log.fly_colour }}</b><br>
+                                    {% endif %} 
+                                    {% if log.bug %}
+                                        Bug: <b>{{ log.bug.name | title }}</b><br>
+                                    {% endif %} 
+                                    {% if log.fly_type %}
+                                        Type: <b>{{ log.fly_type }}</b><br>
+                                    {% endif %} 
+                                </div>
                             </div>
-                        </div>
+                        </div> <!-- card fly div -->
                     </div>
-                </div>
-                <p class="card-text">
-                    {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
-                </p>
+                    <div class="row">
+                        <div class="col-md-6"> <!-- card location div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    LOCATION
+                                </div>
+                                <div class="card-body"> 
+                                    {% if log.location %}
+                                        Location: <b>{{ log.location }}</b><br>
+                                    {% endif %} 
+                                    {% if log.lake_depth %}
+                                        Lake depth: <b>{{ log.lake_depth }} feet</b><br>
+                                    {% endif %} 
+                                    {% if log.catch_depth %}
+                                        Catch depth: <b>{{ log.catch_depth }} feet</b><br>
+                                    {% endif %} 
+                                    {% if log.gps_lat and log.gps_long%}
+                                        ({{ log.gps_lat }}, {{ log.gps_long }})
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div> <!-- card location div -->
+
+                        <div class="col-md-6"> <!-- card notes div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    NOTES
+                                </div>
+                                <div class="card-body"> 
+                                    {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
+                                </div>
+                            </div>
+                        </div> <!-- card location div -->
+                    </div>
+                </div> <!-- card-body div -->
+
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            Recorded: <b>{{ log.catch_date }}</b>
+                        </div>
                         <div class="col-md-6 text-end ">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}" type="submit" >new log</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_duplicate' log.id %}" type="submit" >duplicate log</a>
@@ -107,10 +149,20 @@
                             <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
                         </div>
                     </div>
-                </div>
+                </div> <!-- card-footer div -->
             </div>
         </div>
-        <div class="col-md-1"></div>
-    </div>
+    </div> <!-- information row div -->
+
+    <div class="row"> <!-- Map row div -->
+        <div class="col-md-12"> <!-- card map div -->
+            <div class="card border-0 bg-transparent">
+                <div class="card-body"> 
+                    {{ map_div|safe }}
+                </div>
+            </div>
+        </div> <!-- card map div -->
+    </div> <!-- Map row div -->
+
 </div><!-- Top container -->
 {% endblock content %}

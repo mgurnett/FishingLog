@@ -852,10 +852,52 @@ class LogListView_search (PermissionRequiredMixin,  ListView):
         object_list = log_filter_for_private (object_list_all, self.request.user)
         return object_list
 
-class LogDetailView (PermissionRequiredMixin,  DetailView): 
+
+
+class LogDetailView(PermissionRequiredMixin, DetailView): 
     permission_required = 'catches.view_log'
     model = Log
-    context_object_name = 'log'
+    # context_object_name = 'log'  # Uncomment if your template uses 'log' instead of 'object'
+
+    def get_context_data(self, **kwargs):
+        # 1. Get the base context from Django
+        context = super().get_context_data(**kwargs)
+        
+        # In a DetailView, the current model instance is stored in self.object
+        log_obj = self.object 
+
+        # Only generate the map if both GPS coordinates exist
+        if log_obj.gps_lat and log_obj.gps_long:
+            # 2. Wrap single values in lists so Pandas can construct a 1-row DataFrame
+            data = {
+                'Latitude': [log_obj.gps_lat],
+                'Longitude': [log_obj.gps_long],
+                'Location Name': [log_obj.location or log_obj.lake.lake_info],
+            }
+
+            df = pd.DataFrame(data)
+
+            # 3. Create the map figure
+            fig = px.scatter_mapbox(
+                df, 
+                lat="Latitude", 
+                lon="Longitude", 
+                hover_name="Location Name",
+                zoom=15, 
+                height=400
+            )
+
+            fig.update_layout(
+                mapbox_style="open-street-map",
+                margin={"r": 0, "t": 0, "l": 0, "b": 0}
+            ) 
+            
+            # 4. CAPTURE the generated HTML string and add it to context
+            context['map_div'] = fig.to_html(full_html=False, include_plotlyjs='cdn')
+        else:
+            context['map_div'] = None
+    
+        return context
 
 class LogCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_log'
@@ -864,7 +906,7 @@ class LogCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     success_message = "New Log saved"
 
     def form_valid(self, form):
-        form.instance.angler = self.request.user  # Assign logged-in user
+        form.instance.angler = self.request.user  # FIXED: Assign the logged-in user
         return super().form_valid(form)
 
 class LogCreateView_from_lake(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
@@ -908,7 +950,7 @@ class LogDuplicateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView)
         initial['fish'] = log.fish
         initial['temp'] = log.temp
         initial['catch_date'] = log.catch_date
-        initial['record_date'] = timezone.now
+        initial['record_date'] = timezone.now()
         initial['location'] = log.location
         initial['length'] = log.length
         initial['weight'] = log.weight

@@ -2,14 +2,14 @@ from django import forms
 from django.forms import ModelForm, DateInput
 #https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#topics-forms-modelforms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit, Button, Row, Column, HTML
+from crispy_forms.layout import Layout, Fieldset, Field, Submit, Button, Row, Column, HTML
 from crispy_forms.bootstrap import FormActions
 # from ckeditor.widgets import CKEditorWidget
 from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import *
 from catches.helpers.fish_data import *
 
-class DateInput(DateInput):
+class CustomDateInput(forms.DateInput):
     input_type = 'date'
 
 class New_Bug_Form (forms.ModelForm):
@@ -53,42 +53,6 @@ class New_Bug_Form (forms.ModelForm):
                 css_class='form-row'
             ),
         )
-
-# class New_Regions_Form (forms.ModelForm): 
-#     class Meta:
-#         model = Region
-#         fields = '__all__'
-#         # fields = ['name', 'notes']
-#         widgets = {
-#             "notes": CKEditor5Widget(
-#                 attrs={"class": "django_ckeditor_5"}, config_name="notes"
-#             )
-#         }
-        
-#     name = forms.CharField(required=True)       
-#     notes = forms.CharField(required=False)
-    
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Row(
-#                 Column('name', css_class='form-group col-md-4 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column('notes', css_class='form-group col-md-12 mb-0'),
-#                 css_class='form-row'
-#             ),
-#             Row(
-#                 Column(css_class='form-group col-md-7 text-end'),
-#                 Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
-#                 Column(FormActions(
-#                     HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
-#                 ),  css_class='btn-primary col-md-3'),
-#                 css_class='form-row'
-#             ),
-#         )
 
 class New_Temp_Form (forms.ModelForm): 
     class Meta:
@@ -150,9 +114,11 @@ class New_Hatch_Form (forms.ModelForm):
         
     notes = forms.CharField ( required = False )  
     static_tag = forms.CharField ( required = False )
+
     sight_date = forms.DateField(
         initial=timezone.now,
-        widget=DateInput )
+        widget=CustomDateInput # <-- Use the renamed class here
+    )
 
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all(),
@@ -255,13 +221,15 @@ class New_Stock_Form (forms.ModelForm):
             ),
         )
         
-
+'''
 class New_Log_Form (forms.ModelForm): 
     
     class Meta:
         model = Log
         fields = ['catch_date', 'notes', 'lake', 'location', 
-        'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 'weight', 'fish_swami', 'num_landed', 'private']  
+            'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 
+            'weight', 'fish_swami', 'num_landed', 'private', 
+            "lake_depth", "gps_lat", "gps_long", "catch_depth"]  
         widgets = {
             "notes": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name="notes"
@@ -376,6 +344,188 @@ class New_Log_Form (forms.ModelForm):
                 float_weight = float(weight_val)
                 if w_unit == 'lbs':
                     # Convert pounds to kilograms (1 lb ≈ 0.45359237 kg)
+                    float_weight = float_weight * 0.45359237
+                cleaned_data['weight'] = str(round(float_weight, 2))
+            except ValueError:
+                pass
+                
+        return cleaned_data
+'''
+
+class New_Log_Form (forms.ModelForm): 
+    
+    class Meta:
+        model = Log
+        fields = ['catch_date', 'catch_time', 'notes', 'lake', 'location', 
+            'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 
+            'weight', 'fish_swami', 'num_landed', 'private', 
+            "lake_depth", "gps_lat", "gps_long", "catch_depth", "live"]
+        
+    # By adding input_formats, Django natively knows exactly how to handle strings vs objects
+    catch_date = forms.DateField(
+        initial=timezone.now,
+        input_formats=['%Y-%m-%d', '%m/%d/%Y'],
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+    )
+        
+    catch_time = forms.TimeField(
+        required=False, 
+        input_formats=['%H:%M', '%H:%M:%S'],
+        widget=forms.TimeInput(attrs={'type': 'time', 'readonly': 'readonly', 'placeholder': 'Check Live to set...', 'class': 'form-control'})
+    )
+            
+    notes = forms.CharField(
+        required=False,
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes")
+    )
+    
+    lake = forms.ModelChoiceField(queryset=Lake.objects.all())
+    location = forms.CharField(required=False) 
+    temp = forms.ModelChoiceField(
+        label='Water Temperature',
+        queryset=Temp.objects.all(),
+        initial=1,
+        required=True)
+    fly = forms.ModelChoiceField(queryset=Fly.objects.all(), required=False)
+    fly_size = forms.CharField(required=False) 
+    fly_colour = forms.CharField(required=False) 
+    fish = forms.ModelChoiceField(queryset=Fish.objects.all(), required=False)
+    
+    live = forms.BooleanField(required=False, initial=False, label="Live Catch")
+    
+    lake_depth = forms.FloatField(required=False, label="Lake Depth (ft)")
+    catch_depth = forms.FloatField(required=False, label="Catch Depth (ft)")
+    
+    gps_lat = forms.FloatField(required=False, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'Check Live to fetch...'}))
+    gps_long = forms.FloatField(required=False, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'Check Live to fetch...'}))
+    
+    length = forms.CharField(required=False, initial=0.0)
+    length_unit = forms.ChoiceField(
+        choices=[('cm', 'cm'), ('in', 'inches')],
+        widget=forms.RadioSelect,
+        initial='cm',
+        label="Unit"
+    )
+    
+    weight = forms.CharField(required=False, initial=0.0)
+    weight_unit = forms.ChoiceField(
+        choices=[('kg', 'kg'), ('lbs', 'lbs')],
+        widget=forms.RadioSelect,
+        initial='kg',
+        label="Unit"
+    )
+    
+    fish_swami = forms.IntegerField(required=False, initial=0) 
+    num_landed = forms.IntegerField(required=False, initial=0) 
+    private = forms.BooleanField(required=False, initial=False)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Safely localize formatting for UpdateViews without altering data types globally
+        if self.instance and self.instance.pk:
+            if self.instance.catch_date and hasattr(self.instance.catch_date, 'strftime'):
+                self.initial['catch_date'] = self.instance.catch_date.strftime('%Y-%m-%d')
+            if self.instance.catch_time and hasattr(self.instance.catch_time, 'strftime'):
+                self.initial['catch_time'] = str(self.instance.catch_time.strftime('%H:%M'))
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('lake',          css_class='form-group col-md-3 mb-0'),
+                Column('location',      css_class='form-group col-md-3 mb-0'),
+                Column('temp',          css_class='form-group col-md-2 mb-0'),
+                Column('catch_date',    css_class='form-group col-md-2 mb-0'),
+                Column('catch_time',    css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fish',          css_class='form-group col-md-3 mb-0'),
+                Column('length',        css_class='form-group col-md-2 mb-0'),
+                Column('length_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
+                Column('weight',        css_class='form-group col-md-2 mb-0'),
+                Column('weight_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
+                Column('num_landed',    css_class='form-group col-md-2 mb-0'),
+                Column('private',       css_class='form-group col-md-1 mb-0 pt-4'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fly',           css_class='form-group col-md-4 mb-0'),
+                Column('fly_size',      css_class='form-group col-md-3 mb-0'),
+                Column('fly_colour',    css_class='form-group col-md-3 mb-0'),
+                Column('fish_swami',    css_class='form-group col-md-2 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(Field('live', id='id_live'), css_class='form-group col-md-1 mb-0 pt-4'),
+                Column('lake_depth',    css_class='form-group col-md-2 mb-0'),
+                Column('catch_depth',   css_class='form-group col-md-3 mb-0'),
+                Column('gps_lat',       css_class='form-group col-md-3 mb-0'),
+                Column('gps_long',      css_class='form-group col-md-3 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes',         css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )
+
+    def clean_catch_date(self):
+        date_val = self.cleaned_data.get('catch_date')
+        # If it's already a clean Python date object, hand it right back to Django
+        if date_val and hasattr(date_val, 'strftime'):
+            return date_val
+        # If it's still a string text layout, let Django parse it naturally
+        return date_val
+
+    def clean_catch_time(self):
+        time_val = self.cleaned_data.get('catch_time')
+        # If it's a live catch layout, keep the time object intact
+        return time_val
+
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # TEMPORARY DEBUG TRACKER: Look at your terminal console when you hit Submit!
+        print("--- DEBUG FORM VALIDATION ---")
+        print("catch_date type:", type(cleaned_data.get('catch_date')), "value:", cleaned_data.get('catch_date'))
+        print("catch_time type:", type(cleaned_data.get('catch_time')), "value:", cleaned_data.get('catch_time'))
+        print("-----------------------------")
+
+        # Clear out fields if live is unchecked
+        is_live = cleaned_data.get('live')
+        if not is_live:
+            cleaned_data['gps_lat'] = None
+            cleaned_data['gps_long'] = None
+            cleaned_data['catch_time'] = None
+
+        # Clean & Convert Length
+        length_val = cleaned_data.get('length')
+        l_unit = cleaned_data.get('length_unit')
+        if length_val:
+            try:
+                float_length = float(length_val)
+                if l_unit == 'in':
+                    float_length = float_length * 2.54
+                cleaned_data['length'] = str(round(float_length, 2))
+            except ValueError:
+                pass
+
+        # Clean & Convert Weight
+        weight_val = cleaned_data.get('weight')
+        w_unit = cleaned_data.get('weight_unit')
+        if weight_val:
+            try:
+                float_weight = float(weight_val)
+                if w_unit == 'lbs':
                     float_weight = float_weight * 0.45359237
                 cleaned_data['weight'] = str(round(float_weight, 2))
             except ValueError:
