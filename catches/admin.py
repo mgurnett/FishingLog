@@ -52,6 +52,17 @@ class TempAdmin (admin.ModelAdmin):
 class LogAdmin (admin.ModelAdmin):
     list_display = ['catch_date', 'catch_time', 'lake', 'fish', 'temp', 'week', 'angler']
 
+@admin.register (LogWeather)
+class LogWeatherAdmin (admin.ModelAdmin):
+    list_display = [ 'log' , 'temp', 'wind_speed', 'wind_direction', 'wind_deg', 'humidity', 'pressure', 'description' ]
+
+    def wind_direction(self, obj):
+        from catches.helpers.Open_Weather import degToCompass
+        if obj.wind_deg is not None:
+            return degToCompass(obj.wind_deg)
+        return ""
+    wind_direction.short_description = "Wind Direction"
+
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):
     list_display = ['name', 'landl', 'static_tag', 'dist_name', 'reg_location']

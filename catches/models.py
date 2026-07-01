@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 from django.utils import timezone
 from django.templatetags.static import static
@@ -588,6 +588,21 @@ class Log(models.Model):
             self.week = week_num
         super().save(*args, **kwargs)
 
+class LogWeather(models.Model):
+    log = models.OneToOneField(Log, on_delete=models.CASCADE, related_name='weather')
+    temp = models.FloatField(blank=True, null=True)
+    feels_like = models.FloatField(blank=True, null=True)
+    pressure = models.FloatField(blank=True, null=True)
+    humidity = models.IntegerField(blank=True, null=True)
+    clouds = models.IntegerField(blank=True, null=True)
+    wind_speed = models.FloatField(blank=True, null=True)
+    wind_deg = models.IntegerField(blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True)
+    icon = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        return f"Weather for Log {self.log.id}"
+
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
@@ -798,9 +813,44 @@ NO DELETE PROTECT
 
 ''' blank talks about being required!!!!!!!  
     # 
+'''
+
+
+@receiver(post_save, sender=Log)
+def fetch_weather_for_log(sender, instance, created, **kwargs):
+    if hasattr(instance, 'weather'):
+        return
+
+    if instance.gps_lat and instance.gps_long and instance.catch_date and instance.catch_time:
+        import datetime
+        from django.utils.timezone import make_aware
+        from catches.helpers.Open_Weather import get_historical_weather
+        
+        dt = datetime.datetime.combine(instance.catch_date, instance.catch_time)
+        try:
+            dt_aware = make_aware(dt)
+        except ValueError:
+            dt_aware = dt
+        unix_timestamp = int(dt_aware.timestamp())
+        
+        data = get_historical_weather(instance.gps_lat, instance.gps_long, unix_timestamp)
+        if data and 'data' in data and len(data['data']) > 0:
+            w_data = data['data'][0]
+            LogWeather.objects.create(
+                log=instance,
+                temp=w_data.get('temp'),
+                feels_like=w_data.get('feels_like'),
+                pressure=w_data.get('pressure', 0) / 10 if w_data.get('pressure') else None,
+                humidity=w_data.get('humidity'),
+                clouds=w_data.get('clouds'),
+                wind_speed=w_data.get('wind_speed'),
+                wind_deg=w_data.get('wind_deg'),
+                description=w_data.get('weather', [{}])[0].get('description', '') if w_data.get('weather') else '',
+                icon=w_data.get('weather', [{}])[0].get('icon', '') if w_data.get('weather') else ''
+            )
+
     # If True, the field is allowed to be blank. Default is False.
     # If blank=True then the field will not be required, whereas if it's False the field cannot be blank.
 
     # If True, Django will store empty values as NULL in the database. Default is False.
     # NULL - CharFields and TextFields are never saved as NULL. Blank values are stored in the DB as an empty string ('').
-'''

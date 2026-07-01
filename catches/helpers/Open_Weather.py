@@ -225,3 +225,12 @@ def daily_forcast (response):
             forcast.append(daily_forcast)
     return forcast
 
+def get_historical_weather(lat, lon, dt_timestamp):
+    url = f'https://api.openweathermap.org/data/3.0/onecall/timemachine?lat={lat}&lon={lon}&dt={dt_timestamp}&units=metric&appid={OW_API_KEY}'
+    try:
+        response = requests.get(url, timeout=5)
+        if response.status_code == 200:
+            return response.json()
+    except requests.exceptions.RequestException:
+        pass
+    return None
