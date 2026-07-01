@@ -1,0 +1,51 @@
+{% if log.weather %}
+
+    <div class="col-md-4"> <!-- card weather div -->
+        <div class="card border-0 bg-transparent">
+            <div class="card-header">
+                WEATHER
+            </div>
+            <div class="card-body"> 
+                {% if log.weather %}
+                    <div class="d-flex align-items-center mb-1">
+                        {% if log.weather.icon %}
+                            <img src="https://openweathermap.org/img/wn/{{ log.weather.icon }}.png" alt="weather icon" class="me-2" style="width: 40px; height: 40px;">
+                        {% endif %}
+                        <b class="text-capitalize">{{ log.weather.description }}</b>
+                    </div>
+                    Temp: <b>{{ log.weather.temp }} &deg;C</b><br>
+                    Wind: <b>{{ log.weather.wind_speed }} m/s</b><br>
+                    Pressure: <b>{{ log.weather.pressure }} kPa</b><br>
+                    Humidity: <b>{{ log.weather.humidity }}%</b>
+                {% else %}
+                    <i>No historical weather data available.</i>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- card weather div -->
+
+    <div class="col-md-8"> <!-- card notes div -->
+        <div class="card border-0 bg-transparent">
+            <div class="card-header">
+                NOTES
+            </div>
+            <div class="card-body"> 
+                {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
+            </div>
+        </div>
+    </div> <!-- card location div -->
+
+{% else %}
+
+    <div class="col-md-12"> <!-- card notes div -->
+        <div class="card border-0 bg-transparent">
+            <div class="card-header">
+                NOTES
+            </div>
+            <div class="card-body"> 
+                {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
+            </div>
+        </div>
+    </div> <!-- card location div -->
+
+{% endif %}

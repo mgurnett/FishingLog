@@ -35,7 +35,7 @@
                                 {% endif %}
                             </h5> 
                         </div>
-                    </div> <!-- FIXED: Correctly closing the row container -->
+                    </div> 
                     <div class="row">                       
                         <div class="col-md-4">
                             {% if log.temp %}
@@ -54,12 +54,12 @@
                                 <a href="{% url 'week_detail' log.week.id %}">   Week: <b>{{ log.week.number }}</b></a>
                             </h5>
                         </div> 
-                    </div> <!-- FIXED: Correctly closing the row container -->
+                    </div> 
                 </div> <!-- card-header div -->
 
                 <div class="card-body"> 
-                    <div class="row">
-                        <div class="col-md-6"> <!-- card fish div -->
+                    <div class="row">  <!-- fish, fly and location -->
+                        <div class="col-md-4"> <!-- card fish div -->
                             <div class="card border-0 bg-transparent">
                                 <div class="card-header">
                                     Fish
@@ -75,7 +75,7 @@
                             </div>
                         </div> <!-- card fish div -->
 
-                        <div class="col-md-6"> <!-- card fly div -->
+                        <div class="col-md-4"> <!-- card fly div -->
                             <div class="card border-0 bg-transparent">
                                 <div class="card-header">
                                     FLY
@@ -99,8 +99,7 @@
                                 </div>
                             </div>
                         </div> <!-- card fly div -->
-                    </div>
-                    <div class="row">
+
                         <div class="col-md-4"> <!-- card location div -->
                             <div class="card border-0 bg-transparent">
                                 <div class="card-header">
@@ -122,42 +121,11 @@
                                 </div>
                             </div>
                         </div> <!-- card location div -->
+                    </div>   <!-- fish, fly and location -->
 
-                        <div class="col-md-4"> <!-- card weather div -->
-                            <div class="card border-0 bg-transparent">
-                                <div class="card-header">
-                                    WEATHER
-                                </div>
-                                <div class="card-body"> 
-                                    {% if log.weather %}
-                                        <div class="d-flex align-items-center mb-1">
-                                            {% if log.weather.icon %}
-                                                <img src="https://openweathermap.org/img/wn/{{ log.weather.icon }}.png" alt="weather icon" class="me-2" style="width: 40px; height: 40px;">
-                                            {% endif %}
-                                            <b class="text-capitalize">{{ log.weather.description }}</b>
-                                        </div>
-                                        Temp: <b>{{ log.weather.temp }} &deg;C</b><br>
-                                        Wind: <b>{{ log.weather.wind_speed }} m/s</b><br>
-                                        Pressure: <b>{{ log.weather.pressure }} kPa</b><br>
-                                        Humidity: <b>{{ log.weather.humidity }}%</b>
-                                    {% else %}
-                                        <i>No historical weather data available.</i>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div> <!-- card weather div -->
-
-                        <div class="col-md-4"> <!-- card notes div -->
-                            <div class="card border-0 bg-transparent">
-                                <div class="card-header">
-                                    NOTES
-                                </div>
-                                <div class="card-body"> 
-                                    {% if log.notes %}<p>{{ log.notes | safe }}</p>{% endif %}
-                                </div>
-                            </div>
-                        </div> <!-- card location div -->
-                    </div>
+                    <div class="row">  <!-- weather and notes -->
+                        {% include "snippets/log_notes_row.html" %}
+                    </div>  <!-- weather and notes -->
                 </div> <!-- card-body div -->
 
                 <div class="card-footer">
