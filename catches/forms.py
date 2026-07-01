@@ -361,9 +361,9 @@ class New_Log_Form (forms.ModelForm):
             'weight', 'fish_swami', 'num_landed', 'private', 
             "lake_depth", "gps_lat", "gps_long", "catch_depth", "live"]
         
-    # By adding input_formats, Django natively knows exactly how to handle strings vs objects
+    # Change initial=timezone.now to initial=timezone.localdate
     catch_date = forms.DateField(
-        initial=timezone.now,
+        initial=timezone.localdate,  # <-- FIXED: Fetches the local date based on your timezone setting
         input_formats=['%Y-%m-%d', '%m/%d/%Y'],
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
     )
@@ -371,7 +371,7 @@ class New_Log_Form (forms.ModelForm):
     catch_time = forms.TimeField(
         required=False, 
         input_formats=['%H:%M', '%H:%M:%S'],
-        widget=forms.TimeInput(attrs={'type': 'time', 'readonly': 'readonly', 'placeholder': 'Check Live to set...', 'class': 'form-control'})
+        widget=forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'})
     )
             
     notes = forms.CharField(
@@ -427,7 +427,7 @@ class New_Log_Form (forms.ModelForm):
             if self.instance.catch_date and hasattr(self.instance.catch_date, 'strftime'):
                 self.initial['catch_date'] = self.instance.catch_date.strftime('%Y-%m-%d')
             if self.instance.catch_time and hasattr(self.instance.catch_time, 'strftime'):
-                self.initial['catch_time'] = str(self.instance.catch_time.strftime('%H:%M'))
+                self.initial['catch_time'] = self.instance.catch_time.strftime('%H:%M')
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -478,36 +478,27 @@ class New_Log_Form (forms.ModelForm):
             ),
         )
 
-    def clean_catch_date(self):
-        date_val = self.cleaned_data.get('catch_date')
-        # If it's already a clean Python date object, hand it right back to Django
-        if date_val and hasattr(date_val, 'strftime'):
-            return date_val
-        # If it's still a string text layout, let Django parse it naturally
-        return date_val
-
-    def clean_catch_time(self):
-        time_val = self.cleaned_data.get('catch_time')
-        # If it's a live catch layout, keep the time object intact
-        return time_val
-
     def clean(self):
         cleaned_data = super().clean()
         
-        # TEMPORARY DEBUG TRACKER: Look at your terminal console when you hit Submit!
-        print("--- DEBUG FORM VALIDATION ---")
-        print("catch_date type:", type(cleaned_data.get('catch_date')), "value:", cleaned_data.get('catch_date'))
-        print("catch_time type:", type(cleaned_data.get('catch_time')), "value:", cleaned_data.get('catch_time'))
-        print("-----------------------------")
+        # 1. TIME PRESERVATION LOGIC
+        # Look at the raw submitted POST data directly to see if the user provided a time string
+        has_raw_time = self.data and self.data.get('catch_time')
+        is_updating = self.instance and self.instance.pk is not None
 
-        # Clear out fields if live is unchecked
-        is_live = cleaned_data.get('live')
-        if not is_live:
-            cleaned_data['gps_lat'] = None
-            cleaned_data['gps_long'] = None
-            cleaned_data['catch_time'] = None
+        if is_updating:
+            # If we are editing, ONLY alter the time if the user deliberately wiped the field blank
+            if not cleaned_data.get('catch_time') and not has_raw_time:
+                cleaned_data['catch_time'] = self.instance.catch_time
+        else:
+            # We are creating a brand NEW log
+            is_live = cleaned_data.get('live')
+            if not is_live and not has_raw_time:
+                cleaned_data['gps_lat'] = None
+                cleaned_data['gps_long'] = None
+                cleaned_data['catch_time'] = None
 
-        # Clean & Convert Length
+        # 2. LENGTH CONVERSION
         length_val = cleaned_data.get('length')
         l_unit = cleaned_data.get('length_unit')
         if length_val:
@@ -519,7 +510,7 @@ class New_Log_Form (forms.ModelForm):
             except ValueError:
                 pass
 
-        # Clean & Convert Weight
+        # 3. WEIGHT CONVERSION
         weight_val = cleaned_data.get('weight')
         w_unit = cleaned_data.get('weight_unit')
         if weight_val:

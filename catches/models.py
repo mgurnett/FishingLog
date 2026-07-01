@@ -489,9 +489,11 @@ class Log(models.Model):
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
     temp = models.ForeignKey(Temp, default = 1, on_delete=models.SET_DEFAULT)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
-    catch_date = models.DateField(default=timezone.now)
+    # Change catch_date default from timezone.now to local today:
+    catch_date = models.DateField(default=datetime.date.today)
+    # Change record_date default as well:
     record_date = models.DateField(default=datetime.date.today)
-    catch_time = models.DateField(default=timezone.now)
+    catch_time = models.TimeField(blank=True, null=True, default=timezone.now)
     location = models.CharField (max_length=100, blank=True, null=True)
     length = models.FloatField ( blank=True, default=0.0 )
     weight = models.FloatField ( blank=True, default=0.0 )
@@ -507,6 +509,7 @@ class Log(models.Model):
     gps_lat = models.FloatField (blank=True, null=True)
     gps_long = models.FloatField (blank=True, null=True)
     catch_depth = models.FloatField (blank=True, null=True)
+    
 
     class Meta:
         ordering = ['temp']
