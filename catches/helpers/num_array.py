@@ -55,11 +55,10 @@ def get_array(week, lake, temperature):
         logs_LT.append (math.ceil(row.loc['LT']/sumLT*LOG_LT ))
         logs_total.append (int(
             math.ceil(row.loc['L']/sumL*LOG_L) +
-            math.ceil(row.loc['LT']/sumLT*LOG_T) +
+            math.ceil(row.loc['T']/sumT*LOG_T) +
             math.ceil(row.loc['W']/sumW*LOG_W)  +
             math.ceil(row.loc['LW']/sumLW*LOG_LW) +
-            math.ceil(row.loc['LW']/sumLW*LOG_LW) +
-            row.loc['LT']/sumLT*LOG_LT
+            math.ceil(row.loc['LT']/sumLT*LOG_LT)
             ))
     # print (f'logs_L - {logs_L} | logs_T - {logs_T} | logs_W - {logs_W} | logs_LW - {logs_LW} | logs_LT - {logs_LT} | logs_total - {logs_total}' )
     df['LLW'] = pd.DataFrame(list(logs_L))
@@ -114,7 +113,7 @@ def get_array(week, lake, temperature):
             hatchs_LT.append (row.loc['HLT']/sumLT*HATCH_LT )
             hatchs_total.append (int(
                 row.loc['HL']/sumL*HATCH_L +
-                row.loc['HLT']/sumLT*HATCH_T +
+                row.loc['HT']/sumT*HATCH_T +
                 row.loc['HW']/sumW*HATCH_W  +
                 row.loc['HLW']/sumLW*HATCH_LW +
                 row.loc['HLT']/sumLT*HATCH_LT

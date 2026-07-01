@@ -85,13 +85,12 @@ def get_average_temp_for_week (week_now):
         if temp_list:
             # print (f'{temp_list = }')
             tem = 0
-            for index, t in enumerate(temp_list):
-                tem += t.get('temp_id')
-                # print (f'{t = }')
-                n = index+1
-                # print (f'{tem = }')
+            n = 0
+            for t in temp_list:
+                tem += t.get('temp')
+                n += 1
             ave = round(tem/n)
-            ave_temp = Temp.objects.get(id = ave)
+            ave_temp = Temp.objects.filter(deg=ave).first()
         else:
             ave_temp = None
             n = 0
@@ -122,23 +121,33 @@ def get_query_set(pk): # get the data for the hatch trends for week detail view
     chart_last = Chart.objects.filter (week=last_week)
     chart_next = Chart.objects.filter (week=next_week)
     
+    chart_last_map = {c.bug_id: c for c in chart_last}
+    chart_next_map = {c.bug_id: c for c in chart_next}
+    
     three_charts = []
-    for index, c in enumerate(chart_now):
-        if chart_last[index].strength + c.strength < c.strength + chart_next[index].strength:
+    for c in chart_now:
+        last_c = chart_last_map.get(c.bug_id)
+        next_c = chart_next_map.get(c.bug_id)
+        
+        last_strength = last_c.strength if last_c else 0
+        next_strength = next_c.strength if next_c else 0
+
+        if last_strength < next_strength:
             trend = "rising"
-        elif chart_last[index].strength + c.strength == c.strength + chart_next[index].strength:
+        elif last_strength == next_strength:
             trend = "flat"
-        elif chart_last[index].strength + c.strength > c.strength + chart_next[index].strength:
+        else:
             trend = "falling"
+            
         insect = {
-                    'bug': c.bug.name, 
-                    'bug_id': c.bug.id,
-                    'last': chart_last[index].strength_name, 
-                    'this': c.strength_name,
-                    'next': chart_next[index].strength_name,
-                    'trend': trend,
-                    'strength': c.strength
-                }
+            'bug': c.bug.name, 
+            'bug_id': c.bug.id,
+            'last': last_c.strength_name if last_c else "None", 
+            'this': c.strength_name,
+            'next': next_c.strength_name if next_c else "None",
+            'trend': trend,
+            'strength': c.strength
+        }
 
         three_charts.append(insect)
     allcharts = sorted(three_charts, key=lambda d: d['strength'], reverse=True)
