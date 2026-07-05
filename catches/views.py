@@ -38,6 +38,7 @@ from .helpers.distance import *
 from .helpers.ai_plan import *
 from .helpers.queries import *
 from .helpers.num_array import get_array
+from datetime import datetime
 
 
 def security_txt(request):
