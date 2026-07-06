@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'easyaudit',
     'blacklist',
+    "log_viewer",
 ]
 
 MIDDLEWARE = [
@@ -345,4 +346,3 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"  # Possible values: "staff",
 DJANGO_ADMIN_LOGS_DELETABLE = True
 DJANGO_ADMIN_LOGS_ENABLED = False
 DJANGO_ADMIN_LOGS_IGNORE_UNCHANGED = True
-
