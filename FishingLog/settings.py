@@ -74,7 +74,6 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'easyaudit',
     'blacklist',
-    "log_viewer",
 ]
 
 MIDDLEWARE = [
@@ -346,3 +345,27 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"  # Possible values: "staff",
 DJANGO_ADMIN_LOGS_DELETABLE = True
 DJANGO_ADMIN_LOGS_ENABLED = False
 DJANGO_ADMIN_LOGS_IGNORE_UNCHANGED = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            # This safely creates the file inside your active project directory automatically
+            'filename': os.path.join(BASE_DIR, 'django_errors.log'), 
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
