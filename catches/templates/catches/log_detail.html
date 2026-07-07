@@ -150,7 +150,9 @@
         <div class="col-md-12"> <!-- card map div -->
             <div class="card border-0 bg-transparent">
                 <div class="card-body"> 
-                    {{ map_div|safe }}
+                    {% if map_div %}
+                        {{ map_div|safe }}
+                    {% endif %} 
                 </div>
             </div>
         </div> <!-- card map div -->
