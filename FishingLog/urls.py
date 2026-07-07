@@ -9,6 +9,7 @@ from django.urls import re_path
 # from django.urls import path, include,re_path
  
 urlpatterns = [
+    path('admin/logs/', include('log_viewer.urls')),
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),

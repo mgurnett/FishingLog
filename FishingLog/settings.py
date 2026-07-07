@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'easyaudit',
     'blacklist',
+    "log_viewer",
 ]
 
 MIDDLEWARE = [
@@ -346,6 +347,19 @@ DJANGO_ADMIN_LOGS_DELETABLE = True
 DJANGO_ADMIN_LOGS_ENABLED = False
 DJANGO_ADMIN_LOGS_IGNORE_UNCHANGED = True
 
+LOG_VIEWER_FILES = ['django_errors.log']     # Explicitly list your log file
+LOG_VIEWER_FILES_DIR = BASE_DIR              # Point it to your project base directory
+LOG_VIEWER_FILES_PATTERN = 'django_errors.log' 
+LOG_VIEWER_PAGE_LENGTH = 25       
+LOG_VIEWER_MAX_READ_LINES = 1000  
+LOG_VIEWER_FILE_LIST_MAX_ITEMS_PER_PAGE = 25 
+LOG_VIEWER_PATTERNS = ['[INFO]', '[DEBUG]', '[WARNING]', '[ERROR]', '[CRITICAL]']
+LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None  
+
+# You can keep or change these titles as you like:
+LOG_VIEWER_FILE_LIST_TITLE = "Fishing Log System Errors"
+LOG_VIEWER_FILE_LIST_STYLES = "/static/css/my-custom.css"
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -368,4 +382,19 @@ LOGGING = {
             'propagate': True,
         },
     },
+}
+
+
+JAZZMIN_SETTINGS = {
+    # ... keep your existing jazzmin configurations ...
+
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {
+            "name": "System Logs", 
+            "url": "/admin/logs/", 
+            "icon": "fas fa-exclamation-triangle",
+            "permissions": ["auth.view_user"]
+        },
+    ],
 }

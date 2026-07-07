@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import redirect
 from .models import *
 from catches.helpers.fish_data import *
 
@@ -92,3 +93,17 @@ class AnnouncmentAdmin (admin.ModelAdmin):
 @admin.register (Week)
 class WeekAdmin (admin.ModelAdmin):
     list_display = ['number', 'ave_temp']
+
+class SystemErrorLogAdmin(admin.ModelAdmin):
+    fields = []
+    
+    # Force this model to appear inside the 'catches' app section on the dashboard
+    def get_model_perms(self, request):
+        """
+        Return empty perms to hide it from its default 'auth' section list,
+        while keeping it accessible via its own URLs.
+        """
+        return {}
+
+    def changelist_view(self, request, extra_context=None):
+        return redirect('/admin/logs/')
