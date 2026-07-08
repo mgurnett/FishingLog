@@ -72,8 +72,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'easyaudit',
     'blacklist',
-    
-    'catches.apps.CatchesConfig',  # <-- Moved here right above log_viewer
+    'catches.apps.CatchesConfig', 
     "log_viewer",
 ]
 

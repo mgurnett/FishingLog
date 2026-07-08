@@ -24,6 +24,7 @@ django-environ==0.11.2
 django-extensions==3.2.3
 django-jazzmin==2.6.0
 django-js-asset==2.1.0
+django-log-viewer==1.1.8
 django-taggit==5.0.1
 env-canada==0.6.0
 environ==1.0
