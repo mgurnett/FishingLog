@@ -600,8 +600,10 @@ class LogWeather(models.Model):
     description = models.CharField(max_length=100, blank=True)
     icon = models.CharField(max_length=20, blank=True)
 
-    def __str__(self):
+def __str__(self):
+    if self.log_id and hasattr(self, 'log') and self.log:
         return f"Weather for Log {self.log.id}"
+    return f"Weather for Log (Deleted or Missing ID: {self.log_id})"
 
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)

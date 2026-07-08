@@ -7,9 +7,10 @@ from users import views as user_views
 from django.urls import re_path
 # from django.views.static import serve
 # from django.urls import path, include,re_path
+from catches.views import system_errors_dashboard
  
 urlpatterns = [
-    path('admin/logs/', include('log_viewer.urls')),
+    path('system-errors/', system_errors_dashboard, name='system_errors'),
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),

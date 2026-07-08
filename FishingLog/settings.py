@@ -65,15 +65,15 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
-    'catches.apps.CatchesConfig',
     'crispy_forms',
     'crispy_bootstrap5',
     'django_extensions',
     "taggit",
-    # 'ckeditor',    
     'django_ckeditor_5',
     'easyaudit',
     'blacklist',
+    
+    'catches.apps.CatchesConfig',  # <-- Moved here right above log_viewer
     "log_viewer",
 ]
 
@@ -112,7 +112,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': ["templates/"], 
-        'DIRS': [''],
+        # 'DIRS': [''],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')] if 'os' in globals() else [BASE_DIR + '/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -347,37 +348,55 @@ DJANGO_ADMIN_LOGS_DELETABLE = True
 DJANGO_ADMIN_LOGS_ENABLED = False
 DJANGO_ADMIN_LOGS_IGNORE_UNCHANGED = True
 
-LOG_VIEWER_FILES = ['django_errors.log']     # Explicitly list your log file
-LOG_VIEWER_FILES_DIR = BASE_DIR              # Point it to your project base directory
-LOG_VIEWER_FILES_PATTERN = 'django_errors.log' 
+LOG_VIEWER_FILES_DIR = os.path.join(BASE_DIR, 'logs')
+LOG_VIEWER_FILES = ['django_errors.log']
+# Change this line back to the wildcard format:
+LOG_VIEWER_FILES_PATTERN = '*.log*'
+
 LOG_VIEWER_PAGE_LENGTH = 25       
 LOG_VIEWER_MAX_READ_LINES = 1000  
 LOG_VIEWER_FILE_LIST_MAX_ITEMS_PER_PAGE = 25 
-LOG_VIEWER_PATTERNS = ['[INFO]', '[DEBUG]', '[WARNING]', '[ERROR]', '[CRITICAL]']
+LOG_VIEWER_PATTERNS = ['INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL']
 LOG_VIEWER_EXCLUDE_TEXT_PATTERN = None  
+# Force django-log-viewer to render independently without Jazzmin interference
+LOG_VIEWER_USE_DEFAULT_TEMPLATE = True
 
-# You can keep or change these titles as you like:
 LOG_VIEWER_FILE_LIST_TITLE = "Fishing Log System Errors"
-LOG_VIEWER_FILE_LIST_STYLES = "/static/css/my-custom.css"
+# LOG_VIEWER_FILE_LIST_STYLES = "/static/css/my-custom.css"
+# --- django-log-viewer Multi-line Parsing Settings ---
+
+# Tell the app to parse multi-line traces as a single item until a new pattern hits
+LOG_VIEWER_MULTILINE_PATTERN = r'^\[' 
+
+# Ensure the log file is read from the end of the file backward
+LOG_VIEWER_READ_FROM_END = True
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '[%(levelname)s] %(asctime)s %(name)s: %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
     'handlers': {
         'file': {
             'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            # This safely creates the file inside your active project directory automatically
-            'filename': os.path.join(BASE_DIR, 'django_errors.log'), 
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
+            # Changing this class allows the 'delay' option
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django_errors.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB file cap
+            'backupCount': 5,
+            'formatter': 'standard',
+            # delay=True tells Python: Don't open/create the file until the first error occurs.
+            # This bypasses the startup crash if the directory isn't there yet.
+            'delay': True, 
         },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['file', 'console'],
+        'django': {
+            'handlers': ['file'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -386,13 +405,12 @@ LOGGING = {
 
 
 JAZZMIN_SETTINGS = {
-    # ... keep your existing jazzmin configurations ...
-
+    # ... your existing configurations ...
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         {
             "name": "System Logs", 
-            "url": "/admin/logs/", 
+            "url": "/system-errors/", # <-- Change this to match the new URL pattern
             "icon": "fas fa-exclamation-triangle",
             "permissions": ["auth.view_user"]
         },

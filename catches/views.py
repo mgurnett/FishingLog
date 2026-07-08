@@ -39,6 +39,10 @@ from .helpers.ai_plan import *
 from .helpers.queries import *
 from .helpers.num_array import get_array
 from datetime import datetime
+import os
+from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 def security_txt(request):
@@ -1556,6 +1560,25 @@ def searchview (request):
 
     return render( request, 'catches/search_results.html', context )
     # return context
+
+@user_passes_test(lambda u: u.is_superuser)
+def system_errors_dashboard(request):
+    log_path = os.path.join(settings.BASE_DIR, 'logs/django_errors.log')
+    log_entries = []
+    
+    if os.path.exists(log_path):
+        with open(log_path, 'r', encoding='utf-8') as f:
+            # Read lines and keep them in reverse order (newest errors first)
+            lines = f.readlines()
+            for index, line in enumerate(reversed(lines)):
+                clean_line = line.strip()
+                if clean_line:
+                    log_entries.append({
+                        'id': index + 1,
+                        'text': clean_line
+                    })
+                    
+    return render(request, 'catches/system_errors.html', {'log_entries': log_entries})
 
 
 class NotAllowed (TemplateView):
