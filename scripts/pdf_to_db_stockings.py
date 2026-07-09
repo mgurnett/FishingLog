@@ -2,7 +2,7 @@ import os
 import sys
 import re
 import csv
-from datetime import datetime
+from datetime import datetime as dt
 import pandas as pd
 import tabula
 from django.db.models import Q
@@ -343,9 +343,18 @@ def stock_import_process(df):
 
         # Validate Date Format Object
         try:
-            date_object = datetime.strptime(str(row['Stocking_Date']).strip(), '%d-%m-%Y').date()
-        except:
+            raw_val = row["Stocking_Date"]
+            date_str = str(raw_val).strip()
+            
+            # This will show you hidden characters like \xa0 or \r
+            # print(f"Raw repr: {repr(raw_val)} | Stripped repr: {repr(date_str)}") 
+            
+            date_object = dt.strptime(date_str, '%d-%m-%Y').date()
+        except Exception as e:
+            print(f"Failed to parse. Error: {e}\n")
             continue
+        
+        # print (f'{lake_name_input_clean =}')
 
         # Save Entry to MariaDB Database
         try:
@@ -375,6 +384,7 @@ def stock_import_process(df):
 def run():
     YEAR_TO_DELETE = 2026
 
+    
     print(f"Attempting to extract tables via text stream from: {PDF_PATH}")
     raw_lines = extract_pdf_to_raw_rows()
     if not raw_lines:
@@ -396,6 +406,7 @@ def run():
     print(f"⏸️  PAUSED: You can now open '{CSV_FILENAME}' and perform manual edits.")
     print("======================================================================")
     input("👉 Press Enter here to continue once you have manually edited and saved the CSV file...")
+    
 
     # 🔄 RELOAD DATA: Overwrite the DataFrame with your modified CSV data
     print(f"\n🔄 Reloading modified data from '{CSV_FILENAME}'...")
