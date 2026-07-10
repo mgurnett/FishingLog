@@ -1,9 +1,9 @@
 import requests
 from zoneinfo import ZoneInfo
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from django.conf import settings
 import pandas as pd
-import plotly.express as px
+# import plotly.express as px
     
 localtz = ZoneInfo('America/Edmonton')
 utc = ZoneInfo('UTC')
@@ -21,7 +21,7 @@ def get_data (lake):
     return requests.get( make_url (float(round(lake.lat,4)), float(round(lake.long,4))) )
 
 def time_convert (time, offset):
-    return datetime.fromtimestamp( time + offset )
+    return datetime.fromtimestamp(time, tz=timezone.utc).astimezone(timezone(timedelta(seconds=offset)))
     
 def get_moon_phase_info(val):
     if val == 0 or val == 1:

@@ -363,7 +363,7 @@ class New_Log_Form (forms.ModelForm):
         
     # Change initial=timezone.now to initial=timezone.localdate
     catch_date = forms.DateField(
-        initial=timezone.localdate,  # <-- FIXED: Fetches the local date based on your timezone setting
+        initial=timezone.now,  # <-- FIXED: Fetches the local date based on your timezone setting
         input_formats=['%Y-%m-%d', '%m/%d/%Y'],
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
     )
