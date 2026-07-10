@@ -4,8 +4,6 @@
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
-- [ ] Get CHedit5 working
-- [ ] add depth and retrieve, line tippet.
 
 ## Medium
 - [ ] Break insects down to specific ones.
@@ -13,13 +11,11 @@
 - [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
 - [ ] make a comment system.
-- [ ] take pictures of fish
 - [ ] Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
 - [ ] I get an email when someone registers.
 - [ ] figure out why it is sending 2 for PW reset
 - [ ] figure out gmail
 - [ ] figure out how to modify it.
-- [ ] add button to request contribute
 - [ ] WEEKS - Figure out a better way to pars them than over and over.
 - [ ] Graphs - look into a graph menu so all graphs can be on one screen. https://plotly.com/python/dropdowns/#update-dropdown
 
@@ -35,3 +31,7 @@
 - [*] In the tags list, show how many media, lakes, fish, flys.....
 - [*] Fix the broken and missing KML help files.
 - [*] Add regulations location field to lake model.
+- [*] add button to request contribute
+- [*] take pictures of fish
+- [*] Get CHedit5 working
+- [*] add depth and retrieve, line tippet.
