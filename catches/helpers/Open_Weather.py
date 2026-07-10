@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, timedelta
 from django.conf import settings
 import pandas as pd
-# import plotly.express as px
+import plotly.express as px
     
 localtz = ZoneInfo('America/Edmonton')
 utc = ZoneInfo('UTC')
