@@ -218,3 +218,6 @@ def get_lakes_for_user_by_region (region, current_user):
         Q(region__profile__user=current_user),  # Filter by user through profile and region
         region=region,  # Filter regions by lake ID
     ).distinct()
+
+
+    # TODO: Add tags to searchbar
