@@ -4,6 +4,7 @@
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
+- [ ] I need to rethink tags and all the articles and videos.  I need a whole new approach.
 
 ## Medium
 - [ ] Break insects down to specific ones.
