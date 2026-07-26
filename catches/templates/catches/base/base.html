@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <title>
-       {% block title %} Home {% endblock %}
+        {% block title %} Home {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,16 +16,16 @@
 
     <!-- Themes are from https://bootstrap.themes.guide/ -->
     <link rel="stylesheet" type="text/css" href="{% static 'catches/site/main.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'catches/site/favicon.png' %}" >
+    <link rel="shortcut icon" type="image/png" href="{% static 'catches/site/favicon.png' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head> 
+</head>
 <style>
-    body { 
-        padding-bottom: 65px; 
-        padding-top: 65px; 
+    body {
+        padding-bottom: 65px;
+        padding-top: 65px;
     }
 </style>
- 
+
 <body>
     <!-- Fixed navbar -->
     {% include "catches/base/navbar.html" %}
@@ -32,26 +33,26 @@
     <!-- Begin page content -->
     <main role="main" class="container-fluid">
         {% load tz %}
-        
-        <div class="row">  <!-- messages -->
+
+        <div class="row"> <!-- messages -->
             <div class="col-md-2 pt-3"> </div>
-            <div class="col-md-5 pt-3">  <!-- message message-bar -->
+            <div class="col-md-5 pt-3"> <!-- message message-bar -->
                 {% block message_bar %}
                 {% endblock message_bar %}
             </div>
-            <div class="col-md-2 pt-3">  <!-- message date and time -->
+            <div class="col-md-2 pt-3"> <!-- message date and time -->
                 <p class="text-center">
                     <b>{% timezone "America/Edmonton" %} {% now "D, M j, y - P " %} {% endtimezone %}</b>
                 </p>
             </div>
-            <div class="col-md-1 pt-3">  <!-- message WEEK link -->
+            <div class="col-md-1 pt-3"> <!-- message WEEK link -->
                 <p class="text-center ">
-                    {% if weekID != 0 %}  <!-- see contexct_processor  -->
-                        <a href="{% url 'week_detail' weekID %}"> 
-                            <b>{% timezone "America/Edmonton" %} Week: {% now "W" %} {% endtimezone %}</b>
-                        </a>
-                    {% else %}
+                    {% if weekID != 0 %} <!-- see contexct_processor  -->
+                    <a href="{% url 'week_detail' weekID %}">
                         <b>{% timezone "America/Edmonton" %} Week: {% now "W" %} {% endtimezone %}</b>
+                    </a>
+                    {% else %}
+                    <b>{% timezone "America/Edmonton" %} Week: {% now "W" %} {% endtimezone %}</b>
                     {% endif %}
                 </p>
             </div>
@@ -59,7 +60,7 @@
         </div>
         {% block content %}
         {% endblock %}
-        {% include 'catches/base/pagein.html' %} 
+        {% include 'catches/base/pagein.html' %}
     </main>
 
     <!-- Stick footer -->
@@ -75,17 +76,17 @@
                 <div class="col-md-4 mt-3">
                     <span class="navbar-text">
                         {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
-                                        <span style="color:stormy_blue;">{{ message | safe }}</span>
-                                    {% else %}
-                                        {{ message | safe }}
-                                    {% endif %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                <span style="color:stormy_blue;">{{ message | safe }}</span>
+                                {% else %}
+                                {{ message | safe }}
+                                {% endif %}
                                 </p>
                                 {% endfor %}
-                            </ul>
+                        </ul>
                         {% endif %}
                     </span>
                 </div>
@@ -97,7 +98,8 @@
                 <div class="col-md-1">
                     <!-- Instagram -->
                     <a href="http://instagram.com/_u/edmontonflyfisherman/" target="_blank">
-                        <img src="{% static 'catches/site/instagram_logo.svg' %}" alt="Instagram" width="35" height="35" class="d-inline-block">
+                        <img src="{% static 'catches/site/instagram_logo.svg' %}" alt="Instagram" width="35" height="35"
+                            class="d-inline-block">
                     </a>
                 </div>
                 <div class="col-md-1 "></div>
@@ -107,45 +109,109 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-</body>  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- Global Full Screen Loading Overlay -->
+    <div id="loadingOverlay"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 9999; display: none; justify-content: center; align-items: center;">
+
+        <div
+            style="text-align: center; color: #007e87; background: #95c0ba; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <i class="fas fa-spinner fa-spin" style="font-size: 4rem;"></i>
+            <div class="mt-2" style="font-size: 1.2rem; font-weight: bold;">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const overlay = document.getElementById("loadingOverlay");
+
+            // Hide initially just to be safe
+            if (overlay) overlay.style.display = "none";
+
+            function showSpinner() {
+                if (overlay) overlay.style.display = "flex";
+            }
+
+            // Use Event Delegation to capture clicks anywhere on the document
+            document.addEventListener("click", function (e) {
+                let target = e.target.closest("a, button[type='submit'], input[type='submit']");
+
+                if (target) {
+                    if (target.tagName.toLowerCase() === "a") {
+                        let href = target.getAttribute("href");
+                        let linkTarget = target.getAttribute("target");
+                        let dataToggle = target.getAttribute("data-toggle");
+
+                        // Show spinner if it's a real navigation link
+                        if (href && !href.startsWith("#") && !href.startsWith("javascript") && linkTarget !== "_blank" && dataToggle !== "tab") {
+                            showSpinner();
+                        }
+                    } else if (target.closest("form")) {
+                        // For forms, slight delay to allow HTML5 validation
+                        setTimeout(showSpinner, 20);
+                    }
+                }
+            });
+
+            // Backup: attach to document-level form submission
+            document.addEventListener("submit", function (e) {
+                showSpinner();
+            });
+
+            // Hide spinner when returning to this page via the browser back button
+            window.addEventListener("pageshow", function (e) {
+                if (overlay) overlay.style.display = "none";
+            });
+        });
+    </script>
+
+</body>
+
 </html>
 
 <script>
-// Wrap the execution loop inside a DOMContentLoaded handler so it runs safely
-document.addEventListener("DOMContentLoaded", function() {
-    const weatherBtn = document.getElementById('get-local-weather');
-    
-    // Crucial Guard Check: Only run the rest of the script if the button exists on this page
-    if (weatherBtn) {
-        weatherBtn.addEventListener('click', function() {
-            const statusText = document.getElementById('weather-status');
-            
-            if (!navigator.geolocation) {
-                if (statusText) statusText.textContent = "Geolocation is not supported by your browser.";
-                return;
-            }
+    // Wrap the execution loop inside a DOMContentLoaded handler so it runs safely
+    document.addEventListener("DOMContentLoaded", function () {
+        const weatherBtn = document.getElementById('get-local-weather');
 
-            if (statusText) statusText.textContent = "Locating your position...";
+        // Crucial Guard Check: Only run the rest of the script if the button exists on this page
+        if (weatherBtn) {
+            weatherBtn.addEventListener('click', function () {
+                const statusText = document.getElementById('weather-status');
 
-            navigator.geolocation.getCurrentPosition(
-                function success(position) {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-
-                    if (statusText) statusText.textContent = "Coordinates locked. Fetching forecast...";
-
-                    // Redirect safely to your Class-Based View endpoint
-                    window.location.href = `/weather/local/?lat=${lat}&lon=${lon}`;
-                }, 
-                function error() {
-                    if (statusText) statusText.textContent = "Unable to retrieve your location. Check your browser permissions.";
+                if (!navigator.geolocation) {
+                    if (statusText) statusText.textContent = "Geolocation is not supported by your browser.";
+                    return;
                 }
-            );
-        });
-    }
-});
+
+                if (statusText) statusText.textContent = "Locating your position...";
+
+                navigator.geolocation.getCurrentPosition(
+                    function success(position) {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        if (statusText) statusText.textContent = "Coordinates locked. Fetching forecast...";
+
+                        // Redirect safely to your Class-Based View endpoint
+                        window.location.href = `/weather/local/?lat=${lat}&lon=${lon}`;
+                    },
+                    function error() {
+                        if (statusText) statusText.textContent = "Unable to retrieve your location. Check your browser permissions.";
+                    }
+                );
+            });
+        }
+    });
 </script>
