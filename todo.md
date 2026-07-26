@@ -36,3 +36,4 @@
 - [*] take pictures of fish
 - [*] Get CHedit5 working
 - [*] add depth and retrieve, line tippet.
+- [*] make the loading screen more fun.  make the circle spin.
