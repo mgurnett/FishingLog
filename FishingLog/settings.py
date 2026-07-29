@@ -42,7 +42,7 @@ if not DEBUG:
     # Ensure all production hostnames (including the wildcard for subdomains) are listed.
     # The IP address is only needed if you are directly accessing by IP,
     # which Cloudflare Tunnels generally bypass. For tunnel usage, you only need the domain names.
-    ALLOWED_HOSTS = ['www.stillwaterflyfishing.com', 'stillwaterflyfishing.com', '*.stillwaterflyfishing.com']
+    ALLOWED_HOSTS = ['www.stillwaterflyfishing.com', 'stillwaterflyfishing.com', '*.stillwaterflyfishing.com', '192.168.1.200', '10.187.214.111', '174.3.100.79', 'localhost', '127.0.0.1']
 
     # You can remove '174.3.100.79' from ALLOWED_HOSTS if you are ONLY using Cloudflare Tunnels.
     # If you still want direct IP access for debugging, keep it.
