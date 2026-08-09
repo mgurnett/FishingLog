@@ -15,8 +15,8 @@
 - [ ] Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
 - [ ] I get an email when someone registers.
 - [ ] figure out why it is sending 2 for PW reset
-- [ ] figure out gmail
-- [ ] figure out how to modify it.
+- [*] figure out gmail
+- [] figure out how to modify it.
 - [ ] WEEKS - Figure out a better way to pars them than over and over.
 - [ ] Graphs - look into a graph menu so all graphs can be on one screen. https://plotly.com/python/dropdowns/#update-dropdown
 
