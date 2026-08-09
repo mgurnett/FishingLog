@@ -12,11 +12,6 @@
 - [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
 - [ ] make a comment system.
-- [ ] Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
-- [ ] I get an email when someone registers.
-- [ ] figure out why it is sending 2 for PW reset
-- [*] figure out gmail
-- [] figure out how to modify it.
 - [ ] WEEKS - Figure out a better way to pars them than over and over.
 - [ ] Graphs - look into a graph menu so all graphs can be on one screen. https://plotly.com/python/dropdowns/#update-dropdown
 
@@ -37,3 +32,8 @@
 - [*] Get CHedit5 working
 - [*] add depth and retrieve, line tippet.
 - [*] make the loading screen more fun.  make the circle spin.
+- [*] Figure out password reset.  https://youtu.be/-tyBEsHSv7w?si=qV3qz3Y-eWfDyEFH
+- [*] I get an email when someone registers.
+- [*] figure out why it is sending 2 for PW reset
+- [*] figure out gmail
+- [*] figure out how to modify it.
