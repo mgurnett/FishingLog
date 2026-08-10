@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4"></div>
     <div class="col-md-3 text-start">
-        {% if user.is_authenticated %}
+        {% if perms.catches.add_lake %} 
             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new lake</a>
         {% endif %}
         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" >temp list</a>
@@ -74,7 +74,9 @@
     </div>
     <div class="col-md-3">
         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_list' %}" type="submit" >regions</a>
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >new region</a>
+        {% if perms.catches.add_region %}
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >new region</a>
+        {% endif %}
     </div>
     <div class="col-md-1"></div>
 </div>

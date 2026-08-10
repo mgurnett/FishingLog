@@ -48,7 +48,7 @@ from django.contrib.auth.decorators import user_passes_test
 def security_txt(request):
     # Automatically set expiration to Dec 31st of next year
     next_year = datetime.date.today().year + 1
-    content = f"""Contact: mailto:security@yourdomain.com
+    content = f"""Contact: mailto:admin@stillwaterflyfishing.com
     Expires: {next_year}-12-31T23:59:59.000Z
     Preferred-Languages: en
     """
