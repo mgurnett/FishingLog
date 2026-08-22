@@ -510,7 +510,7 @@ class Log(models.Model):
     gps_long = models.FloatField (blank=True, null=True)
     catch_depth = models.FloatField (blank=True, null=True)
     
-
+ 
     class Meta:
         ordering = ['temp']
 

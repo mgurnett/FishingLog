@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'blacklist',
     'catches.apps.CatchesConfig', 
     "log_viewer",
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,7 @@ MIDDLEWARE = [
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 # These are needed for Django to correctly determine the original client IP and if the request was secure.
@@ -120,7 +122,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'catches.context_processors.week_context',                
+                'catches.context_processors.week_context',    
             ],
         },
     },
