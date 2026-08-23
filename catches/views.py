@@ -949,19 +949,24 @@ class LogDuplicateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView)
     success_message = "New Log saved"
 
     def get_initial(self):
-        initial = super(LogDuplicateView, self).get_initial()
+        initial = super().get_initial()
         log = Log.objects.get(pk=self.kwargs['pk'])
         initial['lake'] = log.lake
         initial['fish'] = log.fish
         initial['temp'] = log.temp
         initial['catch_date'] = log.catch_date
-        initial['record_date'] = timezone.now()
+        initial['catch_time'] = log.catch_time
+        initial['record_date'] = timezone.localdate()
         initial['location'] = log.location
         initial['length'] = log.length
         initial['weight'] = log.weight
         initial['fly'] = log.fly
         initial['fly_size'] = log.fly_size
         initial['fly_colour'] = log.fly_colour
+        initial['lake_depth'] = log.lake_depth
+        initial['catch_depth'] = log.catch_depth
+        initial['gps_lat'] = log.gps_lat
+        initial['gps_long'] = log.gps_long
         initial['notes'] = log.notes
         initial['num_landed'] = log.num_landed
         initial['fish_swami'] = log.fish_swami

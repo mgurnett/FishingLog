@@ -501,7 +501,7 @@ class Log(models.Model):
     fly_size = models.CharField (max_length=100, blank=True)
     fly_colour = models.CharField (max_length=100, blank=True)
     notes = CKEditor5Field (blank=True, null=True)
-    fish_swami = models.IntegerField (blank=True)
+    fish_swami = models.IntegerField (blank=True, default=0)
     num_landed = models.IntegerField (default=0)
     angler = models.ForeignKey(User, on_delete=models.CASCADE)
     private = models.BooleanField (default = False)
@@ -583,9 +583,12 @@ class Log(models.Model):
     #     return self.angler_set.count
 
     def save(self, *args, **kwargs):
-        if not self.week:
-            week_num = Week.objects.get(number=int(self.catch_date.strftime('%U')))
-            self.week = week_num
+        if self.catch_date:
+            try:
+                week_num = int(self.catch_date.strftime('%U'))
+                self.week = Week.objects.filter(number=week_num).first()
+            except (ValueError, TypeError, AttributeError):
+                pass
         super().save(*args, **kwargs)
 
 class LogWeather(models.Model):

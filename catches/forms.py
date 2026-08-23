@@ -1,5 +1,7 @@
+import datetime
 from django import forms
 from django.forms import ModelForm, DateInput
+from django.utils import timezone
 #https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#topics-forms-modelforms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Field, Submit, Button, Row, Column, HTML
@@ -221,157 +223,27 @@ class New_Stock_Form (forms.ModelForm):
             ),
         )
         
-'''
-class New_Log_Form (forms.ModelForm): 
+class New_Log_Form(forms.ModelForm): 
     
     class Meta:
         model = Log
-        fields = ['catch_date', 'notes', 'lake', 'location', 
+        fields = [
+            'catch_date', 'catch_time', 'notes', 'lake', 'location', 
             'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 
             'weight', 'fish_swami', 'num_landed', 'private', 
-            "lake_depth", "gps_lat", "gps_long", "catch_depth"]  
-        widgets = {
-            "notes": CKEditor5Widget(
-                attrs={"class": "django_ckeditor_5"}, config_name="notes"
-            )
-        }
+            'lake_depth', 'gps_lat', 'gps_long', 'catch_depth', 'live'
+        ]
         
     catch_date = forms.DateField(
-        initial=timezone.now,
-        widget=DateInput )
-    notes = forms.CharField ( required = False )
-    lake = forms.ModelChoiceField(
-        queryset=Lake.objects.all())
-    location = forms.CharField ( required = False ) 
-    temp = forms.ModelChoiceField(
-        label='Water Temperature',
-        queryset=Temp.objects.all(),
-        initial=1,
-        required = True )
-    fly = forms.ModelChoiceField(
-        queryset=Fly.objects.all(),
-        required = False )
-    fly_size = forms.CharField ( required = False ) 
-    fly_colour = forms.CharField ( required = False ) 
-    fish = forms.ModelChoiceField(
-        queryset=Fish.objects.all(), required = False )
-    
-    # --- Length Setup ---
-    length = forms.CharField ( required = False, initial=0.0 ) 
-    length_unit = forms.ChoiceField(
-        choices=[('cm', 'cm'), ('in', 'inches')],
-        widget=forms.RadioSelect,
-        initial='cm',
-        label="Unit"
-    )
-    
-    # --- Weight Setup ---
-    weight = forms.CharField ( required = False, initial=0.0 ) 
-    weight_unit = forms.ChoiceField(
-        choices=[('kg', 'kg'), ('lbs', 'lbs')],
-        widget=forms.RadioSelect,
-        initial='kg',
-        label="Unit"
-    )
-    
-    fish_swami = forms.IntegerField ( required = False, initial=0 ) 
-    num_landed = forms.IntegerField ( required = False, initial=0 ) 
-    private = forms.BooleanField( required = False, initial=False )
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('lake',          css_class='form-group col-md-3 mb-0'),
-                Column('location',      css_class='form-group col-md-3 mb-0'),
-                Column('temp',          css_class='form-group col-md-2 mb-0'),
-                Column('catch_date',    css_class='form-group col-md-2 mb-0'),
-                Column('fish_swami',    css_class='form-group col-md-2 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('fish',          css_class='form-group col-md-3 mb-0'),
-                Column('length',        css_class='form-group col-md-2 mb-0'),
-                Column('length_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
-                # Placed weight and weight_unit right next to length
-                Column('weight',        css_class='form-group col-md-2 mb-0'),
-                Column('weight_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
-                Column('num_landed',    css_class='form-group col-md-2 mb-0'),
-                Column('private',       css_class='form-group col-md-1 mb-0 pt-4'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('fly',           css_class='form-group col-md-4 mb-0'),
-                Column('fly_size',      css_class='form-group col-md-4 mb-0'),
-                Column('fly_colour',    css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('notes',         css_class='form-group col-md-12 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column(css_class='form-group col-md-7 text-end'),
-                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
-                Column(FormActions(
-                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
-                ),  css_class='btn-primary col-md-3'),
-                css_class='form-row'
-            ),
-        )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        
-        # 1. Clean & Convert Length
-        length_val = cleaned_data.get('length')
-        l_unit = cleaned_data.get('length_unit')
-        if length_val:
-            try:
-                float_length = float(length_val)
-                if l_unit == 'in':
-                    float_length = float_length * 2.54
-                cleaned_data['length'] = str(round(float_length, 2))
-            except ValueError:
-                pass
-
-        # 2. Clean & Convert Weight
-        weight_val = cleaned_data.get('weight')
-        w_unit = cleaned_data.get('weight_unit')
-        if weight_val:
-            try:
-                float_weight = float(weight_val)
-                if w_unit == 'lbs':
-                    # Convert pounds to kilograms (1 lb ≈ 0.45359237 kg)
-                    float_weight = float_weight * 0.45359237
-                cleaned_data['weight'] = str(round(float_weight, 2))
-            except ValueError:
-                pass
-                
-        return cleaned_data
-'''
-
-class New_Log_Form (forms.ModelForm): 
-    
-    class Meta:
-        model = Log
-        fields = ['catch_date', 'catch_time', 'notes', 'lake', 'location', 
-            'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 
-            'weight', 'fish_swami', 'num_landed', 'private', 
-            "lake_depth", "gps_lat", "gps_long", "catch_depth", "live"]
-        
-    # Change initial=timezone.now to initial=timezone.localdate
-    catch_date = forms.DateField(
-        initial=timezone.now,  # <-- FIXED: Fetches the local date based on your timezone setting
+        initial=timezone.localdate,
         input_formats=['%Y-%m-%d', '%m/%d/%Y'],
-        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+        widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'form-control'})
     )
         
     catch_time = forms.TimeField(
         required=False, 
         input_formats=['%H:%M', '%H:%M:%S'],
-        widget=forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'})
+        widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time', 'class': 'form-control'})
     )
             
     notes = forms.CharField(
@@ -385,7 +257,8 @@ class New_Log_Form (forms.ModelForm):
         label='Water Temperature',
         queryset=Temp.objects.all(),
         initial=1,
-        required=True)
+        required=True
+    )
     fly = forms.ModelChoiceField(queryset=Fly.objects.all(), required=False)
     fly_size = forms.CharField(required=False) 
     fly_colour = forms.CharField(required=False) 
@@ -480,48 +353,41 @@ class New_Log_Form (forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        
-        # 1. TIME PRESERVATION LOGIC
-        # Look at the raw submitted POST data directly to see if the user provided a time string
-        has_raw_time = self.data and self.data.get('catch_time')
-        is_updating = self.instance and self.instance.pk is not None
 
-        if is_updating:
-            # If we are editing, ONLY alter the time if the user deliberately wiped the field blank
-            if not cleaned_data.get('catch_time') and not has_raw_time:
-                cleaned_data['catch_time'] = self.instance.catch_time
-        else:
-            # We are creating a brand NEW log
-            is_live = cleaned_data.get('live') or request.user_agent.is_mobile
-            if not is_live and not has_raw_time:
-                cleaned_data['gps_lat'] = None
-                cleaned_data['gps_long'] = None
-                cleaned_data['catch_time'] = None
-
-        # 2. LENGTH CONVERSION
+        # 1. LENGTH CONVERSION & VALIDATION
         length_val = cleaned_data.get('length')
         l_unit = cleaned_data.get('length_unit')
-        if length_val:
+        if length_val not in (None, ''):
             try:
                 float_length = float(length_val)
                 if l_unit == 'in':
                     float_length = float_length * 2.54
-                cleaned_data['length'] = str(round(float_length, 2))
-            except ValueError:
-                pass
+                cleaned_data['length'] = round(float_length, 2)
+            except (ValueError, TypeError):
+                self.add_error('length', 'Please enter a valid number for length.')
+        else:
+            cleaned_data['length'] = 0.0
 
-        # 3. WEIGHT CONVERSION
+        # 2. WEIGHT CONVERSION & VALIDATION
         weight_val = cleaned_data.get('weight')
         w_unit = cleaned_data.get('weight_unit')
-        if weight_val:
+        if weight_val not in (None, ''):
             try:
                 float_weight = float(weight_val)
                 if w_unit == 'lbs':
                     float_weight = float_weight * 0.45359237
-                cleaned_data['weight'] = str(round(float_weight, 2))
-            except ValueError:
-                pass
-                
+                cleaned_data['weight'] = round(float_weight, 2)
+            except (ValueError, TypeError):
+                self.add_error('weight', 'Please enter a valid number for weight.')
+        else:
+            cleaned_data['weight'] = 0.0
+
+        # 3. FISH_SWAMI & NUM_LANDED DEFAULTS
+        if cleaned_data.get('fish_swami') is None:
+            cleaned_data['fish_swami'] = 0
+        if cleaned_data.get('num_landed') is None:
+            cleaned_data['num_landed'] = 0
+
         return cleaned_data
         
 class Plan_form (forms.ModelForm):
