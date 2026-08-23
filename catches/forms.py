@@ -492,7 +492,7 @@ class New_Log_Form (forms.ModelForm):
                 cleaned_data['catch_time'] = self.instance.catch_time
         else:
             # We are creating a brand NEW log
-            is_live = cleaned_data.get('live')
+            is_live = cleaned_data.get('live') or request.user_agent.is_mobile
             if not is_live and not has_raw_time:
                 cleaned_data['gps_lat'] = None
                 cleaned_data['gps_long'] = None
