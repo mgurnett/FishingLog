@@ -956,7 +956,7 @@ class LogDuplicateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView)
         initial['temp'] = log.temp
         initial['catch_date'] = log.catch_date
         initial['catch_time'] = log.catch_time
-        initial['record_date'] = timezone.localdate()
+        initial['record_date'] = datetime.date.today()
         initial['location'] = log.location
         initial['length'] = log.length
         initial['weight'] = log.weight

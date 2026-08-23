@@ -17,10 +17,22 @@
         const liveCheckbox = document.getElementById("id_live");
         const latInput = document.getElementById("id_gps_lat");
         const longInput = document.getElementById("id_gps_long");
-        const timeInput = document.getElementById("id_catch_time"); // Target the time field
+        const timeInput = document.getElementById("id_catch_time");
+        const form = document.querySelector("form");
 
-        function fetchGPSAndTime() {
-            // 1. Immediately set the time field to the current local time
+        let gpsPending = false;
+
+        function isMobileDevice() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+            const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+            const isMobileUA = mobileRegex.test(ua);
+            const isIPadOS = /Macintosh/i.test(ua) && navigator.maxTouchPoints > 1;
+            const isTouchMobileScreen = (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
+            return isMobileUA || isIPadOS || isTouchMobileScreen;
+        }
+
+        function fetchGPSAndTime(onComplete) {
+            // 1. Immediately set the time field to current local time
             if (timeInput) {
                 const now = new Date();
                 const hours = String(now.getHours()).padStart(2, '0');
@@ -29,26 +41,60 @@
             }
 
             // 2. Fetch the GPS coordinates
-            if (navigator.geolocation) {
+            if (!navigator.geolocation) {
+                if (latInput && longInput) {
+                    latInput.placeholder = "Unavailable";
+                    longInput.placeholder = "Unavailable";
+                }
+                if (onComplete) onComplete();
+                return;
+            }
+
+            if (latInput && longInput) {
                 latInput.placeholder = "Locating...";
                 longInput.placeholder = "Locating...";
-                
+            }
+            gpsPending = true;
+
+            function setPosition(position) {
+                if (latInput && longInput) {
+                    latInput.value = position.coords.latitude.toFixed(6);
+                    longInput.value = position.coords.longitude.toFixed(6);
+                    latInput.placeholder = "";
+                    longInput.placeholder = "";
+                }
+                gpsPending = false;
+                if (onComplete) onComplete();
+            }
+
+            function fallbackLocation() {
                 navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        latInput.value = position.coords.latitude.toFixed(6);
-                        longInput.value = position.coords.longitude.toFixed(6);
-                    },
+                    setPosition,
                     function (error) {
-                        console.warn("GPS tracking error: " + error.message);
-                        latInput.placeholder = "Unavailable";
-                        longInput.placeholder = "Unavailable";
+                        console.warn("GPS tracking error:", error.message);
+                        if (latInput && longInput) {
+                            latInput.placeholder = "Unavailable";
+                            longInput.placeholder = "Unavailable";
+                        }
+                        gpsPending = false;
+                        if (onComplete) onComplete();
                     },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                    { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
                 );
             }
+
+            navigator.geolocation.getCurrentPosition(
+                setPosition,
+                function (error) {
+                    // If high accuracy fails or times out, try standard accuracy
+                    fallbackLocation();
+                },
+                { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 }
+            );
         }
 
         function clearGPSAndTime() {
+            gpsPending = false;
             if (latInput && longInput) {
                 latInput.value = "";
                 longInput.value = "";
@@ -62,6 +108,12 @@
         }
 
         if (liveCheckbox) {
+            {% if not form.is_bound and not form.instance.pk %}
+            if (isMobileDevice()) {
+                liveCheckbox.checked = true;
+            }
+            {% endif %}
+
             liveCheckbox.addEventListener("change", function () {
                 if (this.checked) {
                     fetchGPSAndTime();
@@ -70,9 +122,37 @@
                 }
             });
 
-            if (liveCheckbox.checked && (!latInput.value || !timeInput.value)) {
+            if (liveCheckbox.checked) {
                 fetchGPSAndTime();
             }
+        }
+
+        // Ensure GPS coordinates are populated if submitted while locating
+        if (form) {
+            form.addEventListener("submit", function (e) {
+                if (liveCheckbox && liveCheckbox.checked && gpsPending && (!latInput.value || !longInput.value)) {
+                    e.preventDefault();
+                    const submitBtn = form.querySelector('input[type="submit"], button[type="submit"]');
+                    const origText = submitBtn ? (submitBtn.value || submitBtn.innerText) : "";
+                    if (submitBtn) {
+                        if (submitBtn.tagName === "INPUT") submitBtn.value = "Acquiring GPS...";
+                        else submitBtn.innerText = "Acquiring GPS...";
+                        submitBtn.disabled = true;
+                    }
+
+                    const fallbackTimer = setTimeout(function () {
+                        form.submit();
+                    }, 3500);
+
+                    const pollTimer = setInterval(function () {
+                        if (!gpsPending || (latInput && latInput.value)) {
+                            clearInterval(pollTimer);
+                            clearTimeout(fallbackTimer);
+                            form.submit();
+                        }
+                    }, 150);
+                }
+            });
         }
     });
 </script>

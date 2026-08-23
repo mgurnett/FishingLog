@@ -235,7 +235,7 @@ class New_Log_Form(forms.ModelForm):
         ]
         
     catch_date = forms.DateField(
-        initial=timezone.localdate,
+        initial=datetime.date.today,
         input_formats=['%Y-%m-%d', '%m/%d/%Y'],
         widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'form-control'})
     )
