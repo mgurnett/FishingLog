@@ -234,3 +234,14 @@ def get_historical_weather(lat, lon, dt_timestamp):
     except requests.exceptions.RequestException:
         pass
     return None
+
+def get_current_weather(lat, lon):
+    url = f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={OW_API_KEY}'
+    try:
+        response = requests.get(url, timeout=5)
+        if response.status_code == 200:
+            return response.json()
+    except requests.exceptions.RequestException:
+        pass
+    return None
+

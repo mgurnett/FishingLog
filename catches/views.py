@@ -5,7 +5,7 @@ from users.models import Profile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils import timezone
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, JsonResponse
 from django.views.generic.edit import FormMixin
 from django.urls import reverse_lazy  #lets you call urls by name 
 from django.core.management import BaseCommand
@@ -15,12 +15,14 @@ from taggit.models import Tag
 import pandas as pd
 import plotly.express as px
 import markdown
+import json
 from .context_processors import *
 
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
-from django.contrib.auth.mixins import PermissionRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.views.generic.base import TemplateView
 from django.views.generic import (
     ListView,
@@ -1588,3 +1590,299 @@ def system_errors_dashboard(request):
 
 class NotAllowed (TemplateView):
     template_name = '403.html'
+
+
+class MobileLogView(LoginRequiredMixin, TemplateView):
+    template_name = 'catches/mobile_log.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect_to_login(
+                request.get_full_path(),
+                reverse_lazy('login'),
+                'next'
+            )
+
+        # Device detection via django-user-agents
+        user_agent = getattr(request, 'user_agent', None)
+        is_mobile = bool(user_agent and (user_agent.is_mobile or user_agent.is_tablet))
+        preview_mode = request.GET.get('preview') in ('1', 'true', 'mobile') or request.GET.get('mobile') in ('1', 'true')
+
+        if not is_mobile and not preview_mode:
+            return render(request, 'catches/mobile_log_desktop_blocked.html', {
+                'current_url': request.build_absolute_uri(),
+                'lake_pk': kwargs.get('lake_pk') or request.GET.get('lake')
+            })
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        import datetime as dt_module
+
+        # 1. Determine active lake
+        lake_pk = self.kwargs.get('lake_pk') or self.request.GET.get('lake')
+        selected_lake = None
+        if lake_pk:
+            selected_lake = Lake.objects.filter(pk=lake_pk).first()
+
+        if not selected_lake:
+            user_fav = Favorite.objects.filter(user=self.request.user).select_related('lake').first()
+            if user_fav:
+                selected_lake = user_fav.lake
+            else:
+                selected_lake = Lake.objects.first()
+
+        # 2. Lakes collection
+        lakes = Lake.objects.all().order_by('name')
+        fav_lake_ids = set(Favorite.objects.filter(user=self.request.user).values_list('lake_id', flat=True))
+
+        # 3. Stocked fish for selected lake
+        stocked_fish = []
+        is_fallback_fish = False
+        if selected_lake:
+            stocked_fish_qs = Fish.objects.filter(stock__lake=selected_lake).distinct().order_by('name')
+            if stocked_fish_qs.exists():
+                stocked_fish = list(stocked_fish_qs)
+            else:
+                stocked_fish = list(Fish.objects.all().order_by('name'))
+                is_fallback_fish = True
+        else:
+            stocked_fish = list(Fish.objects.all().order_by('name'))
+            is_fallback_fish = True
+
+        # 4. Flies & Fly Types
+        fly_types = Fly_type.objects.prefetch_related('fly_set').all().order_by('name')
+        all_flies = Fly.objects.select_related('fly_type', 'bug').all().order_by('name')
+
+        # 5. User recent logs & today's count
+        today_date = dt_module.date.today()
+        user_recent_logs = Log.objects.filter(angler=self.request.user).select_related('lake', 'fish', 'fly').order_by('-id')[:5]
+        today_catches_count = Log.objects.filter(angler=self.request.user, catch_date=today_date).count()
+
+        # 6. Water temps
+        temps = Temp.objects.all().order_by('name')
+
+        context.update({
+            'selected_lake': selected_lake,
+            'lakes': lakes,
+            'fav_lake_ids': fav_lake_ids,
+            'stocked_fish': stocked_fish,
+            'is_fallback_fish': is_fallback_fish,
+            'fly_types': fly_types,
+            'all_flies': all_flies,
+            'user_recent_logs': user_recent_logs,
+            'today_catches_count': today_catches_count,
+            'temps': temps,
+            'preview_mode': self.request.GET.get('preview') in ('1', 'true', 'mobile') or self.request.GET.get('mobile') in ('1', 'true'),
+        })
+        return context
+
+
+def lake_stocked_fish_api(request, lake_pk):
+    lake = Lake.objects.filter(pk=lake_pk).first()
+    if not lake:
+        return JsonResponse({'error': 'Lake not found'}, status=404)
+
+    stocks = Stock.objects.filter(lake=lake).select_related('fish').order_by('fish__name')
+    fish_dict = {}
+
+    for stock in stocks:
+        f = stock.fish
+        if f.id not in fish_dict:
+            fish_dict[f.id] = {
+                'id': f.id,
+                'name': f.name,
+                'abbreviation': f.abbreviation,
+                'image_url': f.image.url if f.image else None,
+                'static_tag': f.static_tag,
+                'strains': set(),
+                'latest_stock_date': stock.date_stocked.strftime('%Y-%m-%d') if stock.date_stocked else None,
+                'total_stocked': 0,
+            }
+        if stock.strain:
+            fish_dict[f.id]['strains'].add(stock.strain)
+        if stock.number:
+            fish_dict[f.id]['total_stocked'] += stock.number
+
+    is_fallback = False
+    if not fish_dict:
+        is_fallback = True
+        for f in Fish.objects.all().order_by('name'):
+            fish_dict[f.id] = {
+                'id': f.id,
+                'name': f.name,
+                'abbreviation': f.abbreviation,
+                'image_url': f.image.url if f.image else None,
+                'static_tag': f.static_tag,
+                'strains': [],
+                'latest_stock_date': None,
+                'total_stocked': 0,
+            }
+
+    fish_list = []
+    for f_id, data in fish_dict.items():
+        data['strains'] = list(data.get('strains', []))
+        fish_list.append(data)
+
+    return JsonResponse({
+        'lake_id': lake.id,
+        'lake_name': lake.name,
+        'lake_other_name': lake.other_name,
+        'lake_lat': float(lake.lat) if lake.lat else None,
+        'lake_long': float(lake.long) if lake.long else None,
+        'is_fallback': is_fallback,
+        'fish': fish_list
+    })
+
+
+@require_POST
+def mobile_log_submit_api(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Authentication required. Please log in.'}, status=401)
+
+    import datetime as dt_module
+
+    try:
+        if request.content_type == 'application/json':
+            data = json.loads(request.body.decode('utf-8'))
+        else:
+            data = request.POST
+
+        lake_id = data.get('lake_id')
+        fish_id = data.get('fish_id')
+        fly_id = data.get('fly_id')
+        fly_size = str(data.get('fly_size', '')).strip()
+        fly_colour = str(data.get('fly_colour', '')).strip()
+
+        length_val = data.get('length')
+        length_unit = data.get('length_unit', 'in')
+
+        weight_val = data.get('weight')
+        weight_unit = data.get('weight_unit', 'lbs')
+
+        gps_lat = data.get('gps_lat')
+        gps_long = data.get('gps_long')
+        temp_id = data.get('temp_id', 1)
+        notes = str(data.get('notes', '')).strip()
+        lake_depth = data.get('lake_depth')
+        catch_depth = data.get('catch_depth')
+
+        lake = Lake.objects.filter(pk=lake_id).first()
+        if not lake:
+            return JsonResponse({'error': 'Please select a valid lake.'}, status=400)
+
+        fish = Fish.objects.filter(pk=fish_id).first() if fish_id else None
+        fly = Fly.objects.filter(pk=fly_id).first() if fly_id else None
+        temp = Temp.objects.filter(pk=temp_id).first() if temp_id else Temp.objects.first()
+
+        # Length unit conversion to CM (system model convention)
+        float_length_cm = 0.0
+        if length_val not in (None, '', '0', 0):
+            try:
+                raw_len = float(length_val)
+                if length_unit == 'in':
+                    float_length_cm = round(raw_len * 2.54, 2)
+                else:
+                    float_length_cm = round(raw_len, 2)
+            except (ValueError, TypeError):
+                float_length_cm = 0.0
+
+        # Weight unit conversion to KG (system model convention)
+        float_weight_kg = 0.0
+        if weight_val not in (None, '', '0', 0):
+            try:
+                raw_wt = float(weight_val)
+                if weight_unit == 'lbs':
+                    float_weight_kg = round(raw_wt * 0.45359237, 2)
+                else:
+                    float_weight_kg = round(raw_wt, 2)
+            except (ValueError, TypeError):
+                float_weight_kg = 0.0
+
+        # Float GPS parsing with fallback to lake lat/long
+        parsed_lat = None
+        parsed_long = None
+        if gps_lat not in (None, ''):
+            try:
+                parsed_lat = float(gps_lat)
+            except (ValueError, TypeError):
+                pass
+        if gps_long not in (None, ''):
+            try:
+                parsed_long = float(gps_long)
+            except (ValueError, TypeError):
+                pass
+
+        if parsed_lat is None and lake.lat:
+            parsed_lat = float(lake.lat)
+        if parsed_long is None and lake.long:
+            parsed_long = float(lake.long)
+
+        # Depths
+        p_lake_depth = float(lake_depth) if lake_depth not in (None, '') else None
+        p_catch_depth = float(catch_depth) if catch_depth not in (None, '') else None
+
+        # Create Log instance
+        now_dt = dt_module.datetime.now()
+        log = Log.objects.create(
+            angler=request.user,
+            lake=lake,
+            fish=fish,
+            fly=fly,
+            fly_size=fly_size,
+            fly_colour=fly_colour,
+            length=float_length_cm,
+            weight=float_weight_kg,
+            temp=temp or Temp.objects.first(),
+            gps_lat=parsed_lat,
+            gps_long=parsed_long,
+            lake_depth=p_lake_depth,
+            catch_depth=p_catch_depth,
+            catch_date=now_dt.date(),
+            catch_time=now_dt.time(),
+            notes=notes if notes else None
+        )
+
+        today_catches = Log.objects.filter(
+            angler=request.user, 
+            catch_date=now_dt.date()
+        ).count()
+
+        weather_info = None
+        log.refresh_from_db()
+        if hasattr(log, 'weather') and log.weather:
+            w = log.weather
+            weather_info = {
+                'temp': w.temp,
+                'feels_like': w.feels_like,
+                'description': w.description,
+                'wind_speed': w.wind_speed,
+                'wind_deg': w.wind_deg,
+                'humidity': w.humidity,
+                'clouds': w.clouds,
+                'icon': w.icon,
+            }
+
+        return JsonResponse({
+            'success': True,
+            'log_id': log.id,
+            'catch_date': log.catch_date.strftime('%Y-%m-%d'),
+            'catch_time': log.catch_time.strftime('%H:%M') if log.catch_time else '',
+            'lake_name': lake.name,
+            'fish_name': fish.name if fish else 'Unspecified',
+            'fish_image': fish.image.url if fish and fish.image else None,
+            'fly_name': fly.name if fly else '',
+            'length_in': log.len_inch,
+            'length_cm': log.length,
+            'weight_lbs': log.wen_lbs,
+            'weight_kg': log.weight,
+            'gps_lat': log.gps_lat,
+            'gps_long': log.gps_long,
+            'today_catches_count': today_catches,
+            'weather': weather_info,
+            'message': f"Catch #{today_catches} logged successfully!"
+        })
+    except Exception as e:
+        return JsonResponse({'error': f"Failed to log catch: {str(e)}"}, status=500)
+

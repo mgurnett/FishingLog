@@ -160,4 +160,11 @@ urlpatterns = [
     path ('weather2/<int:pk>/', views.Weather2.as_view(), name ="weather2" ),
     path ('weather/local/', views.LocalWeatherView.as_view(), name='local_weather_view' ),
 
+    # Mobile Log Interface & APIs
+    path ('mobile-log/', views.MobileLogView.as_view(), name='mobile_log'),
+    path ('mobile-log/<int:lake_pk>/', views.MobileLogView.as_view(), name='mobile_log_lake'),
+    path ('api/lake-stocked-fish/<int:lake_pk>/', views.lake_stocked_fish_api, name='api_lake_stocked_fish'),
+    path ('api/mobile-log-submit/', views.mobile_log_submit_api, name='api_mobile_log_submit'),
+
 ]
+

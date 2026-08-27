@@ -1,0 +1,1069 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Quick Mobile Catch Log | FishingLog</title>
+
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --surface-card: #131d2e;
+            --surface-card-hover: #1c2b42;
+            --surface-glass: rgba(19, 29, 46, 0.88);
+            --border-glow: rgba(56, 189, 248, 0.25);
+            --accent-cyan: #38bdf8;
+            --accent-teal: #2dd4bf;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Glassmorphism Header */
+        .app-header {
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            padding: 10px 16px;
+        }
+
+        /* Cards & Surfaces */
+        .glass-card {
+            background: var(--surface-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .glass-card-header {
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px 16px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        /* GPS Status Pill */
+        .gps-pill {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gps-pill.ready { border-color: rgba(16, 185, 129, 0.5); color: #34d399; }
+        .gps-pill.locating { border-color: rgba(245, 158, 11, 0.5); color: #fbbf24; }
+        .gps-pill.fallback { border-color: rgba(56, 189, 248, 0.5); color: #7dd3fc; }
+        .gps-pill.offline { border-color: rgba(239, 68, 68, 0.5); color: #f87171; }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .pulse-dot.ready { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .pulse-dot.locating { background: #f59e0b; animation: blink 1s infinite alternate; }
+        .pulse-dot.fallback { background: #38bdf8; }
+
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Chip Controls */
+        .chip-group {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .chip-group::-webkit-scrollbar { display: none; }
+
+        .chip-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            border-radius: 24px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .chip-btn:active, .chip-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+            border-color: var(--accent-cyan);
+            color: #0f172a;
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.4);
+            transform: scale(0.97);
+        }
+
+        /* Steppers */
+        .stepper-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.1s ease;
+        }
+        .stepper-btn:active {
+            background: var(--accent-cyan);
+            color: #0f172a;
+            transform: scale(0.92);
+        }
+
+        .stepper-input {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #38bdf8;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 12px;
+            height: 44px;
+        }
+
+        /* Unit Switcher */
+        .unit-switch {
+            display: inline-flex;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2px;
+        }
+        .unit-switch-btn {
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 18px;
+            transition: all 0.15s ease;
+        }
+        .unit-switch-btn.active {
+            background: var(--accent-cyan);
+            color: #090d16;
+        }
+
+        /* Fish Species Cards Grid */
+        .fish-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (min-width: 500px) {
+            .fish-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .fish-card {
+            background: linear-gradient(180deg, rgba(28, 43, 66, 0.9) 0%, rgba(19, 29, 46, 0.95) 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .fish-card:active {
+            transform: scale(0.94);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+        }
+
+        .fish-card.logging {
+            animation: pulse-ring 1s infinite alternate;
+            border-color: #38bdf8;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.96); box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
+            100% { transform: scale(1.02); box-shadow: 0 0 25px rgba(56, 189, 248, 0.8); }
+        }
+
+        .fish-img-wrap {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            background: rgba(10, 15, 26, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fish-img-wrap img {
+            max-height: 90%;
+            max-width: 95%;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+        }
+
+        .fish-card:active .fish-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .fish-abbr-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            backdrop-filter: blur(4px);
+        }
+
+        .fish-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tap-action-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-cyan);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 12px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        /* Success Toast/Modal */
+        .catch-success-card {
+            background: linear-gradient(145deg, #064e3b, #065f46);
+            border: 1px solid #10b981;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.3);
+            color: white;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Bottom Fixed Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 16px;
+            z-index: 1010;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top App Header -->
+    <header class="app-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <a href="{% url 'catch_home' %}" class="btn btn-sm btn-outline-secondary border-0 p-1 text-light">
+                    <i class="bi bi-arrow-left-circle fs-4"></i>
+                </a>
+                <div>
+                    <div class="d-flex align-items-center gap-2">
+                        <h5 class="mb-0 fw-bold brand-font text-white" style="letter-spacing: -0.3px;">Quick Catch</h5>
+                        <span class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-25" style="font-size: 0.65rem;">MOBILE LOG</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-1">
+                        <span id="gpsStatusPill" class="gps-pill locating">
+                            <span id="gpsDot" class="pulse-dot locating"></span>
+                            <span id="gpsText">Acquiring GPS...</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-end">
+                <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-2 py-1 rounded-pill" id="todayCatchesPill">
+                    <i class="bi bi-check-circle-fill me-1"></i><span id="catchCountVal">{{ today_catches_count }}</span> Caught Today
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container-fluid px-3 pt-3">
+        
+        <!-- SECTION 1: LAKE SELECTION -->
+        <div class="glass-card mb-3">
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label text-muted small fw-bold mb-0 text-uppercase" style="letter-spacing: 0.5px;">
+                        <i class="bi bi-geo-alt-fill text-danger me-1"></i> Fishing Location / Lake
+                    </label>
+                    <span id="stockCountBadge" class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 small">
+                        {{ stocked_fish|length }} Stocked Species
+                    </span>
+                </div>
+                
+                <div class="input-group">
+                    <select id="lakeSelect" class="form-select bg-dark text-white border-secondary border-opacity-50 py-2 fs-6 fw-semibold rounded-3 shadow-none">
+                        {% for lake in lakes %}
+                            <option value="{{ lake.id }}" 
+                                    data-lat="{{ lake.lat|default_if_none:'' }}" 
+                                    data-long="{{ lake.long|default_if_none:'' }}"
+                                    data-name="{{ lake.name }}"
+                                    data-other="{{ lake.other_name }}"
+                                    {% if selected_lake and selected_lake.id == lake.id %}selected{% endif %}>
+                                {% if lake.id in fav_lake_ids %}⭐ {% endif %}{{ lake.name }}{% if lake.other_name %} ({{ lake.other_name }}){% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: RIG & FLY SETUP -->
+        <div class="glass-card mb-3">
+            <div class="glass-card-header d-flex justify-content-between align-items-center py-2 px-3">
+                <span class="small fw-bold text-uppercase text-muted">
+                    <i class="bi bi-feather text-warning me-1"></i> Active Fly & Rig
+                </span>
+                <button class="btn btn-sm text-info p-0 small fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flyDetailsCollapse" aria-expanded="false">
+                    <span id="flySummaryBadge">Select Fly</span> <i class="bi bi-chevron-down ms-1"></i>
+                </button>
+            </div>
+            
+            <div class="p-3">
+                <div class="row g-2 mb-2">
+                    <div class="col-12">
+                        <select id="flySelect" class="form-select form-select-sm bg-dark text-white border-secondary border-opacity-50 py-2 fw-medium rounded-3">
+                            <option value="">-- Select Fly Pattern (Optional) --</option>
+                            {% for fly in all_flies %}
+                                <option value="{{ fly.id }}" data-name="{{ fly.name }}" data-type="{{ fly.fly_type.name|default:'' }}">
+                                    {{ fly.name }}{% if fly.fly_type %} ({{ fly.fly_type.name }}){% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fly Size & Colour Quick Chips -->
+                <div class="collapse show" id="flyDetailsCollapse">
+                    <div class="mt-2">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small text-muted fw-semibold">Hook Size:</span>
+                            <span id="activeSizeLabel" class="small text-info fw-bold">#14</span>
+                        </div>
+                        <div class="chip-group" id="sizeChipGroup">
+                            <button type="button" class="chip-btn" data-size="10">#10</button>
+                            <button type="button" class="chip-btn" data-size="12">#12</button>
+                            <button type="button" class="chip-btn active" data-size="14">#14</button>
+                            <button type="button" class="chip-btn" data-size="16">#16</button>
+                            <button type="button" class="chip-btn" data-size="18">#18</button>
+                            <button type="button" class="chip-btn" data-size="20">#20</button>
+                            <button type="button" class="chip-btn" data-size="Custom">Custom</button>
+                        </div>
+                        <input type="text" id="customSizeInput" class="form-control form-control-sm bg-dark text-white border-secondary border-opacity-50 mt-2 d-none" placeholder="Enter custom size (e.g. 6/0, 8L)">
+                    </div>
+
+                    <div class="mt-2 pt-1">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small text-muted fw-semibold">Colour:</span>
+                            <span id="activeColourLabel" class="small text-info fw-bold">Black</span>
+                        </div>
+                        <div class="chip-group" id="colourChipGroup">
+                            <button type="button" class="chip-btn active" data-colour="Black">Black</button>
+                            <button type="button" class="chip-btn" data-colour="Olive">Olive</button>
+                            <button type="button" class="chip-btn" data-colour="Red">Red</button>
+                            <button type="button" class="chip-btn" data-colour="Tan">Tan</button>
+                            <button type="button" class="chip-btn" data-colour="Peacock">Peacock</button>
+                            <button type="button" class="chip-btn" data-colour="White">White</button>
+                            <button type="button" class="chip-btn" data-colour="Brown">Brown</button>
+                            <button type="button" class="chip-btn" data-colour="Custom">Other</button>
+                        </div>
+                        <input type="text" id="customColourInput" class="form-control form-control-sm bg-dark text-white border-secondary border-opacity-50 mt-2 d-none" placeholder="Enter custom colour">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: FISH MEASUREMENTS (LENGTH & WEIGHT) -->
+        <div class="glass-card mb-3">
+            <div class="p-3">
+                <!-- Length Row -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small fw-bold text-uppercase text-muted">
+                        <i class="bi bi-rulers text-info me-1"></i> Fish Length
+                    </span>
+                    <div class="unit-switch" id="lengthUnitSwitch">
+                        <button type="button" class="unit-switch-btn active" data-unit="in">INCHES</button>
+                        <button type="button" class="unit-switch-btn" data-unit="cm">CM</button>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <button type="button" class="stepper-btn" id="lenDecBtn"><i class="bi bi-dash"></i></button>
+                    <input type="number" step="0.5" id="lengthInput" class="form-control stepper-input" value="16.0" placeholder="0.0">
+                    <button type="button" class="stepper-btn" id="lenIncBtn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- Length Quick Presets (Inches) -->
+                <div class="chip-group mb-3" id="lengthPresets">
+                    <button type="button" class="chip-btn" data-len="12">12"</button>
+                    <button type="button" class="chip-btn" data-len="14">14"</button>
+                    <button type="button" class="chip-btn active" data-len="16">16"</button>
+                    <button type="button" class="chip-btn" data-len="18">18"</button>
+                    <button type="button" class="chip-btn" data-len="20">20"</button>
+                    <button type="button" class="chip-btn" data-len="22">22"</button>
+                    <button type="button" class="chip-btn" data-len="24">24"+</button>
+                </div>
+
+                <!-- Weight Accordion (Optional) -->
+                <div class="border-top border-secondary border-opacity-25 pt-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a class="text-decoration-none small text-muted fw-semibold" data-bs-toggle="collapse" href="#weightCollapse" role="button">
+                            <i class="bi bi-speedometer2 me-1"></i> Add Weight (Optional) <i class="bi bi-chevron-down ms-1"></i>
+                        </a>
+                        <div class="unit-switch collapse" id="weightUnitSwitchWrapper">
+                            <div class="unit-switch" id="weightUnitSwitch">
+                                <button type="button" class="unit-switch-btn active" data-unit="lbs">LBS</button>
+                                <button type="button" class="unit-switch-btn" data-unit="kg">KG</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse mt-2" id="weightCollapse">
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="button" class="stepper-btn" id="wtDecBtn"><i class="bi bi-dash"></i></button>
+                            <input type="number" step="0.25" id="weightInput" class="form-control stepper-input" value="0.0" placeholder="0.0">
+                            <button type="button" class="stepper-btn" id="wtIncBtn"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: STOCKED FISH SPECIES - TAP TO LOG -->
+        <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                <div>
+                    <h6 class="fw-bold mb-0 text-white brand-font">
+                        <i class="bi bi-water text-primary me-1"></i> Tap Fish to Log Catch
+                    </h6>
+                    <small class="text-muted" id="fishGridSubtitle">Species stocked in <span id="lakeSubtitleName">{{ selected_lake.name }}</span></small>
+                </div>
+            </div>
+
+            <!-- Loading Spinner for dynamic lake switches -->
+            <div id="fishLoadingSpinner" class="text-center py-4 d-none">
+                <div class="spinner-border text-info" role="status">
+                    <span class="visually-hidden">Loading stocked fish...</span>
+                </div>
+                <div class="small text-muted mt-2">Loading stocked species for lake...</div>
+            </div>
+
+            <!-- Fish Cards Grid -->
+            <div class="fish-grid" id="fishGridContainer">
+                {% for fish in stocked_fish %}
+                <div class="fish-card" 
+                     data-fish-id="{{ fish.id }}" 
+                     data-fish-name="{{ fish.name }}" 
+                     data-fish-abbr="{{ fish.abbreviation }}">
+                    <div class="fish-img-wrap">
+                        {% if fish.image %}
+                            <img src="{{ fish.image.url }}" alt="{{ fish.name }}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <i class="bi bi-water text-info fs-1" style="display: none;"></i>
+                        {% else %}
+                            <i class="bi bi-water text-info fs-1"></i>
+                        {% endif %}
+                        {% if fish.abbreviation %}
+                            <span class="fish-abbr-badge">{{ fish.abbreviation }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="fish-name" title="{{ fish.name }}">{{ fish.name }}</div>
+                    <div class="tap-action-badge">
+                        <i class="bi bi-plus-circle-fill"></i> LOG CATCH
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-4 text-muted">
+                    <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+                    No specific stocking records found. Showing all species.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </main>
+
+    <!-- SUCCESS MODAL / BOTTOM SHEET -->
+    <div class="modal fade" id="catchSuccessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm px-2">
+            <div class="modal-content catch-success-card p-3 border-0">
+                <div class="text-center">
+                    <div class="mb-2">
+                        <span class="d-inline-flex align-items-center justify-content-center bg-white text-success rounded-circle shadow" style="width: 54px; height: 54px; font-size: 1.8rem;">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                    </div>
+
+                    <h4 class="fw-bold mb-1 brand-font text-white" id="successTitle">Catch Logged!</h4>
+                    <p class="small text-white text-opacity-75 mb-3" id="successSubtitle">Saved with GPS & Live Weather</p>
+
+                    <!-- Catch Summary Card -->
+                    <div class="bg-dark bg-opacity-40 rounded-3 p-3 text-start mb-3 border border-white border-opacity-10">
+                        <div class="d-flex align-items-center gap-3 mb-2 pb-2 border-bottom border-white border-opacity-10">
+                            <img id="successFishImg" src="" alt="Fish" style="width: 60px; height: 40px; object-fit: contain;" class="rounded bg-black bg-opacity-30 p-1">
+                            <div>
+                                <h6 class="mb-0 fw-bold text-white" id="successFishName">Rainbow Trout</h6>
+                                <span class="small text-info fw-bold" id="successSizeText">16.0" (40.6 cm)</span>
+                            </div>
+                        </div>
+
+                        <div class="small text-light text-opacity-90 space-y-1">
+                            <div class="d-flex justify-content-between py-1">
+                                <span class="text-white text-opacity-60"><i class="bi bi-geo-alt me-1"></i>Location:</span>
+                                <span class="fw-semibold text-end" id="successLakeName">Lake</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-1">
+                                <span class="text-white text-opacity-60"><i class="bi bi-feather me-1"></i>Fly Rig:</span>
+                                <span class="fw-semibold text-end" id="successFlyText">Chironomid #14</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-1 border-top border-white border-opacity-10 mt-1 pt-1" id="successWeatherRow">
+                                <span class="text-white text-opacity-60"><i class="bi bi-cloud-sun me-1"></i>Weather:</span>
+                                <span class="fw-semibold text-end" id="successWeatherText">18°C, Partly Cloudy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-light btn-lg w-100 fw-bold text-success rounded-pill shadow-sm mb-2" data-bs-dismiss="modal">
+                        <i class="bi bi-plus-circle me-1"></i> Log Next Fish
+                    </button>
+                    <a href="{% url 'log_list' %}" class="btn btn-sm btn-link text-white text-opacity-75 text-decoration-none">
+                        View Log History &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSRF Helper Form -->
+    <form id="csrfForm" class="d-none">
+        {% csrf_token %}
+    </form>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // State
+            let currentLat = null;
+            let currentLong = null;
+            let gpsStatus = "locating"; // "ready", "locating", "fallback", "offline"
+            let activeLengthUnit = "in";
+            let activeWeightUnit = "lbs";
+            let activeFlySize = "#14";
+            let activeFlyColour = "Black";
+            let isLogging = false;
+
+            // DOM Elements
+            const lakeSelect = document.getElementById("lakeSelect");
+            const flySelect = document.getElementById("flySelect");
+            const lengthInput = document.getElementById("lengthInput");
+            const weightInput = document.getElementById("weightInput");
+            const lengthUnitSwitch = document.getElementById("lengthUnitSwitch");
+            const weightUnitSwitch = document.getElementById("weightUnitSwitch");
+            const gpsStatusPill = document.getElementById("gpsStatusPill");
+            const gpsDot = document.getElementById("gpsDot");
+            const gpsText = document.getElementById("gpsText");
+            const fishGridContainer = document.getElementById("fishGridContainer");
+            const fishLoadingSpinner = document.getElementById("fishLoadingSpinner");
+            const lakeSubtitleName = document.getElementById("lakeSubtitleName");
+            const stockCountBadge = document.getElementById("stockCountBadge");
+            const flySummaryBadge = document.getElementById("flySummaryBadge");
+            const catchCountVal = document.getElementById("catchCountVal");
+            const successModal = new bootstrap.Modal(document.getElementById("catchSuccessModal"));
+
+            // 1. Geolocation Tracking
+            function initGPS() {
+                if (!navigator.geolocation) {
+                    setGPSStatus("fallback", "GPS Not Supported");
+                    return;
+                }
+
+                setGPSStatus("locating", "Acquiring GPS...");
+
+                function onPosSuccess(pos) {
+                    currentLat = pos.coords.latitude;
+                    currentLong = pos.coords.longitude;
+                    const accuracy = Math.round(pos.coords.accuracy);
+                    setGPSStatus("ready", `GPS Live (±${accuracy}m)`);
+                }
+
+                function onPosError(err) {
+                    console.warn("GPS Warning:", err.message);
+                    // Use lake coordinates as fallback
+                    const opt = lakeSelect.options[lakeSelect.selectedIndex];
+                    if (opt && opt.dataset.lat && opt.dataset.long) {
+                        currentLat = parseFloat(opt.dataset.lat);
+                        currentLong = parseFloat(opt.dataset.long);
+                        setGPSStatus("fallback", "Using Lake GPS");
+                    } else {
+                        setGPSStatus("offline", "GPS Unavailable");
+                    }
+                }
+
+                navigator.geolocation.getCurrentPosition(onPosSuccess, onPosError, {
+                    enableHighAccuracy: true,
+                    timeout: 8000,
+                    maximumAge: 60000
+                });
+
+                // Periodic watch
+                try {
+                    navigator.geolocation.watchPosition(onPosSuccess, onPosError, {
+                        enableHighAccuracy: true,
+                        maximumAge: 30000
+                    });
+                } catch(e) {}
+            }
+
+            function setGPSStatus(status, text) {
+                gpsStatus = status;
+                gpsStatusPill.className = `gps-pill ${status}`;
+                gpsDot.className = `pulse-dot ${status}`;
+                gpsText.innerText = text;
+            }
+
+            // 2. Local Storage Session Memory (Restore Fly & Size)
+            function loadSavedSettings() {
+                try {
+                    const savedLake = localStorage.getItem("fl_mobile_lake");
+                    if (savedLake && lakeSelect.querySelector(`option[value="${savedLake}"]`)) {
+                        lakeSelect.value = savedLake;
+                    }
+
+                    const savedFly = localStorage.getItem("fl_mobile_fly");
+                    if (savedFly && flySelect.querySelector(`option[value="${savedFly}"]`)) {
+                        flySelect.value = savedFly;
+                    }
+
+                    const savedSize = localStorage.getItem("fl_mobile_size");
+                    if (savedSize) {
+                        activeFlySize = savedSize;
+                        document.querySelectorAll("#sizeChipGroup .chip-btn").forEach(btn => {
+                            btn.classList.toggle("active", btn.dataset.size === savedSize);
+                        });
+                        document.getElementById("activeSizeLabel").innerText = savedSize.startsWith('#') ? savedSize : `#${savedSize}`;
+                    }
+
+                    const savedColour = localStorage.getItem("fl_mobile_colour");
+                    if (savedColour) {
+                        activeFlyColour = savedColour;
+                        document.querySelectorAll("#colourChipGroup .chip-btn").forEach(btn => {
+                            btn.classList.toggle("active", btn.dataset.colour === savedColour);
+                        });
+                        document.getElementById("activeColourLabel").innerText = savedColour;
+                    }
+
+                    updateFlySummary();
+                } catch(e) {}
+            }
+
+            function updateFlySummary() {
+                const flyOpt = flySelect.options[flySelect.selectedIndex];
+                const flyName = flyOpt && flyOpt.value ? flyOpt.dataset.name : "No Fly Selected";
+                const sizeText = activeFlySize ? (activeFlySize.startsWith('#') ? activeFlySize : `#${activeFlySize}`) : "";
+                flySummaryBadge.innerText = `${flyName} ${sizeText} (${activeFlyColour})`.trim();
+            }
+
+            // 3. Length & Weight Steppers & Presets
+            document.getElementById("lenIncBtn").addEventListener("click", () => {
+                const step = activeLengthUnit === "in" ? 0.5 : 1.0;
+                lengthInput.value = (parseFloat(lengthInput.value || 0) + step).toFixed(1);
+            });
+            document.getElementById("lenDecBtn").addEventListener("click", () => {
+                const step = activeLengthUnit === "in" ? 0.5 : 1.0;
+                const nextVal = parseFloat(lengthInput.value || 0) - step;
+                lengthInput.value = (Math.max(0, nextVal)).toFixed(1);
+            });
+
+            document.querySelectorAll("#lengthPresets .chip-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    document.querySelectorAll("#lengthPresets .chip-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    let len = parseFloat(this.dataset.len);
+                    if (activeLengthUnit === "cm") {
+                        len = Math.round(len * 2.54);
+                    }
+                    lengthInput.value = len.toFixed(1);
+                });
+            });
+
+            // Length Unit Toggle
+            lengthUnitSwitch.querySelectorAll(".unit-switch-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    if (this.dataset.unit === activeLengthUnit) return;
+                    lengthUnitSwitch.querySelectorAll(".unit-switch-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    
+                    const oldUnit = activeLengthUnit;
+                    activeLengthUnit = this.dataset.unit;
+                    
+                    let val = parseFloat(lengthInput.value || 0);
+                    if (val > 0) {
+                        if (oldUnit === "in" && activeLengthUnit === "cm") {
+                            lengthInput.value = (val * 2.54).toFixed(1);
+                        } else if (oldUnit === "cm" && activeLengthUnit === "in") {
+                            lengthInput.value = (val / 2.54).toFixed(1);
+                        }
+                    }
+                });
+            });
+
+            // Weight Stepper & Toggle
+            document.getElementById("wtIncBtn").addEventListener("click", () => {
+                weightInput.value = (parseFloat(weightInput.value || 0) + 0.25).toFixed(2);
+            });
+            document.getElementById("wtDecBtn").addEventListener("click", () => {
+                const nextVal = parseFloat(weightInput.value || 0) - 0.25;
+                weightInput.value = (Math.max(0, nextVal)).toFixed(2);
+            });
+
+            // Fly Size & Colour Chips
+            document.querySelectorAll("#sizeChipGroup .chip-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    document.querySelectorAll("#sizeChipGroup .chip-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    const size = this.dataset.size;
+                    const customInput = document.getElementById("customSizeInput");
+                    if (size === "Custom") {
+                        customInput.classList.remove("d-none");
+                        customInput.focus();
+                    } else {
+                        customInput.classList.add("d-none");
+                        activeFlySize = `#${size}`;
+                        document.getElementById("activeSizeLabel").innerText = activeFlySize;
+                        localStorage.setItem("fl_mobile_size", size);
+                        updateFlySummary();
+                    }
+                });
+            });
+
+            document.getElementById("customSizeInput").addEventListener("input", function() {
+                activeFlySize = this.value;
+                document.getElementById("activeSizeLabel").innerText = activeFlySize || "Custom";
+                updateFlySummary();
+            });
+
+            document.querySelectorAll("#colourChipGroup .chip-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    document.querySelectorAll("#colourChipGroup .chip-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    const colour = this.dataset.colour;
+                    const customInput = document.getElementById("customColourInput");
+                    if (colour === "Custom") {
+                        customInput.classList.remove("d-none");
+                        customInput.focus();
+                    } else {
+                        customInput.classList.add("d-none");
+                        activeFlyColour = colour;
+                        document.getElementById("activeColourLabel").innerText = colour;
+                        localStorage.setItem("fl_mobile_colour", colour);
+                        updateFlySummary();
+                    }
+                });
+            });
+
+            document.getElementById("customColourInput").addEventListener("input", function() {
+                activeFlyColour = this.value;
+                document.getElementById("activeColourLabel").innerText = activeFlyColour || "Custom";
+                updateFlySummary();
+            });
+
+            flySelect.addEventListener("change", function() {
+                localStorage.setItem("fl_mobile_fly", this.value);
+                updateFlySummary();
+            });
+
+            // 4. Dynamic Lake Switching -> Load Stocked Fish Grid
+            lakeSelect.addEventListener("change", function () {
+                const lakeId = this.value;
+                const opt = this.options[this.selectedIndex];
+                const lakeName = opt ? opt.dataset.name : "";
+                
+                localStorage.setItem("fl_mobile_lake", lakeId);
+                lakeSubtitleName.innerText = lakeName;
+
+                if (!currentLat && opt && opt.dataset.lat) {
+                    currentLat = parseFloat(opt.dataset.lat);
+                    currentLong = parseFloat(opt.dataset.long);
+                }
+
+                loadStockedFishForLake(lakeId);
+            });
+
+            function loadStockedFishForLake(lakeId) {
+                fishLoadingSpinner.classList.remove("d-none");
+                fishGridContainer.classList.add("d-none");
+
+                fetch(`/api/lake-stocked-fish/${lakeId}/`)
+                    .then(res => res.json())
+                    .then(data => {
+                        fishLoadingSpinner.classList.add("d-none");
+                        fishGridContainer.classList.remove("d-none");
+
+                        if (data.fish && data.fish.length > 0) {
+                            stockCountBadge.innerText = `${data.fish.length} ${data.is_fallback ? 'Total Species' : 'Stocked Species'}`;
+                            renderFishCards(data.fish);
+                        } else {
+                            fishGridContainer.innerHTML = `<div class="col-12 text-center py-4 text-muted">No fish species found for this lake.</div>`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error loading stocked fish:", err);
+                        fishLoadingSpinner.classList.add("d-none");
+                        fishGridContainer.classList.remove("d-none");
+                    });
+            }
+
+            function renderFishCards(fishList) {
+                fishGridContainer.innerHTML = fishList.map(fish => {
+                    const imgTag = fish.image_url 
+                        ? `<img src="${fish.image_url}" alt="${fish.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><i class="bi bi-water text-info fs-1" style="display: none;"></i>`
+                        : `<i class="bi bi-water text-info fs-1"></i>`;
+                    
+                    const abbrTag = fish.abbreviation 
+                        ? `<span class="fish-abbr-badge">${fish.abbreviation}</span>` 
+                        : '';
+
+                    return `
+                        <div class="fish-card" 
+                             data-fish-id="${fish.id}" 
+                             data-fish-name="${fish.name}" 
+                             data-fish-abbr="${fish.abbreviation || ''}"
+                             data-fish-img="${fish.image_url || ''}">
+                            <div class="fish-img-wrap">
+                                ${imgTag}
+                                ${abbrTag}
+                            </div>
+                            <div class="fish-name" title="${fish.name}">${fish.name}</div>
+                            <div class="tap-action-badge">
+                                <i class="bi bi-plus-circle-fill"></i> LOG CATCH
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+
+                attachFishCardListeners();
+            }
+
+            // 5. Fish Tap-to-Log Action
+            function attachFishCardListeners() {
+                document.querySelectorAll(".fish-card").forEach(card => {
+                    card.addEventListener("click", function () {
+                        if (isLogging) return;
+                        
+                        const fishId = this.dataset.fishId;
+                        const fishName = this.dataset.fishName;
+                        const fishImg = this.dataset.fishImg;
+
+                        // Trigger Haptic Feedback
+                        if (navigator.vibrate) {
+                            navigator.vibrate([60, 40, 60]);
+                        }
+
+                        // Visual feedback
+                        this.classList.add("logging");
+                        isLogging = true;
+
+                        logCatchSubmission(fishId, fishName, fishImg, this);
+                    });
+                });
+            }
+
+            function logCatchSubmission(fishId, fishName, fishImg, cardElement) {
+                const lakeId = lakeSelect.value;
+                const flyId = flySelect.value;
+                const lengthVal = lengthInput.value;
+                const weightVal = weightInput.value;
+                const csrfToken = document.querySelector("#csrfForm [name=csrfmiddlewaretoken]").value;
+
+                // Build payload
+                const payload = {
+                    lake_id: lakeId,
+                    fish_id: fishId,
+                    fly_id: flyId || null,
+                    fly_size: activeFlySize,
+                    fly_colour: activeFlyColour,
+                    length: lengthVal,
+                    length_unit: activeLengthUnit,
+                    weight: weightVal,
+                    weight_unit: activeWeightUnit,
+                    gps_lat: currentLat,
+                    gps_long: currentLong
+                };
+
+                fetch("/api/mobile-log-submit/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    cardElement.classList.remove("logging");
+                    isLogging = false;
+
+                    if (data.success) {
+                        // Success Celebration
+                        if (navigator.vibrate) navigator.vibrate([100, 50, 150]);
+                        showSuccessFeedback(data, fishName, fishImg);
+                    } else {
+                        alert(data.error || "Failed to log catch. Please try again.");
+                    }
+                })
+                .catch(err => {
+                    cardElement.classList.remove("logging");
+                    isLogging = false;
+                    console.error("Submission error:", err);
+                    alert("Network error while submitting catch. Please check your connection.");
+                });
+            }
+
+            function showSuccessFeedback(data, fishName, fishImg) {
+                // Update today's catch count badge
+                catchCountVal.innerText = data.today_catches_count;
+
+                // Update Success Modal Elements
+                document.getElementById("successTitle").innerText = `Catch #${data.today_catches_count} Logged!`;
+                document.getElementById("successFishName").innerText = data.fish_name || fishName;
+                
+                const fishImgEl = document.getElementById("successFishImg");
+                if (data.fish_image || fishImg) {
+                    fishImgEl.src = data.fish_image || fishImg;
+                    fishImgEl.classList.remove("d-none");
+                } else {
+                    fishImgEl.classList.add("d-none");
+                }
+
+                // Measurement summary
+                let lenStr = `${data.length_in}" (${data.length_cm} cm)`;
+                if (data.weight_lbs > 0) {
+                    lenStr += ` | ${data.weight_lbs} lbs`;
+                }
+                document.getElementById("successSizeText").innerText = lenStr;
+
+                document.getElementById("successLakeName").innerText = data.lake_name;
+
+                // Fly info
+                let flyInfo = data.fly_name ? data.fly_name : "No fly";
+                if (activeFlySize) flyInfo += ` ${activeFlySize}`;
+                if (activeFlyColour) flyInfo += ` (${activeFlyColour})`;
+                document.getElementById("successFlyText").innerText = flyInfo;
+
+                // Weather info
+                const weatherRow = document.getElementById("successWeatherRow");
+                if (data.weather) {
+                    weatherRow.classList.remove("d-none");
+                    let wStr = `${Math.round(data.weather.temp)}°C`;
+                    if (data.weather.description) wStr += `, ${data.weather.description}`;
+                    if (data.weather.wind_speed) wStr += ` (${Math.round(data.weather.wind_speed)} km/h)`;
+                    document.getElementById("successWeatherText").innerText = wStr;
+                } else {
+                    weatherRow.classList.add("d-none");
+                }
+
+                successModal.show();
+            }
+
+            // Initialize
+            loadSavedSettings();
+            initGPS();
+            attachFishCardListeners();
+        });
+    </script>
+</body>
+</html>

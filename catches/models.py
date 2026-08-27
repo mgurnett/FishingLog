@@ -826,21 +826,42 @@ def fetch_weather_for_log(sender, instance, created, **kwargs):
     if hasattr(instance, 'weather'):
         return
 
-    if instance.gps_lat and instance.gps_long and instance.catch_date and instance.catch_time:
+    lat = instance.gps_lat or (float(instance.lake.lat) if instance.lake and instance.lake.lat else None)
+    lon = instance.gps_long or (float(instance.lake.long) if instance.lake and instance.lake.long else None)
+
+    if lat and lon and instance.catch_date:
         import datetime
         from django.utils.timezone import make_aware
-        from catches.helpers.Open_Weather import get_historical_weather
+        from catches.helpers.Open_Weather import get_historical_weather, get_current_weather
         
-        dt = datetime.datetime.combine(instance.catch_date, instance.catch_time)
+        c_time = instance.catch_time or datetime.time(12, 0)
+        dt = datetime.datetime.combine(instance.catch_date, c_time)
         try:
             dt_aware = make_aware(dt)
         except ValueError:
             dt_aware = dt
         unix_timestamp = int(dt_aware.timestamp())
         
-        data = get_historical_weather(instance.gps_lat, instance.gps_long, unix_timestamp)
+        w_data = None
+        data = get_historical_weather(lat, lon, unix_timestamp)
         if data and 'data' in data and len(data['data']) > 0:
             w_data = data['data'][0]
+        else:
+            curr = get_current_weather(lat, lon)
+            if curr and 'current' in curr:
+                c = curr['current']
+                w_data = {
+                    'temp': c.get('temp'),
+                    'feels_like': c.get('feels_like'),
+                    'pressure': c.get('pressure'),
+                    'humidity': c.get('humidity'),
+                    'clouds': c.get('clouds'),
+                    'wind_speed': c.get('wind_speed'),
+                    'wind_deg': c.get('wind_deg'),
+                    'weather': c.get('weather', [{}])
+                }
+        
+        if w_data:
             LogWeather.objects.create(
                 log=instance,
                 temp=w_data.get('temp'),

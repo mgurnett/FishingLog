@@ -1,0 +1,48 @@
+{% extends "catches/base/base.html" %}
+{% load static %}
+
+{% block title %}Mobile Catch Log - Phone Required{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 text-center">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="background: linear-gradient(145deg, #1e293b, #0f172a); color: #f8fafc;">
+                <div class="card-body p-4 p-md-5">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-25 text-primary rounded-circle" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                            <i class="bi bi-phone-vibrate"></i>
+                        </span>
+                    </div>
+
+                    <h2 class="fw-bold mb-3 text-white">Mobile-Only Catch Logger</h2>
+                    <p class="text-light text-opacity-75 fs-6 mb-4">
+                        The <strong>/mobile-log</strong> interface is designed exclusively for smartphone touchscreens while fishing on the water. It features instant single-tap fish logging, live phone GPS geolocation, and real-time weather integration.
+                    </p>
+
+                    <div class="bg-white p-3 rounded-3 d-inline-block shadow-sm mb-3">
+                        <!-- QR code to easily open the page on phone -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ current_url|urlencode }}&bgcolor=ffffff&color=0f172a&margin=5" 
+                             alt="Scan QR to open on Mobile" 
+                             class="img-fluid" 
+                             width="180" 
+                             height="180">
+                    </div>
+                    <p class="small text-light text-opacity-50 mb-4">
+                        <i class="bi bi-qr-code-scan me-1"></i> Scan with your phone's camera to log catches on the water
+                    </p>
+
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a href="{% url 'log_create' %}{% if lake_pk %}?lake={{ lake_pk }}{% endif %}" class="btn btn-primary btn-lg px-4 gap-3 shadow-sm rounded-pill">
+                            <i class="bi bi-pencil-square me-2"></i>Use Desktop Log Form
+                        </a>
+                        <a href="{% url 'mobile_log' %}{% if lake_pk %}{{ lake_pk }}/{% endif %}?preview=1" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                            <i class="bi bi-eye me-2"></i>Preview Mobile View
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
