@@ -26,48 +26,68 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h6>
-                                {% if locker.purchase_date %}
-                                Purchased: <b>{{ locker.purchase_date|date:"M d, Y" }}</b>
-                                {% endif %}
-                            </h6>
-                        </div>
-                        <div class="col-md-4">
-                            <h6>
-                                {% if locker.purchase_price %}
-                                Price: <b>${{ locker.purchase_price }}</b>
-                                {% endif %}
-                            </h6>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <h6>
-                                {% if locker.manufacture_link %}
-                                <a href="{{ locker.manufacture_link }}">Manufacturer link</a>
-                                {% endif %}
-                            </h6>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <h6>
-                                {% if locker.retailer_link %}
-                                <a href="{{ locker.retailer_link }}">Retailer link</a>
-                                {% endif %}
-                            </h6>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div> <!-- information row div -->
 
-        <div class="row"> <!-- Map row div -->
-            <div class="col-md-12"> <!-- card map div -->
-                <div class="card border-0 bg-transparent">
-                    <div class="card-body">
-                    </div>
+                <div class="card-body">
+                    <div class="row"> <!-- purchase and links -->
+                        <div class="col-md-4"> <!-- card purchase div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    Purchase
+                                </div>
+                                <div class="card-body">
+                                    <h6>
+                                        {% if locker.purchase_date %}
+                                        Purchased: <b>{{ locker.purchase_date|date:"M d, Y" }}</b>
+                                        {% endif %}
+                                    </h6>
+                                    <h6>
+                                        {% if locker.purchase_price %}
+                                        Price: <b>${{ locker.purchase_price }}</b>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                        </div> <!-- card links div -->
+
+                        <div class="col-md-4"> <!-- card links div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    Links
+                                </div>
+                                <div class="card-body">
+                                    <h6>
+                                        {% if locker.manufacture_link %}
+                                        <a href="{{ locker.manufacture_link }}">Manufacturer link</a>
+                                        {% endif %}
+                                    </h6>
+                                    <h6>
+                                        {% if locker.retailer_link %}
+                                        <a href="{{ locker.retailer_link }}">Retailer link</a>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                        </div> <!-- card links div -->
+
+                        <div class="col-md-4"> <!-- card picture div -->
+                            <div class="card border-0 bg-transparent">
+                                <div class="card-header">
+                                    Picture
+                                </div>
+                                <div class="card-body">
+                                    {% if locker.image %}
+                                    <img src="{{ locker.image.url }}" alt="{{ locker.name }}" class="img-fluid"
+                                        style="max-height: 300px; width: auto;">
+                                    {% else %}
+                                    {{ locker.name }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div> <!-- card picture div -->
+                    </div> <!-- purchase and links -->
                 </div>
-            </div> <!-- card map div -->
-        </div> <!-- Map row div -->
+            </div> <!-- information row div -->
 
-    </div><!-- Top container -->
-    {% endblock content %}
+        </div><!-- Top container -->
+        {% endblock content %}

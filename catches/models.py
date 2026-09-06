@@ -994,5 +994,33 @@ class Locker(models.Model):
     def __str__(self):
         return self.name
 
+    @property 
+    def locker_name (self):
+        if self.brand:
+            brand = self.brand
+        else:
+            brand="" 
+        if self.model:
+            model = self.model
+        else:
+            model=""   
+        return f'{self.name} - {brand} {model}' 
+
+    @property 
+    def locker_full_name (self):
+        if self.brand:
+            brand = self.brand
+        else:
+            brand="" 
+        if self.model:
+            model = self.model
+        else:
+            model="" 
+        if self.characteristics:
+            characteristics = self.characteristics
+        else:
+            characteristics=""   
+        return f'{self.name} - {brand} {model} {characteristics}' 
+
     def get_absolute_url(self):
         return reverse('locker_detail', kwargs={'pk': self.pk})
