@@ -87,7 +87,29 @@
                         </div> <!-- card picture div -->
                     </div> <!-- purchase and links -->
                 </div>
-            </div> <!-- information row div -->
 
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New video</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New article</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New picture</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_list' %}">back</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_update' locker.id %}"
+                                type="submit">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_delete' locker.id %}"
+                                type="submit">delete</a>
+                        </div>
+                        <div class="col-md-2">
+                            Owner: <b>{{ locker.owner.first_name }}</b>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- information row div -->
         </div><!-- Top container -->
-        {% endblock content %}
+    </div>
+    {% endblock content %}

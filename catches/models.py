@@ -987,7 +987,7 @@ class Locker(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['category', 'name']
         verbose_name = "locker"
         verbose_name_plural = "locker"
 

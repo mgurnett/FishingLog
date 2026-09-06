@@ -642,3 +642,49 @@ class New_Knot_Form (forms.ModelForm):
             ),
         )
 
+class New_Locker_Form (forms.ModelForm):
+    class Meta:
+        model = Locker
+        exclude = ['owner', 'pictures', 'videos', 'articles']
+
+    name = forms.CharField ( required = True )
+    purchase_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        required=False
+    )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('category', css_class='form-group col-md-3 mb-0'),
+                Column('name', css_class='form-group col-md-3 mb-0'),
+                Column('brand', css_class='form-group col-md-3 mb-0'),
+                Column('model', css_class='form-group col-md-3 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('purchase_date', css_class='form-group col-md-2 mb-0'),
+                Column('purchase_price', css_class='form-group col-md-2 mb-0'),
+                Column('characteristics', css_class='form-group col-md-8 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('manufacture_link', css_class='form-group col-md-6 mb-0'),
+                Column('retailer_link', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image', css_class='form-group col-md-8 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )

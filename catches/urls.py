@@ -65,9 +65,9 @@ urlpatterns = [
     
     path ('locker/', LockerListView.as_view(), name = 'locker_list'), 
     path ('lockers/<int:pk>/', LockerDetailView.as_view(), name = 'locker_detail'), 
-    # path ('lockers/new/', LockerCreateView.as_view(), name = 'locker_create'),  
-    # path ('lockers/update/<int:pk>/', LockerUpdateView.as_view(), name = 'locker_update'), 
-    # path ('lockers/delete/<int:pk>/', LockerDeleteView.as_view(), name = 'locker_delete'),
+    path ('lockers/new/', LockerCreateView.as_view(), name = 'locker_create'),  
+    path ('lockers/update/<int:pk>/', LockerUpdateView.as_view(), name = 'locker_update'), 
+    path ('lockers/delete/<int:pk>/', LockerDeleteView.as_view(), name = 'locker_delete'),
     
     path ('bug/', BugListView.as_view(), name = 'bug_list'), 
     path ('bug/<int:pk>/', BugDetailView.as_view(), name = 'bug_detail'), 
