@@ -26,9 +26,9 @@
                         {% comment %} <img class="card-img-top" src="{{ knot.image.url }}" alt={{ knot.name | title }}>
                         {% endcomment %}
                         {% if knot.image %}
-                        <img src="{{ knot.image.url }}" alt="{{ knot.name }}" class="img-fluid">
+                        <img src="{{ knot.image.url }}" alt="{{ knot.name }}" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
                         {% else %}
-                        <img src="/static/images/placeholder-knot.png" alt="No image available" class="img-fluid">
+                        <img src="/static/images/placeholder-knot.png" alt="No image available" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
                         {% endif %}
                         <br><b>{{ knot.name | title}}</b>
                     </a>

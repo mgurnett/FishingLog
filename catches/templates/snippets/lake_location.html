@@ -61,7 +61,7 @@
         <div class="col-md-6">
             <div class="card mb-4 box-shadow">
                 <a href="{% url 'picture_detail' picture.id %}" >
-                    <img src="{{ picture.image.url }}" class="img-thumbnail"style="width:75%" >
+                    <img src="{{ picture.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 250px; width: auto;" alt="{{ picture.name | title }}">
                 </a>
                 <div class="card-body">
                     <p class="card-text">{{ picture.name | title }}, 

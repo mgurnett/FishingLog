@@ -28,7 +28,7 @@
                         <p>
                             {% if il.image %}
 								<a href="{% url 'library_detail' il.tag  %}">
-                                    <img src="{% static il.image %}" class="img-thumbnail" style="height:75%" alt="{{il.image}}">
+                                    <img src="{% static il.image %}" class="img-fluid rounded" style="max-height: 200px; width: auto;" alt="{{ il.image }}">
 								</a>
                             {% endif %}
 						</p>

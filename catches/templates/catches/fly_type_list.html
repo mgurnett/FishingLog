@@ -34,7 +34,7 @@
                         <p>
                             {% if type.image %}
                                 <a href="{% url 'fly_type_detail' type.id %}" >
-                                    <img src="{{ type.image.url }}" class="img-thumbnail mx-auto d-block" style="width:75%" > 
+                                    <img src="{{ type.image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ type.name | title }}" style="max-height: 220px; width: auto;" > 
                                 </a>
                             {% endif %}
                         </p>

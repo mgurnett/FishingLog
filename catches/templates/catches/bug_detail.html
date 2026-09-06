@@ -15,7 +15,7 @@
 				<div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="{{ bug.image.url }}" class="mx-auto d-block" style="width:25%" alt="{{ bug.name | title }}">
+							<img src="{{ bug.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 300px; width: auto;" alt="{{ bug.name | title }}">
 							<div class="row">
 								<div class="col-md-2 text-centre"></div>
 								<div class="col-md-8 d-flex justify-content-center">
@@ -27,7 +27,7 @@
 						{% for picture in pictures_list %}
 							<div class="carousel-item">
 								<a href="{% url 'picture_detail' picture.id %}" >
-									<img src="{{ picture.image.url }}" class="img-thumbnail mx-auto d-block" style="width:25%" >
+									<img src="{{ picture.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 300px; width: auto;" alt="{{ picture.name | title }}">
 								</a>
 								<div class="row">
 									<div class="col-md-6 text-end">

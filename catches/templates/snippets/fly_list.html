@@ -20,7 +20,7 @@
                 <div class="card-body text-center">
                     <p class="card text-center border-0 bg-transparent">
                         <a href="{% url 'fly_detail' fly.id %}" >
-                            {% if fly.image %}<img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" style="width:50%" >{% endif %}
+                            {% if fly.image %}<img src="{{ fly.image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ fly.name | title }}" style="max-height: 180px; width: auto;" >{% endif %}
                         </a>
                     </p>
                     <p>

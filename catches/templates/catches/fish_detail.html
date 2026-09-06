@@ -8,7 +8,11 @@
 		<div class="col-md-10">
 			<div class="card border-0 bg-transparent">
 				<h5 class="card-header">
-					<img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }} width="500" height="400">
+					{% if fish.image %}
+					<img class="img-fluid rounded mx-auto d-block" src="{{ fish.image.url }}" alt="{{ fish.name | title }}" style="max-height: 400px; width: auto;">
+					{% else %}
+					<img class="img-fluid rounded mx-auto d-block" src="/static/images/placeholder-fish.png" alt="No image available" style="max-height: 400px; width: auto;">
+					{% endif %}
 					<p class="card-text">
 						<h2 class="pt-5"><b>  {{ fish }}</b></h2>
 					</p>

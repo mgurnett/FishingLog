@@ -11,7 +11,9 @@
 				<h5 class="card-header"><b>{{ picture.name | title }}</b> - {{ picture.snippet }}</h5>
 				<div class="card-body">
 					<p>
-						<img class='img-responsive thumbnail mx-auto d-block' src='{{ picture.image.url }}' alt='image' width='500' height='400' >
+						{% if picture.image %}
+						<img class="img-fluid rounded mx-auto d-block" src="{{ picture.image.url }}" alt="{{ picture.name | title }}" style="max-height: 450px; width: auto;">
+						{% endif %}
 						{{ picture.notes|safe }}
 					</p>
 				</div>

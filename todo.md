@@ -8,7 +8,6 @@
 
 ## Medium
 - [ ] Break insects down to specific ones.
-- [ ] sort out picture and sizes
 - [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
 - [ ] make a comment system.
@@ -23,6 +22,7 @@
 - [ ] move blog in to catches so that the colouring follows.
 
 ## DONE
+- [*] sort out picture and sizes
 - [*] in flys and bugs add a logs column
 - [*] In the tags list, show how many media, lakes, fish, flys.....
 - [*] Fix the broken and missing KML help files.

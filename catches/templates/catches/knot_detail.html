@@ -9,11 +9,9 @@
             <div class="card border-0 bg-transparent">
                 <h5 class="card-header">
                     {% if knot.image %}
-                    <img class="card-img-top" src="{{ knot.image.url }}" alt="{{ knot.name | title }}" width="500"
-                        height="400">
+                    <img class="img-fluid rounded mx-auto d-block" src="{{ knot.image.url }}" alt="{{ knot.name | title }}" style="max-height: 400px; width: auto;">
                     {% else %}
-                    <img class="card-img-top" src="/static/images/placeholder-knot.png" alt="No image available"
-                        width="500" height="400">
+                    <img class="img-fluid rounded mx-auto d-block" src="/static/images/placeholder-knot.png" alt="No image available" style="max-height: 400px; width: auto;">
                     {% endif %}
                     <p class="card-text">
                     <h2 class="pt-5"><b> {{ knot }}</b></h2>

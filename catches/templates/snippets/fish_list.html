@@ -10,7 +10,7 @@
                         <p>
                             {% if fish.image %}
                                 <a href="{% url 'fish_detail' fish.id %}" >
-                                    <img src="{{ fish.image.url }}" class="img-thumbnail"style="width:50%" >
+                                    <img src="{{ fish.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 180px; width: auto;" alt="{{ fish.name | title }}" >
                                 </a>
                             {% endif %}
                         </p>

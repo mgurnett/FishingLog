@@ -10,7 +10,7 @@
                         <p>
                             {% if bug.image %}
                                 <a href="{% url 'bug_detail' bug.id %}" >
-                                    <img src="{{ bug.image.url }}" class="img-thumbnail"style="width:75%" >
+                                    <img src="{{ bug.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 180px; width: auto;" alt="{{ bug.name | title }}" >
                                 </a>
                             {% endif %}
                         </p>
