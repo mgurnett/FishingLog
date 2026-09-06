@@ -41,13 +41,13 @@
 						</li>
 					</ul>
 				</h5>
-				<div class="col-md-4 text-end"><!-- Nav tabs -->
+				<div class="col-md-5 text-end"><!-- Nav tabs -->
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'video_create'   field='video' pk=0 tag=tag.title|slugify %}">New video</a>
+						href="{% url 'video_create'   field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-play-circle me-1"></i>New video</a>
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'article_create' field='video' pk=0 tag=tag.title|slugify %}">New article</a>
+						href="{% url 'article_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-file-earmark-text me-1"></i>New article</a>
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'picture_create' field='video' pk=0 tag=tag.title|slugify %}">New picture</a>
+						href="{% url 'picture_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-image me-1"></i>New picture</a>
 				</div>
 			</div>
 

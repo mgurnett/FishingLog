@@ -35,13 +35,13 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-7">
 							Tags: <b>{{ article.tag_list }}</b>
 						</div>
-                        <div class="col-md-3 test-end">
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_update' article.id %}" type="submit" >edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_delete' article.id %}" type="submit" >delete</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' %}" type="submit" >new</a>
+                        <div class="col-md-5 text-end">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_update' article.id %}">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_delete' article.id %}">delete</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' %}"><i class="bi bi-file-earmark-text me-1"></i>New article</a>
 							<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>							
                         </div>
                     </div>

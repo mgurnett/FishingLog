@@ -24,10 +24,10 @@
 				<div class="card-footer">
 					<div class="row">
                         <div class="col-md-2"></div>
-                        <div class="col-md-4">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='fish' pk=fish.id tag=fish.static_tag %}">New video</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='fish' pk=fish.id tag=fish.static_tag %}">New article</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='fish' pk=fish.id tag=fish.static_tag %}">New picture</a>
+                        <div class="col-md-5">
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='fish' pk=fish.id tag=fish.static_tag %}"><i class="bi bi-play-circle me-1"></i>New video</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='fish' pk=fish.id tag=fish.static_tag %}"><i class="bi bi-file-earmark-text me-1"></i>New article</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='fish' pk=fish.id tag=fish.static_tag %}"><i class="bi bi-image me-1"></i>New picture</a>
                         </div>
                         <div class="col-md-6 text-end">
 							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fish_create' %}" type="submit" >new</a>

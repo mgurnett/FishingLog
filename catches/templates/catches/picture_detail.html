@@ -26,10 +26,10 @@
                         <div class="col-md-3">
                             Picture added: <b>{{ picture.date_added }}</b>
                         </div>
-                        <div class="col-md-3">
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_update' picture.id %}" type="submit" >edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_delete' picture.id %}" type="submit" >delete</a>
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' %}" type="submit" >new</a>
+                        <div class="col-md-4 text-end">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_update' picture.id %}">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_delete' picture.id %}">delete</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' %}"><i class="bi bi-image me-1"></i>New picture</a>
 							<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
                         </div>
                     </div>
