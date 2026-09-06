@@ -1,0 +1,44 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Knots{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Knots</h1>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-right">
+            {% if user.is_superuser %}
+            <a href="{% url 'knot_create' %}" class="btn btn-primary">New knot</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="album py-5 ">
+    <div class="container">
+        <div class="row">
+            {% for knot in knots %}
+            <div class="col-md-4">
+                <!-- Added 'bg-transparent' and 'border-0' to clear the default card background -->
+                <div class="card mb-4 box-shadow bg-transparent border-0">
+                    <a href="{% url 'knot_detail' knot.id %}" class="card-link">
+                        {% comment %} <img class="card-img-top" src="{{ knot.image.url }}" alt={{ knot.name | title }}>
+                        {% endcomment %}
+                        {% if knot.image %}
+                        <img src="{{ knot.image.url }}" alt="{{ knot.name }}" class="img-fluid">
+                        {% else %}
+                        <img src="/static/images/placeholder-knot.png" alt="No image available" class="img-fluid">
+                        {% endif %}
+                        <br><b>{{ knot.name | title}}</b>
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">{{ knot.notes | safe }} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

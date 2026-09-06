@@ -1,0 +1,57 @@
+{% extends "catches/base/base.html" %}
+{% block title %}knot: {{ knot.name | title }}{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row"><!-- Top card-->
+        <div class="col-md-1"> </div>
+        <div class="col-md-10">
+            <div class="card border-0 bg-transparent">
+                <h5 class="card-header">
+                    {% if knot.image %}
+                    <img class="card-img-top" src="{{ knot.image.url }}" alt="{{ knot.name | title }}" width="500"
+                        height="400">
+                    {% else %}
+                    <img class="card-img-top" src="/static/images/placeholder-knot.png" alt="No image available"
+                        width="500" height="400">
+                    {% endif %}
+                    <p class="card-text">
+                    <h2 class="pt-5"><b> {{ knot }}</b></h2>
+                    </p>
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ knot.notes | safe }}
+                        Tag: <b>{{ knot.static_tag }}</b>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_update' knot.id %}"
+                                type="submit">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_delete' knot.id %}"
+                                type="submit">delete</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-primary btn-md mt-1 mb-1"
+                                href="{% url 'video_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
+                                video</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1"
+                                href="{% url 'article_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
+                                article</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1"
+                                href="{% url 'picture_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
+                                picture</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"> </div>
+    </div><!-- Top card-->
+
+</div>
+
+{% endblock content %}

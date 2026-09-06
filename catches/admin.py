@@ -107,3 +107,11 @@ class SystemErrorLogAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         return redirect('/admin/logs/')
+
+@admin.register (Category)
+class CategoryAdmin (admin.ModelAdmin):
+    list_display = ['name', 'notes']
+
+@admin.register (Knot)
+class KnotAdmin (admin.ModelAdmin):
+    list_display = ['name', "static_tag"]

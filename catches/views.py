@@ -1886,3 +1886,50 @@ def mobile_log_submit_api(request):
     except Exception as e:
         return JsonResponse({'error': f"Failed to log catch: {str(e)}"}, status=500)
 
+
+class KnotListView (PermissionRequiredMixin, ListView):
+    permission_required = 'catches.view_knot'
+    
+    model = Knot
+    context_object_name = 'knots' 
+    paginate_by = 6
+    
+    def handle_no_permission(self):
+        # add custom message
+        messages.error(self.request, 'You have no permission')
+        return super(KnotListView, self).handle_no_permission()
+
+class KnotDetailView (PermissionRequiredMixin, DetailView): 
+    permission_required = 'catches.view_knot'
+    model = Knot
+    context_object_name = 'knot'
+ 
+
+class KnotCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'catches.add_knot'
+    model = Knot
+    form_class = New_Knot_Form
+
+    def form_valid (self, form):
+        if not form.instance.static_tag:
+            form.instance.static_tag = slugify(form.instance.name)
+        messages.add_message(
+            self.request, 
+            messages.SUCCESS,
+            'The knot was added'
+        )
+        return super().form_valid (form)
+
+class KnotUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'catches.change_knot'
+    model = Knot
+    form_class = New_Knot_Form
+    success_message = "knot fixed"
+
+class KnotDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
+    permission_required = 'catches.delete_knot'
+    
+    model = Knot    
+    success_url = "/knots/"  
+    success_message = "knot deleted"
+

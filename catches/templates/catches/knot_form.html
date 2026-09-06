@@ -1,0 +1,14 @@
+{% extends "catches/base/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Knot{% endblock %}
+
+{% block header %}
+{{ form.media }} {# Required for styling/js to make ckeditor5 work #}
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="container">
+    {% crispy form %}
+</div>
+{% endblock %}

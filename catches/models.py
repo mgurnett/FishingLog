@@ -880,3 +880,65 @@ def fetch_weather_for_log(sender, instance, created, **kwargs):
 
     # If True, Django will store empty values as NULL in the database. Default is False.
     # NULL - CharFields and TextFields are never saved as NULL. Blank values are stored in the DB as an empty string ('').
+
+class Category(models.Model):
+    name = models.CharField(max_length = 100)
+    notes = models.TextField (blank=True)
+    
+    class Meta: 
+        ordering = ['name']
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
+    def __str__ (self):
+        return f'{self.name}' 
+
+    def get_absolute_url (self):
+        return reverse ('category_detail', kwargs = {'pk': self.pk})
+
+class Knot(models.Model):
+    name = models.CharField(max_length=150, unique=True)
+    notes = CKEditor5Field (blank=True, null=True, help_text="Tying instructions, connection strength, and usage tips.")  
+    static_tag = models.SlugField()
+    image = models.ImageField ('Knot image', 
+        default=None, 
+        upload_to='knots/', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    # Many-to-Many relationships to existing media models
+    pictures = models.ManyToManyField(
+        'Picture', 
+        blank=True, 
+        related_name='knots',
+        help_text="Diagrams, tied examples, or step-by-step images."
+    )
+    videos = models.ManyToManyField(
+        'Video', 
+        blank=True, 
+        related_name='knots',
+        help_text="Tutorial or tying demonstration videos."
+    )
+    articles = models.ManyToManyField(
+        'Article', 
+        blank=True, 
+        related_name='knots',
+        help_text="Related reference guides or knot-testing articles."
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = "Knot"
+        verbose_name_plural = "Knots"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('knot_detail', kwargs={'pk': self.pk})

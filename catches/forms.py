@@ -599,3 +599,46 @@ class New_Regions_Form (forms.ModelForm):
                 css_class='form-row'
             ),
         )
+
+class New_Knot_Form (forms.ModelForm):
+    class Meta:
+        model = Knot
+        fields = '__all__'
+        widgets = {
+            "notes": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="notes"
+            )
+        }
+
+    name = forms.CharField ( required = True )                
+    notes = forms.CharField(widget=CKEditor5Widget(), required=False)
+    image = forms.ImageField (required = False )
+    static_tag = forms.CharField ( required = False )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('notes', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image', css_class='form-group col-md-8 mb-0'),
+                Column('static_tag', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(css_class='form-group col-md-7 text-end'),
+                Column(Submit('submit', 'Submit', css_class='btn btn-primary col-md-5')),
+                Column(FormActions(
+                    HTML('<a class="btn btn-primary col-md-3" onclick="window.history.back()">Cancel</a>')
+                ),  css_class='btn-primary col-md-3'),
+                css_class='form-row'
+            ),
+        )
+

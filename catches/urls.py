@@ -57,6 +57,12 @@ urlpatterns = [
     path ('fish/update/<int:pk>/', FishUpdateView.as_view(), name = 'fish_update'), 
     path ('fish/delete/<int:pk>/', FishDeleteView.as_view(), name = 'fish_delete'),
     
+    path ('knots/', KnotListView.as_view(), name = 'knot_list'), 
+    path ('knots/<int:pk>/', KnotDetailView.as_view(), name = 'knot_detail'), 
+    path ('knots/new/', KnotCreateView.as_view(), name = 'knot_create'),  
+    path ('knots/update/<int:pk>/', KnotUpdateView.as_view(), name = 'knot_update'), 
+    path ('knots/delete/<int:pk>/', KnotDeleteView.as_view(), name = 'knot_delete'),
+    
     path ('bug/', BugListView.as_view(), name = 'bug_list'), 
     path ('bug/<int:pk>/', BugDetailView.as_view(), name = 'bug_detail'), 
     path ('bug/new/', BugCreateView.as_view(), name = 'bug_create'),  
