@@ -1,0 +1,590 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Setup: {{ setup.name }}{% endblock %}
+{% block content %}
+
+<div class="container mb-5">
+    <!-- Top Header Card -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h2 class="mb-0 fw-bold"><i class="bi bi-diagram-3 text-info me-2"></i>{{ setup.name }}</h2>
+                        <small class="text-white-50">
+                            Owner: <b>{{ setup.owner.username }}</b> | Last updated: {{ setup.updated_at|date:"M d, Y" }}
+                        </small>
+                    </div>
+                    <div>
+                        <a href="{% url 'setup_list' %}" class="btn btn-outline-light btn-sm me-1"><i class="bi bi-arrow-left me-1"></i>Back</a>
+                        <a href="{% url 'setup_create' %}" class="btn btn-primary btn-sm me-1"><i class="bi bi-plus-circle me-1"></i>Add New</a>
+                        <a href="{% url 'setup_update' setup.id %}" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil me-1"></i>Edit</a>
+                        <a href="{% url 'setup_delete' setup.id %}" class="btn btn-danger btn-sm"><i class="bi bi-trash me-1"></i>Delete</a>
+                    </div>
+                </div>
+
+                <!-- Visual Rig Flowchart / Diagram -->
+                <div class="card-body bg-light">
+                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                        <i class="bi bi-bezier2 text-primary me-2"></i>Visual Rig Diagram
+                    </h5>
+                    
+                    <div class="rig-diagram-container p-3 rounded border bg-white shadow-sm overflow-auto">
+                        <div class="d-flex flex-wrap align-items-center justify-content-start gap-2 py-2">
+                            
+                            <!-- 1. Rod & Reel -->
+                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm" style="min-width: 140px;">
+                                <div class="badge bg-secondary mb-1">Rod & Reel</div>
+                                <div class="fw-bold text-truncate" style="max-width: 160px;" title="{{ setup.rod.name|default:'Rod' }}">
+                                    {% if setup.rod %}
+                                    <a href="{% url 'locker_detail' setup.rod.id %}" class="text-decoration-none text-dark"><i class="bi bi-slash-lg text-danger me-1"></i>{{ setup.rod.name }}</a>
+                                    {% else %}
+                                    <span class="text-muted">Rod (unspecified)</span>
+                                    {% endif %}
+                                </div>
+                                <div class="small text-muted text-truncate" style="max-width: 160px;">
+                                    {% if setup.reel %}
+                                    <a href="{% url 'locker_detail' setup.reel.id %}" class="text-decoration-none text-muted"><i class="bi bi-record-circle text-primary me-1"></i>{{ setup.reel.name }}</a>
+                                    {% else %}
+                                    Reel (unspecified)
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Flow Arrow -->
+                            <div class="rig-arrow text-primary fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+
+                            <!-- 2. Fly Line -->
+                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm" style="min-width: 130px;">
+                                <div class="badge bg-info text-dark mb-1">Fly Line</div>
+                                <div class="fw-bold text-truncate" style="max-width: 150px;">
+                                    {% if setup.fly_line %}
+                                    <a href="{% url 'locker_detail' setup.fly_line.id %}" class="text-decoration-none text-dark">{{ setup.fly_line.name }}</a>
+                                    {% else %}
+                                    <span class="text-muted">Fly Line</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Connection Knot to Leader -->
+                            <div class="rig-knot text-center px-2">
+                                <span class="badge rounded-pill bg-warning text-dark border shadow-sm">
+                                    <i class="bi bi-link-45deg me-1"></i>
+                                    {% if setup.line_to_leader_knot %}
+                                    <a href="{% url 'knot_detail' setup.line_to_leader_knot.id %}" class="text-dark text-decoration-none fw-bold">{{ setup.line_to_leader_knot.name }}</a>
+                                    {% else %}
+                                    Knot
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <!-- Flow Arrow -->
+                            <div class="rig-arrow text-primary fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+
+                            <!-- 3. Leader (+ Strike Indicator) -->
+                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm position-relative" style="min-width: 160px;">
+                                <div class="badge bg-success mb-1">Leader</div>
+                                <div class="fw-bold text-truncate" style="max-width: 170px;">
+                                    {% if setup.leader %}
+                                    <a href="{% url 'locker_detail' setup.leader.id %}" class="text-decoration-none text-dark">{{ setup.leader.name }}</a>
+                                    {% else %}
+                                    <span class="text-muted">Leader</span>
+                                    {% endif %}
+                                </div>
+                                {% if setup.leader_length %}
+                                <div class="badge bg-dark text-light mt-1"><i class="bi bi-rulers me-1"></i>{{ setup.leader_length }}</div>
+                                {% endif %}
+
+                                <!-- Strike Indicator Overlay Badge -->
+                                {% if setup.strike_indicator %}
+                                <div class="mt-2 pt-2 border-top">
+                                    <span class="badge bg-danger shadow-sm">
+                                        <i class="bi bi-geo-alt-fill me-1"></i>{{ setup.strike_indicator.name }}
+                                    </span>
+                                    {% if setup.indicator_distance_from_fly_end %}
+                                    <div class="small text-danger fw-bold mt-1">
+                                        {{ setup.indicator_distance_from_fly_end }} from fly end
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Downstream Sections -->
+                            {% if sections %}
+                                {% for sec in sections %}
+                                    <!-- Flow Arrow / Branch -->
+                                    <div class="rig-arrow text-primary fw-bold fs-4 px-1">
+                                        {% if sec.configuration == 'dropper' %}
+                                        <span title="Y-Dropper Branch"><i class="bi bi-bezier text-warning"></i></span>
+                                        {% else %}
+                                        <i class="bi bi-arrow-right"></i>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Section Node -->
+                                    <div class="rig-node text-center p-2 rounded border shadow-sm {% if sec.configuration == 'dropper' %}border-warning bg-warning-subtle{% elif sec.configuration == 'trailer' %}border-info bg-info-subtle{% else %}bg-light{% endif %}" style="min-width: 150px;">
+                                        <div class="badge {% if sec.configuration == 'dropper' %}bg-warning text-dark{% elif sec.configuration == 'trailer' %}bg-info text-dark{% else %}bg-primary{% endif %} mb-1">
+                                            #{{ sec.order }} {{ sec.get_configuration_display }}
+                                        </div>
+                                        
+                                        <!-- Knot & Hardware -->
+                                        {% if sec.connection_knot or sec.hardware %}
+                                        <div class="small mb-1">
+                                            {% if sec.connection_knot %}
+                                            <a href="{% url 'knot_detail' sec.connection_knot.id %}" class="badge rounded-pill bg-light text-dark border text-decoration-none">
+                                                <i class="bi bi-link-45deg me-1"></i>{{ sec.connection_knot.name }}
+                                            </a>
+                                            {% endif %}
+                                            {% if sec.hardware %}
+                                            <a href="{% url 'locker_detail' sec.hardware.id %}" class="badge rounded-pill bg-secondary text-light text-decoration-none">
+                                                <i class="bi bi-circle me-1"></i>{{ sec.hardware.name }}
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Tippet Material -->
+                                        <div class="fw-bold small text-truncate" style="max-width: 160px;">
+                                            {% if sec.tippet_material %}
+                                            <a href="{% url 'locker_detail' sec.tippet_material.id %}" class="text-decoration-none text-dark">{{ sec.tippet_material.name }}</a>
+                                            {% else %}
+                                            <span class="text-muted">Tippet</span>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- Length -->
+                                        {% if sec.length %}
+                                        <div class="badge bg-secondary mt-1"><i class="bi bi-rulers me-1"></i>{{ sec.length }}</div>
+                                        {% endif %}
+
+                                        <!-- Notes -->
+                                        {% if sec.notes %}
+                                        <div class="small text-muted fst-italic mt-1 text-truncate" style="max-width: 150px;" title="{{ sec.notes }}">{{ sec.notes }}</div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="rig-arrow text-muted fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+                                <div class="rig-node text-center p-2 rounded border border-dashed text-muted" style="min-width: 140px;">
+                                    <small><i class="bi bi-plus-circle me-1"></i>No tippet sections</small>
+                                </div>
+                            {% endif %}
+
+                            <!-- Fly End Icon -->
+                            <div class="rig-arrow text-success fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+                            <div class="rig-node text-center p-2 rounded border bg-success text-white shadow-sm" style="min-width: 90px;">
+                                <i class="bi bi-bullseye fs-4 d-block mb-1"></i>
+                                <span class="badge bg-dark">Fly / Hook</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Specifications Grid -->
+                <div class="card-body border-top">
+                    <div class="row g-3">
+                        <!-- Rod & Reel Column -->
+                        <div class="col-md-4">
+                            <div class="card h-100 border">
+                                <div class="card-header bg-secondary text-white py-2">
+                                    <h6 class="mb-0 fw-bold"><i class="bi bi-slash-lg me-1"></i>Rod & Reel</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Rod:</small>
+                                        {% if setup.rod %}
+                                        <a href="{% url 'locker_detail' setup.rod.id %}" class="fw-bold text-decoration-none">
+                                            {{ setup.rod.locker_full_name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-0">
+                                        <small class="text-muted d-block">Reel:</small>
+                                        {% if setup.reel %}
+                                        <a href="{% url 'locker_detail' setup.reel.id %}" class="fw-bold text-decoration-none">
+                                            {{ setup.reel.locker_full_name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Line & Leader Column -->
+                        <div class="col-md-4">
+                            <div class="card h-100 border">
+                                <div class="card-header bg-secondary text-white py-2">
+                                    <h6 class="mb-0 fw-bold"><i class="bi bi-water me-1"></i>Line & Leader</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Fly Line:</small>
+                                        {% if setup.fly_line %}
+                                        <a href="{% url 'locker_detail' setup.fly_line.id %}" class="fw-bold text-decoration-none">
+                                            {{ setup.fly_line.locker_full_name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Line-to-Leader Knot:</small>
+                                        {% if setup.line_to_leader_knot %}
+                                        <a href="{% url 'knot_detail' setup.line_to_leader_knot.id %}" class="badge bg-warning text-dark text-decoration-none">
+                                            <i class="bi bi-link-45deg me-1"></i>{{ setup.line_to_leader_knot.name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-0">
+                                        <small class="text-muted d-block">Leader:</small>
+                                        {% if setup.leader %}
+                                        <a href="{% url 'locker_detail' setup.leader.id %}" class="fw-bold text-decoration-none">
+                                            {{ setup.leader.locker_full_name }}
+                                        </a>
+                                        {% if setup.leader_length %}<span class="badge bg-dark ms-1">{{ setup.leader_length }}</span>{% endif %}
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Strike Indicator Column -->
+                        <div class="col-md-4">
+                            <div class="card h-100 border">
+                                <div class="card-header bg-secondary text-white py-2">
+                                    <h6 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-1"></i>Strike Indicator</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Indicator / Hardware:</small>
+                                        {% if setup.strike_indicator %}
+                                        <a href="{% url 'locker_detail' setup.strike_indicator.id %}" class="fw-bold text-decoration-none">
+                                            {{ setup.strike_indicator.locker_full_name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">None / No Indicator</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-0">
+                                        <small class="text-muted d-block">Distance from Fly End of Leader:</small>
+                                        {% if setup.indicator_distance_from_fly_end %}
+                                        <span class="badge bg-danger fs-6"><i class="bi bi-rulers me-1"></i>{{ setup.indicator_distance_from_fly_end }}</span>
+                                        {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sections Table -->
+                <div class="card-body border-top">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-list-ol me-2"></i>Tippet & Dropper Sections ({{ sections.count }})</h5>
+                    {% if sections %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" style="width: 70px;"># Order</th>
+                                    <th scope="col">Configuration</th>
+                                    <th scope="col">Connection Knot</th>
+                                    <th scope="col">Hardware</th>
+                                    <th scope="col">Tippet / Material</th>
+                                    <th scope="col">Length</th>
+                                    <th scope="col">Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sec in sections %}
+                                <tr>
+                                    <td class="fw-bold text-center">{{ sec.order }}</td>
+                                    <td>
+                                        <span class="badge {% if sec.configuration == 'dropper' %}bg-warning text-dark{% elif sec.configuration == 'trailer' %}bg-info text-dark{% else %}bg-primary{% endif %}">
+                                            {{ sec.get_configuration_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if sec.connection_knot %}
+                                        <a href="{% url 'knot_detail' sec.connection_knot.id %}" class="badge bg-light text-dark border text-decoration-none">
+                                            <i class="bi bi-link-45deg me-1"></i>{{ sec.connection_knot.name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if sec.hardware %}
+                                        <a href="{% url 'locker_detail' sec.hardware.id %}" class="text-decoration-none">
+                                            {{ sec.hardware.name }}
+                                        </a>
+                                        {% else %}
+                                        <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if sec.tippet_material %}
+                                        <a href="{% url 'locker_detail' sec.tippet_material.id %}" class="text-decoration-none fw-bold">
+                                            {{ sec.tippet_material.name }}
+                                        </a>
+                                        {% if sec.tippet_material.characteristics %}
+                                        <small class="text-muted d-block">{{ sec.tippet_material.characteristics }}</small>
+                                        {% endif %}
+                                        {% else %}
+                                        <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if sec.length %}
+                                        <span class="badge bg-secondary"><i class="bi bi-rulers me-1"></i>{{ sec.length }}</span>
+                                        {% else %}
+                                        <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ sec.notes|default:"-" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-secondary text-center mb-0">
+                        No downstream sections configured for this rig yet. <a href="{% url 'setup_update' setup.id %}" class="alert-link">Edit setup</a> to add tippet sections.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Setup Notes -->
+                {% if setup.notes %}
+                <div class="card-body border-top">
+                    <h5 class="fw-bold"><i class="bi bi-journal-text me-2"></i>Setup Notes & Strategy</h5>
+                    <div class="p-3 bg-white border rounded">
+                        {{ setup.notes | safe }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Card Footer Actions & Media Buttons -->
+                <div class="card-footer bg-light py-3">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'video_create' field='setup' pk=setup.id %}">
+                                <i class="bi bi-play-circle me-1"></i>New video
+                            </a>
+                            <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'article_create' field='setup' pk=setup.id %}">
+                                <i class="bi bi-file-earmark-text me-1"></i>New article
+                            </a>
+                            <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'picture_create' field='setup' pk=setup.id %}">
+                                <i class="bi bi-image me-1"></i>New picture
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <a class="btn btn-secondary btn-sm me-1" href="{% url 'setup_list' %}">Back to list</a>
+                            <a class="btn btn-primary btn-sm me-1" href="{% url 'setup_create' %}">New setup</a>
+                            <a class="btn btn-warning btn-sm me-1" href="{% url 'setup_update' setup.id %}">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'setup_delete' setup.id %}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Tabs Section (Videos, Articles, Pictures) -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h5 class="col-12 px-0 mb-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#VIDS">
+                            <b><i class="bi bi-camera-video me-1"></i>Videos</b>
+                            <span class="badge badge-dark badge-pill">{{ videos_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ARTS">
+                            <b><i class="bi bi-journal-text me-1"></i>Articles</b>
+                            <span class="badge badge-dark badge-pill">{{ articles_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#PICS">
+                            <b><i class="bi bi-images me-1"></i>Pictures</b>
+                            <span class="badge badge-dark badge-pill">{{ pictures_list.count }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </h5>
+
+            <div class="tab-content pt-2">
+                <!-- Videos Tab -->
+                <div class="tab-pane container active px-0" id="VIDS">
+                    {% if videos_list %}
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Link</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for video in videos_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name|title }}</a>
+                                </th>
+                                <td>{{ video.author|title }}</td>
+                                <td>{{ video.snippet }}</td>
+                                <td>{{ video.date_added }}</td>
+                                <td>
+                                    <a href="{{ video.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>Watch
+                                    </a>
+                                </td>
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='setup' pk=setup.id media_type='video' media_pk=video.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this video from {{ setup.name }}?');"
+                                        title="Unlink Video">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center p-3" role="alert">
+                        No videos linked yet. <a href="{% url 'video_create' field='setup' pk=setup.id %}" class="alert-link">Click here to add a video</a>.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Articles Tab -->
+                <div class="tab-pane container fade px-0" id="ARTS">
+                    {% if articles_list %}
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Document</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'article_detail' article.id %}">{{ article.name|title }}</a>
+                                </th>
+                                <td>{{ article.author|title }}</td>
+                                <td>{{ article.snippet }}</td>
+                                <td>{{ article.date_added }}</td>
+                                <td>
+                                    {% if article.file %}
+                                    <a href="{{ article.file.url }}" target="_blank" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-file-earmark-arrow-down me-1"></i>View / Download
+                                    </a>
+                                    {% elif article.url %}
+                                    <a href="{{ article.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>External Link
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">Notes only</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='setup' pk=setup.id media_type='article' media_pk=article.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this article from {{ setup.name }}?');"
+                                        title="Unlink Article">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center p-3" role="alert">
+                        No articles linked yet. <a href="{% url 'article_create' field='setup' pk=setup.id %}" class="alert-link">Click here to add an article</a>.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pictures Tab -->
+                <div class="tab-pane container fade px-0" id="PICS">
+                    {% if pictures_list %}
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+                        {% for pic in pictures_list %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                {% if pic.image %}
+                                <a href="{% url 'picture_detail' pic.id %}">
+                                    <img src="{{ pic.image.url }}" class="card-img-top" alt="{{ pic.name }}" style="height: 200px; object-fit: cover;">
+                                </a>
+                                {% endif %}
+                                <div class="card-body py-2">
+                                    <h6 class="card-title mb-1">
+                                        <a href="{% url 'picture_detail' pic.id %}" class="text-decoration-none text-dark fw-bold">{{ pic.name|title }}</a>
+                                    </h6>
+                                    {% if pic.snippet %}
+                                    <p class="card-text small text-muted mb-0">{{ pic.snippet }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center py-2">
+                                    <small class="text-muted">{{ pic.date_added|date:"M d, Y" }}</small>
+                                    <a href="{% url 'unlink_media_from_item' field='setup' pk=setup.id media_type='picture' media_pk=pic.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this picture from {{ setup.name }}?');"
+                                        title="Unlink Picture">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-secondary text-center p-3" role="alert">
+                        No pictures linked yet. <a href="{% url 'picture_create' field='setup' pk=setup.id %}" class="alert-link">Click here to add a picture</a>.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.rig-diagram-container {
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+.rig-node {
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.rig-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+</style>
+{% endblock content %}

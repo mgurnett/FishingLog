@@ -106,6 +106,7 @@
                         </div>
                         <div class="col-md-5 text-end">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_list' %}">back</a>
+                            <a class="btn btn-outline-primary btn-md mt-1 mb-1" href="{% url 'setup_list' %}"><i class="bi bi-diagram-3 me-1"></i>Setups</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_create' %}">add</a>
                             {% if user == locker.owner or user.is_superuser %}
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_update' locker.id %}">edit</a>

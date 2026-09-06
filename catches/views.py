@@ -1053,6 +1053,8 @@ class VideoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
+            context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1082,6 +1084,12 @@ class VideoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 locker.videos.add(video)
                 messages.success(self.request, f"Video '{video.name}' linked to equipment '{locker.name}'.")
                 return redirect('locker_detail', pk=pk)
+        elif field == 'setup' and pk:
+            setup = Setup.objects.filter(pk=pk).first()
+            if setup:
+                setup.videos.add(video)
+                messages.success(self.request, f"Video '{video.name}' linked to setup '{setup.name}'.")
+                return redirect('setup_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -1137,6 +1145,8 @@ class ArticleCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
+            context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1179,6 +1189,12 @@ class ArticleCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 locker.articles.add(article)
                 messages.success(self.request, f"Article '{article.name}' linked to equipment '{locker.name}'.")
                 return redirect('locker_detail', pk=pk)
+        elif field == 'setup' and pk:
+            setup = Setup.objects.filter(pk=pk).first()
+            if setup:
+                setup.articles.add(article)
+                messages.success(self.request, f"Article '{article.name}' linked to setup '{setup.name}'.")
+                return redirect('setup_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -1241,6 +1257,8 @@ class PictureCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
+            context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1277,6 +1295,12 @@ class PictureCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 locker.pictures.add(picture)
                 messages.success(self.request, f"Picture '{picture.name}' linked to equipment '{locker.name}'.")
                 return redirect('locker_detail', pk=pk)
+        elif field == 'setup' and pk:
+            setup = Setup.objects.filter(pk=pk).first()
+            if setup:
+                setup.pictures.add(picture)
+                messages.success(self.request, f"Picture '{picture.name}' linked to setup '{setup.name}'.")
+                return redirect('setup_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -2106,6 +2130,21 @@ def unlink_media_from_item(request, field, pk, media_type, media_pk):
             locker.articles.remove(media_pk)
             messages.success(request, 'Article unlinked from equipment.')
         return redirect('locker_detail', pk=pk)
+    elif field == 'setup':
+        setup = get_object_or_404(Setup, pk=pk)
+        if request.user != setup.owner and not request.user.is_superuser:
+            messages.error(request, 'You do not have permission to modify this setup.')
+            return redirect('setup_list')
+        if media_type == 'video':
+            setup.videos.remove(media_pk)
+            messages.success(request, 'Video unlinked from setup.')
+        elif media_type == 'picture':
+            setup.pictures.remove(media_pk)
+            messages.success(request, 'Picture unlinked from setup.')
+        elif media_type == 'article':
+            setup.articles.remove(media_pk)
+            messages.success(request, 'Article unlinked from setup.')
+        return redirect('setup_detail', pk=pk)
     return redirect('catch_home')
 
 class LockerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -2142,3 +2181,236 @@ class LockerDeleteView (LoginRequiredMixin, UserPassesTestMixin, SuccessMessageM
     def handle_no_permission(self):
         messages.error(self.request, 'You can only delete your own equipment.')
         return redirect('locker_list')
+
+
+class SetupListView(LoginRequiredMixin, ListView):
+    model = Setup
+    context_object_name = 'setups'
+    paginate_by = 20
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Setup.objects.all().select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
+        return Setup.objects.filter(owner=self.request.user).select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
+
+
+class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Setup
+    context_object_name = 'setup'
+
+    def test_func(self):
+        setup = self.get_object()
+        return self.request.user == setup.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only view your own line setups.')
+        return redirect('setup_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sections'] = self.object.sections.all().select_related('connection_knot', 'hardware', 'tippet_material')
+        context['videos_list'] = self.object.videos.all()
+        context['articles_list'] = self.object.articles.all()
+        context['pictures_list'] = self.object.pictures.all()
+        return context
+
+
+class SetupCreateView(LoginRequiredMixin, CreateView):
+    model = Setup
+    form_class = New_Setup_Form
+    template_name = 'catches/setup_form.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['section_formset'] = SetupSectionFormSet(self.request.POST, form_kwargs={'user': self.request.user})
+        else:
+            context['section_formset'] = SetupSectionFormSet(queryset=SetupSection.objects.none(), form_kwargs={'user': self.request.user})
+        context['categories'] = Category.objects.all().order_by('name')
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        section_formset = context['section_formset']
+        form.instance.owner = self.request.user
+        if section_formset.is_valid():
+            self.object = form.save()
+            section_formset.instance = self.object
+            section_formset.save()
+            messages.success(self.request, f"Line setup '{self.object.name}' created successfully!")
+            return redirect('setup_detail', pk=self.object.pk)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+
+class SetupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Setup
+    form_class = New_Setup_Form
+    template_name = 'catches/setup_form.html'
+
+    def test_func(self):
+        setup = self.get_object()
+        return self.request.user == setup.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only edit your own line setups.')
+        return redirect('setup_list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['section_formset'] = SetupSectionFormSet(self.request.POST, instance=self.object, form_kwargs={'user': self.request.user})
+        else:
+            context['section_formset'] = SetupSectionFormSet(instance=self.object, form_kwargs={'user': self.request.user})
+        context['categories'] = Category.objects.all().order_by('name')
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        section_formset = context['section_formset']
+        if section_formset.is_valid():
+            self.object = form.save()
+            section_formset.instance = self.object
+            section_formset.save()
+            messages.success(self.request, f"Line setup '{self.object.name}' updated successfully!")
+            return redirect('setup_detail', pk=self.object.pk)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+
+class SetupDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = Setup
+    template_name = 'catches/setup_confirm_delete.html'
+    success_url = reverse_lazy('setup_list')
+    success_message = "Line setup deleted successfully"
+
+    def test_func(self):
+        setup = self.get_object()
+        return self.request.user == setup.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only delete your own line setups.')
+        return redirect('setup_list')
+
+
+@login_required
+def quick_add_locker_api(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    
+    try:
+        import json
+        if request.content_type == 'application/json':
+            data = json.loads(request.body.decode('utf-8'))
+        else:
+            data = request.POST
+
+        name = data.get('name', '').strip()
+        if not name:
+            return JsonResponse({'error': 'Item name is required'}, status=400)
+        
+        cat_identifier = data.get('category')
+        if not cat_identifier:
+            return JsonResponse({'error': 'Category is required'}, status=400)
+        
+        category = None
+        if str(cat_identifier).isdigit():
+            category = Category.objects.filter(pk=int(cat_identifier)).first()
+        if not category:
+            category = Category.objects.filter(name__iexact=str(cat_identifier).strip()).first()
+        
+        if not category:
+            return JsonResponse({'error': f'Invalid category: {cat_identifier}'}, status=400)
+
+        brand = data.get('brand', '').strip()
+        model = data.get('model', '').strip()
+        characteristics = data.get('characteristics', '').strip()
+        purchase_date_str = data.get('purchase_date', '').strip()
+        purchase_price_str = data.get('purchase_price', '').strip()
+
+        purchase_date = None
+        if purchase_date_str:
+            try:
+                purchase_date = datetime.datetime.strptime(purchase_date_str, '%Y-%m-%d').date()
+            except ValueError:
+                pass
+
+        purchase_price = 0.0
+        if purchase_price_str:
+            try:
+                purchase_price = float(purchase_price_str)
+            except ValueError:
+                pass
+
+        item = Locker.objects.create(
+            owner=request.user,
+            category=category,
+            name=name,
+            brand=brand,
+            model=model,
+            characteristics=characteristics,
+            purchase_date=purchase_date,
+            purchase_price=purchase_price
+        )
+
+        return JsonResponse({
+            'success': True,
+            'item': {
+                'id': item.id,
+                'name': str(item),
+                'full_name': item.locker_full_name,
+                'category_id': category.id,
+                'category_name': category.name
+            }
+        })
+    except Exception as e:
+        return JsonResponse({'error': f"Failed to create equipment: {str(e)}"}, status=500)
+
+
+@login_required
+def quick_add_knot_api(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    
+    try:
+        import json
+        if request.content_type == 'application/json':
+            data = json.loads(request.body.decode('utf-8'))
+        else:
+            data = request.POST
+
+        name = data.get('name', '').strip()
+        if not name:
+            return JsonResponse({'error': 'Knot name is required'}, status=400)
+
+        notes = data.get('notes', '').strip()
+        static_tag = data.get('static_tag', '').strip()
+        if not static_tag:
+            static_tag = slugify(name)
+
+        knot = Knot.objects.create(
+            name=name,
+            notes=notes,
+            static_tag=static_tag
+        )
+
+        return JsonResponse({
+            'success': True,
+            'item': {
+                'id': knot.id,
+                'name': knot.name,
+                'static_tag': knot.static_tag
+            }
+        })
+    except Exception as e:
+        return JsonResponse({'error': f"Failed to create knot: {str(e)}"}, status=500)

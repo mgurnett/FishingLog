@@ -1024,3 +1024,79 @@ class Locker(models.Model):
 
     def get_absolute_url(self):
         return reverse('locker_detail', kwargs={'pk': self.pk})
+
+
+class Setup(models.Model):
+    name = models.CharField(max_length=150)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    rod = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_rods', limit_choices_to={'category__name': 'Rod'})
+    reel = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_reels', limit_choices_to={'category__name': 'Reel'})
+    fly_line = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_flylines', limit_choices_to={'category__name': 'Fly line'})
+    line_to_leader_knot = models.ForeignKey(Knot, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_line_knots', help_text="Knot connecting fly line to leader (e.g. Loop to Loop, Nail Knot)")
+    leader = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_leaders', limit_choices_to={'category__name': 'Leader'})
+    leader_length = models.CharField(max_length=50, blank=True, null=True, help_text="Length of leader, e.g. 9ft, 4ft, 7.5ft")
+    
+    # Strike indicator details
+    strike_indicator = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_indicators', limit_choices_to={'category__name': 'Hardware'})
+    indicator_distance_from_fly_end = models.CharField(max_length=50, blank=True, null=True, verbose_name="Indicator distance from fly end of leader", help_text="Distance of strike indicator measured from the fly end of the leader (e.g. 18in, 3ft, 6ft)")
+    
+    notes = CKEditor5Field(blank=True, null=True, help_text="Setup details, casting notes, or specific fishing strategies.")
+
+    pictures = models.ManyToManyField('Picture', blank=True, related_name='setups')
+    videos = models.ManyToManyField('Video', blank=True, related_name='setups')
+    articles = models.ManyToManyField('Article', blank=True, related_name='setups')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = "Line Setup"
+        verbose_name_plural = "Line Setups"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('setup_detail', kwargs={'pk': self.pk})
+
+    @property
+    def num_of_vids(self):
+        return self.videos.count()
+
+    @property
+    def num_of_arts(self):
+        return self.articles.count()
+
+    @property
+    def num_of_pics(self):
+        return self.pictures.count()
+
+
+class SetupSection(models.Model):
+    CONFIG_CHOICES = [
+        ('main', 'Main Line (Point Fly)'),
+        ('dropper', 'Y-Dropper / Tag Branch'),
+        ('trailer', 'Trailing Fly Section'),
+    ]
+
+    setup = models.ForeignKey(Setup, on_delete=models.CASCADE, related_name='sections')
+    order = models.PositiveIntegerField(default=1)
+    connection_knot = models.ForeignKey(Knot, on_delete=models.SET_NULL, null=True, blank=True, help_text="Knot connecting to this section (e.g. Blood Knot, Surgeon's, Clinch)")
+    hardware = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='section_hardware', limit_choices_to={'category__name': 'Hardware'}, help_text="Tippet ring, swivel, etc.")
+    tippet_material = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='section_tippets', help_text="Tippet or leader material")
+    length = models.CharField(max_length=50, blank=True, null=True, help_text="Length or distance, e.g. 4ft, 6in, 18in")
+    configuration = models.CharField(max_length=50, choices=CONFIG_CHOICES, default='main')
+    notes = models.CharField(max_length=200, blank=True, null=True, help_text="Notes for this section (e.g. 'Point fly', 'Top dropper', 'Trailing nymph')")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Setup Section"
+        verbose_name_plural = "Setup Sections"
+
+    def __str__(self):
+        try:
+            setup_name = self.setup.name if self.setup else f"Setup #{self.setup_id}"
+        except Exception:
+            setup_name = f"Setup #{self.setup_id}"
+        return f"{setup_name} - Section #{self.order} ({self.get_configuration_display()})"

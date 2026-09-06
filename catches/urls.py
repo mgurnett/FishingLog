@@ -69,6 +69,14 @@ urlpatterns = [
     path ('lockers/update/<int:pk>/', LockerUpdateView.as_view(), name = 'locker_update'), 
     path ('lockers/delete/<int:pk>/', LockerDeleteView.as_view(), name = 'locker_delete'),
     
+    path ('setups/', SetupListView.as_view(), name = 'setup_list'), 
+    path ('setups/<int:pk>/', SetupDetailView.as_view(), name = 'setup_detail'), 
+    path ('setups/new/', SetupCreateView.as_view(), name = 'setup_create'),  
+    path ('setups/update/<int:pk>/', SetupUpdateView.as_view(), name = 'setup_update'), 
+    path ('setups/delete/<int:pk>/', SetupDeleteView.as_view(), name = 'setup_delete'),
+    path ('api/quick-add-locker/', views.quick_add_locker_api, name='api_quick_add_locker'),
+    path ('api/quick-add-knot/', views.quick_add_knot_api, name='api_quick_add_knot'),
+    
     path ('bug/', BugListView.as_view(), name = 'bug_list'), 
     path ('bug/<int:pk>/', BugDetailView.as_view(), name = 'bug_detail'), 
     path ('bug/new/', BugCreateView.as_view(), name = 'bug_create'),  
