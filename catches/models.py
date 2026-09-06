@@ -505,6 +505,8 @@ class Log(models.Model):
     num_landed = models.IntegerField (default=0)
     angler = models.ForeignKey(User, on_delete=models.CASCADE)
     private = models.BooleanField (default = False)
+    setup = models.ForeignKey('Setup', blank=True, null=True, on_delete=models.SET_NULL, related_name='logs')
+    strategy = models.ForeignKey('Strategy', blank=True, null=True, on_delete=models.SET_NULL, related_name='logs')
     lake_depth = models.FloatField (blank=True, null=True)
     gps_lat = models.FloatField (blank=True, null=True)
     gps_long = models.FloatField (blank=True, null=True)
@@ -835,6 +837,8 @@ def fetch_weather_for_log(sender, instance, created, **kwargs):
         from catches.helpers.Open_Weather import get_historical_weather, get_current_weather
         
         c_time = instance.catch_time or datetime.time(12, 0)
+        if isinstance(c_time, datetime.datetime):
+            c_time = c_time.time()
         dt = datetime.datetime.combine(instance.catch_date, c_time)
         try:
             dt_aware = make_aware(dt)
@@ -1045,6 +1049,7 @@ class Setup(models.Model):
     pictures = models.ManyToManyField('Picture', blank=True, related_name='setups')
     videos = models.ManyToManyField('Video', blank=True, related_name='setups')
     articles = models.ManyToManyField('Article', blank=True, related_name='setups')
+    is_private = models.BooleanField(default=False, help_text="Keep this setup private to your account or share with community")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -1100,3 +1105,41 @@ class SetupSection(models.Model):
         except Exception:
             setup_name = f"Setup #{self.setup_id}"
         return f"{setup_name} - Section #{self.order} ({self.get_configuration_display()})"
+
+
+class Strategy(models.Model):
+    name = models.CharField(max_length=150)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='strategies')
+    setup = models.ForeignKey(Setup, on_delete=models.SET_NULL, null=True, blank=True, related_name='strategies', help_text="Rig setup used for this strategy")
+    notes = CKEditor5Field(blank=True, null=True, help_text="Strategy notes, retrieval technique, depth control, cadence, and tips.")
+    is_private = models.BooleanField(default=False, help_text="Keep this strategy private to your account or share with community")
+
+    pictures = models.ManyToManyField('Picture', blank=True, related_name='strategies')
+    videos = models.ManyToManyField('Video', blank=True, related_name='strategies')
+    articles = models.ManyToManyField('Article', blank=True, related_name='strategies')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = "Fishing Strategy"
+        verbose_name_plural = "Fishing Strategies"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('strategy_detail', kwargs={'pk': self.pk})
+
+    @property
+    def num_of_vids(self):
+        return self.videos.count()
+
+    @property
+    def num_of_arts(self):
+        return self.articles.count()
+
+    @property
+    def num_of_pics(self):
+        return self.pictures.count()

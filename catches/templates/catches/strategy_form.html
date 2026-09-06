@@ -1,0 +1,100 @@
+{% extends "catches/base/base.html" %}
+{% load static %}
+{% block title %}{% if form.instance.pk %}Edit Strategy: {{ form.instance.name }}{% else %}New Fishing Strategy{% endif %}{% endblock %}
+
+{% block content %}
+{{ form.media }}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-compass text-warning me-2"></i>
+                        {% if form.instance.pk %}Edit Strategy: {{ form.instance.name }}{% else %}Create New Fishing Strategy{% endif %}
+                    </h3>
+                    <a href="{% if form.instance.pk %}{% url 'strategy_detail' form.instance.pk %}{% else %}{% url 'strategy_list' %}{% endif %}" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-x-lg me-1"></i>Cancel
+                    </a>
+                </div>
+
+                <div class="card-body p-4 bg-light">
+                    <form method="post" id="strategyMainForm" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <h6 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Please fix the following errors:</h6>
+                            <ul class="mb-0">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- Card 1: Strategy Name & Setup Selection -->
+                        <div class="card border mb-4 shadow-sm bg-white">
+                            <div class="card-header bg-primary text-white py-2">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-tag me-2"></i>Strategy Overview</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">Strategy Name <span class="text-danger">*</span></label>
+                                    {{ form.name }}
+                                    <small class="form-text text-muted">Describe the technique (e.g., "Deep Chironomid Wind Drift 15ft", "Leptophlebia Nymph Slow Crawl", "Streamer Drop-Off Strip").</small>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.setup.id_for_label }}" class="form-label fw-bold">Line Setup / Rig Configuration (Optional)</label>
+                                    <div class="input-group">
+                                        {{ form.setup }}
+                                        <a href="{% url 'setup_create' %}" target="_blank" class="btn btn-outline-primary" title="Create a new setup in another tab">
+                                            <i class="bi bi-plus-lg me-1"></i>New Setup
+                                        </a>
+                                    </div>
+                                    <small class="form-text text-muted">Pair this strategy with an existing line rig setup or leave general for any setup.</small>
+                                </div>
+
+                                <div class="form-check mt-3">
+                                    {{ form.is_private }}
+                                    <label class="form-check-label fw-bold ms-1" for="{{ form.is_private.id_for_label }}">
+                                        Keep this strategy private to my account
+                                    </label>
+                                    <small class="form-text text-muted d-block">If unchecked, this strategy will be shared with the community.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Strategy Notes & Technique Guide -->
+                        <div class="card border mb-4 shadow-sm bg-white">
+                            <div class="card-header bg-primary text-white py-2">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-journal-text me-2"></i>Retrieval Technique, Cadence & Strategy Notes</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ form.notes }}
+                                <small class="form-text text-muted d-block mt-2">
+                                    Document retrieval cadence (e.g. "1 inch hand-twist every 4 seconds with 5-second pauses"), depth calculations, wind drift angles, strike detection tips, and fish behavior notes.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Submit / Cancel -->
+                        <div class="d-flex justify-content-end gap-2 py-3">
+                            <a href="{% if form.instance.pk %}{% url 'strategy_detail' form.instance.pk %}{% else %}{% url 'strategy_list' %}{% endif %}" class="btn btn-secondary btn-lg me-2">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg px-4">
+                                <i class="bi bi-check-circle me-1"></i>Save Strategy
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

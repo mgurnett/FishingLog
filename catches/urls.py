@@ -77,6 +77,12 @@ urlpatterns = [
     path ('api/quick-add-locker/', views.quick_add_locker_api, name='api_quick_add_locker'),
     path ('api/quick-add-knot/', views.quick_add_knot_api, name='api_quick_add_knot'),
     
+    path ('strategies/', StrategyListView.as_view(), name = 'strategy_list'), 
+    path ('strategies/<int:pk>/', StrategyDetailView.as_view(), name = 'strategy_detail'), 
+    path ('strategies/new/', StrategyCreateView.as_view(), name = 'strategy_create'),  
+    path ('strategies/update/<int:pk>/', StrategyUpdateView.as_view(), name = 'strategy_update'), 
+    path ('strategies/delete/<int:pk>/', StrategyDeleteView.as_view(), name = 'strategy_delete'),
+    
     path ('bug/', BugListView.as_view(), name = 'bug_list'), 
     path ('bug/<int:pk>/', BugDetailView.as_view(), name = 'bug_detail'), 
     path ('bug/new/', BugCreateView.as_view(), name = 'bug_create'),  

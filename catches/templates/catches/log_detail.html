@@ -123,6 +123,43 @@
                         </div> <!-- card location div -->
                     </div>   <!-- fish, fly and location -->
 
+                    {% if log.strategy or log.setup %}
+                    <div class="row my-2">
+                        <div class="col-md-12">
+                            <div class="card border bg-light shadow-sm">
+                                <div class="card-body py-2 d-flex flex-wrap align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        {% if log.strategy %}
+                                        <div>
+                                            <span class="text-muted small d-block">Fishing Strategy:</span>
+                                            <a href="{% url 'strategy_detail' log.strategy.id %}" class="btn btn-sm btn-outline-warning text-dark fw-bold">
+                                                <i class="bi bi-compass me-1"></i>{{ log.strategy.name }}
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% if log.setup %}
+                                        <div>
+                                            <span class="text-muted small d-block">Line Setup / Rig:</span>
+                                            <a href="{% url 'setup_detail' log.setup.id %}" class="btn btn-sm btn-outline-primary fw-bold">
+                                                <i class="bi bi-diagram-3 me-1"></i>{{ log.setup.name }}
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if log.setup and log.setup.strike_indicator %}
+                                    <div class="text-end small text-muted">
+                                        Indicator: <span class="badge bg-danger">{{ log.setup.strike_indicator.name }}</span>
+                                        {% if log.setup.indicator_distance_from_fly_end %}
+                                        ({{ log.setup.indicator_distance_from_fly_end }} from fly end)
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <div class="row">  <!-- weather and notes -->
                         {% include "snippets/log_notes_row.html" %}
                     </div>  <!-- weather and notes -->

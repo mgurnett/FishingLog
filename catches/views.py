@@ -1055,6 +1055,8 @@ class VideoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
             context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'strategy' and self.kwargs.get('pk'):
+            context['parent_object'] = Strategy.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1090,6 +1092,12 @@ class VideoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 setup.videos.add(video)
                 messages.success(self.request, f"Video '{video.name}' linked to setup '{setup.name}'.")
                 return redirect('setup_detail', pk=pk)
+        elif field == 'strategy' and pk:
+            strategy = Strategy.objects.filter(pk=pk).first()
+            if strategy:
+                strategy.videos.add(video)
+                messages.success(self.request, f"Video '{video.name}' linked to strategy '{strategy.name}'.")
+                return redirect('strategy_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -1147,6 +1155,8 @@ class ArticleCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
             context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'strategy' and self.kwargs.get('pk'):
+            context['parent_object'] = Strategy.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1195,6 +1205,12 @@ class ArticleCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 setup.articles.add(article)
                 messages.success(self.request, f"Article '{article.name}' linked to setup '{setup.name}'.")
                 return redirect('setup_detail', pk=pk)
+        elif field == 'strategy' and pk:
+            strategy = Strategy.objects.filter(pk=pk).first()
+            if strategy:
+                strategy.articles.add(article)
+                messages.success(self.request, f"Article '{article.name}' linked to strategy '{strategy.name}'.")
+                return redirect('strategy_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -1259,6 +1275,8 @@ class PictureCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
         elif self.kwargs.get('field') == 'setup' and self.kwargs.get('pk'):
             context['parent_object'] = Setup.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'strategy' and self.kwargs.get('pk'):
+            context['parent_object'] = Strategy.objects.filter(pk=self.kwargs.get('pk')).first()
         return context
 
     def form_valid(self, form):
@@ -1301,6 +1319,12 @@ class PictureCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 setup.pictures.add(picture)
                 messages.success(self.request, f"Picture '{picture.name}' linked to setup '{setup.name}'.")
                 return redirect('setup_detail', pk=pk)
+        elif field == 'strategy' and pk:
+            strategy = Strategy.objects.filter(pk=pk).first()
+            if strategy:
+                strategy.pictures.add(picture)
+                messages.success(self.request, f"Picture '{picture.name}' linked to strategy '{strategy.name}'.")
+                return redirect('strategy_detail', pk=pk)
         elif field == 'lake' and pk:
             return redirect('lake_detail', pk=pk)
         elif field == 'fish' and pk:
@@ -1953,6 +1977,12 @@ def mobile_log_submit_api(request):
         p_lake_depth = float(lake_depth) if lake_depth not in (None, '') else None
         p_catch_depth = float(catch_depth) if catch_depth not in (None, '') else None
 
+        # Setup and Strategy
+        setup_id = data.get('setup_id') or data.get('setup')
+        strategy_id = data.get('strategy_id') or data.get('strategy')
+        setup = Setup.objects.filter(pk=setup_id).first() if setup_id else None
+        strategy = Strategy.objects.filter(pk=strategy_id).first() if strategy_id else None
+
         # Create Log instance
         now_dt = dt_module.datetime.now()
         log = Log.objects.create(
@@ -1969,6 +1999,8 @@ def mobile_log_submit_api(request):
             gps_long=parsed_long,
             lake_depth=p_lake_depth,
             catch_depth=p_catch_depth,
+            setup=setup,
+            strategy=strategy,
             catch_date=now_dt.date(),
             catch_time=now_dt.time(),
             notes=notes if notes else None
@@ -2145,6 +2177,21 @@ def unlink_media_from_item(request, field, pk, media_type, media_pk):
             setup.articles.remove(media_pk)
             messages.success(request, 'Article unlinked from setup.')
         return redirect('setup_detail', pk=pk)
+    elif field == 'strategy':
+        strategy = get_object_or_404(Strategy, pk=pk)
+        if request.user != strategy.author and not request.user.is_superuser:
+            messages.error(request, 'You do not have permission to modify this strategy.')
+            return redirect('strategy_list')
+        if media_type == 'video':
+            strategy.videos.remove(media_pk)
+            messages.success(request, 'Video unlinked from strategy.')
+        elif media_type == 'picture':
+            strategy.pictures.remove(media_pk)
+            messages.success(request, 'Picture unlinked from strategy.')
+        elif media_type == 'article':
+            strategy.articles.remove(media_pk)
+            messages.success(request, 'Article unlinked from strategy.')
+        return redirect('strategy_detail', pk=pk)
     return redirect('catch_home')
 
 class LockerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -2191,7 +2238,7 @@ class SetupListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Setup.objects.all().select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
-        return Setup.objects.filter(owner=self.request.user).select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
+        return Setup.objects.filter(Q(is_private=False) | Q(owner=self.request.user)).select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
 
 
 class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
@@ -2200,10 +2247,10 @@ class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def test_func(self):
         setup = self.get_object()
-        return self.request.user == setup.owner or self.request.user.is_superuser
+        return not setup.is_private or self.request.user == setup.owner or self.request.user.is_superuser
 
     def handle_no_permission(self):
-        messages.error(self.request, 'You can only view your own line setups.')
+        messages.error(self.request, 'You do not have permission to view this line setup.')
         return redirect('setup_list')
 
     def get_context_data(self, **kwargs):
@@ -2212,6 +2259,7 @@ class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         context['videos_list'] = self.object.videos.all()
         context['articles_list'] = self.object.articles.all()
         context['pictures_list'] = self.object.pictures.all()
+        context['strategies_list'] = self.object.strategies.all()
         return context
 
 
@@ -2301,6 +2349,91 @@ class SetupDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMix
     def handle_no_permission(self):
         messages.error(self.request, 'You can only delete your own line setups.')
         return redirect('setup_list')
+
+
+class StrategyListView(LoginRequiredMixin, ListView):
+    model = Strategy
+    context_object_name = 'strategies'
+    paginate_by = 20
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Strategy.objects.all().select_related('setup', 'author')
+        return Strategy.objects.filter(Q(is_private=False) | Q(author=self.request.user)).select_related('setup', 'author')
+
+
+class StrategyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Strategy
+    context_object_name = 'strategy'
+
+    def test_func(self):
+        strategy = self.get_object()
+        return not strategy.is_private or self.request.user == strategy.author or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You do not have permission to view this strategy.')
+        return redirect('strategy_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['videos_list'] = self.object.videos.all()
+        context['articles_list'] = self.object.articles.all()
+        context['pictures_list'] = self.object.pictures.all()
+        context['catches_list'] = self.object.logs.all().order_by('-catch_date')[:10]
+        if self.object.setup:
+            context['sections'] = self.object.setup.sections.all().select_related('connection_knot', 'hardware', 'tippet_material')
+        return context
+
+
+class StrategyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Strategy
+    form_class = New_Strategy_Form
+    template_name = 'catches/strategy_form.html'
+    success_message = "Strategy created successfully!"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class StrategyUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    model = Strategy
+    form_class = New_Strategy_Form
+    template_name = 'catches/strategy_form.html'
+    success_message = "Strategy updated successfully!"
+
+    def test_func(self):
+        strategy = self.get_object()
+        return self.request.user == strategy.author or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only edit your own strategies.')
+        return redirect('strategy_list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+
+class StrategyDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = Strategy
+    template_name = 'catches/strategy_confirm_delete.html'
+    success_url = reverse_lazy('strategy_list')
+    success_message = "Strategy deleted successfully"
+
+    def test_func(self):
+        strategy = self.get_object()
+        return self.request.user == strategy.author or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only delete your own strategies.')
+        return redirect('strategy_list')
 
 
 @login_required

@@ -231,6 +231,7 @@ class New_Log_Form(forms.ModelForm):
             'catch_date', 'catch_time', 'notes', 'lake', 'location', 
             'temp', 'fly', 'fly_size', 'fly_colour', 'fish', 'length', 
             'weight', 'fish_swami', 'num_landed', 'private', 
+            'strategy', 'setup',
             'lake_depth', 'gps_lat', 'gps_long', 'catch_depth', 'live'
         ]
         
@@ -264,6 +265,17 @@ class New_Log_Form(forms.ModelForm):
     fly_colour = forms.CharField(required=False) 
     fish = forms.ModelChoiceField(queryset=Fish.objects.all(), required=False)
     
+    strategy = forms.ModelChoiceField(
+        queryset=Strategy.objects.all(),
+        required=False,
+        label="Fishing Strategy"
+    )
+    setup = forms.ModelChoiceField(
+        queryset=Setup.objects.all(),
+        required=False,
+        label="Line Setup / Rig"
+    )
+    
     live = forms.BooleanField(required=False, initial=False, label="Live Catch")
     
     lake_depth = forms.FloatField(required=False, label="Lake Depth (ft)")
@@ -295,6 +307,11 @@ class New_Log_Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields['strategy'].queryset = Strategy.objects.all().order_by('name')
+        self.fields['strategy'].empty_label = "-- Select Strategy (Optional) --"
+        self.fields['setup'].queryset = Setup.objects.all().order_by('name')
+        self.fields['setup'].empty_label = "-- Select Setup / Rig (Optional) --"
+
         # Safely localize formatting for UpdateViews without altering data types globally
         if self.instance and self.instance.pk:
             if self.instance.catch_date and hasattr(self.instance.catch_date, 'strftime'):
@@ -320,6 +337,11 @@ class New_Log_Form(forms.ModelForm):
                 Column('weight_unit',   css_class='form-group col-md-1 mb-0 custom-inline-radios'),
                 Column('num_landed',    css_class='form-group col-md-2 mb-0'),
                 Column('private',       css_class='form-group col-md-1 mb-0 pt-4'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('strategy',      css_class='form-group col-md-6 mb-0'),
+                Column('setup',         css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -813,7 +835,7 @@ class New_Setup_Form(forms.ModelForm):
         fields = [
             'name', 'rod', 'reel', 'fly_line', 'line_to_leader_knot',
             'leader', 'leader_length', 'strike_indicator',
-            'indicator_distance_from_fly_end', 'notes'
+            'indicator_distance_from_fly_end', 'is_private', 'notes'
         ]
         widgets = {
             'notes': CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
@@ -826,6 +848,7 @@ class New_Setup_Form(forms.ModelForm):
             'leader_length': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., 9ft, 7.5ft, 12ft'}),
             'strike_indicator': forms.Select(attrs={'class': 'form-select'}),
             'indicator_distance_from_fly_end': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., 18in, 3ft, 4.5ft'}),
+            'is_private': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
     def __init__(self, *args, user=None, **kwargs):
@@ -899,4 +922,28 @@ SetupSectionFormSet = forms.inlineformset_factory(
     extra=1,
     can_delete=True
 )
+
+
+class New_Strategy_Form(forms.ModelForm):
+    class Meta:
+        model = Strategy
+        fields = ['name', 'setup', 'is_private', 'notes']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., Deep Chironomid Wind Drift, Streamer Strip along Drop-offs'}),
+            'setup': forms.Select(attrs={'class': 'form-select'}),
+            'is_private': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'notes': CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        }
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user:
+            if user.is_superuser:
+                self.fields['setup'].queryset = Setup.objects.all().order_by('name')
+            else:
+                self.fields['setup'].queryset = Setup.objects.filter(models.Q(is_private=False) | models.Q(owner=user)).order_by('name')
+        else:
+            self.fields['setup'].queryset = Setup.objects.filter(is_private=False).order_by('name')
+        self.fields['setup'].empty_label = "-- Select Line Setup / Rig (Optional) --"
+
 

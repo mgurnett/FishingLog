@@ -12,7 +12,8 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         # 1. Handle profile creation, permissions, and initial region setup
         Profile.objects.create(user=instance)
-        instance.groups.add(Group.objects.get(name='viewer'))
+        viewer_group, _ = Group.objects.get_or_create(name='viewer')
+        instance.groups.add(viewer_group)
         region = Region (
             name = "My region",
             notes = "Lakes around your area",
