@@ -36,8 +36,10 @@
                                 href="{% url 'picture_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
                                 picture</a>
                         </div>
-                        <div class="col-md-4 text-end">
+                        <div class="col-md-4 text-center">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_list' %}">back</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_create' %}"
+                                type="submit">add</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_update' knot.id %}"
                                 type="submit">edit</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_delete' knot.id %}"

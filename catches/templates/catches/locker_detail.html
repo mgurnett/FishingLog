@@ -98,13 +98,14 @@
                         </div>
                         <div class="col-md-4 text-center">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_list' %}">back</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_update' locker.id %}"
-                                type="submit">edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_delete' locker.id %}"
-                                type="submit">delete</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_create' %}">add</a>
+                            {% if user == locker.owner or user.is_superuser %}
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_update' locker.id %}">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_delete' locker.id %}">delete</a>
+                            {% endif %}
                         </div>
                         <div class="col-md-2">
-                            Owner: <b>{{ locker.owner.first_name }}</b>
+                            Owner: <b>{% if locker.owner.first_name %}{{ locker.owner.first_name }}{% else %}{{ locker.owner.username }}{% endif %}</b>
                         </div>
                     </div>
                 </div>

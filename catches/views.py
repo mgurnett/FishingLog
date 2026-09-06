@@ -20,7 +20,7 @@ from .context_processors import *
 
 from django.db.models import Q
 from django.contrib.auth.views import redirect_to_login
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin   # this is how we limit not allowing non-logged in users from entering a lake
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, UserPassesTestMixin   # this is how we limit not allowing non-logged in users from entering a lake
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic.base import TemplateView
@@ -1934,46 +1934,59 @@ class KnotDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     success_message = "knot deleted"
 
 
-class LockerListView (PermissionRequiredMixin, ListView):
-    permission_required = 'catches.view_locker'
-    
+class LockerListView (LoginRequiredMixin, ListView):
     model = Locker
     context_object_name = 'locker' 
     paginate_by = 20
     
-    def handle_no_permission(self):
-        # add custom message
-        messages.error(self.request, 'You have no permission')
-        return super(LockerListView, self).handle_no_permission()
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Locker.objects.all()
+        return Locker.objects.filter(owner=self.request.user)
 
-class LockerDetailView (PermissionRequiredMixin, DetailView): 
-    permission_required = 'catches.view_locker'
+class LockerDetailView (LoginRequiredMixin, UserPassesTestMixin, DetailView): 
     model = Locker
     context_object_name = 'locker' 
 
-class LockerCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'catches.add_locker'
+    def test_func(self):
+        locker = self.get_object()
+        return self.request.user == locker.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only view your own equipment.')
+        return redirect('locker_list')
+
+class LockerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Locker
     form_class = New_Locker_Form
+    success_message = 'The locker was added'
 
     def form_valid (self, form):
         form.instance.owner = self.request.user
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The locker was added'
-        )
         return super().form_valid (form)
 
-class LockerUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'catches.change_locker'
+class LockerUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = Locker
     form_class = New_Locker_Form
-    success_message = "locker fixed"
+    success_message = "Locker updated successfully"
 
-class LockerDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
-    permission_required = 'catches.delete_locker'
-    
+    def test_func(self):
+        locker = self.get_object()
+        return self.request.user == locker.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only edit your own equipment.')
+        return redirect('locker_list')
+
+class LockerDeleteView (LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView): 
     model = Locker    
     success_url = "/locker/"  
-    success_message = "locker deleted"
+    success_message = "Locker deleted successfully"
+
+    def test_func(self):
+        locker = self.get_object()
+        return self.request.user == locker.owner or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'You can only delete your own equipment.')
+        return redirect('locker_list')
