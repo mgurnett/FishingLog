@@ -90,12 +90,15 @@ class Fish(models.Model):
     def save(self, *args, **kwargs):
         super(Fish, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+        if self.image:
+            try:
+                img = Image.open(self.image.path)
+                if img.height > 300 or img.width > 300:
+                    output_size = (300,300)
+                    img.thumbnail(output_size)
+                    img.save(self.image.path)
+            except Exception:
+                pass
 
     class Meta:
         ordering = ['name']
@@ -137,12 +140,15 @@ class Bug(models.Model):
     def save(self, *args, **kwargs):
         super(Bug, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+        if self.image:
+            try:
+                img = Image.open(self.image.path)
+                if img.height > 300 or img.width > 300:
+                    output_size = (300,300)
+                    img.thumbnail(output_size)
+                    img.save(self.image.path)
+            except Exception:
+                pass
     
     class Meta:
         ordering = ['name']
@@ -403,12 +409,15 @@ class Fly_type(models.Model):
     def save(self, *args, **kwargs):
         super(Fly_type, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
+        if self.image:
+            try:
+                img = Image.open(self.image.path)
+                if img.height > 300 or img.width > 300:
+                    output_size = (300,300)
+                    img.thumbnail(output_size)
+                    img.save(self.image.path)
+            except Exception:
+                pass 
 
     def __str__ (self):
         return self.name
@@ -477,12 +486,15 @@ class Fly(models.Model):
     def save(self, *args, **kwargs):
         super(Fly, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path) 
+        if self.image:
+            try:
+                img = Image.open(self.image.path)
+                if img.height > 300 or img.width > 300:
+                    output_size = (300,300)
+                    img.thumbnail(output_size)
+                    img.save(self.image.path)
+            except Exception:
+                pass 
 
 class Log(models.Model):  
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE) 
@@ -732,13 +744,16 @@ class Picture(models.Model):
     def save(self, *args, **kwargs):
         super(Picture, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-        img = ImageOps.exif_transpose(img)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)  
+        if self.image:
+            try:
+                img = Image.open(self.image.path)
+                img = ImageOps.exif_transpose(img)
+                if img.height > 300 or img.width > 300:
+                    output_size = (300,300)
+                    img.thumbnail(output_size)
+                    img.save(self.image.path)
+            except Exception:
+                pass  
     
 class Chart(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")
