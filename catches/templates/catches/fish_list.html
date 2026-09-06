@@ -22,19 +22,17 @@
         <div class = "row">
             {% for fish in fishes %}
                 <div class="col-md-4">
-                    <!-- Added 'bg-transparent' and 'border-0' to clear the default card background -->
                     <div class="card mb-4 box-shadow bg-transparent border-0">
-                        <a href="{% url 'fish_detail' fish.id %}" class="card-link">
-                            {% comment %} <img class = "card-img-top" src="{{ fish.image.url }}" alt={{ fish.name | title }}> {% endcomment %}
+                        <div class="card-body text-center">
+                            <a href="{% url 'fish_detail' fish.id %}" class="d-block text-decoration-none mb-2">
+                                <h4><b>{{ fish.name | title }}</b></h4>
+                            </a>
                             {% if fish.image %}
-                                <img src="{{ fish.image.url }}" alt="{{ fish.name }}" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
-                            {% else %}
-                                <img src="/static/images/placeholder-fish.png" alt="No image available" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
+                                <a href="{% url 'fish_detail' fish.id %}" class="d-block">
+                                    <img src="{{ fish.image.url }}" alt="{{ fish.name }}" class="img-thumbnail mx-auto d-block" style="max-height: 220px; max-width: 85%; height: auto; object-fit: contain;">
+                                </a>
                             {% endif %}
-                            <br><b>{{ fish.name | title}}</b> 
-                        </a>
-                        <div class="card-body">
-                            <p class="card-text">{{ fish.notes | safe }} </p>
+                            <p class="card-text mt-2">{{ fish.notes | safe }}</p>
                         </div>
                     </div>
                 </div>

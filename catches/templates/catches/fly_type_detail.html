@@ -14,7 +14,7 @@
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							{% if fly_type.image %}
-							<img src="{{ fly_type.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 300px; width: auto;" alt="{{ fly_type.name | title }}">
+							<img src="{{ fly_type.image.url }}" class="img-thumbnail mx-auto d-block" style="max-height: 300px; max-width: 50%; height: auto; object-fit: contain;" alt="{{ fly_type.name | title }}">
 							{% endif %}
 							<div class="row">
 								<div class="col-md-2 text-centre"></div>
@@ -28,7 +28,7 @@
 							<div class="carousel-item">
 								<a href="{% url 'fly_detail' fly.id %}" >
 									{% if fly.image %}
-									<img src="{{ fly.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 250px; width: auto;" alt="{{ fly.name | title }}">
+									<img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" style="max-height: 250px; max-width: 50%; height: auto; object-fit: contain;" alt="{{ fly.name | title }}">
 									{% endif %}
 								</a>
 								<div class="row">

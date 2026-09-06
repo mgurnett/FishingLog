@@ -20,20 +20,17 @@
         <div class="row">
             {% for knot in knots %}
             <div class="col-md-4">
-                <!-- Added 'bg-transparent' and 'border-0' to clear the default card background -->
                 <div class="card mb-4 box-shadow bg-transparent border-0">
-                    <a href="{% url 'knot_detail' knot.id %}" class="card-link">
-                        {% comment %} <img class="card-img-top" src="{{ knot.image.url }}" alt={{ knot.name | title }}>
-                        {% endcomment %}
+                    <div class="card-body text-center">
+                        <a href="{% url 'knot_detail' knot.id %}" class="d-block text-decoration-none mb-2">
+                            <h4><b>{{ knot.name | title }}</b></h4>
+                        </a>
                         {% if knot.image %}
-                        <img src="{{ knot.image.url }}" alt="{{ knot.name }}" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
-                        {% else %}
-                        <img src="/static/images/placeholder-knot.png" alt="No image available" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;">
+                        <a href="{% url 'knot_detail' knot.id %}" class="d-block">
+                            <img src="{{ knot.image.url }}" alt="{{ knot.name }}" class="img-thumbnail mx-auto d-block" style="max-height: 220px; max-width: 85%; height: auto; object-fit: contain;">
+                        </a>
                         {% endif %}
-                        <br><b>{{ knot.name | title}}</b>
-                    </a>
-                    <div class="card-body">
-                        <p class="card-text">{{ knot.notes | safe }} </p>
+                        <p class="card-text mt-2">{{ knot.notes | safe }}</p>
                     </div>
                 </div>
             </div>

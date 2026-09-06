@@ -12,7 +12,7 @@
 				<div class="card-body">
 					<p>
 						{% if picture.image %}
-						<img class="img-fluid rounded mx-auto d-block" src="{{ picture.image.url }}" alt="{{ picture.name | title }}" style="max-height: 450px; width: auto;">
+						<img class="img-fluid rounded mx-auto d-block" src="{{ picture.image.url }}" alt="{{ picture.name | title }}" style="max-height: 450px; max-width: 100%; height: auto; object-fit: contain;">
 						{% endif %}
 						{{ picture.notes|safe }}
 					</p>

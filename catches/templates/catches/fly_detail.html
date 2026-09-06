@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <p class="card  border-0 bg-transparent">
                             {% if fly.image %}
-                                <img src="{{ fly.image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{ fly.name | title }}" style="max-height: 300px; width: auto;" >
+                                <img src="{{ fly.image.url }}" class="img-thumbnail mx-auto d-block" alt="{{ fly.name | title }}" style="max-height: 300px; max-width: 50%; height: auto; object-fit: contain;" >
                             {% endif %}
                         </p>
                     </div>

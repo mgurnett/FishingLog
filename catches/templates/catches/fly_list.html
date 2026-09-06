@@ -13,9 +13,9 @@
                             <div class = "row">
                                 <a href="{% url 'fly_detail' fly.id %}" class="card-link">
                                     {% if fly.image %}
-                                        <img class="img-fluid rounded mx-auto d-block" src="{{ fly.image.url }}" alt="{{ fly.name | title }}" style="max-height: 220px; width: auto;"> 
+                                        <img class="img-thumbnail mx-auto d-block" src="{{ fly.image.url }}" alt="{{ fly.name | title }}" style="max-height: 220px; max-width: 60%; height: auto; object-fit: contain;"> 
                                     {% else %}
-                                        <img class="img-fluid rounded mx-auto d-block" src="{% static 'catches/site/default_fly.jpg' %}" alt="No image available" style="max-height: 220px; width: auto;">
+                                        <img class="img-thumbnail mx-auto d-block" src="{% static 'catches/site/default_fly.jpg' %}" alt="No image available" style="max-height: 220px; max-width: 60%; height: auto; object-fit: contain;">
                                     {% endif %}
                                 </a>
                             </div>

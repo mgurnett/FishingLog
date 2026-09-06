@@ -5,7 +5,7 @@
             <div class="card h-100 bg-transparent">
                 <h5 class="card-title">{{ picture.name | title }}</h5>
                 <a href="{% url 'picture_detail' picture.id %}" >
-                    <img src="{{ picture.image.url }}" class="img-fluid rounded mx-auto d-block" style="max-height: 220px; width: auto;" alt="{{ picture.name | title }}">
+                    <img src="{{ picture.image.url }}" class="img-thumbnail mx-auto d-block" style="max-height: 220px; max-width: 60%; height: auto; object-fit: contain;" alt="{{ picture.name | title }}">
                 </a>
                 <div class="card-footer">
                     <div class = "row">
