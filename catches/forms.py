@@ -257,8 +257,8 @@ class New_Log_Form(forms.ModelForm):
     temp = forms.ModelChoiceField(
         label='Water Temperature',
         queryset=Temp.objects.all(),
-        initial=1,
-        required=True
+        required=False,
+        empty_label="-- Select Water Temp (Optional) --"
     )
     fly = forms.ModelChoiceField(queryset=Fly.objects.all(), required=False)
     fly_size = forms.CharField(required=False) 

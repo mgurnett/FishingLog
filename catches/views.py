@@ -1928,7 +1928,7 @@ def mobile_log_submit_api(request):
 
         fish = Fish.objects.filter(pk=fish_id).first() if fish_id else None
         fly = Fly.objects.filter(pk=fly_id).first() if fly_id else None
-        temp = Temp.objects.filter(pk=temp_id).first() if temp_id else Temp.objects.first()
+        temp = Temp.objects.filter(pk=temp_id).first() if temp_id else None
 
         # Length unit conversion to CM (system model convention)
         float_length_cm = 0.0
@@ -1994,7 +1994,7 @@ def mobile_log_submit_api(request):
             fly_colour=fly_colour,
             length=float_length_cm,
             weight=float_weight_kg,
-            temp=temp or Temp.objects.first(),
+            temp=temp,
             gps_lat=parsed_lat,
             gps_long=parsed_long,
             lake_depth=p_lake_depth,
@@ -2013,18 +2013,21 @@ def mobile_log_submit_api(request):
 
         weather_info = None
         log.refresh_from_db()
-        if hasattr(log, 'weather') and log.weather:
+        try:
             w = log.weather
-            weather_info = {
-                'temp': w.temp,
-                'feels_like': w.feels_like,
-                'description': w.description,
-                'wind_speed': w.wind_speed,
-                'wind_deg': w.wind_deg,
-                'humidity': w.humidity,
-                'clouds': w.clouds,
-                'icon': w.icon,
-            }
+            if w:
+                weather_info = {
+                    'temp': w.temp,
+                    'feels_like': w.feels_like,
+                    'description': w.description,
+                    'wind_speed': w.wind_speed,
+                    'wind_deg': w.wind_deg,
+                    'humidity': w.humidity,
+                    'clouds': w.clouds,
+                    'icon': w.icon,
+                }
+        except Exception:
+            weather_info = None
 
         return JsonResponse({
             'success': True,

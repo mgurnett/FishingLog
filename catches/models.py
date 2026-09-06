@@ -499,7 +499,7 @@ class Fly(models.Model):
 class Log(models.Model):  
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE) 
     fish = models.ForeignKey(Fish, blank=True, null=True, on_delete=models.SET_NULL)
-    temp = models.ForeignKey(Temp, default = 1, on_delete=models.SET_DEFAULT)
+    temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     week = models.ForeignKey(Week, blank=True, null=True, on_delete=models.SET_NULL)
     # Change catch_date default from timezone.now to local today:
     catch_date = models.DateField(default=datetime.date.today)
@@ -617,10 +617,13 @@ class LogWeather(models.Model):
     description = models.CharField(max_length=100, blank=True)
     icon = models.CharField(max_length=20, blank=True)
 
-def __str__(self):
-    if self.log_id and hasattr(self, 'log') and self.log:
-        return f"Weather for Log {self.log.id}"
-    return f"Weather for Log (Deleted or Missing ID: {self.log_id})"
+    def __str__(self):
+        try:
+            if self.log_id:
+                return f"Weather for Log #{self.log_id}"
+        except Exception:
+            pass
+        return f"Weather for Log #{getattr(self, 'log_id', 'Unknown')}"
 
 class Hatch(models.Model):
     lake = models.ForeignKey(Lake, on_delete=models.CASCADE)
@@ -840,59 +843,65 @@ NO DELETE PROTECT
 
 @receiver(post_save, sender=Log)
 def fetch_weather_for_log(sender, instance, created, **kwargs):
-    if hasattr(instance, 'weather'):
-        return
+    try:
+        if instance.weather:
+            return
+    except Exception:
+        pass
 
-    lat = instance.gps_lat or (float(instance.lake.lat) if instance.lake and instance.lake.lat else None)
-    lon = instance.gps_long or (float(instance.lake.long) if instance.lake and instance.lake.long else None)
+    try:
+        lat = instance.gps_lat or (float(instance.lake.lat) if instance.lake and instance.lake.lat else None)
+        lon = instance.gps_long or (float(instance.lake.long) if instance.lake and instance.lake.long else None)
 
-    if lat and lon and instance.catch_date:
-        import datetime
-        from django.utils.timezone import make_aware
-        from catches.helpers.Open_Weather import get_historical_weather, get_current_weather
-        
-        c_time = instance.catch_time or datetime.time(12, 0)
-        if isinstance(c_time, datetime.datetime):
-            c_time = c_time.time()
-        dt = datetime.datetime.combine(instance.catch_date, c_time)
-        try:
-            dt_aware = make_aware(dt)
-        except ValueError:
-            dt_aware = dt
-        unix_timestamp = int(dt_aware.timestamp())
-        
-        w_data = None
-        data = get_historical_weather(lat, lon, unix_timestamp)
-        if data and 'data' in data and len(data['data']) > 0:
-            w_data = data['data'][0]
-        else:
-            curr = get_current_weather(lat, lon)
-            if curr and 'current' in curr:
-                c = curr['current']
-                w_data = {
-                    'temp': c.get('temp'),
-                    'feels_like': c.get('feels_like'),
-                    'pressure': c.get('pressure'),
-                    'humidity': c.get('humidity'),
-                    'clouds': c.get('clouds'),
-                    'wind_speed': c.get('wind_speed'),
-                    'wind_deg': c.get('wind_deg'),
-                    'weather': c.get('weather', [{}])
-                }
-        
-        if w_data:
-            LogWeather.objects.create(
-                log=instance,
-                temp=w_data.get('temp'),
-                feels_like=w_data.get('feels_like'),
-                pressure=w_data.get('pressure', 0) / 10 if w_data.get('pressure') else None,
-                humidity=w_data.get('humidity'),
-                clouds=w_data.get('clouds'),
-                wind_speed=w_data.get('wind_speed'),
-                wind_deg=w_data.get('wind_deg'),
-                description=w_data.get('weather', [{}])[0].get('description', '') if w_data.get('weather') else '',
-                icon=w_data.get('weather', [{}])[0].get('icon', '') if w_data.get('weather') else ''
-            )
+        if lat and lon and instance.catch_date:
+            import datetime
+            from django.utils.timezone import make_aware
+            from catches.helpers.Open_Weather import get_historical_weather, get_current_weather
+            
+            c_time = instance.catch_time or datetime.time(12, 0)
+            if isinstance(c_time, datetime.datetime):
+                c_time = c_time.time()
+            dt = datetime.datetime.combine(instance.catch_date, c_time)
+            try:
+                dt_aware = make_aware(dt)
+            except ValueError:
+                dt_aware = dt
+            unix_timestamp = int(dt_aware.timestamp())
+            
+            w_data = None
+            data = get_historical_weather(lat, lon, unix_timestamp)
+            if data and 'data' in data and len(data['data']) > 0:
+                w_data = data['data'][0]
+            else:
+                curr = get_current_weather(lat, lon)
+                if curr and 'current' in curr:
+                    c = curr['current']
+                    w_data = {
+                        'temp': c.get('temp'),
+                        'feels_like': c.get('feels_like'),
+                        'pressure': c.get('pressure'),
+                        'humidity': c.get('humidity'),
+                        'clouds': c.get('clouds'),
+                        'wind_speed': c.get('wind_speed'),
+                        'wind_deg': c.get('wind_deg'),
+                        'weather': c.get('weather', [{}])
+                    }
+            
+            if w_data:
+                LogWeather.objects.create(
+                    log=instance,
+                    temp=w_data.get('temp'),
+                    feels_like=w_data.get('feels_like'),
+                    pressure=w_data.get('pressure', 0) / 10 if w_data.get('pressure') else None,
+                    humidity=w_data.get('humidity'),
+                    clouds=w_data.get('clouds'),
+                    wind_speed=w_data.get('wind_speed'),
+                    wind_deg=w_data.get('wind_deg'),
+                    description=w_data.get('weather', [{}])[0].get('description', '') if w_data.get('weather') else '',
+                    icon=w_data.get('weather', [{}])[0].get('icon', '') if w_data.get('weather') else ''
+                )
+    except Exception:
+        pass
 
     # If True, the field is allowed to be blank. Default is False.
     # If blank=True then the field will not be required, whereas if it's False the field cannot be blank.
