@@ -942,3 +942,57 @@ class Knot(models.Model):
 
     def get_absolute_url(self):
         return reverse('knot_detail', kwargs={'pk': self.pk})
+
+class Locker(models.Model):
+    name = models.CharField(max_length=150, unique=True)
+    model = models.CharField(max_length=150, blank=True, null=True)
+    brand = models.CharField(max_length=150, blank=True, null=True)
+    purchase_date = models.DateField(blank=True, null=True)
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    manufacture_link = models.URLField(max_length = 400, blank=True, null=True)
+    retailer_link = models.URLField(max_length = 400, blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL) 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    characteristics = models.CharField(max_length=300, blank=True, null=True)
+    image = models.ImageField ('Locker image', 
+        default=None, 
+        upload_to='lockers/', 
+        height_field=None, 
+        width_field=None, 
+        max_length=100, 
+        blank=True, null=True
+        )
+
+    # Many-to-Many relationships to existing media models
+    pictures = models.ManyToManyField(
+        'Picture', 
+        blank=True, 
+        related_name='equipment_pictures',
+        help_text="Diagrams, tied examples, or step-by-step images."
+    )
+    videos = models.ManyToManyField(
+        'Video', 
+        blank=True, 
+        related_name='equipment_videos',
+        help_text="Tutorial or tying demonstration videos."
+    )
+    articles = models.ManyToManyField(
+        'Article', 
+        blank=True, 
+        related_name='equipment_articles',
+        help_text="Related reference guides or knot-testing articles."
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = "locker"
+        verbose_name_plural = "locker"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('locker_detail', kwargs={'pk': self.pk})

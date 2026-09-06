@@ -115,3 +115,13 @@ class CategoryAdmin (admin.ModelAdmin):
 @admin.register (Knot)
 class KnotAdmin (admin.ModelAdmin):
     list_display = ['name', "static_tag"]
+
+@admin.register (Locker)
+class LockerAdmin (admin.ModelAdmin):
+    list_display = ['category_name', 'name', 'brand', 'model', 'owner']
+
+    def owner (self, obj):
+        return str(f'{obj.owner}')
+
+    def category_name (self, obj):
+        return str(f'{obj.category.name}')

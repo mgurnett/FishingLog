@@ -1933,3 +1933,49 @@ class KnotDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
     success_url = "/knots/"  
     success_message = "knot deleted"
 
+
+
+class LockerListView (PermissionRequiredMixin, ListView):
+    permission_required = 'catches.view_locker'
+    
+    model = Locker
+    context_object_name = 'locker' 
+    paginate_by = 6
+    
+    def handle_no_permission(self):
+        # add custom message
+        messages.error(self.request, 'You have no permission')
+        return super(LockerListView, self).handle_no_permission()
+
+class LockerDetailView (PermissionRequiredMixin, DetailView): 
+    permission_required = 'catches.view_locker'
+    model = Locker
+    context_object_name = 'locker' 
+
+# class LockerCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
+#     permission_required = 'catches.add_locker'
+#     model = Locker
+#     form_class = New_Locker_Form
+
+#     def form_valid (self, form):
+#         if not form.instance.static_tag:
+#             form.instance.static_tag = slugify(form.instance.name)
+#         messages.add_message(
+#             self.request, 
+#             messages.SUCCESS,
+#             'The locker was added'
+#         )
+#         return super().form_valid (form)
+
+# class LockerUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
+#     permission_required = 'catches.change_locker'
+#     model = Locker
+#     form_class = New_Locker_Form
+#     success_message = "locker fixed"
+
+# class LockerDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView): 
+#     permission_required = 'catches.delete_locker'
+    
+#     model = Locker    
+#     success_url = "/lockers/"  
+#     success_message = "locker deleted"

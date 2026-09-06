@@ -1,0 +1,32 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Equipment locker{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Category</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Characteristics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equip in locker %}
+                    <tr>
+                        <th scope="row">{{ equip.category.name|title }}</th>
+                        <td><a href="{% url 'locker_detail' equip.id %}">{{equip.brand|title }}</a></td>
+                        <td><a href="{% url 'locker_detail' equip.id %}">{{equip.model|title }}</a></td>
+                        <td><a href="{% url 'locker_detail' equip.id %}">{{equip.characteristics }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock content %}

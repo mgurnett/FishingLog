@@ -63,6 +63,12 @@ urlpatterns = [
     path ('knots/update/<int:pk>/', KnotUpdateView.as_view(), name = 'knot_update'), 
     path ('knots/delete/<int:pk>/', KnotDeleteView.as_view(), name = 'knot_delete'),
     
+    path ('locker/', LockerListView.as_view(), name = 'locker_list'), 
+    path ('lockers/<int:pk>/', LockerDetailView.as_view(), name = 'locker_detail'), 
+    # path ('lockers/new/', LockerCreateView.as_view(), name = 'locker_create'),  
+    # path ('lockers/update/<int:pk>/', LockerUpdateView.as_view(), name = 'locker_update'), 
+    # path ('lockers/delete/<int:pk>/', LockerDeleteView.as_view(), name = 'locker_delete'),
+    
     path ('bug/', BugListView.as_view(), name = 'bug_list'), 
     path ('bug/<int:pk>/', BugDetailView.as_view(), name = 'bug_detail'), 
     path ('bug/new/', BugCreateView.as_view(), name = 'bug_create'),  

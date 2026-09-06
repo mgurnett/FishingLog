@@ -1,0 +1,73 @@
+{% extends "catches/base/base.html" %}
+{% block title %}{{ locker.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row"> <!-- information row div -->
+        <div class="col-md-12">
+            <div class="card border-0 bg-transparent">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-start">
+                            <h5>
+                                {{ locker.category.name|title }}: <b>{{ locker.name | title }}</b>
+                                {% if locker.brand %}
+                                {{ locker.brand|title }}
+                                {% endif %}
+                                {% if locker.model %}
+                                {{ locker.model }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <h5>
+                                {% if locker.characteristics %}
+                                {{ locker.characteristics }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>
+                                {% if locker.purchase_date %}
+                                Purchased: <b>{{ locker.purchase_date|date:"M d, Y" }}</b>
+                                {% endif %}
+                            </h6>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>
+                                {% if locker.purchase_price %}
+                                Price: <b>${{ locker.purchase_price }}</b>
+                                {% endif %}
+                            </h6>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <h6>
+                                {% if locker.manufacture_link %}
+                                <a href="{{ locker.manufacture_link }}">Manufacturer link</a>
+                                {% endif %}
+                            </h6>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <h6>
+                                {% if locker.retailer_link %}
+                                <a href="{{ locker.retailer_link }}">Retailer link</a>
+                                {% endif %}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- information row div -->
+
+        <div class="row"> <!-- Map row div -->
+            <div class="col-md-12"> <!-- card map div -->
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div> <!-- card map div -->
+        </div> <!-- Map row div -->
+
+    </div><!-- Top container -->
+    {% endblock content %}
