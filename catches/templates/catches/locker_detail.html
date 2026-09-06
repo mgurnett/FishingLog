@@ -58,12 +58,12 @@
                                 <div class="card-body">
                                     <h6>
                                         {% if locker.manufacture_link %}
-                                        <a href="{{ locker.manufacture_link }}">Manufacturer link</a>
+                                        <a href="{{ locker.manufacture_link }}" target="_blank">Manufacturer link</a>
                                         {% endif %}
                                     </h6>
                                     <h6>
                                         {% if locker.retailer_link %}
-                                        <a href="{{ locker.retailer_link }}">Retailer link</a>
+                                        <a href="{{ locker.retailer_link }}" target="_blank">Retailer link</a>
                                         {% endif %}
                                     </h6>
                                 </div>
@@ -91,21 +91,27 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New video</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New article</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="#">New picture</a>
+                        <div class="col-md-5">
+                            {% if user == locker.owner or user.is_superuser %}
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'video_create' field='locker' pk=locker.id %}">
+                                <i class="bi bi-play-circle me-1"></i>New video
+                            </a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'article_create' field='locker' pk=locker.id %}">
+                                <i class="bi bi-file-earmark-text me-1"></i>New article
+                            </a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'picture_create' field='locker' pk=locker.id %}">
+                                <i class="bi bi-image me-1"></i>New picture
+                            </a>
+                            {% endif %}
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-5 text-end">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_list' %}">back</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_create' %}">add</a>
                             {% if user == locker.owner or user.is_superuser %}
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_update' locker.id %}">edit</a>
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'locker_delete' locker.id %}">delete</a>
                             {% endif %}
-                        </div>
-                        <div class="col-md-2">
-                            Owner: <b>{% if locker.owner.first_name %}{{ locker.owner.first_name }}{% else %}{{ locker.owner.username }}{% endif %}</b>
+                            <span class="ms-2 small text-muted">Owner: <b>{% if locker.owner.first_name %}{{ locker.owner.first_name }}{% else %}{{ locker.owner.username }}{% endif %}</b></span>
                         </div>
                     </div>
                 </div>
@@ -113,4 +119,186 @@
             </div> <!-- information row div -->
         </div><!-- Top container -->
     </div>
-    {% endblock content %}
+
+    <!-- Media Tabs Section for Locker -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h5 class="col-12 px-0">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#LOCKER_VIDS">
+                            <b><i class="bi bi-camera-video me-1"></i>Videos</b>
+                            <span class="badge badge-dark badge-pill">{{ videos_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#LOCKER_ARTS">
+                            <b><i class="bi bi-journal-text me-1"></i>Articles</b>
+                            <span class="badge badge-dark badge-pill">{{ articles_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#LOCKER_PICS">
+                            <b><i class="bi bi-images me-1"></i>Pictures</b>
+                            <span class="badge badge-dark badge-pill">{{ pictures_list.count }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </h5>
+
+            <div class="tab-content pt-3">
+                <!-- Videos Tab -->
+                <div class="tab-pane container active" id="LOCKER_VIDS">
+                    {% if videos_list %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Link</th>
+                                {% if user == locker.owner or user.is_superuser %}
+                                <th scope="col" class="text-end">Action</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for video in videos_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name|title }}</a>
+                                </th>
+                                <td>{{ video.author|title }}</td>
+                                <td>{{ video.snippet }}</td>
+                                <td>{{ video.date_added }}</td>
+                                <td><a href="{{ video.url }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right me-1"></i>Watch</a></td>
+                                {% if user == locker.owner or user.is_superuser %}
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='locker' pk=locker.id media_type='video' media_pk=video.id %}"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('Unlink this video from {{ locker.name }}?');"
+                                       title="Unlink Video">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No videos linked yet.
+                        {% if user == locker.owner or user.is_superuser %}
+                        <a href="{% url 'video_create' field='locker' pk=locker.id %}" class="alert-link">Click here to add a video</a>.
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Articles Tab -->
+                <div class="tab-pane container fade" id="LOCKER_ARTS">
+                    {% if articles_list %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">File / Link</th>
+                                {% if user == locker.owner or user.is_superuser %}
+                                <th scope="col" class="text-end">Action</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'article_detail' article.id %}">{{ article.name|title }}</a>
+                                </th>
+                                <td>{{ article.author|title }}</td>
+                                <td>{{ article.snippet }}</td>
+                                <td>{{ article.date_added }}</td>
+                                <td>
+                                    {% if article.file %}
+                                    <a href="{{ article.file.url }}" download class="btn btn-sm btn-outline-primary"><i class="bi bi-download me-1"></i>Download</a>
+                                    {% elif article.url %}
+                                    <a href="{{ article.url }}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-box-arrow-up-right me-1"></i>View Web</a>
+                                    {% endif %}
+                                </td>
+                                {% if user == locker.owner or user.is_superuser %}
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='locker' pk=locker.id media_type='article' media_pk=article.id %}"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('Unlink this article from {{ locker.name }}?');"
+                                       title="Unlink Article">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No articles linked yet.
+                        {% if user == locker.owner or user.is_superuser %}
+                        <a href="{% url 'article_create' field='locker' pk=locker.id %}" class="alert-link">Click here to add an article</a>.
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pictures Tab -->
+                <div class="tab-pane container fade" id="LOCKER_PICS">
+                    {% if pictures_list %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for picture in pictures_list %}
+                        <div class="col mb-4">
+                            <div class="card h-100 bg-transparent border shadow-sm">
+                                <h6 class="card-header text-truncate"><b>{{ picture.name|title }}</b></h6>
+                                <div class="card-body text-center">
+                                    <a href="{% url 'picture_detail' picture.id %}">
+                                        {% if picture.image %}
+                                        <img src="{{ picture.image.url }}" class="img-thumbnail" style="max-height: 200px; width: auto; object-fit: contain;" alt="{{ picture.name|title }}">
+                                        {% else %}
+                                        <div class="p-4 text-muted">{{ picture.name }}</div>
+                                        {% endif %}
+                                    </a>
+                                    {% if picture.snippet %}
+                                    <p class="card-text small text-muted mt-2">{{ picture.snippet }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ picture.date_added }}</small>
+                                    {% if user == locker.owner or user.is_superuser %}
+                                    <a href="{% url 'unlink_media_from_item' field='locker' pk=locker.id media_type='picture' media_pk=picture.id %}"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('Unlink this picture from {{ locker.name }}?');"
+                                       title="Unlink Picture">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No pictures linked yet.
+                        {% if user == locker.owner or user.is_superuser %}
+                        <a href="{% url 'picture_create' field='locker' pk=locker.id %}" class="alert-link">Click here to add a picture</a>.
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 {% extends "catches/base/base.html" %}
-{% block title %}knot: {{ knot.name | title }}{% endblock %}
+{% block title %}Knot: {{ knot.name | title }}{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -7,43 +7,48 @@
         <div class="col-md-1"> </div>
         <div class="col-md-10">
             <div class="card border-0 bg-transparent">
-                <h5 class="card-header">
+                <div class="card-header">
                     {% if knot.image %}
                     <img class="img-thumbnail mx-auto d-block" src="{{ knot.image.url }}" alt="{{ knot.name | title }}"
                         style="max-height: 350px; max-width: 60%; height: auto; object-fit: contain;">
                     {% endif %}
-                    <p class="card-text">
-                    <h2 class="pt-5"><b> {{ knot }}</b></h2>
-                    </p>
-                </h5>
+                    <div class="row align-items-center pt-4">
+                        <div class="col-md-8 text-start">
+                            <h2 class="mb-0"><b>{{ knot.name|title }}</b></h2>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            {% if knot.static_tag %}
+                            <h5 class="mb-0 text-muted">Tag: <b>{{ knot.static_tag }}</b></h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
-                    <p class="card-text">
-                        {{ knot.notes | safe }}
-                        Tag: <b>{{ knot.static_tag }}</b>
-                    </p>
+                    {{ knot.notes | safe }}
                 </div>
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-2"></div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <a class="btn btn-primary btn-md mt-1 mb-1"
-                                href="{% url 'video_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
-                                video</a>
+                                href="{% url 'video_create' field='knot' pk=knot.id %}">
+                                <i class="bi bi-play-circle me-1"></i>New video
+                            </a>
                             <a class="btn btn-primary btn-md mt-1 mb-1"
-                                href="{% url 'article_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
-                                article</a>
+                                href="{% url 'article_create' field='knot' pk=knot.id %}">
+                                <i class="bi bi-file-earmark-text me-1"></i>New article
+                            </a>
                             <a class="btn btn-primary btn-md mt-1 mb-1"
-                                href="{% url 'picture_create' field='knot' pk=knot.id tag=knot.static_tag %}">New
-                                picture</a>
+                                href="{% url 'picture_create' field='knot' pk=knot.id %}">
+                                <i class="bi bi-image me-1"></i>New picture
+                            </a>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-5 text-end">
                             <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_list' %}">back</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_create' %}"
-                                type="submit">add</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_update' knot.id %}"
-                                type="submit">edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_delete' knot.id %}"
-                                type="submit">delete</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_create' %}">add</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'knot_update' knot.id %}">edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1"
+                                href="{% url 'knot_delete' knot.id %}">delete</a>
                         </div>
                     </div>
                 </div>
@@ -52,6 +57,180 @@
         <div class="col-md-1"> </div>
     </div><!-- Top card-->
 
+    <!-- Media Tabs Section -->
+    <div class="row mt-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h5 class="col-12 px-0">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#VIDS">
+                            <b><i class="bi bi-camera-video me-1"></i>Videos</b>
+                            <span class="badge badge-dark badge-pill">{{ videos_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ARTS">
+                            <b><i class="bi bi-journal-text me-1"></i>Articles</b>
+                            <span class="badge badge-dark badge-pill">{{ articles_list.count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#PICS">
+                            <b><i class="bi bi-images me-1"></i>Pictures</b>
+                            <span class="badge badge-dark badge-pill">{{ pictures_list.count }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </h5>
+
+            <div class="tab-content pt-3">
+                <!-- Videos Tab -->
+                <div class="tab-pane container active" id="VIDS">
+                    {% if videos_list %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Link</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for video in videos_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'video_detail' video.id %}">{{ video.name|title
+                                        }}</a>
+                                </th>
+                                <td>{{ video.author|title }}</td>
+                                <td>{{ video.snippet }}</td>
+                                <td>{{ video.date_added }}</td>
+                                <td><a href="{{ video.url }}" target="_blank" class="btn btn-sm btn-outline-primary"><i
+                                            class="bi bi-box-arrow-up-right me-1"></i>Watch</a></td>
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='knot' pk=knot.id media_type='video' media_pk=video.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this video from {{ knot.name }}?');"
+                                        title="Unlink Video">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No videos linked yet. <a href="{% url 'video_create' field='knot' pk=knot.id %}"
+                            class="alert-link">Click here to add a video</a>.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Articles Tab -->
+                <div class="tab-pane container fade" id="ARTS">
+                    {% if articles_list %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Snippet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">File / Link</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles_list %}
+                            <tr>
+                                <th scope="row">
+                                    <a class="text-reset" href="{% url 'article_detail' article.id %}">{{
+                                        article.name|title }}</a>
+                                </th>
+                                <td>{{ article.author|title }}</td>
+                                <td>{{ article.snippet }}</td>
+                                <td>{{ article.date_added }}</td>
+                                <td>
+                                    {% if article.file %}
+                                    <a href="{{ article.file.url }}" download class="btn btn-sm btn-outline-primary"><i
+                                            class="bi bi-download me-1"></i>Download</a>
+                                    {% elif article.url %}
+                                    <a href="{{ article.url }}" target="_blank"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-box-arrow-up-right me-1"></i>View Web</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <a href="{% url 'unlink_media_from_item' field='knot' pk=knot.id media_type='article' media_pk=article.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this article from {{ knot.name }}?');"
+                                        title="Unlink Article">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No articles linked yet. <a href="{% url 'article_create' field='knot' pk=knot.id %}"
+                            class="alert-link">Click here to add an article</a>.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pictures Tab -->
+                <div class="tab-pane container fade" id="PICS">
+                    {% if pictures_list %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for picture in pictures_list %}
+                        <div class="col mb-4">
+                            <div class="card h-100 bg-transparent border shadow-sm">
+                                <h6 class="card-header text-truncate"><b>{{ picture.name|title }}</b></h6>
+                                <div class="card-body text-center">
+                                    <a href="{% url 'picture_detail' picture.id %}">
+                                        {% if picture.image %}
+                                        <img src="{{ picture.image.url }}" class="img-thumbnail"
+                                            style="max-height: 200px; width: auto; object-fit: contain;"
+                                            alt="{{ picture.name|title }}">
+                                        {% else %}
+                                        <div class="p-4 text-muted">{{ picture.name }}</div>
+                                        {% endif %}
+                                    </a>
+                                    {% if picture.snippet %}
+                                    <p class="card-text small text-muted mt-2">{{ picture.snippet }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ picture.date_added }}</small>
+                                    <a href="{% url 'unlink_media_from_item' field='knot' pk=knot.id media_type='picture' media_pk=picture.id %}"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Unlink this picture from {{ knot.name }}?');"
+                                        title="Unlink Picture">
+                                        <i class="bi bi-trash"></i> Unlink
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No pictures linked yet. <a href="{% url 'picture_create' field='knot' pk=knot.id %}"
+                            class="alert-link">Click here to add a picture</a>.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 </div>
 
 {% endblock content %}

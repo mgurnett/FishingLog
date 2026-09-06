@@ -688,3 +688,121 @@ class New_Locker_Form (forms.ModelForm):
                 css_class='form-row'
             ),
         )
+
+
+class New_Video_Form(forms.ModelForm):
+    existing_video = forms.ModelChoiceField(
+        queryset=Video.objects.all().order_by('name'),
+        required=False,
+        empty_label="-- Or select existing video from library --",
+        label="Select Existing Video"
+    )
+    name = forms.CharField(max_length=100, required=False, label="Video Title")
+    url = forms.URLField(max_length=200, required=False, label="External Video URL (YouTube, Vimeo, etc.)")
+    author = forms.CharField(max_length=100, required=False)
+    snippet = forms.CharField(max_length=255, required=False)
+    notes = forms.CharField(
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        required=False
+    )
+    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+
+    class Meta:
+        model = Video
+        fields = ['existing_video', 'name', 'url', 'author', 'snippet', 'notes', 'tags']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        existing_video = cleaned_data.get('existing_video')
+        name = cleaned_data.get('name')
+        url = cleaned_data.get('url')
+
+        if not existing_video:
+            if not name:
+                self.add_error('name', 'Please provide a video title or select an existing video.')
+            if not url:
+                self.add_error('url', 'Please provide a video URL or select an existing video.')
+        return cleaned_data
+
+
+class New_Picture_Form(forms.ModelForm):
+    existing_picture = forms.ModelChoiceField(
+        queryset=Picture.objects.all().order_by('name'),
+        required=False,
+        empty_label="-- Or select existing picture from library --",
+        label="Select Existing Picture"
+    )
+    name = forms.CharField(max_length=100, required=False, label="Picture Title")
+    image_url = forms.URLField(
+        required=False,
+        label="External Picture URL",
+        help_text="Provide an image URL to download into /public/downloads/picture/"
+    )
+    image = forms.ImageField(required=False, label="Or upload image file")
+    snippet = forms.CharField(max_length=255, required=False)
+    notes = forms.CharField(
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        required=False
+    )
+    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+
+    class Meta:
+        model = Picture
+        fields = ['existing_picture', 'name', 'image_url', 'image', 'snippet', 'notes', 'tags']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        existing_picture = cleaned_data.get('existing_picture')
+        name = cleaned_data.get('name')
+        image_url = cleaned_data.get('image_url')
+        image = cleaned_data.get('image')
+
+        if not existing_picture:
+            if not name:
+                self.add_error('name', 'Please provide a picture title or select an existing picture.')
+            if not image_url and not image:
+                self.add_error('image_url', 'Please provide either an external image URL or upload an image file.')
+        return cleaned_data
+
+
+class New_Article_Form(forms.ModelForm):
+    existing_article = forms.ModelChoiceField(
+        queryset=Article.objects.all().order_by('name'),
+        required=False,
+        empty_label="-- Or select existing article from library --",
+        label="Select Existing Article"
+    )
+    name = forms.CharField(max_length=100, required=False, label="Article Title")
+    article_url = forms.URLField(
+        required=False,
+        label="External Article URL",
+        help_text="Provide an article/document link to download into /public/downloads/article/"
+    )
+    file = forms.FileField(required=False, label="Or upload article file (PDF, Doc, etc.)")
+    author = forms.CharField(max_length=100, required=False)
+    snippet = forms.CharField(max_length=255, required=False)
+    notes = forms.CharField(
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        required=False
+    )
+    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+
+    class Meta:
+        model = Article
+        fields = ['existing_article', 'name', 'article_url', 'file', 'author', 'snippet', 'notes', 'tags']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        existing_article = cleaned_data.get('existing_article')
+        name = cleaned_data.get('name')
+        article_url = cleaned_data.get('article_url')
+        file = cleaned_data.get('file')
+        notes = cleaned_data.get('notes')
+
+        if not existing_article:
+            if not name:
+                self.add_error('name', 'Please provide an article title or select an existing article.')
+            if not article_url and not file and not notes:
+                self.add_error('article_url', 'Please provide an external article URL, upload a file, or write notes.')
+        return cleaned_data
+

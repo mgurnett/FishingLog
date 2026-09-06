@@ -1,57 +1,91 @@
 {% extends "catches/base/base.html" %}
-{% block title %}Videos{% endblock %}
-
+{% block title %}Add Video{% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 {{ form.media }}
-    <form method="post" novalidate>
-      {% for hidden_field in form.hidden_fields %}
-          {{ hidden_field.error }}
-          {{ hidden_field }}
-      {% endfor %}
-      {% csrf_token %}
-      <div class="container">
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-4">
-            {{ form.name|as_crispy_field }}
-          </div>
-          <div class="col-6">
-            {{ form.snippet|as_crispy_field }}
-          </div>
-          <div class="col-1"> </div>
-        </div>
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-3">
-            {{ form.author|as_crispy_field }}
-          </div>
-          <div class="col-7">
-            {{ form.url|as_crispy_field }}
-          </div>
-          <div class="col-1"> </div>
-        </div>
-          <div class="col-1"> </div>
-        <div class="row">
-          <div class="col-1"> </div>
-          <div class="col-10 text-truncate">
-            <p class="text-center">
-              {{ form.notes|as_crispy_field }}</p>
-          </div>
-          <div class="col-1"> </div>
-        </div>
-        <div class="row">
-          <div class="col-2"> </div>
-            <div class="col-4">
-              {{ form.tags|as_crispy_field }}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0 bg-transparent">
+                <div class="card-header bg-transparent border-bottom">
+                    <h3 class="mb-0">
+                        <i class="bi bi-play-circle-fill text-danger me-2"></i>
+                        Add Video
+                        {% if parent_object %}
+                            <span class="text-muted fs-5">for <b>{{ parent_object.name|title }}</b></span>
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Please correct the errors below:</strong>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Option 1: Select Existing Video -->
+                        <div class="card mb-4 border bg-transparent">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-link-45deg me-1"></i> Option 1: Select Existing Video from Library
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted small">Choose a video that has already been added to your collection.</p>
+                                {{ form.existing_video|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="text-center my-3">
+                            <span class="badge bg-secondary px-3 py-2 fs-6">OR</span>
+                        </div>
+
+                        <!-- Option 2: Add New External Video -->
+                        <div class="card mb-4 border bg-transparent">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-cloud-plus me-1"></i> Option 2: Add New External Video URL
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        {{ form.name|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        {{ form.url|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        {{ form.author|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        {{ form.snippet|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        {{ form.notes|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        {{ form.tags|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary me-2" onclick="window.history.back()">Cancel</button>
+                            <button type="submit" class="btn btn-primary px-4">Save Video</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          <div class="col-2"> </div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary mt-4">Save video</button>
-            <button class="btn btn-primary btn-sm mt-4" onclick="window.history.back()">back</button>
-          </div>
         </div>
-      </div>
-    </form>
+    </div>
+</div>
 {% endblock content %}

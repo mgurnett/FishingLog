@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from blog.models import *
 from users.models import Profile
@@ -40,6 +40,7 @@ from .helpers.distance import *
 from .helpers.ai_plan import *
 from .helpers.queries import *
 from .helpers.num_array import get_array
+from .helpers.download_media import download_picture_from_url, download_article_from_url
 from datetime import datetime
 import os
 from django.conf import settings
@@ -1033,17 +1034,63 @@ class VideoDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_video'
     model = Video
 
-class VideoCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'catches.add_video'
+class VideoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Video
-    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
-    success_message = 'The video was added'
+    form_class = New_Video_Form
+    template_name = 'catches/video_form.html'
     
     def get_initial(self):
-        if not self.kwargs:
-            return
-        tag = self.kwargs['tag']
-        return {('tags'): tag}
+        initial = {}
+        if self.kwargs and 'tag' in self.kwargs:
+            initial['tags'] = self.kwargs['tag']
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['field'] = self.kwargs.get('field')
+        context['item_pk'] = self.kwargs.get('pk')
+        if self.kwargs.get('field') == 'knot' and self.kwargs.get('pk'):
+            context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
+            context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        return context
+
+    def form_valid(self, form):
+        existing_video = form.cleaned_data.get('existing_video')
+        if existing_video:
+            video = existing_video
+        else:
+            url = form.cleaned_data.get('url')
+            existing = Video.objects.filter(url=url).first()
+            if existing:
+                video = existing
+            else:
+                video = form.save()
+
+        field = self.kwargs.get('field')
+        pk = self.kwargs.get('pk')
+
+        if field == 'knot' and pk:
+            knot = Knot.objects.filter(pk=pk).first()
+            if knot:
+                knot.videos.add(video)
+                messages.success(self.request, f"Video '{video.name}' linked to knot '{knot.name}'.")
+                return redirect('knot_detail', pk=pk)
+        elif field == 'locker' and pk:
+            locker = Locker.objects.filter(pk=pk).first()
+            if locker:
+                locker.videos.add(video)
+                messages.success(self.request, f"Video '{video.name}' linked to equipment '{locker.name}'.")
+                return redirect('locker_detail', pk=pk)
+        elif field == 'lake' and pk:
+            return redirect('lake_detail', pk=pk)
+        elif field == 'fish' and pk:
+            return redirect('fish_detail', pk=pk)
+        elif field == 'bug' and pk:
+            return redirect('bug_detail', pk=pk)
+
+        messages.success(self.request, f"Video '{video.name}' was added.")
+        return redirect('videos_list')
 
 class VideoUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_video'
@@ -1051,16 +1098,7 @@ class VideoUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet')
     success_message = "Video fixed"
     
-    # def get_success_url(self):
-    #     if not self.kwargs:
-    #         return reverse('videos_list')
-    #     if self.kwargs.get('field') == 'video':
-    #         return reverse ('library_list')
-    #     model_to_use = f"{self.kwargs.get('field')}_detail"
-    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
-    
     def get_success_url(self):
-        # return reverse('videos_list')
         return reverse('video_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 class VideoDeleteView (SuccessMessageMixin, PermissionRequiredMixin, DeleteView):
@@ -1080,37 +1118,76 @@ class ArticleDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_article'
     model = Article
 
-class ArticleCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'catches.add_article'
+class ArticleCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Article
-    # form_class = Article_Form
-    fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
+    form_class = New_Article_Form
+    template_name = 'catches/article_form.html'
     
     def get_initial(self):
-        if not self.kwargs:
-            return
-        tag = self.kwargs['tag']
-        return {('tags'): tag}
-    
-    # def get_success_url(self):
-    #     if not self.kwargs:
-    #         return reverse('articles_list')
-    #     if self.kwargs.get('field') == 'article':
-    #         return reverse ('library_list')
-    #     model_to_use = f"{self.kwargs.get('field')}_detail"
-    #     print (model_to_use)
-    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
-    
-    def get_success_url(self):
-        return reverse ('library_list')
+        initial = {}
+        if self.kwargs and 'tag' in self.kwargs:
+            initial['tags'] = self.kwargs['tag']
+        return initial
 
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The article was added'
-        )
-        return super().form_valid (form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['field'] = self.kwargs.get('field')
+        context['item_pk'] = self.kwargs.get('pk')
+        if self.kwargs.get('field') == 'knot' and self.kwargs.get('pk'):
+            context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
+            context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        return context
+
+    def form_valid(self, form):
+        existing_article = form.cleaned_data.get('existing_article')
+        if existing_article:
+            article = existing_article
+        else:
+            article_url = form.cleaned_data.get('article_url')
+            uploaded_file = form.cleaned_data.get('file')
+            if article_url and not uploaded_file:
+                try:
+                    content_file, local_path = download_article_from_url(article_url, form.cleaned_data.get('name'))
+                    article = form.save(commit=False)
+                    article.file.save(content_file.name, content_file, save=False)
+                    article.url = article_url
+                    article.save()
+                    form.save_m2m()
+                except Exception as e:
+                    form.add_error('article_url', f"Failed to download article: {e}")
+                    return self.form_invalid(form)
+            else:
+                article = form.save(commit=False)
+                if article_url:
+                    article.url = article_url
+                article.save()
+                form.save_m2m()
+
+        field = self.kwargs.get('field')
+        pk = self.kwargs.get('pk')
+
+        if field == 'knot' and pk:
+            knot = Knot.objects.filter(pk=pk).first()
+            if knot:
+                knot.articles.add(article)
+                messages.success(self.request, f"Article '{article.name}' linked to knot '{knot.name}'.")
+                return redirect('knot_detail', pk=pk)
+        elif field == 'locker' and pk:
+            locker = Locker.objects.filter(pk=pk).first()
+            if locker:
+                locker.articles.add(article)
+                messages.success(self.request, f"Article '{article.name}' linked to equipment '{locker.name}'.")
+                return redirect('locker_detail', pk=pk)
+        elif field == 'lake' and pk:
+            return redirect('lake_detail', pk=pk)
+        elif field == 'fish' and pk:
+            return redirect('fish_detail', pk=pk)
+        elif field == 'bug' and pk:
+            return redirect('bug_detail', pk=pk)
+
+        messages.success(self.request, f"Article '{article.name}' was added.")
+        return redirect('library_list')
 
 class ArticleUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_article'
@@ -1118,13 +1195,6 @@ class ArticleUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView
     fields = ('name', 'notes', 'author', 'tags', 'url', 'snippet', 'file')
     
     def get_success_url(self, **kwargs):
-        # print (f"kwarg = {self.kwargs }")
-        # if not self.kwargs:
-        #     return reverse('articles_list')
-        # if self.kwargs.get('field') == 'article':
-        #     return reverse ('library_list')
-        # model_to_use = f"{self.kwargs.get('field')}_detail"
-        # print (f'{model_to_use = }')
         return reverse('article_detail', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_valid (self, form):
@@ -1152,34 +1222,70 @@ class PictureDetailView(PermissionRequiredMixin,  DetailView):
     permission_required = 'catches.view_picture'
     model = Picture
 
-class PictureCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'catches.add_picture'
+class PictureCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Picture
-    # form_class = Picture_Form
-    fields = ('name', 'notes', 'tags', 'image', 'snippet')
+    form_class = New_Picture_Form
+    template_name = 'catches/picture_form.html'
     
     def get_initial(self):
-        if not self.kwargs:
-            return
-        tag = self.kwargs['tag']
-        return {('tags'): tag}
-    
-    # def get_success_url(self):
-    #     if not self.kwargs:
-    #         return reverse('pictures_list')
-    #     model_to_use = f"{self.kwargs.get('field')}_detail"
-    #     return reverse(model_to_use, kwargs={'pk': self.kwargs.get('pk')})
-    
-    def get_success_url(self):
-        return reverse('pictures_list')
+        initial = {}
+        if self.kwargs and 'tag' in self.kwargs:
+            initial['tags'] = self.kwargs['tag']
+        return initial
 
-    def form_valid (self, form):
-        messages.add_message(
-            self.request, 
-            messages.SUCCESS,
-            'The picture was added'
-        )
-        return super().form_valid (form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['field'] = self.kwargs.get('field')
+        context['item_pk'] = self.kwargs.get('pk')
+        if self.kwargs.get('field') == 'knot' and self.kwargs.get('pk'):
+            context['parent_object'] = Knot.objects.filter(pk=self.kwargs.get('pk')).first()
+        elif self.kwargs.get('field') == 'locker' and self.kwargs.get('pk'):
+            context['parent_object'] = Locker.objects.filter(pk=self.kwargs.get('pk')).first()
+        return context
+
+    def form_valid(self, form):
+        existing_picture = form.cleaned_data.get('existing_picture')
+        if existing_picture:
+            picture = existing_picture
+        else:
+            image_url = form.cleaned_data.get('image_url')
+            if image_url:
+                try:
+                    content_file, local_path = download_picture_from_url(image_url, form.cleaned_data.get('name'))
+                    picture = form.save(commit=False)
+                    picture.image.save(content_file.name, content_file, save=False)
+                    picture.save()
+                    form.save_m2m()
+                except Exception as e:
+                    form.add_error('image_url', f"Failed to download image: {e}")
+                    return self.form_invalid(form)
+            else:
+                picture = form.save()
+
+        field = self.kwargs.get('field')
+        pk = self.kwargs.get('pk')
+
+        if field == 'knot' and pk:
+            knot = Knot.objects.filter(pk=pk).first()
+            if knot:
+                knot.pictures.add(picture)
+                messages.success(self.request, f"Picture '{picture.name}' linked to knot '{knot.name}'.")
+                return redirect('knot_detail', pk=pk)
+        elif field == 'locker' and pk:
+            locker = Locker.objects.filter(pk=pk).first()
+            if locker:
+                locker.pictures.add(picture)
+                messages.success(self.request, f"Picture '{picture.name}' linked to equipment '{locker.name}'.")
+                return redirect('locker_detail', pk=pk)
+        elif field == 'lake' and pk:
+            return redirect('lake_detail', pk=pk)
+        elif field == 'fish' and pk:
+            return redirect('fish_detail', pk=pk)
+        elif field == 'bug' and pk:
+            return redirect('bug_detail', pk=pk)
+
+        messages.success(self.request, f"Picture '{picture.name}' was added.")
+        return redirect('pictures_list')
 
 class PictureUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_picture'
@@ -1903,7 +2009,14 @@ class KnotDetailView (PermissionRequiredMixin, DetailView):
     permission_required = 'catches.view_knot'
     model = Knot
     context_object_name = 'knot'
- 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['videos_list'] = self.object.videos.all()
+        context['articles_list'] = self.object.articles.all()
+        context['pictures_list'] = self.object.pictures.all()
+        return context
+
 
 class KnotCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_knot'
@@ -1955,6 +2068,45 @@ class LockerDetailView (LoginRequiredMixin, UserPassesTestMixin, DetailView):
     def handle_no_permission(self):
         messages.error(self.request, 'You can only view your own equipment.')
         return redirect('locker_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['videos_list'] = self.object.videos.all()
+        context['articles_list'] = self.object.articles.all()
+        context['pictures_list'] = self.object.pictures.all()
+        return context
+
+
+@login_required
+def unlink_media_from_item(request, field, pk, media_type, media_pk):
+    if field == 'knot':
+        knot = get_object_or_404(Knot, pk=pk)
+        if media_type == 'video':
+            knot.videos.remove(media_pk)
+            messages.success(request, 'Video unlinked from knot.')
+        elif media_type == 'picture':
+            knot.pictures.remove(media_pk)
+            messages.success(request, 'Picture unlinked from knot.')
+        elif media_type == 'article':
+            knot.articles.remove(media_pk)
+            messages.success(request, 'Article unlinked from knot.')
+        return redirect('knot_detail', pk=pk)
+    elif field == 'locker':
+        locker = get_object_or_404(Locker, pk=pk)
+        if request.user != locker.owner and not request.user.is_superuser:
+            messages.error(request, 'You do not have permission to modify this equipment.')
+            return redirect('locker_list')
+        if media_type == 'video':
+            locker.videos.remove(media_pk)
+            messages.success(request, 'Video unlinked from equipment.')
+        elif media_type == 'picture':
+            locker.pictures.remove(media_pk)
+            messages.success(request, 'Picture unlinked from equipment.')
+        elif media_type == 'article':
+            locker.articles.remove(media_pk)
+            messages.success(request, 'Article unlinked from equipment.')
+        return redirect('locker_detail', pk=pk)
+    return redirect('catch_home')
 
 class LockerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Locker
