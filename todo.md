@@ -1,5 +1,4 @@
 ## Bugs
-- [*] Why is new hatch having an issue
 - [ ] Several new and create types are not working.
 
 ## High
@@ -12,7 +11,7 @@
 - [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
 - [ ] make a comment system.
-- [ ] WEEKS - Figure out a better way to pars them than over and over.
+- [ ] Fix weeks: Right now they are calendar weeks of the year, but they need to be 7-day increments calculated from the Spring equinox. Figure out a better way to parse/calculate them.  Then go through the database and make them correct to the new system.
 - [ ] Graphs - look into a graph menu so all graphs can be on one screen. https://plotly.com/python/dropdowns/#update-dropdown
 
 ## Low
@@ -23,6 +22,7 @@
 - [ ] move blog in to catches so that the colouring follows.
 
 ## DONE
+- [*] Why is new hatch having an issue
 - [*] sort out picture and sizes
 - [*] in flys and bugs add a logs column
 - [*] In the tags list, show how many media, lakes, fish, flys.....
