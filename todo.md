@@ -1,10 +1,11 @@
 ## Bugs
-- [ ] Why is new hatch having an issue
+- [*] Why is new hatch having an issue
 - [ ] Several new and create types are not working.
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
-- [ ] I need to rethink tags and all the articles and videos.  I need a whole new approach.
+- [ ] Rethink tags (rethink tags across the site, articles, videos, and how tagging is approached)
+- [ ] Change the landing page (redesign/overhaul the landing page experience)
 
 ## Medium
 - [ ] Break insects down to specific ones.

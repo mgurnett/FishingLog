@@ -21,7 +21,7 @@
                     <div class="card-header">
                         <div class = "row">
                             <div class="col-md-9">
-                                {{ h.sight_date|date:"D, N j, y" }} (<a href="{% url 'week_detail' h.week.id %}">Week: <b>{{ h.week.number }}</b></a>)
+                                {{ h.sight_date|date:"D, N j, y" }} {% if h.week %}(<a href="{% url 'week_detail' h.week.id %}">Week: <b>{{ h.week.number }}</b></a>){% endif %}
                             </div>
                             <div class="col-md-3 text-end">
                                 <a href="{% url 'hatch_detail' h.id %}" >HATCH</a>
@@ -44,8 +44,8 @@
                     <div class="card-footer">
                         <div class = "row">
                             <div class="col-md-6">
-                                {% if hatch.temp %}
-                                  <a href="{% url 'temp_detail' hatch.temp.id %}">{{ hatch.temp.name }}</a> 
+                                {% if h.temp %}
+                                  <a href="{% url 'temp_detail' h.temp.id %}">{{ h.temp.name }}</a> 
                                 {% endif %}
                             </div>
                             <div class="col-md-6 text-end ">

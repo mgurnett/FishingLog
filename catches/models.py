@@ -631,7 +631,7 @@ class Hatch(models.Model):
     temp = models.ForeignKey(Temp, blank=True, null=True, on_delete=models.SET_NULL)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     notes = CKEditor5Field (blank=True, null=True)
-    static_tag = models.SlugField()
+    static_tag = models.SlugField(blank=True, default='')
     sight_date = models.DateField(default=timezone.now)
      
     class Meta:
@@ -644,9 +644,14 @@ class Hatch(models.Model):
         return reverse ('hatch_detail', kwargs = {'pk': self.pk})
 
     def save (self, *args, **kwargs):
-        if not self.week:
-            week_num = Week.objects.get(number = int(self.sight_date.strftime('%U')))
-            self.week = week_num
+        if not self.week and self.sight_date:
+            try:
+                week_num = int(self.sight_date.strftime('%U'))
+                self.week = Week.objects.filter(number=week_num).first()
+            except (ValueError, TypeError, AttributeError):
+                pass
+        if not self.static_tag and self.bug and getattr(self.bug, 'static_tag', None):
+            self.static_tag = self.bug.static_tag
         super().save (*args, **kwargs)
  
 class Video(models.Model):

@@ -124,11 +124,11 @@ class New_Hatch_Form (forms.ModelForm):
 
     lake = forms.ModelChoiceField(
         queryset=Lake.objects.all(),
-        required = False )
+        required = True )
 
     bug = forms.ModelChoiceField(
         queryset=Bug.objects.all(),
-        required = False )
+        required = True )
 
     week = forms.ModelChoiceField(
         queryset=Week.objects.all(),
@@ -143,25 +143,19 @@ class New_Hatch_Form (forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('', css_class='form-group col-md-2 mb-0'),
-                Column('bug', css_class='form-group col-md-3 mb-0'),
-                Column('lake', css_class='form-group col-md-3 mb-0'),
-                Column('sight_date', css_class='form-group col-md-3 mb-0'),
-                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('bug', css_class='form-group col-md-4 mb-3'),
+                Column('lake', css_class='form-group col-md-4 mb-3'),
+                Column('sight_date', css_class='form-group col-md-4 mb-3'),
                 css_class='form-row'
             ),
             Row(
-                Column('', css_class='form-group col-md-2 mb-0'),
-                Column('week', css_class='form-group col-md-3 mb-0'),
-                Column('temp', css_class='form-group col-md-3 mb-0'),
-                Column('static_tag', css_class='form-group col-md-3 mb-0'),
-                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('week', css_class='form-group col-md-4 mb-3'),
+                Column('temp', css_class='form-group col-md-4 mb-3'),
+                Column('static_tag', css_class='form-group col-md-4 mb-3'),
                 css_class='form-row'
             ),
             Row(
-                Column('', css_class='form-group col-md-2 mb-0'),
-                Column('notes', css_class='form-group col-md-8 mb-0'),
-                Column('', css_class='form-group col-md-2 mb-0'),
+                Column('notes', css_class='form-group col-md-12 mb-3'),
                 css_class='form-row'
             ),
             Row(

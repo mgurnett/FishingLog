@@ -5,6 +5,7 @@
 
 {% block content %}
   {{ form.media }}
-  <form method="post" novalidate enctype="multipart/form-data">
-  {% crispy form %}
+  <div class="container">
+    {% crispy form %}
+  </div>
 {% endblock %}

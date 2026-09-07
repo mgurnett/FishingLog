@@ -23,9 +23,13 @@
 					<p class="card-text">
 						<div class="row">
 							<div class="col-md-6"> 
-								<a href="{% url 'week_detail' hatch.week_id %}">
-									Date observed: <b>{{ hatch.sight_date }}</b> (week: <b>{{ hatch.week.number }}</b>)
-								</a>
+								{% if hatch.week %}
+									<a href="{% url 'week_detail' hatch.week.id %}">
+										Date observed: <b>{{ hatch.sight_date }}</b> (week: <b>{{ hatch.week.number }}</b>)
+									</a>
+								{% else %}
+									Date observed: <b>{{ hatch.sight_date }}</b>
+								{% endif %}
 							</div>
 							<div class="col-md-6">
 								{% if hatch.temp.name %}
