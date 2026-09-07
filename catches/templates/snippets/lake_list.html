@@ -36,13 +36,12 @@
                             {% endif %}
                         </td>
                         <td>  
-                            <div class="row">
-                                <div class=" col-md-2"></div>
-                                <div class=" col-md-6">
-                                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
+                            <div class="row align-items-center">
+                                <div class="col-md-5">
+                                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}"><i class="bi bi-journal-plus me-1"></i>Catch log</a>
                                 </div>
-                                <div class=" col-md-4">
-                                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
+                                <div class="col-md-7">
+                                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}"><i class="bi bi-bug-fill me-1"></i>Hatch at the lake</a>
                                 </div>
                             </div>
                         </td>

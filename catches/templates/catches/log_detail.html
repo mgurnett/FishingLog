@@ -133,7 +133,7 @@
                                         <div>
                                             <span class="text-muted small d-block">Fishing Strategy:</span>
                                             <a href="{% url 'strategy_detail' log.strategy.id %}" class="btn btn-sm btn-outline-warning text-dark fw-bold">
-                                                <i class="bi bi-compass me-1"></i>{{ log.strategy.name }}
+                                                <i class="bi bi-compass-fill me-1"></i>{{ log.strategy.name }}
                                             </a>
                                         </div>
                                         {% endif %}
@@ -141,7 +141,7 @@
                                         <div>
                                             <span class="text-muted small d-block">Line Setup / Rig:</span>
                                             <a href="{% url 'setup_detail' log.setup.id %}" class="btn btn-sm btn-outline-primary fw-bold">
-                                                <i class="bi bi-diagram-3 me-1"></i>{{ log.setup.name }}
+                                                <i class="bi bi-diagram-3-fill me-1"></i>{{ log.setup.name }}
                                             </a>
                                         </div>
                                         {% endif %}
@@ -171,11 +171,11 @@
                             Recorded: <b>{{ log.catch_date }}</b>
                         </div>
                         <div class="col-md-6 text-end ">
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}" type="submit" >new log</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_duplicate' log.id %}" type="submit" >duplicate log</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_update' log.id %}" type="submit" >edit</a>
-                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_delete' log.id %}" type="submit" >delete</a>
-                            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New log</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_duplicate' log.id %}" type="submit" ><i class="bi bi-copy me-1"></i>Duplicate log</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_update' log.id %}" type="submit" ><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+                            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_delete' log.id %}" type="submit" ><i class="bi bi-trash-fill me-1"></i>Delete</a>
+                            <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
                         </div>
                     </div>
                 </div> <!-- card-footer div -->

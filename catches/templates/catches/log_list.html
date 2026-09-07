@@ -12,19 +12,19 @@
                         {% csrf_token %}
                         <p>
                             <input class="form-control mr-sm-2" name="q" type="search" placeholder="Water Temp search"> 
-                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit"><i class="bi bi-search me-1"></i>Search</button>
                         </p>
                     </form>
                 </div>
                 <div class="col-md-3">
-                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create' %}">New Hatch</a>
+                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create' %}"><i class="bi bi-plus-circle-fill me-1"></i>New Hatch</a>
                     <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create' %}">
                         <abbr title = "Logs are assigned to the person logged in and can be marked private so only you see that log.">
-                            New log
+                            <i class="bi bi-plus-circle-fill me-1"></i>New log
                         </abbr>
                     </a>
-                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">graph</a>
-                    <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                    <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}"><i class="bi bi-graph-up me-1"></i>Graph</a>
+                    <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
                 </div> 
             </div> 
             <div class = "row">

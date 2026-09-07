@@ -24,7 +24,7 @@
 					<div class="row">
                         <div class="col-md-8"></div>
                         <div class="col-md-4 text-end">
-							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+							<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" ><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</a>
                         </div>
                     </div>
 				</div>
@@ -71,22 +71,21 @@
 									{% endif %}
 								</td>
 								<td>  
-									<div class="row">
-										<div class=" col-md-1"></div>
-										<div class=" col-md-5">
-											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=fav.lake.id %}">Hatch at the lake</a>
-										</div>
-										<div class=" col-md-3">
-											<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=fav.lake.id %}">Catch log</a>
-										</div>
-										<div class=" col-md-3">
-											<form action="{% url 'remove_lake_from_favorites' fav.id %}" method="post">
-												{% csrf_token %}
-												<input type="hidden" name="lake" value="{{ fav.lake.pk }}">
-												<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
-											</form> 
-										</div>
+								<div class="row align-items-center">
+									<div class="col-md-4">
+										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=fav.lake.id %}"><i class="bi bi-journal-plus me-1"></i>Catch log</a>
 									</div>
+									<div class="col-md-5">
+										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=fav.lake.id %}"><i class="bi bi-bug-fill me-1"></i>Hatch at the lake</a>
+									</div>
+									<div class="col-md-3">
+										<form action="{% url 'remove_lake_from_favorites' fav.id %}" method="post" class="d-inline m-0">
+											{% csrf_token %}
+											<input type="hidden" name="lake" value="{{ fav.lake.pk }}">
+											<button class="btn btn-outline-danger btn-md mt-1 mb-1" type="submit"><i class="bi bi-bookmark-x-fill me-1"></i>Remove</button>
+										</form> 
+									</div>
+								</div>
 								</td>
 							</tr>
 						{% endfor %} 

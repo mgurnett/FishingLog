@@ -13,13 +13,13 @@
                         <input class="form-control me-2" name="q" type="search" placeholder="Water Temp search">
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
                 </div> 
                     </form>
                 <div class="col-md-2 text-end">
                     <p>
-                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_graph' %}">Averages</a>
-                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_graph' %}"><i class="bi bi-graph-up me-1"></i>Averages</a>
+                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
                     </p>
                 </div>
             </div>

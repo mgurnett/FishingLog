@@ -40,9 +40,9 @@
                                 Tag: <b>{{ fly.static_tag }}</b>
                             </div>
                             <div class="col-3 text-end">
-                                <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" >edit</a>
-                                <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fly_delete' fly.id %}" type="submit" >delete</a>
-                                <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                                <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fly_update' fly.id %}" type="submit" ><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+                                <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'fly_delete' fly.id %}" type="submit" ><i class="bi bi-trash-fill me-1"></i>Delete</a>
+                                <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
                             </div>
                         </div>
                     </div>
@@ -56,26 +56,26 @@
 
     <div class="card-footer"> <!-- card footer for snippets -->
         <div class="row"> <!-- tabs -->
-            <h5 class="col-12"><!-- Nav tabs -->
-                <ul class="nav nav-tabs ">
+            <div class="col-12"><!-- Nav tabs -->
+                <ul class="nav nav-tabs" style="font-size: 1.05rem;">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab"  
-                        href="#LOGS">Fishing Logs <span class="badge badge-dark badge-pill">{{ fly.log_set.count }}</span></a>
+                        href="#LOGS"><i class="bi bi-journal-bookmark-fill me-1"></i>Fishing Logs <span class="badge badge-dark badge-pill">{{ fly.log_set.count }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#VIDS">Videos<span class="badge badge-dark badge-pill">{{ fly.num_of_vids }}</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#VIDS"><i class="bi bi-camera-video-fill me-1"></i>Videos <span class="badge badge-dark badge-pill">{{ fly.num_of_vids }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ARTS">Articles<span class="badge badge-dark badge-pill">{{ fly.num_of_arts }}</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#ARTS"><i class="bi bi-file-earmark-text-fill me-1"></i>Articles <span class="badge badge-dark badge-pill">{{ fly.num_of_arts }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#PICS">Pictures<span class="badge badge-dark badge-pill">{{ fly.num_of_pics }}</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#PICS"><i class="bi bi-image-fill me-1"></i>Pictures <span class="badge badge-dark badge-pill">{{ fly.num_of_pics }}</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts<span class="badge badge-dark badge-pill">{{ fly.num_of_posts }}</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#BLOGS"><i class="bi bi-chat-left-text-fill me-1"></i>Blog Posts <span class="badge badge-dark badge-pill">{{ fly.num_of_posts }}</span></a>
                     </li>
                 </ul>
-            </h5>
+            </div>
         </div> <!-- tabs -->
         <div class="row"> <!-- slides -->
             <div class="col-md-12  ">               <!-- Tab panes -->

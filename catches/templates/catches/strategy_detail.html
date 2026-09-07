@@ -20,11 +20,11 @@
                         </small>
                     </div>
                     <div>
-                        <a href="{% url 'strategy_list' %}" class="btn btn-outline-light btn-sm me-1"><i class="bi bi-arrow-left me-1"></i>Back</a>
-                        <a href="{% url 'strategy_create' %}" class="btn btn-primary btn-sm me-1"><i class="bi bi-plus-circle me-1"></i>Add New</a>
+                        <a href="{% url 'strategy_list' %}" class="btn btn-outline-light btn-sm me-1"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</a>
+                        <a href="{% url 'strategy_create' %}" class="btn btn-primary btn-sm me-1"><i class="bi bi-plus-circle-fill me-1"></i>Add New</a>
                         {% if user == strategy.author or user.is_superuser %}
-                        <a href="{% url 'strategy_update' strategy.id %}" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil me-1"></i>Edit</a>
-                        <a href="{% url 'strategy_delete' strategy.id %}" class="btn btn-danger btn-sm"><i class="bi bi-trash me-1"></i>Delete</a>
+                        <a href="{% url 'strategy_update' strategy.id %}" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+                        <a href="{% url 'strategy_delete' strategy.id %}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill me-1"></i>Delete</a>
                         {% endif %}
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                                         {% if log.weight %} ({{ log.wen_lbs }} lbs){% endif %}
                                     </td>
                                     <td class="text-end">
-                                        <a href="{% url 'log_detail' log.id %}" class="btn btn-sm btn-outline-primary">View Log</a>
+                                        <a href="{% url 'log_detail' log.id %}" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye-fill me-1"></i>View Log</a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -164,21 +164,21 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'video_create' field='strategy' pk=strategy.id %}">
-                                <i class="bi bi-play-circle me-1"></i>New video
+                                <i class="bi bi-plus-circle-fill me-1"></i>New video
                             </a>
                             <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'article_create' field='strategy' pk=strategy.id %}">
-                                <i class="bi bi-file-earmark-text me-1"></i>New article
+                                <i class="bi bi-plus-circle-fill me-1"></i>New article
                             </a>
                             <a class="btn btn-primary btn-sm me-1 mb-1" href="{% url 'picture_create' field='strategy' pk=strategy.id %}">
-                                <i class="bi bi-image me-1"></i>New picture
+                                <i class="bi bi-plus-circle-fill me-1"></i>New picture
                             </a>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a class="btn btn-secondary btn-sm me-1" href="{% url 'strategy_list' %}">Back to list</a>
-                            <a class="btn btn-primary btn-sm me-1" href="{% url 'strategy_create' %}">New strategy</a>
+                            <a class="btn btn-secondary btn-sm me-1" href="{% url 'strategy_list' %}"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back to list</a>
+                            <a class="btn btn-primary btn-sm me-1" href="{% url 'strategy_create' %}"><i class="bi bi-plus-circle-fill me-1"></i>New strategy</a>
                             {% if user == strategy.author or user.is_superuser %}
-                            <a class="btn btn-warning btn-sm me-1" href="{% url 'strategy_update' strategy.id %}">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'strategy_delete' strategy.id %}">Delete</a>
+                            <a class="btn btn-warning btn-sm me-1" href="{% url 'strategy_update' strategy.id %}"><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'strategy_delete' strategy.id %}"><i class="bi bi-trash-fill me-1"></i>Delete</a>
                             {% endif %}
                         </div>
                     </div>
@@ -190,28 +190,28 @@
     <!-- Media Tabs Section (Videos, Articles, Pictures) -->
     <div class="row mt-4">
         <div class="col-md-12">
-            <h5 class="col-12 px-0 mb-3">
-                <ul class="nav nav-tabs">
+            <div class="col-12 px-0 mb-3">
+                <ul class="nav nav-tabs" style="font-size: 1.05rem;">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#VIDS">
-                            <b><i class="bi bi-camera-video me-1"></i>Videos</b>
+                            <b><i class="bi bi-camera-video-fill me-1"></i>Videos</b>
                             <span class="badge badge-dark badge-pill">{{ videos_list.count }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#ARTS">
-                            <b><i class="bi bi-journal-text me-1"></i>Articles</b>
+                            <b><i class="bi bi-file-earmark-text-fill me-1"></i>Articles</b>
                             <span class="badge badge-dark badge-pill">{{ articles_list.count }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#PICS">
-                            <b><i class="bi bi-images me-1"></i>Pictures</b>
+                            <b><i class="bi bi-image-fill me-1"></i>Pictures</b>
                             <span class="badge badge-dark badge-pill">{{ pictures_list.count }}</span>
                         </a>
                     </li>
                 </ul>
-            </h5>
+            </div>
 
             <div class="tab-content pt-2">
                 <!-- Videos Tab -->

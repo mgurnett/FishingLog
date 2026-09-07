@@ -9,8 +9,8 @@
 			</div>
 			<div class="col-md-2 text-end">
 				<p>
-					<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}">Temperature graph</a>
-					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+					<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}"><i class="bi bi-graph-up me-1"></i>Temperature graph</a>
+					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
 				</p>
 			</div>
 		{% else %}
@@ -19,7 +19,7 @@
 			</div>
 			<div class="col-md-2 text-end">
 				<p>
-					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
 				</p>
 			</div>
 		{% endif %}

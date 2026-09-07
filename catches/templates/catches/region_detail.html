@@ -12,29 +12,29 @@
 						</h5>
 					</div>
 					<div class="col-md-4 text-end">
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >New region</a>
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" >edit</a>
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" >delete</a>
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" >back</a>
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New region</a>
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_update' region.id %}" type="submit" ><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_delete' region.id %}" type="submit" ><i class="bi bi-trash-fill me-1"></i>Delete</a>
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_list' %}" type="submit" ><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</a>
 					</div>
 					<div class="col-md-3 text-end"> 
 						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' region.id 'R' %}" type="submit" >
 							<abbr title = "{{ region.kml_tooltip | safe }}">
-								Make KML file
+								<i class="bi bi-file-earmark-arrow-down-fill me-1"></i>Make KML file
 							</abbr>
 						</a> 
 						{% load static %}
-						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
+						<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" ><i class="bi bi-question-circle-fill me-1"></i>KML file help</a>
 					</div>
 				</div>
 				<hr> 
 				<div class="row">
 					<div class="col-md-6">
 						{% if user.is_authenticated %}
-							<form method="post">
+							<form method="post" class="d-inline">
 								{% csrf_token %}
 								{{ form }}
-								<input class="btn btn-primary btn-md mt-1 mb-1" type="submit" value="add">
+								<button class="btn btn-primary btn-md mt-1 mb-1" type="submit"><i class="bi bi-plus-circle-fill me-1"></i>Add</button>
 							</form>
 						{% endif %}  
 					</div>
@@ -112,19 +112,18 @@
 								{% endif %}
 							</td>
 							<td>  
-								<div class="row">
-									<div class=" col-md-1"></div>
-									<div class=" col-md-5">
-										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
+								<div class="row align-items-center">
+									<div class="col-md-4">
+										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}"><i class="bi bi-journal-plus me-1"></i>Catch log</a>
 									</div>
-									<div class=" col-md-3">
-										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
+									<div class="col-md-5">
+										<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}"><i class="bi bi-bug-fill me-1"></i>Hatch at the lake</a>
 									</div>
-									<div class=" col-md-3">
-										<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post">
+									<div class="col-md-3">
+										<form action="{% url 'remove_lake_from_region' region.pk lake.pk %}" method="post" class="d-inline m-0">
 											{% csrf_token %}
-											<input type="hidden" name="lake"  value="{{ lake.pk }}">
-											<button class="btn btn-outline-primary btn-md mt-1 mb-1" type="submit">Remove</button>
+											<input type="hidden" name="lake" value="{{ lake.pk }}">
+											<button class="btn btn-outline-danger btn-md mt-1 mb-1" type="submit"><i class="bi bi-bookmark-x-fill me-1"></i>Remove</button>
 										</form> 
 									</div>
 								</div>

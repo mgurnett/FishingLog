@@ -9,7 +9,7 @@
         <div class="col-md-6 text-end">
             {% if user.is_authenticated %}
             <a href="{% url 'strategy_create' %}" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-1"></i>New Strategy
+                <i class="bi bi-plus-circle-fill me-1"></i>New Strategy
             </a>
             {% endif %}
         </div>
@@ -63,14 +63,14 @@
                             </td>
                             <td class="text-end text-nowrap">
                                 <a href="{% url 'strategy_detail' strat.id %}" class="btn btn-sm btn-outline-primary" title="View Detail">
-                                    <i class="bi bi-eye"></i> View
+                                    <i class="bi bi-eye-fill me-1"></i>View
                                 </a>
                                 {% if user == strat.author or user.is_superuser %}
                                 <a href="{% url 'strategy_update' strat.id %}" class="btn btn-sm btn-outline-secondary" title="Edit Strategy">
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil-fill"></i>
                                 </a>
                                 <a href="{% url 'strategy_delete' strat.id %}" class="btn btn-sm btn-outline-danger" title="Delete Strategy">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash-fill"></i>
                                 </a>
                                 {% endif %}
                             </td>
@@ -85,7 +85,7 @@
                 <h5>No Fishing Strategies Found</h5>
                 <p class="mb-3">Document your proven tactics, retrieval speeds, depth techniques, and rig pairings to improve future fishing trips.</p>
                 <a href="{% url 'strategy_create' %}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i>Create Your First Fishing Strategy
+                    <i class="bi bi-plus-circle-fill me-1"></i>Create Your First Fishing Strategy
                 </a>
             </div>
             {% endif %}

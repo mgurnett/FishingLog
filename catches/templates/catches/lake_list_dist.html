@@ -18,13 +18,13 @@
                     <div class="col-md-4 text-end"> 
                         <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'make_kml' id 'D' %}" type="submit" >
                             <abbr title = 'If you go to regions or districts you can hit kml download and it will send you a kml file that you can then pull into Google Maps or Google Earth and it will make a map for you of the lakes in that region of district.'>
-                                Make KML file
+                                <i class="bi bi-file-earmark-arrow-down-fill me-1"></i>Make KML file
                             </abbr>
                         </a> 
-                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" >KML file help </a>
+                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'kml_help' %}" target="_blank" ><i class="bi bi-question-circle-fill me-1"></i>KML file help</a>
                     </div>
                     <div class="col-md-1 text-end">
-                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+                        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
                     </div>
                 </div>
             </div>
@@ -89,15 +89,12 @@
                                 {% endif %}
                             </td>
                             <td>  
-                                <div class="row">
-                                    <div class=" col-md-1"></div>
-                                    <div class=" col-md-5">
-                                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}">Hatch at the lake</a>
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}"><i class="bi bi-journal-plus me-1"></i>Catch log</a>
                                     </div>
-                                    <div class=" col-md-3">
-                                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_create_from_lake' pk=lake.id %}">Catch log</a>
-                                    </div>
-                                    <div class=" col-md-3">
+                                    <div class="col-md-7">
+                                        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'hatch_create_from_lake' pk=lake.id %}"><i class="bi bi-bug-fill me-1"></i>Hatch at the lake</a>
                                     </div>
                                 </div>
                             </td>

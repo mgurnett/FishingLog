@@ -22,32 +22,32 @@
 	<div class="row mb-3"><!-- Bottom card-->
 		<div class="col-md-12">
 			<div class="row">
-				<h5 class="col-md-8"><!-- Nav tabs -->
-					<ul class="nav nav-tabs ">
+				<div class="col-md-7"><!-- Nav tabs -->
+					<ul class="nav nav-tabs" style="font-size: 1.05rem;">
                         <li class="nav-item">
 							<a class="nav-link active" data-toggle="tab" 
-                            href="#VIDS"><b>Videos</b></a>
+                            href="#VIDS"><b><i class="bi bi-camera-video-fill me-1"></i>Videos</b></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab" 
-                            href="#ARTS"><b>Articles</b></a>
+                            href="#ARTS"><b><i class="bi bi-file-earmark-text-fill me-1"></i>Articles</b></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab"
-                            href="#PICS"><b>Pictures</b></a>
+                            href="#PICS"><b><i class="bi bi-image-fill me-1"></i>Pictures</b></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#BLOGS">Blog Posts</a>
+							<a class="nav-link" data-toggle="tab" href="#BLOGS"><b><i class="bi bi-chat-left-text-fill me-1"></i>Blog Posts</b></a>
 						</li>
 					</ul>
-				</h5>
-				<div class="col-md-5 text-end"><!-- Nav tabs -->
+				</div>
+				<div class="col-md-5 text-end">
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'video_create'   field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-play-circle me-1"></i>New video</a>
+						href="{% url 'video_create'   field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-plus-circle-fill me-1"></i>New video</a>
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'article_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-file-earmark-text me-1"></i>New article</a>
+						href="{% url 'article_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-plus-circle-fill me-1"></i>New article</a>
 					<a class="btn btn-primary btn-md mt-1 mb-1" 
-						href="{% url 'picture_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-image me-1"></i>New picture</a>
+						href="{% url 'picture_create' field='video' pk=0 tag=tag.title|slugify %}"><i class="bi bi-plus-circle-fill me-1"></i>New picture</a>
 				</div>
 			</div>
 

@@ -10,14 +10,14 @@
     <div class="col-md-4"></div>
     <div class="col-md-3 text-start">
         {% if perms.catches.add_lake %} 
-            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" >new lake</a>
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New lake</a>
         {% endif %}
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" >temp list</a>
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_list' %}" type="submit" >week list</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" ><i class="bi bi-thermometer-half me-1"></i>Temp list</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_list' %}" type="submit" ><i class="bi bi-calendar-event-fill me-1"></i>Week list</a>
         
         <!-- Updated Forecast Button to blend perfectly with your native action links -->
-        <button id="get-local-weather" class="btn btn-primary btn-md mt-1 mb-1">local forecast</button>
-        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()">back</button>
+        <button id="get-local-weather" class="btn btn-primary btn-md mt-1 mb-1"><i class="bi bi-cloud-sun-fill me-1"></i>Local forecast</button>
+        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
         
         <!-- Subtle status display text to ensure you still get tracking updates -->
         <div id="weather-status" class="text-muted small position-absolute"></div>
@@ -73,9 +73,9 @@
         <h1>Lakes by region</h1>
     </div>
     <div class="col-md-3">
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_list' %}" type="submit" >regions</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_list' %}" type="submit" ><i class="bi bi-geo-alt-fill me-1"></i>Regions</a>
         {% if perms.catches.add_region %}
-            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" >new region</a>
+            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New region</a>
         {% endif %}
     </div>
     <div class="col-md-1"></div>
@@ -120,10 +120,10 @@
     </div>
     <div class="col-md-3">
         <a class="btn btn-primary btn-md mt-1 mb-1" 
-            href="https://www.google.com/maps/d/edit?mid=1mBBRZmCJh0UJUjxZNmf4ik2yi1KhdcU&usp=sharing"  target="_blank" >districts map
+            href="https://www.google.com/maps/d/edit?mid=1mBBRZmCJh0UJUjxZNmf4ik2yi1KhdcU&usp=sharing"  target="_blank" ><i class="bi bi-pin-map-fill me-1"></i>Districts map
         </a>
         <a class="btn btn-primary btn-md mt-1 mb-1" 
-            href="https://www.google.com/maps/d/edit?mid=1lCFeZRSNHiPKyDPm17noWRHRZF4eKEE&usp=sharing"  target="_blank" >all lakes map
+            href="https://www.google.com/maps/d/edit?mid=1lCFeZRSNHiPKyDPm17noWRHRZF4eKEE&usp=sharing"  target="_blank" ><i class="bi bi-map-fill me-1"></i>All lakes map
         </a>
     </div>
     <div class="col-md-1"></div>
