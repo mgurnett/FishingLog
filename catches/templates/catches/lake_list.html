@@ -2,62 +2,65 @@
 {% block title %} Lakes {% endblock %}
 {% block content %}
 
-<div class="row">  <!-- Title -->
+<div class="row"> <!-- Title -->
     <div class="col-md-1"></div>
     <div class="col-md-3">
-        <h1>Favourite lakes</h1> 
+        <h1>Favourite lakes</h1>
     </div>
-    <div class="col-md-4"></div>
-    <div class="col-md-3 text-start">
-        {% if perms.catches.add_lake %} 
-            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New lake</a>
+    <div class="col-md-2"></div>
+    <div class="col-md-6 text-center">
+        {% if perms.catches.add_lake %}
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'lake_create' %}" type="submit"><i
+                class="bi bi-plus-circle-fill me-1"></i>New lake</a>
         {% endif %}
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit" ><i class="bi bi-thermometer-half me-1"></i>Temp list</a>
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_list' %}" type="submit" ><i class="bi bi-calendar-event-fill me-1"></i>Week list</a>
-        
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'temp_list' %}" type="submit"><i
+                class="bi bi-thermometer-half me-1"></i>Temp list</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'week_list' %}" type="submit"><i
+                class="bi bi-calendar-event-fill me-1"></i>Week list</a>
+
         <!-- Updated Forecast Button to blend perfectly with your native action links -->
-        <button id="get-local-weather" class="btn btn-primary btn-md mt-1 mb-1"><i class="bi bi-cloud-sun-fill me-1"></i>Local forecast</button>
-        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
-        
+        <button id="get-local-weather" class="btn btn-primary btn-md mt-1 mb-1"><i
+                class="bi bi-cloud-sun-fill me-1"></i>Local forecast</button>
+        <button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i
+                class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
+
         <!-- Subtle status display text to ensure you still get tracking updates -->
         <div id="weather-status" class="text-muted small position-absolute"></div>
     </div>
     <div class="col-md-1"></div>
 </div>
- 
-<div class="row">  <!-- Favourite data -->
+
+<div class="row"> <!-- Favourite data -->
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <div class="card border-0 bg-transparent" >
-            <div class="card-body" style="column-count: 4;">                                
-                <ul class="list-unstyled card-columns" >
+        <div class="card border-0 bg-transparent">
+            <div class="card-body" style="column-count: 4;">
+                <ul class="list-unstyled card-columns">
                     {% for f in favs %}
-                        <!-- <li>
+                    <!-- <li>
                             <a href="{% url 'lake_detail' f.lake.id %}"><b>{{ f.lake.name | title }}</b></a>
                             {% if not f.lake.other_name == "" %} <a href="{% url 'lake_detail' f.lake.id %}"> ({{ f.lake.other_name | title }}) </a> {% endif %}
                             {% if f.lake.log_set.count %}
                                 <span class="badge badge-light badge-pill"> ( logs: {{ f.lake.log_set.count }} )</span>
                             {% endif %}
                         </li> -->
-                        <li>
-                            <button type="button" class="btn bg-transparent position-relative">
-                                <a href="{% url 'lake_detail' f.lake.id %}"><b>{{ f.lake.name | title }}</b>
-                                    {% if not f.lake.other_name == "" %} <a href="{% url 'lake_detail' f.lake.id %}"> ({{ f.lake.other_name | title }}) </a> {% endif %}
-                                    <span class="badge bg-primary text-light">
-                                        logs: {{ f.lake.log_set.count }}
-                                    </span>
-                                </a>
-                              </button>
-                        </li>
-                    {% endfor %} 
-                </ul> 
+                    <li>
+                        <a href="{% url 'lake_detail' f.lake.id %}"><b>{{ f.lake.name | title }}</b>
+                            {% if f.lake.other_name %} ({{ f.lake.other_name | title }}){% endif %}
+                            <span class="badge bg-primary text-light">
+                                logs: {{ f.lake.log_set.count }}
+                            </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
     <div class="col-md-1"></div>
 </div>
 
-<div class="container-fluid">  <!-- horizantal line -->
+<div class="container-fluid"> <!-- horizantal line -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-md-10">
@@ -67,43 +70,45 @@
     </div>
 </div>
 
-<div class="row">  <!-- Regions title -->
+<div class="row"> <!-- Regions title -->
     <div class="col-md-1"></div>
     <div class="col-md-7">
         <h1>Lakes by region</h1>
     </div>
     <div class="col-md-3">
-        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_list' %}" type="submit" ><i class="bi bi-geo-alt-fill me-1"></i>Regions</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_list' %}" type="submit"><i
+                class="bi bi-geo-alt-fill me-1"></i>Regions</a>
         {% if perms.catches.add_region %}
-            <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit" ><i class="bi bi-plus-circle-fill me-1"></i>New region</a>
+        <a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'region_create' %}" type="submit"><i
+                class="bi bi-plus-circle-fill me-1"></i>New region</a>
         {% endif %}
     </div>
     <div class="col-md-1"></div>
 </div>
 
-<div class="row">  <!-- Regions data -->
+<div class="row"> <!-- Regions data -->
     <div class="col-md-1"></div>
-    <div class="col-md-10"> 
-        <div class="card border-0 bg-transparent" >
-            <div class="card-body" style="column-count: 4;">                                
-                <ul class="list-unstyled card-columns" >
+    <div class="col-md-10">
+        <div class="card border-0 bg-transparent">
+            <div class="card-body" style="column-count: 4;">
+                <ul class="list-unstyled card-columns">
                     {% for reg in regions %}
-                        <li>
-                            <a href="{% url 'region_detail' reg.id %}"><b>{{ reg.name | title }}</b>
-                                <span class="badge bg-primary text-light">
-                                    lakes: {{ reg.lake_count }}
-                                </span>
-                            </a>
-                        </li>
-                    {% endfor %} 
-                </ul> 
+                    <li>
+                        <a href="{% url 'region_detail' reg.id %}"><b>{{ reg.name | title }}</b>
+                            <span class="badge bg-primary text-light">
+                                lakes: {{ reg.lake_count }}
+                            </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
     <div class="col-md-1"></div>
 </div>
 
-<div class="container-fluid">  <!-- horizantal line -->
+<div class="container-fluid"> <!-- horizantal line -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-md-10">
@@ -113,38 +118,40 @@
     </div>
 </div>
 
-<div class="row">  <!-- District title -->
+<div class="row"> <!-- District title -->
     <div class="col-md-1"></div>
     <div class="col-md-7">
         <h1>Lakes by district</h1>
     </div>
     <div class="col-md-3">
-        <a class="btn btn-primary btn-md mt-1 mb-1" 
-            href="https://www.google.com/maps/d/edit?mid=1mBBRZmCJh0UJUjxZNmf4ik2yi1KhdcU&usp=sharing"  target="_blank" ><i class="bi bi-pin-map-fill me-1"></i>Districts map
+        <a class="btn btn-primary btn-md mt-1 mb-1"
+            href="https://www.google.com/maps/d/edit?mid=1mBBRZmCJh0UJUjxZNmf4ik2yi1KhdcU&usp=sharing"
+            target="_blank"><i class="bi bi-pin-map-fill me-1"></i>Districts map
         </a>
-        <a class="btn btn-primary btn-md mt-1 mb-1" 
-            href="https://www.google.com/maps/d/edit?mid=1lCFeZRSNHiPKyDPm17noWRHRZF4eKEE&usp=sharing"  target="_blank" ><i class="bi bi-map-fill me-1"></i>All lakes map
+        <a class="btn btn-primary btn-md mt-1 mb-1"
+            href="https://www.google.com/maps/d/edit?mid=1lCFeZRSNHiPKyDPm17noWRHRZF4eKEE&usp=sharing"
+            target="_blank"><i class="bi bi-map-fill me-1"></i>All lakes map
         </a>
     </div>
     <div class="col-md-1"></div>
 </div>
 
-<div class="row">  <!-- Districts data -->
+<div class="row"> <!-- Districts data -->
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <div class="card border-0 bg-transparent" >
-            <div class="card-body" style="column-count: 4;">                                
-                <ul class="list-unstyled card-columns" >
+        <div class="card border-0 bg-transparent">
+            <div class="card-body" style="column-count: 4;">
+                <ul class="list-unstyled card-columns">
                     {% for dist in districts %}
-                        <li>
-                            <a href="{% url 'lake_list_dist' dist.0 %}"> {{ dist.1 | title }}
-                                <span class="badge bg-primary text-light">
-                                    lakes: {{ dist.2 }}
-                                </span>
-                            </a>
-                        </li>
-                    {% endfor %} 
-                </ul> 
+                    <li>
+                        <a href="{% url 'lake_list_dist' dist.0 %}"> {{ dist.1 | title }}
+                            <span class="badge bg-primary text-light">
+                                lakes: {{ dist.2 }}
+                            </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
