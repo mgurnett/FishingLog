@@ -77,7 +77,7 @@ class Fish(models.Model):
     name = models.CharField(max_length = 100)
     notes = CKEditor5Field (blank=True, null=True)
     abbreviation = models.CharField (max_length=10, blank=True)    
-    static_tag = models.SlugField()
+    static_tag = models.SlugField(blank=True, default='')
     image = models.ImageField ('Picture of the fish', 
         default=None, 
         upload_to='fish/', 
@@ -88,6 +88,8 @@ class Fish(models.Model):
         )
  
     def save(self, *args, **kwargs):
+        if not self.static_tag and self.name:
+            self.static_tag = slugify(self.name)
         super(Fish, self).save(*args, **kwargs)
 
         if self.image:
@@ -128,16 +130,19 @@ class Fish(models.Model):
 class Bug(models.Model):
     name = models.CharField ('Insect name', max_length=100)
     notes = CKEditor5Field (blank=True, null=True)
-    static_tag = models.SlugField()
+    static_tag = models.SlugField(blank=True, default='')
     image = models.ImageField ('Picture of the bug', 
         default=None, 
         upload_to='bug/', 
         height_field=None, 
         width_field=None, 
         max_length=100, 
+        blank=True, null=True
         )
 
     def save(self, *args, **kwargs):
+        if not self.static_tag and self.name:
+            self.static_tag = slugify(self.name)
         super(Bug, self).save(*args, **kwargs)
 
         if self.image:
@@ -196,7 +201,7 @@ class Lake(models.Model):
     district = models.IntegerField (blank=True, null=True)
     waterbody_id = models.IntegerField (blank=True, null=True)
     # favourite = models.BooleanField (default = False)
-    static_tag = models.SlugField() 
+    static_tag = models.SlugField(blank=True, default='') 
     gps_url = models.URLField(max_length = 200, blank=True)
     size = models.FloatField (blank=True, null=True)
     
@@ -270,6 +275,11 @@ class Lake(models.Model):
     #https://youtu.be/-s7e_Fy6NRU?t=1730
     def get_absolute_url (self):  #when you post a new lake, this then sets up to go look at the detail of that lake.
         return reverse ('lake_detail', kwargs = {'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.static_tag and self.name:
+            self.static_tag = slugify(self.name)
+        super().save(*args, **kwargs)
     
 class Region(models.Model):
     name = models.CharField(max_length=100)
@@ -382,8 +392,8 @@ class Temp(models.Model):
     search_keys = models.CharField(max_length = 400, blank=True)
     week = models.ManyToManyField (Week, blank=True)
     notes = CKEditor5Field (blank=True, null=True)
-    deg = models.IntegerField ()
-    direction = models.CharField(max_length = 10)
+    deg = models.IntegerField (default=0, blank=True, null=True)
+    direction = models.CharField(max_length = 10, default='', blank=True)
 
     def __str__ (self):
         return f'{self.name}'
@@ -440,7 +450,7 @@ class Fly(models.Model):
     notes = CKEditor5Field (blank=True, null=True)
     size_range = models.CharField ( max_length=100, blank=True)
     author = models.CharField (max_length=100, blank=True)
-    static_tag = models.SlugField()
+    static_tag = models.SlugField(blank=True, default='')
     snippet = models.CharField (max_length = 255, blank=True)
     image = models.ImageField ( 
         default='flys/default_fly.jpg', 
@@ -488,6 +498,8 @@ class Fly(models.Model):
         return Post.objects.filter (tags__name__contains=self.static_tag).count
 
     def save(self, *args, **kwargs):
+        if not self.static_tag and self.name:
+            self.static_tag = slugify(self.name)
         super(Fly, self).save(*args, **kwargs)
 
         if self.image:
@@ -936,7 +948,7 @@ class Category(models.Model):
 class Knot(models.Model):
     name = models.CharField(max_length=150, unique=True)
     notes = CKEditor5Field (blank=True, null=True, help_text="Tying instructions, connection strength, and usage tips.")  
-    static_tag = models.SlugField()
+    static_tag = models.SlugField(blank=True, default='')
     image = models.ImageField ('Knot image', 
         default=None, 
         upload_to='knots/', 
@@ -979,6 +991,11 @@ class Knot(models.Model):
 
     def get_absolute_url(self):
         return reverse('knot_detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.static_tag and self.name:
+            self.static_tag = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Locker(models.Model):
     name = models.CharField(max_length=150, unique=True)

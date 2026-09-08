@@ -28,6 +28,7 @@
                     <form method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
                         
+                        {% if form.existing_picture %}
                         <!-- Option 1: Select Existing Picture -->
                         <div class="card mb-4 border bg-transparent">
                             <div class="card-header fw-bold">
@@ -42,11 +43,12 @@
                         <div class="text-center my-3">
                             <span class="badge bg-secondary px-3 py-2 fs-6">OR</span>
                         </div>
+                        {% endif %}
 
                         <!-- Option 2: Add New Picture (Download or Upload) -->
                         <div class="card mb-4 border bg-transparent">
                             <div class="card-header fw-bold">
-                                <i class="bi bi-cloud-download me-1"></i> Option 2: Add New Picture (Download External URL or Upload File)
+                                <i class="bi bi-cloud-download me-1"></i> {% if form.existing_picture %}Option 2: Add New Picture (Download External URL or Upload File){% else %}Picture Details{% endif %}
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -60,11 +62,15 @@
                                 
                                 <div class="row bg-light bg-opacity-10 p-2 rounded mb-3 border">
                                     <div class="col-md-6 mb-2">
-                                        {{ form.image_url|as_crispy_field }}
-                                        <small class="text-muted"><i class="bi bi-info-circle me-1"></i>External images will be downloaded to <code>/public/downloads/picture/</code></small>
+                                        {% if form.image_url %}
+                                            {{ form.image_url|as_crispy_field }}
+                                            <small class="text-muted"><i class="bi bi-info-circle me-1"></i>External images will be downloaded to <code>/public/downloads/picture/</code></small>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        {{ form.image|as_crispy_field }}
+                                        {% if form.image %}
+                                            {{ form.image|as_crispy_field }}
+                                        {% endif %}
                                     </div>
                                 </div>
 

@@ -408,8 +408,7 @@ class BugDetailView (PermissionRequiredMixin,  DetailView):
 class BugCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_bug'
     model = Bug
-    fields = '__all__' 
-    # form_class = New_Bug_Form
+    form_class = New_Bug_Form
     success_url = reverse_lazy ('bug_list')
     success_message = "New Bug saved" 
 
@@ -421,10 +420,9 @@ class BugCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
 class BugUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_bug'
     model = Bug
-    fields = '__all__' 
-    # form_class = New_Bug_Form
+    form_class = New_Bug_Form
     success_url = reverse_lazy ('bug_list')
-    success_message = "Bug fixed"
+    success_message = "Bug fixed" 
 
     def form_valid(self, form):
         if not form.instance.static_tag:

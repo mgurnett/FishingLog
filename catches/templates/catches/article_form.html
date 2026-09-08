@@ -28,6 +28,7 @@
                     <form method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
                         
+                        {% if form.existing_article %}
                         <!-- Option 1: Select Existing Article -->
                         <div class="card mb-4 border bg-transparent">
                             <div class="card-header fw-bold">
@@ -42,11 +43,12 @@
                         <div class="text-center my-3">
                             <span class="badge bg-secondary px-3 py-2 fs-6">OR</span>
                         </div>
+                        {% endif %}
 
                         <!-- Option 2: Add New Article -->
                         <div class="card mb-4 border bg-transparent">
                             <div class="card-header fw-bold">
-                                <i class="bi bi-cloud-download me-1"></i> Option 2: Add New Article (External URL to Download or Upload File)
+                                <i class="bi bi-cloud-download me-1"></i> {% if form.existing_article %}Option 2: Add New Article (External URL to Download or Upload File){% else %}Article Details{% endif %}
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -60,11 +62,17 @@
                                 
                                 <div class="row bg-light bg-opacity-10 p-2 rounded mb-3 border">
                                     <div class="col-md-6 mb-2">
-                                        {{ form.article_url|as_crispy_field }}
-                                        <small class="text-muted"><i class="bi bi-info-circle me-1"></i>External articles/PDFs will be downloaded to <code>/public/downloads/article/</code></small>
+                                        {% if form.article_url %}
+                                            {{ form.article_url|as_crispy_field }}
+                                            <small class="text-muted"><i class="bi bi-info-circle me-1"></i>External articles/PDFs will be downloaded to <code>/public/downloads/article/</code></small>
+                                        {% elif form.url %}
+                                            {{ form.url|as_crispy_field }}
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        {{ form.file|as_crispy_field }}
+                                        {% if form.file %}
+                                            {{ form.file|as_crispy_field }}
+                                        {% endif %}
                                     </div>
                                 </div>
 

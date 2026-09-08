@@ -25,8 +25,11 @@ class New_Bug_Form (forms.ModelForm):
         }
 
     name = forms.CharField ( required = True )       
-    notes = forms.CharField ( max_length = 100, required = False ) 
-    image = forms.ImageField ( required = True )
+    notes = forms.CharField(
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        required=False
+    )
+    image = forms.ImageField ( required = False )
     static_tag = forms.CharField ( required = False )
     
     def __init__(self, *args, **kwargs):

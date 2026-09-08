@@ -1,5 +1,5 @@
 ## Bugs
-- [ ] Several new and create types are not working.
+- [*] Several new and create types are not working (All 18 models verified: Create, Edit, Delete, Detail).
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region

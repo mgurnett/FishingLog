@@ -15,7 +15,9 @@
 				<div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
+							{% if bug.image %}
 							<img src="{{ bug.image.url }}" class="img-thumbnail mx-auto d-block" style="max-height: 300px; max-width: 50%; height: auto; object-fit: contain;" alt="{{ bug.name | title }}">
+							{% endif %}
 							<div class="row">
 								<div class="col-md-2 text-centre"></div>
 								<div class="col-md-8 d-flex justify-content-center">

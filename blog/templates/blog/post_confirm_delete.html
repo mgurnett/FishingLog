@@ -7,9 +7,9 @@
                 <legend class="border-bottom mb-4">Delete Post</legend>
                 <h2>Are you sure you want to delete the post "{{ object.title }}"</h2>
             </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
-                <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+            <div class="form-group mt-4">
+                <button class="btn btn-danger" type="submit"><i class="bi bi-trash-fill me-1"></i>Yes, Delete</button>
+                <a class="btn btn-primary ms-2" href="{% url 'post-detail' object.id %}"><i class="bi bi-x-circle-fill me-1"></i>Cancel</a>
             </div>
         </form>
     </div>
