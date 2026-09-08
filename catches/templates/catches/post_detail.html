@@ -1,0 +1,86 @@
+{% extends "catches/base/base.html" %}
+{% load static %}
+{% block title %}{{ object.title }} | Fishing Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'catch_home' %}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'blog-home' %}" class="text-decoration-none">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ object.title }}</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4 p-md-5">
+                    <!-- Post Header -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-4 pb-3 border-bottom">
+                        <div class="d-flex align-items-center">
+                            {% if object.author.profile.image %}
+                                <img src="{{ object.author.profile.image.url }}" alt="{{ object.author }}" class="rounded-circle me-3" style="width: 52px; height: 52px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" style="width: 52px; height: 52px;">
+                                    <i class="bi bi-person-fill fs-4"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <a href="{% url 'user-posts' object.author.username %}" class="fw-bold fs-5 text-decoration-none text-dark d-block">
+                                    {{ object.author.get_full_name|default:object.author.username }}
+                                </a>
+                                <span class="text-muted small">
+                                    <i class="bi bi-calendar3 me-1"></i>{{ object.date_posted|date:"F d, Y - g:i A" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons if author/superuser -->
+                        {% if object.author == user or user.is_superuser %}
+                        <div class="btn-group">
+                            <a class="btn btn-secondary btn-sm" href="{% url 'post-update' object.id %}">
+                                <i class="bi bi-pencil-fill me-1"></i>Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'post-delete' object.id %}">
+                                <i class="bi bi-trash-fill me-1"></i>Delete
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Title -->
+                    <h1 class="h2 fw-bold mb-4">{{ object.title }}</h1>
+
+                    <!-- Body Content -->
+                    <div class="article-content fs-5 lh-lg mb-4">
+                        {{ object.content|safe }}
+                    </div>
+
+                    <!-- Tags -->
+                    {% if object.tags.all %}
+                    <div class="mt-4 pt-3 border-top d-flex align-items-center flex-wrap gap-2">
+                        <span class="fw-bold text-muted small"><i class="bi bi-tags-fill me-1"></i>Tags:</span>
+                        {% for tag in object.tags.all %}
+                            <a href="{% url 'library_detail' tag.name %}" class="badge bg-light text-dark text-decoration-none border py-2 px-3">
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center py-3 px-4">
+                    <a href="{% url 'blog-home' %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Blog
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'post-create' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-plus-circle-fill me-1"></i>New Post
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

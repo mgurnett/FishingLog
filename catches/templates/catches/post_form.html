@@ -1,0 +1,35 @@
+{% extends "catches/base/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{% if form.instance.pk %}Edit Post{% else %}New Post{% endif %} | Fishing Blog{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'catch_home' %}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'blog-home' %}" class="text-decoration-none">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% if form.instance.pk %}Edit Post{% else %}New Post{% endif %}</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h2 class="h5 mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        {% if form.instance.pk %}Edit Blog Post{% else %}Create New Blog Post{% endif %}
+                    </h2>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

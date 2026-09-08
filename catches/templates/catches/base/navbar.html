@@ -29,6 +29,7 @@
                 <a class="nav-item nav-link" href="{% url 'locker_list' %}"><i class="bi bi-box-seam"></i> Locker</a>
                 <a class="nav-item nav-link" href="{% url 'setup_list' %}"><i class="bi bi-diagram-3"></i> Setups</a>
                 <a class="nav-item nav-link" href="{% url 'strategy_list' %}"><i class="bi bi-compass"></i> Strategies</a>
+                <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="bi bi-journal-text"></i> Blog</a>
                 <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username | title }}</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                 {% if user.is_superuser %}

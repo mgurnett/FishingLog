@@ -125,3 +125,10 @@ class LockerAdmin (admin.ModelAdmin):
 
     def category_name (self, obj):
         return str(f'{obj.category.name}')
+
+@admin.register (Post)
+class PostAdmin (admin.ModelAdmin):
+    list_display = ['title', 'author', 'date_posted', 'get_tags']
+
+    def get_tags (self, obj):
+        return ", ".join(o for o in obj.tags.names())

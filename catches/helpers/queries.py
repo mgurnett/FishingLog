@@ -14,15 +14,15 @@ def collect_tw_from_logs_and_hatches(**kwargs):
         hatches = Hatch.objects.all() 
     data = []
     for log in logs:
-        if log.temp.id > 1:
+        if log.temp and log.temp.id > 1 and log.week and log.catch_date:
             # print (f'{log.catch_date = }, type is {type (log.catch_date)}')
             log_data = {
                 'week': log.week.number, 
                 'week_id': log.week.id, 
                 'date': log.catch_date, 
-                'temp': log.temp.deg,
+                'temp': getattr(log.temp, 'deg', 0),
                 'temp_id': log.temp.id, 
-                'temp_name': log.temp.name, 
+                'temp_name': getattr(log.temp, 'name', ''), 
                 'log': log.id,
                 'type': 'L', 
                 'year': int(log.catch_date.year)

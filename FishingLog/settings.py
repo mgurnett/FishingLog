@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -207,7 +206,7 @@ TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING  = False
 
 GRAPH_MODELS = {
-  'app_labels': ["catches", "blog"],
+  'app_labels': ["catches"],
   'group_models': True,
   'color_code_deletions': True,
 #   'arrow_shape': True,

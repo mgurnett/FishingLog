@@ -947,3 +947,57 @@ class New_Strategy_Form(forms.ModelForm):
         self.fields['setup'].empty_label = "-- Select Line Setup / Rig (Optional) --"
 
 
+class New_Post_Form(forms.ModelForm):
+    title = forms.CharField(max_length=100, required=True, label="Post Title")
+    content = forms.CharField(
+        widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
+        required=False,
+        label="Post Content"
+    )
+    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags (e.g., fishing, trout, dryfly)")
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            if hasattr(self.instance, 'tags'):
+                self.initial['tags'] = ", ".join(t.name for t in self.instance.tags.all())
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('title', css_class='form-group col-md-12 mb-3'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('content', css_class='form-group col-md-12 mb-3'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('tags', css_class='form-group col-md-12 mb-3'),
+                css_class='form-row'
+            ),
+            Row(
+                Column(Submit('submit', 'Post', css_class='btn btn-primary me-2'), css_class='col-auto'),
+                Column(FormActions(
+                    HTML('<a class="btn btn-secondary" onclick="window.history.back()">Cancel</a>')
+                ), css_class='col-auto'),
+                css_class='form-row mt-3'
+            ),
+        )
+
+    def save(self, commit=True):
+        instance = super().save(commit=commit)
+        tag_str = self.cleaned_data.get('tags', '')
+        if commit:
+            if tag_str:
+                tag_names = [t.strip() for t in tag_str.split(',') if t.strip()]
+                instance.tags.set(tag_names)
+            else:
+                instance.tags.clear()
+        return instance
+
+
+

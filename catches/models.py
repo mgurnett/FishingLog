@@ -15,7 +15,6 @@ import pandas as pd
 from django.contrib.auth.models import User 
 from catches.helpers.fish_data import *
 from users.models import Profile
-from blog.models import Post
 import datetime
 
 DEGREE_C = str(u"\u00b0" + "C")
@@ -778,6 +777,23 @@ class Picture(models.Model):
                     img.save(self.image.path)
             except Exception:
                 pass  
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = CKEditor5Field(blank=True, null=True, config_name="notes")
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = TaggableManager(blank=True)
+
+    class Meta:
+        db_table = 'blog_post'
+        ordering = ['-date_posted']
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.pk})  
     
 class Chart(models.Model):
     week = models.ForeignKey(Week, on_delete=models.CASCADE, related_name="week")

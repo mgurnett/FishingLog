@@ -1,0 +1,144 @@
+{% extends "catches/base/base.html" %}
+{% load static %}
+{% block title %}Posts by {{ view.kwargs.username }} | Fishing Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a href="{% url 'catch_home' %}" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'blog-home' %}" class="text-decoration-none">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ view.kwargs.username }}'s Posts</li>
+                </ol>
+            </nav>
+            <h1 class="h2 mb-1">
+                <i class="bi bi-person-lines-fill me-2"></i>Posts by {{ view.kwargs.username }}
+                <span class="badge bg-secondary fs-6 align-middle">{{ page_obj.paginator.count }}</span>
+            </h1>
+        </div>
+        {% if user.is_authenticated %}
+        <div>
+            <a href="{% url 'post-create' %}" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill me-1"></i>New Post
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <!-- Posts List -->
+        <div class="col-lg-8">
+            {% if posts %}
+                {% for post in posts %}
+                <div class="card mb-4 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if post.author.profile.image %}
+                                <img src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" class="rounded-circle me-3" style="width: 44px; height: 44px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-person-fill fs-5"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <span class="fw-bold text-dark">{{ post.author.get_full_name|default:post.author.username }}</span>
+                                <div class="text-muted small">
+                                    <i class="bi bi-calendar3 me-1"></i>{{ post.date_posted|date:"F d, Y" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="card-title h4 mb-2">
+                            <a href="{% url 'post-detail' post.id %}" class="text-decoration-none text-primary">
+                                {{ post.title }}
+                            </a>
+                        </h3>
+
+                        <div class="card-text mb-3 text-secondary">
+                            {{ post.content|safe|truncatewords_html:45 }}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                            <div>
+                                {% if post.tags.all %}
+                                    <div class="d-flex flex-wrap gap-1 align-items-center">
+                                        <i class="bi bi-tags-fill text-muted me-1 small"></i>
+                                        {% for tag in post.tags.all %}
+                                            <span class="badge bg-light text-dark border">{{ tag.name }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'post-detail' post.id %}" class="btn btn-outline-primary btn-sm">
+                                Read More <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Pagination -->
+                {% if is_paginated %}
+                <nav aria-label="User posts pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">&laquo; First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+
+            {% else %}
+                <div class="alert alert-info py-4 text-center">
+                    <i class="bi bi-info-circle-fill me-2 fs-4 d-block mb-2"></i>
+                    <h5>No posts found</h5>
+                    <p class="mb-0">This user hasn't published any blog posts yet.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card mb-4 shadow-sm border-0">
+                <div class="card-header bg-dark text-white fw-bold">
+                    <i class="bi bi-journal-text me-2"></i>All Blog Posts
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Explore community stories, gear setups, lake logs, and fly fishing insights.</p>
+                    <a href="{% url 'blog-home' %}" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="bi bi-arrow-left me-1"></i>View All Posts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

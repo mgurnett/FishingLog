@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from blog.models import *
 from users.models import Profile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -2548,3 +2547,64 @@ def quick_add_knot_api(request):
         })
     except Exception as e:
         return JsonResponse({'error': f"Failed to create knot: {str(e)}"}, status=500)
+
+
+# ==========================================
+# Blog Views (moved into catches app)
+# ==========================================
+class PostListView(ListView):
+    model = Post
+    template_name = 'catches/post_list.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 10
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'catches/user_posts.html'
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'catches/post_detail.html'
+
+class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Post
+    form_class = New_Post_Form
+    template_name = 'catches/post_form.html'
+    success_url = '/blog/'
+    success_message = "Post created successfully"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    model = Post
+    form_class = New_Post_Form
+    template_name = 'catches/post_form.html'
+    success_url = '/blog/'
+    success_message = "Post updated successfully"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author or self.request.user.is_superuser
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = Post
+    template_name = 'catches/post_confirm_delete.html'
+    success_url = '/blog/'
+    success_message = "Post deleted successfully"
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author or self.request.user.is_superuser

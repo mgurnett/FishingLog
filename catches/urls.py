@@ -190,5 +190,12 @@ urlpatterns = [
     path ('api/lake-stocked-fish/<int:lake_pk>/', views.lake_stocked_fish_api, name='api_lake_stocked_fish'),
     path ('api/mobile-log-submit/', views.mobile_log_submit_api, name='api_mobile_log_submit'),
 
+    # Blog routes (migrated into catches app)
+    path ('blog/', PostListView.as_view(), name='blog-home'),
+    path ('blog/post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path ('blog/post/new/', PostCreateView.as_view(), name='post-create'),
+    path ('blog/post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    path ('blog/post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path ('blog/user/<str:username>/', UserPostListView.as_view(), name='user-posts'),
 ]
 

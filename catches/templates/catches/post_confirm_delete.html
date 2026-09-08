@@ -1,0 +1,33 @@
+{% extends "catches/base/base.html" %}
+{% block title %}Delete Post | Fishing Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Post Confirmation</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <p class="fs-5 mb-3">Are you sure you want to permanently delete the post:</p>
+                        <div class="alert alert-light border fw-bold text-danger mb-4">
+                            "{{ object.title }}"
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-danger" type="submit">
+                                <i class="bi bi-trash-fill me-1"></i>Yes, Delete Post
+                            </button>
+                            <a class="btn btn-primary ms-2" href="{% url 'post-detail' object.id %}">
+                                <i class="bi bi-x-circle-fill me-1"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
