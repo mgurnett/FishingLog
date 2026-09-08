@@ -404,8 +404,12 @@ class Fly_type(models.Model):
         height_field=None, 
         width_field=None, 
         max_length=100, 
+        blank=True, null=True
         )
  
+    class Meta:
+        ordering = ['name']
+
     def save(self, *args, **kwargs):
         super(Fly_type, self).save(*args, **kwargs)
 

@@ -294,14 +294,14 @@ class Fly_typeDetailView (PermissionRequiredMixin, DetailView):
 class Fly_typeCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'catches.add_fly_type'
     model = Fly_type
-    fields = '__all__'
+    form_class = New_Fly_type_Form
     success_message = "New Fly type saved"
     success_url = reverse_lazy ('fly_type_list')
 
 class Fly_typeUpdateView(SuccessMessageMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'catches.change_fly_type'
     model = Fly_type
-    fields = '__all__'  
+    form_class = New_Fly_type_Form
     success_message = "Fly type fixed"
     success_url = reverse_lazy ('fly_type_list')
 
