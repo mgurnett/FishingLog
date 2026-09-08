@@ -1,24 +1,33 @@
-{% extends "blog/base.html" %}
+{% extends "catches/base/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Login</button>
-                <small class="text-muted ml-2">
-                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
-                </small>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h3 class="mb-0 fw-bold"><i class="bi bi-box-arrow-in-right text-info me-2"></i>Log In</h3>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group mb-3">
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a class="text-muted small" href="{% url 'password_reset' %}">Forgot Password?</a>
+                        </div>
+                    </form>
+                    <div class="border-top mt-4 pt-3 text-center">
+                        <small class="text-muted">
+                            Need An Account? <a class="ms-1 fw-bold" href="{% url 'register' %}">Sign Up Now</a>
+                        </small>
+                    </div>
+                </div>
             </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-            </small>
         </div>
     </div>
+</div>
 {% endblock content %}
+

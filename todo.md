@@ -6,10 +6,10 @@
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
 - [ ] Rethink tags (rethink tags across the site, articles, videos, and how tagging is approached)
 - [ ] Change the landing page (redesign/overhaul the landing page experience)
+- [ ] work on validations
 
 ## Medium
 - [ ] Break insects down to specific ones.
-- [ ] work on validations
 - [ ] make a flag that says that a new log has been added.
 - [ ] make a comment system.
 - [ ] Fix weeks: Right now they are calendar weeks of the year, but they need to be 7-day increments calculated from the Spring equinox. Figure out a better way to parse/calculate them.  Then go through the database and make them correct to the new system.

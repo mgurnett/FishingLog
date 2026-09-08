@@ -1,32 +1,46 @@
-{% extends "blog/base.html" %}
+{% extends "catches/base/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-          {% if user.groups.all %}
-            <p class="text-secondary">Permission level: {{ user.groups.all.0.name }}</p>
-          {% else %}
-            <p class="text-secondary">Permission level: admin</p>
-          {% endif %}
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-dark text-white py-3">
+                    <h3 class="mb-0 fw-bold"><i class="bi bi-person-circle text-info me-2"></i>Profile</h3>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <div class="d-flex align-items-center mb-4 p-3 bg-white rounded shadow-sm">
+                        <img class="rounded-circle me-3" src="{{ user.profile.image.url }}" alt="{{ user.username }}" style="width: 80px; height: 80px; object-fit: cover;">
+                        <div>
+                            <h3 class="mb-1 fw-bold">{{ user.username }}</h3>
+                            <p class="text-muted mb-1">{{ user.email }}</p>
+                            {% if user.groups.all %}
+                                <span class="badge bg-secondary">Permission: {{ user.groups.all.0.name }}</span>
+                            {% elif user.is_superuser %}
+                                <span class="badge bg-primary">Permission: Admin</span>
+                            {% else %}
+                                <span class="badge bg-info text-dark">Permission: Member</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group mb-3">
+                            <legend class="border-bottom mb-3 pb-2 fw-bold text-dark fs-5">Update Profile Info</legend>
+                            {{ u_form|crispy }}
+                            {{ p_form|crispy }}
+                        </fieldset>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Update Profile</button>
+                        </div>
+                    </form>
+                    <p class="form-text text-muted mt-3 mb-0">
+                        <i class="bi bi-info-circle me-1"></i> Please note: The address recorded here is only used for calculating distance to a lake. If you don't add an address, it will default to Rogers Place.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-      <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">Profile Info</legend>
-              {{ u_form|crispy }}
-              {{ p_form|crispy }}
-          </fieldset>
-          <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Update</button>
-          </div>
-      </form>
-      <p>
-        Please note, the address recorded here is only used for calculating distance to a lake.  If you don't add an address then it will default to Roger Place - The House that Connor Built.
-      </p>
     </div>
+</div>
 {% endblock content %}
+
