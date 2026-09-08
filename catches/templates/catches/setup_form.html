@@ -483,7 +483,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const catSelect = document.getElementById('modalLockerCategory');
             if (category && catSelect) {
                 for (let i = 0; i < catSelect.options.length; i++) {
-                    if (catSelect.options[i].value.toLowerCase() === category.toLowerCase()) {
+                    const optVal = catSelect.options[i].value.toLowerCase();
+                    const targetCat = category.toLowerCase();
+                    if (optVal === targetCat || optVal.includes(targetCat) || targetCat.includes(optVal)) {
                         catSelect.selectedIndex = i;
                         break;
                     }
@@ -545,18 +547,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Also populate other matching selects in form
-                const catNameLower = item.category_name.toLowerCase();
+                const catNameLower = (item.category_name || '').toLowerCase();
                 document.querySelectorAll('select').forEach(sel => {
                     if (sel.id !== currentTargetSelectId) {
-                        if (
-                            (catNameLower === 'rod' && sel.id.includes('rod')) ||
-                            (catNameLower === 'reel' && sel.id.includes('reel')) ||
-                            (catNameLower === 'fly line' && sel.id.includes('fly_line')) ||
-                            (catNameLower === 'leader' && (sel.id.includes('leader') || sel.id.includes('tippet_material'))) ||
-                            (catNameLower === 'tippet' && sel.id.includes('tippet_material')) ||
-                            (catNameLower === 'hardware' && (sel.id.includes('strike_indicator') || sel.id.includes('hardware')))
-                        ) {
+                        const isRod = catNameLower.includes('rod') && sel.id.includes('rod');
+                        const isReel = catNameLower.includes('reel') && sel.id.includes('reel');
+                        const isFlyLine = (catNameLower.includes('line') || catNameLower.includes('fly line')) && sel.id.includes('fly_line');
+                        const isLeader = catNameLower.includes('leader') && (sel.id.includes('leader') || sel.id.includes('tippet_material'));
+                        const isTippet = catNameLower.includes('tippet') && sel.id.includes('tippet_material');
+                        const isHardware = catNameLower.includes('hardware') && (sel.id.includes('strike_indicator') || sel.id.includes('hardware'));
+
+                        if (isRod || isReel || isFlyLine || isLeader || isTippet || isHardware) {
                             sel.add(new Option(item.full_name || item.name, item.id));
+                            if (
+                                (isRod && sel.id === 'id_rod') ||
+                                (isReel && sel.id === 'id_reel') ||
+                                (isFlyLine && sel.id === 'id_fly_line') ||
+                                (isLeader && sel.id === 'id_leader') ||
+                                (isHardware && sel.id === 'id_strike_indicator')
+                            ) {
+                                sel.value = item.id;
+                            }
                         }
                     }
                 });

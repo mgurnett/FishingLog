@@ -1014,7 +1014,7 @@ class Knot(models.Model):
         super().save(*args, **kwargs)
 
 class Locker(models.Model):
-    name = models.CharField(max_length=150, unique=True)
+    name = models.CharField(max_length=150)
     model = models.CharField(max_length=150, blank=True, null=True)
     brand = models.CharField(max_length=150, blank=True, null=True)
     purchase_date = models.DateField(blank=True, null=True)
@@ -1062,35 +1062,21 @@ class Locker(models.Model):
         verbose_name_plural = "locker"
 
     def __str__(self):
-        return self.name
+        return self.name or self.locker_full_name or "Equipment"
 
     @property 
-    def locker_name (self):
-        if self.brand:
-            brand = self.brand
-        else:
-            brand="" 
-        if self.model:
-            model = self.model
-        else:
-            model=""   
-        return f'{self.name} - {brand} {model}' 
+    def locker_name(self):
+        brand_model = ' '.join(p for p in [self.brand, self.model] if p).strip()
+        if self.name and brand_model:
+            return f'{self.name} - {brand_model}'
+        return self.name or brand_model or "Equipment"
 
     @property 
-    def locker_full_name (self):
-        if self.brand:
-            brand = self.brand
-        else:
-            brand="" 
-        if self.model:
-            model = self.model
-        else:
-            model="" 
-        if self.characteristics:
-            characteristics = self.characteristics
-        else:
-            characteristics=""   
-        return f'{self.name} - {brand} {model} {characteristics}' 
+    def locker_full_name(self):
+        details = ' '.join(p for p in [self.brand, self.model, self.characteristics] if p).strip()
+        if self.name and details:
+            return f'{self.name} - {details}'
+        return self.name or details or "Equipment"
 
     def get_absolute_url(self):
         return reverse('locker_detail', kwargs={'pk': self.pk})
@@ -1099,15 +1085,15 @@ class Locker(models.Model):
 class Setup(models.Model):
     name = models.CharField(max_length=150)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    rod = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_rods', limit_choices_to={'category__name': 'Rod'})
-    reel = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_reels', limit_choices_to={'category__name': 'Reel'})
-    fly_line = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_flylines', limit_choices_to={'category__name': 'Fly line'})
+    rod = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_rods', limit_choices_to={'category__name__icontains': 'rod'})
+    reel = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_reels', limit_choices_to={'category__name__icontains': 'reel'})
+    fly_line = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_flylines', limit_choices_to={'category__name__icontains': 'line'})
     line_to_leader_knot = models.ForeignKey(Knot, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_line_knots', help_text="Knot connecting fly line to leader (e.g. Loop to Loop, Nail Knot)")
-    leader = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_leaders', limit_choices_to={'category__name': 'Leader'})
+    leader = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_leaders', limit_choices_to={'category__name__icontains': 'leader'})
     leader_length = models.CharField(max_length=50, blank=True, null=True, help_text="Length of leader, e.g. 9ft, 4ft, 7.5ft")
     
     # Strike indicator details
-    strike_indicator = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_indicators', limit_choices_to={'category__name': 'Hardware'})
+    strike_indicator = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_indicators', limit_choices_to={'category__name__icontains': 'hardware'})
     indicator_distance_from_fly_end = models.CharField(max_length=50, blank=True, null=True, verbose_name="Indicator distance from fly end of leader", help_text="Distance of strike indicator measured from the fly end of the leader (e.g. 18in, 3ft, 6ft)")
     
     notes = CKEditor5Field(blank=True, null=True, help_text="Setup details, casting notes, or specific fishing strategies.")

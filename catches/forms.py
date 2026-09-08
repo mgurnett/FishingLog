@@ -855,25 +855,31 @@ class New_Setup_Form(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user:
             if user.is_superuser:
-                self.fields['rod'].queryset = Locker.objects.filter(category__name='Rod').order_by('name')
-                self.fields['reel'].queryset = Locker.objects.filter(category__name='Reel').order_by('name')
-                self.fields['fly_line'].queryset = Locker.objects.filter(category__name='Fly line').order_by('name')
-                self.fields['leader'].queryset = Locker.objects.filter(category__name='Leader').order_by('name')
-                self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name='Hardware').order_by('name')
+                self.fields['rod'].queryset = Locker.objects.filter(category__name__icontains='rod').order_by('name')
+                self.fields['reel'].queryset = Locker.objects.filter(category__name__icontains='reel').order_by('name')
+                self.fields['fly_line'].queryset = Locker.objects.filter(category__name__icontains='line').order_by('name')
+                self.fields['leader'].queryset = Locker.objects.filter(category__name__icontains='leader').order_by('name')
+                self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
             else:
-                self.fields['rod'].queryset = Locker.objects.filter(owner=user, category__name='Rod').order_by('name')
-                self.fields['reel'].queryset = Locker.objects.filter(owner=user, category__name='Reel').order_by('name')
-                self.fields['fly_line'].queryset = Locker.objects.filter(owner=user, category__name='Fly line').order_by('name')
-                self.fields['leader'].queryset = Locker.objects.filter(owner=user, category__name='Leader').order_by('name')
-                self.fields['strike_indicator'].queryset = Locker.objects.filter(owner=user, category__name='Hardware').order_by('name')
+                self.fields['rod'].queryset = Locker.objects.filter(owner=user, category__name__icontains='rod').order_by('name')
+                self.fields['reel'].queryset = Locker.objects.filter(owner=user, category__name__icontains='reel').order_by('name')
+                self.fields['fly_line'].queryset = Locker.objects.filter(owner=user, category__name__icontains='line').order_by('name')
+                self.fields['leader'].queryset = Locker.objects.filter(owner=user, category__name__icontains='leader').order_by('name')
+                self.fields['strike_indicator'].queryset = Locker.objects.filter(owner=user, category__name__icontains='hardware').order_by('name')
         else:
-            self.fields['rod'].queryset = Locker.objects.filter(category__name='Rod').order_by('name')
-            self.fields['reel'].queryset = Locker.objects.filter(category__name='Reel').order_by('name')
-            self.fields['fly_line'].queryset = Locker.objects.filter(category__name='Fly line').order_by('name')
-            self.fields['leader'].queryset = Locker.objects.filter(category__name='Leader').order_by('name')
-            self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name='Hardware').order_by('name')
+            self.fields['rod'].queryset = Locker.objects.filter(category__name__icontains='rod').order_by('name')
+            self.fields['reel'].queryset = Locker.objects.filter(category__name__icontains='reel').order_by('name')
+            self.fields['fly_line'].queryset = Locker.objects.filter(category__name__icontains='line').order_by('name')
+            self.fields['leader'].queryset = Locker.objects.filter(category__name__icontains='leader').order_by('name')
+            self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
 
         self.fields['line_to_leader_knot'].queryset = Knot.objects.all().order_by('name')
+        self.fields['rod'].label_from_instance = lambda obj: obj.locker_full_name
+        self.fields['reel'].label_from_instance = lambda obj: obj.locker_full_name
+        self.fields['fly_line'].label_from_instance = lambda obj: obj.locker_full_name
+        self.fields['leader'].label_from_instance = lambda obj: obj.locker_full_name
+        self.fields['strike_indicator'].label_from_instance = lambda obj: obj.locker_full_name
+
         self.fields['rod'].empty_label = "-- Select Rod --"
         self.fields['reel'].empty_label = "-- Select Reel --"
         self.fields['fly_line'].empty_label = "-- Select Fly Line --"
@@ -900,16 +906,18 @@ class SetupSectionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user:
             if user.is_superuser:
-                self.fields['hardware'].queryset = Locker.objects.filter(category__name='Hardware').order_by('name')
-                self.fields['tippet_material'].queryset = Locker.objects.filter(category__name__in=['Tippet', 'Leader']).order_by('name')
+                self.fields['hardware'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
+                self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader')).order_by('name')
             else:
-                self.fields['hardware'].queryset = Locker.objects.filter(owner=user, category__name='Hardware').order_by('name')
-                self.fields['tippet_material'].queryset = Locker.objects.filter(owner=user, category__name__in=['Tippet', 'Leader']).order_by('name')
+                self.fields['hardware'].queryset = Locker.objects.filter(owner=user, category__name__icontains='hardware').order_by('name')
+                self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader'), owner=user).order_by('name')
         else:
-            self.fields['hardware'].queryset = Locker.objects.filter(category__name='Hardware').order_by('name')
-            self.fields['tippet_material'].queryset = Locker.objects.filter(category__name__in=['Tippet', 'Leader']).order_by('name')
+            self.fields['hardware'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
+            self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader')).order_by('name')
 
         self.fields['connection_knot'].queryset = Knot.objects.all().order_by('name')
+        self.fields['hardware'].label_from_instance = lambda obj: obj.locker_full_name
+        self.fields['tippet_material'].label_from_instance = lambda obj: obj.locker_full_name
         self.fields['connection_knot'].empty_label = "-- Knot --"
         self.fields['hardware'].empty_label = "-- Hardware --"
         self.fields['tippet_material'].empty_label = "-- Tippet / Material --"

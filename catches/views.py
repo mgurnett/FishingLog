@@ -40,7 +40,7 @@ from .helpers.ai_plan import *
 from .helpers.queries import *
 from .helpers.num_array import get_array
 from .helpers.download_media import download_picture_from_url, download_article_from_url
-from datetime import datetime
+import datetime
 import os
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
@@ -2461,6 +2461,8 @@ def quick_add_locker_api(request):
             category = Category.objects.filter(pk=int(cat_identifier)).first()
         if not category:
             category = Category.objects.filter(name__iexact=str(cat_identifier).strip()).first()
+        if not category:
+            category = Category.objects.filter(name__icontains=str(cat_identifier).strip()).first()
         
         if not category:
             return JsonResponse({'error': f'Invalid category: {cat_identifier}'}, status=400)
@@ -2475,14 +2477,14 @@ def quick_add_locker_api(request):
         if purchase_date_str:
             try:
                 purchase_date = datetime.datetime.strptime(purchase_date_str, '%Y-%m-%d').date()
-            except ValueError:
+            except Exception:
                 pass
 
         purchase_price = 0.0
         if purchase_price_str:
             try:
                 purchase_price = float(purchase_price_str)
-            except ValueError:
+            except Exception:
                 pass
 
         item = Locker.objects.create(
