@@ -5,35 +5,37 @@
 {% load static %}
 
 {% block message_bar %}
-	<div class="row">  <!--  carousel  -->
-		<div class="col-md-12">
-			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						{% if user.is_authenticated %}
-							{{ trip | safe }}
-						{% else %}
-							Please log in to see the next planned fishing trip.
-						{% endif %}	
-					</div>
-					{% for announce in announcments %}
-						<div class="carousel-item">
-							{{ announce | safe }}  
-						</div>
-					{% endfor %}
+<div class="row"> <!--  carousel  -->
+	<div class="col-md-12">
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					{% if user.is_authenticated %}
+					{{ trip | safe }}
+					{% else %}
+					Please log in to see the next planned fishing trip.
+					{% endif %}
 				</div>
+				{% for announce in announcments %}
+				<div class="carousel-item">
+					{{ announce | safe }}
+				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock message_bar %}
 
 {% block content %}
-<div class="container">
-	<div class="row pt-1">
-		<div class="col-md-4">
+<div class="container pb-4">
+	<!-- First Row: Lakes, Bugs, Flys -->
+	<div class="row pt-1 mb-2">
+		<div class="col-md-4"> <!-- Lakes -->
 			<div class="card border-0 bg-transparent">
-				<a href="{% url 'lake_list' %}" class="card-link"> 
-					<img src="{% static 'catches/site/Mitchel.jpeg' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Lakes">
+				<a href="{% url 'lake_list' %}" class="card-link">
+					<img src="{% static 'catches/site/Mitchel.jpeg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Lakes">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
@@ -47,27 +49,11 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="card border-0 bg-transparent">
-				<a href="{% url 'fish_list' %}" class="card-link">
-					<img src="{% static 'catches/site/tiger-trout.jpeg' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Fish">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-6">
-								<h5 class="card-title">FISH</h5>
-							</div>
-							<div class="col-md-6 text-end">
-								<small class="text-muted">The fish we catch</small>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="col-md-4">
+		<div class="col-md-4"> <!-- Bugs -->
 			<div class="card border-0 bg-transparent">
 				<a href="{% url 'bug_list' %}" class="card-link">
-					<img src="{% static 'catches/site/dragon_nymph.jpeg' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Bugs">
+					<img src="{% static 'catches/site/dragon_nymph.jpeg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Bugs">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
@@ -81,12 +67,11 @@
 				</a>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4"> <!-- Flys -->
 			<div class="card border-0 bg-transparent">
 				<a href="{% url 'fly_type_list' %}" class="card-link">
-					<img src="{% static 'catches/site/Parachute.png' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Flies">
+					<img src="{% static 'catches/site/Parachute.png' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Flies">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
@@ -100,34 +85,116 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4">
+	</div>
+
+	<!-- Second Row: Equipment, Knots, Setup -->
+	<div class="row mb-2">
+		<div class="col-md-4"> <!-- Equipment -->
 			<div class="card border-0 bg-transparent">
-				<a href="{% url 'library_list' %}" class="card-link">
-					<img src="{% static 'catches/site/fly_rods.jpeg' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Library">
+				<a href="{% url 'locker_list' %}" class="card-link">
+					<img src="{% static 'catches/site/fly_rods.jpeg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Equipment">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-4">
-								<h5 class="card-title">LIBRARY</h5>
+							<div class="col-md-5">
+								<h5 class="card-title">EQUIPMENT</h5>
 							</div>
-							<div class="col-md-8 text-end">
-								<small class="text-muted">Articles, pictures and videos.</small>
+							<div class="col-md-7 text-end">
+								<small class="text-muted">Rods, reels, lines & gear</small>
 							</div>
 						</div>
 					</div>
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4"> <!-- Knots -->
+			<div class="card border-0 bg-transparent">
+				<a href="{% url 'knot_list' %}" class="card-link">
+					<img src="{% static 'catches/site/knots.jpg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Knots">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="card-title">KNOTS</h5>
+							</div>
+							<div class="col-md-8 text-end">
+								<small class="text-muted">Essential fishing knots</small>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4"> <!-- Setup -->
+			<div class="card border-0 bg-transparent">
+				<a href="{% url 'setup_list' %}" class="card-link">
+					<img src="{% static 'catches/site/setups.jpg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Setups">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="card-title">SETUPS</h5>
+							</div>
+							<div class="col-md-8 text-end">
+								<small class="text-muted">Terminal line rigs & leaders</small>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Third Row: Fish, Strategies, Blog -->
+	<div class="row mb-2">
+		<div class="col-md-4"> <!-- Fish -->
+			<div class="card border-0 bg-transparent">
+				<a href="{% url 'fish_list' %}" class="card-link">
+					<img src="{% static 'catches/site/tiger-trout.jpeg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Fish">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="card-title">FISH</h5>
+							</div>
+							<div class="col-md-8 text-end">
+								<small class="text-muted">The fish we catch</small>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4"> <!-- Strategies -->
+			<div class="card border-0 bg-transparent">
+				<a href="{% url 'strategy_list' %}" class="card-link">
+					<img src="{% static 'catches/site/strategies.jpg' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Strategies">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-5">
+								<h5 class="card-title">STRATEGIES</h5>
+							</div>
+							<div class="col-md-7 text-end">
+								<small class="text-muted">Plans, water temp & tactics</small>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-4"> <!-- Blog -->
 			<div class="card border-0 bg-transparent">
 				<a href="{% url 'blog-home' %}" class="card-link">
-					<img src="{% static 'catches/site/blog_pict.png' %}" class="card-img-top border-0 rounded" style="width: 100%; height: 245px; object-fit: cover;" alt="Blog">
+					<img src="{% static 'catches/site/blog_pict.png' %}" class="card-img-top border-0 rounded"
+						style="width: 100%; height: 245px; object-fit: cover;" alt="Blog">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
 								<h5 class="card-title">BLOG</h5>
 							</div>
 							<div class="col-md-8 text-end">
-								<small class="text-muted">Lets talk about what's going on</small>
+								<small class="text-muted">Stories, tactics & updates</small>
 							</div>
 						</div>
 					</div>
@@ -136,7 +203,6 @@
 		</div>
 	</div>
 </div>
-
 {% endblock content %}
 <!--
 This could all be put in one card with { include /partials/home_card.html}  

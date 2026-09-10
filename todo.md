@@ -3,7 +3,6 @@
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
 - [ ] Rethink tags (rethink tags across the site, articles, videos, and how tagging is approached)
-- [ ] Change the landing page (redesign/overhaul the landing page experience)
 - [ ] work on validations
 
 ## Medium
@@ -20,6 +19,7 @@
 - [ ] distance - run each lake once from a script and put in the distance into a separate model.  Then I can sort by distance.
 
 ## DONE
+- [*] Change the landing page (3x3 grid: Lakes/Bugs/Flys, Equipment/Knots/Setups, Fish/Strategies/Blog, with Library in top nav).
 - [*] Add site favicons to Fishing Links & Resources on blog pages.
 - [*] I want to add "sort Order" to catagories (Fly rod: 1, Reel: 2, Fly line: 3, Leader: 4, Tippet: 5, Hardware: 6).
 - [*] When setting up a new setup, I can't add the fly rod.
