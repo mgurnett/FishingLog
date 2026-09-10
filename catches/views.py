@@ -2279,7 +2279,7 @@ class SetupCreateView(LoginRequiredMixin, CreateView):
             context['section_formset'] = SetupSectionFormSet(self.request.POST, form_kwargs={'user': self.request.user})
         else:
             context['section_formset'] = SetupSectionFormSet(queryset=SetupSection.objects.none(), form_kwargs={'user': self.request.user})
-        context['categories'] = Category.objects.all().order_by('name')
+        context['categories'] = Category.objects.all().order_by('sort_order', 'name')
         return context
 
     def form_valid(self, form):
@@ -2320,7 +2320,7 @@ class SetupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             context['section_formset'] = SetupSectionFormSet(self.request.POST, instance=self.object, form_kwargs={'user': self.request.user})
         else:
             context['section_formset'] = SetupSectionFormSet(instance=self.object, form_kwargs={'user': self.request.user})
-        context['categories'] = Category.objects.all().order_by('name')
+        context['categories'] = Category.objects.all().order_by('sort_order', 'name')
         return context
 
     def form_valid(self, form):

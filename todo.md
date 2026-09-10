@@ -1,6 +1,4 @@
 ## Bugs
-- [ ] When setting up a new setup, I can't add the fly rod.
-- [ ] I want to add "sort Order" to catagories.
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
@@ -22,6 +20,8 @@
 - [ ] distance - run each lake once from a script and put in the distance into a separate model.  Then I can sort by distance.
 
 ## DONE
+- [*] I want to add "sort Order" to catagories (Fly rod: 1, Reel: 2, Fly line: 3, Leader: 4, Tippet: 5, Hardware: 6).
+- [*] When setting up a new setup, I can't add the fly rod.
 - [*] When looking at list of equipment the name was not added.
 - [*] move blog in to catches so that the colouring follows (All blog views now use catches styling, theme, and navbar).
 - [*] Several new and create types are not working (All 18 models verified: Create, Edit, Delete, Detail).

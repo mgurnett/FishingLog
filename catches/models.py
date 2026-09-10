@@ -948,10 +948,11 @@ def fetch_weather_for_log(sender, instance, created, **kwargs):
 
 class Category(models.Model):
     name = models.CharField(max_length = 100)
+    sort_order = models.IntegerField(default=0, blank=True, verbose_name="Sort order")
     notes = models.TextField (blank=True)
     
     class Meta: 
-        ordering = ['name']
+        ordering = ['sort_order', 'name']
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 

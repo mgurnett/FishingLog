@@ -110,7 +110,9 @@ class SystemErrorLogAdmin(admin.ModelAdmin):
 
 @admin.register (Category)
 class CategoryAdmin (admin.ModelAdmin):
-    list_display = ['name', 'notes']
+    list_display = ['name', 'sort_order', 'notes']
+    list_editable = ['sort_order']
+    ordering = ['sort_order', 'name']
 
 @admin.register (Knot)
 class KnotAdmin (admin.ModelAdmin):
