@@ -4,30 +4,33 @@
 <div class="container">
 	<div class="row">
 		{% if lake %}
-			<div class="col-md-10">
-				<h3>Water temp vs Week of the year for <b>{{ lake.lake_info | title }}</b></h3>
-			</div>
-			<div class="col-md-2 text-end">
-				<p>
-					<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}"><i class="bi bi-graph-up me-1"></i>Temperature graph</a>
-					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
-				</p>
-			</div>
+		<div class="col-md-9">
+			<h3>Water temp vs Week of the year for <b>{{ lake.lake_info | title }}</b></h3>
+		</div>
+		<div class="col-md-3 text-end">
+			<p>
+				<a class="btn btn-primary btn-md mt-1 mb-1" href="{% url 'log_graph' %}"><i
+						class="bi bi-graph-up me-1"></i>Temperature graph</a>
+				<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i
+						class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
+			</p>
+		</div>
 		{% else %}
-			<div class="col-md-10">
-				<h3>Water temp vs Week of the year</h3>
-			</div>
-			<div class="col-md-2 text-end">
-				<p>
-					<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
-				</p>
-			</div>
+		<div class="col-md-10">
+			<h3>Water temp vs Week of the year</h3>
+		</div>
+		<div class="col-md-2 text-end">
+			<p>
+				<button class="btn btn-primary btn-md mt-1 mb-1" onclick="window.history.back()"><i
+						class="bi bi-arrow-left-circle-fill me-1"></i>Back</button>
+			</p>
+		</div>
 		{% endif %}
 	</div>
 	{% if graph %}
-		{{ graph | safe }}
+	{{ graph | safe }}
 	{% else %}
-		<h3>No temperature data collected for <b>{{ lake.lake_info | title }}</b></h3>
+	<h3>No temperature data collected for <b>{{ lake.lake_info | title }}</b></h3>
 	{% endif %}
 </div>
 
