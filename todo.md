@@ -20,6 +20,7 @@
 - [ ] distance - run each lake once from a script and put in the distance into a separate model.  Then I can sort by distance.
 
 ## DONE
+- [*] Add site favicons to Fishing Links & Resources on blog pages.
 - [*] I want to add "sort Order" to catagories (Fly rod: 1, Reel: 2, Fly line: 3, Leader: 4, Tippet: 5, Hardware: 6).
 - [*] When setting up a new setup, I can't add the fly rod.
 - [*] When looking at list of equipment the name was not added.
