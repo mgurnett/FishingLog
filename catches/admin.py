@@ -135,17 +135,16 @@ class PostAdmin (admin.ModelAdmin):
     def get_tags (self, obj):
         return ", ".join(o for o in obj.tags.names())
 
-class SetupSectionInline(admin.TabularInline):
-    model = SetupSection
-    extra = 1
-
 @admin.register (Setup)
 class SetupAdmin (admin.ModelAdmin):
-    list_display = ['name', 'owner', 'rod', 'reel', 'fly_line', 'leader', 'is_private', 'created_at']
+    list_display = ['name', 'owner', 'components_count', 'is_private', 'created_at', 'updated_at']
     list_filter = ['is_private', 'owner']
     search_fields = ['name']
     filter_horizontal = ['pictures', 'videos', 'articles']
-    inlines = [SetupSectionInline]
+
+    def components_count(self, obj):
+        return len(obj.get_chain_items())
+    components_count.short_description = 'Components'
 
 @admin.register (Strategy)
 class StrategyAdmin (admin.ModelAdmin):

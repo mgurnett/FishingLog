@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from catches.helpers.fish_data import *
 from users.models import Profile
 import datetime
+import json
 
 DEGREE_C = str(u"\u00b0" + "C")
 
@@ -1086,16 +1087,7 @@ class Locker(models.Model):
 class Setup(models.Model):
     name = models.CharField(max_length=150)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    rod = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_rods', limit_choices_to={'category__name__icontains': 'rod'})
-    reel = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_reels', limit_choices_to={'category__name__icontains': 'reel'})
-    fly_line = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_flylines', limit_choices_to={'category__name__icontains': 'line'})
-    line_to_leader_knot = models.ForeignKey(Knot, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_line_knots', help_text="Knot connecting fly line to leader (e.g. Loop to Loop, Nail Knot)")
-    leader = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_leaders', limit_choices_to={'category__name__icontains': 'leader'})
-    leader_length = models.CharField(max_length=50, blank=True, null=True, help_text="Length of leader, e.g. 9ft, 4ft, 7.5ft")
-    
-    # Strike indicator details
-    strike_indicator = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='setup_indicators', limit_choices_to={'category__name__icontains': 'hardware'})
-    indicator_distance_from_fly_end = models.CharField(max_length=50, blank=True, null=True, verbose_name="Indicator distance from fly end of leader", help_text="Distance of strike indicator measured from the fly end of the leader (e.g. 18in, 3ft, 6ft)")
+    setup_data = models.JSONField(default=list, blank=True, null=True, help_text="Rig sequence of components, droppers, and attachments")
     
     notes = CKEditor5Field(blank=True, null=True, help_text="Setup details, casting notes, or specific fishing strategies.")
 
@@ -1130,34 +1122,118 @@ class Setup(models.Model):
     def num_of_pics(self):
         return self.pictures.count()
 
+    @property
+    def json_string(self):
+        if self.setup_data:
+            if isinstance(self.setup_data, str):
+                return self.setup_data
+            try:
+                return json.dumps(self.setup_data, indent=2)
+            except Exception:
+                return str(self.setup_data)
+        return "[]"
 
-class SetupSection(models.Model):
-    CONFIG_CHOICES = [
-        ('main', 'Main Line (Point Fly)'),
-        ('dropper', 'Y-Dropper / Tag Branch'),
-        ('trailer', 'Trailing Fly Section'),
-    ]
+    def get_chain_items(self):
+        """
+        Returns an ordered list of resolved rig components from setup_data.
+        """
+        if not self.setup_data:
+            return []
 
-    setup = models.ForeignKey(Setup, on_delete=models.CASCADE, related_name='sections')
-    order = models.PositiveIntegerField(default=1)
-    connection_knot = models.ForeignKey(Knot, on_delete=models.SET_NULL, null=True, blank=True, help_text="Knot connecting to this section (e.g. Blood Knot, Surgeon's, Clinch)")
-    hardware = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='section_hardware', limit_choices_to={'category__name': 'Hardware'}, help_text="Tippet ring, swivel, etc.")
-    tippet_material = models.ForeignKey(Locker, on_delete=models.SET_NULL, null=True, blank=True, related_name='section_tippets', help_text="Tippet or leader material")
-    length = models.CharField(max_length=50, blank=True, null=True, help_text="Length or distance, e.g. 4ft, 6in, 18in")
-    configuration = models.CharField(max_length=50, choices=CONFIG_CHOICES, default='main')
-    notes = models.CharField(max_length=200, blank=True, null=True, help_text="Notes for this section (e.g. 'Point fly', 'Top dropper', 'Trailing nymph')")
+        data = self.setup_data
+        if isinstance(data, str):
+            try:
+                data = json.loads(data)
+            except Exception:
+                data = []
+        if not isinstance(data, list) or len(data) == 0:
+            return []
 
-    class Meta:
-        ordering = ['order', 'id']
-        verbose_name = "Setup Section"
-        verbose_name_plural = "Setup Sections"
+        locker_ids = []
+        knot_ids = []
+        for item in data:
+            cat = str(item.get('category', '')).lower()
+            cat_id = str(item.get('category_id', '')).lower()
+            item_id = item.get('id')
+            if item_id:
+                if cat == 'knot' or cat_id == 'knot':
+                    knot_ids.append(item_id)
+                else:
+                    locker_ids.append(item_id)
+            for db_item in item.get('dropper_branch', []):
+                db_cat = str(db_item.get('category', '')).lower()
+                db_cat_id = str(db_item.get('category_id', '')).lower()
+                db_id = db_item.get('id')
+                if db_id:
+                    if db_cat == 'knot' or db_cat_id == 'knot':
+                        knot_ids.append(db_id)
+                    else:
+                        locker_ids.append(db_id)
 
-    def __str__(self):
-        try:
-            setup_name = self.setup.name if self.setup else f"Setup #{self.setup_id}"
-        except Exception:
-            setup_name = f"Setup #{self.setup_id}"
-        return f"{setup_name} - Section #{self.order} ({self.get_configuration_display()})"
+        lockers_map = {l.id: l for l in Locker.objects.filter(id__in=locker_ids)} if locker_ids else {}
+        knots_map = {k.id: k for k in Knot.objects.filter(id__in=knot_ids)} if knot_ids else {}
+
+        resolved_items = []
+        for idx, step in enumerate(data, start=1):
+            cat = step.get('category', 'Gear')
+            cat_id = str(step.get('category_id', ''))
+            item_id = step.get('id')
+            item_name = step.get('name', '')
+            length = step.get('length', '')
+            attachments = step.get('attachments', [])
+            dropper_branch = step.get('dropper_branch', [])
+
+            locker_obj = None
+            knot_obj = None
+
+            if cat.lower() == 'knot' or cat_id.lower() == 'knot':
+                knot_obj = knots_map.get(int(item_id)) if item_id and str(item_id).isdigit() else None
+                if knot_obj and not item_name:
+                    item_name = knot_obj.name
+            else:
+                locker_obj = lockers_map.get(int(item_id)) if item_id and str(item_id).isdigit() else None
+                if locker_obj and not item_name:
+                    item_name = locker_obj.locker_full_name
+
+            resolved_droppers = []
+            for db_idx, db_step in enumerate(dropper_branch, start=1):
+                db_cat = db_step.get('category', 'Gear')
+                db_cat_id = str(db_step.get('category_id', ''))
+                db_item_id = db_step.get('id')
+                db_name = db_step.get('name', '')
+                db_length = db_step.get('length', '')
+                db_knot_obj = None
+                db_locker_obj = None
+                if db_cat.lower() == 'knot' or db_cat_id.lower() == 'knot':
+                    db_knot_obj = knots_map.get(int(db_item_id)) if db_item_id and str(db_item_id).isdigit() else None
+                    if db_knot_obj and not db_name:
+                        db_name = db_knot_obj.name
+                else:
+                    db_locker_obj = lockers_map.get(int(db_item_id)) if db_item_id and str(db_item_id).isdigit() else None
+                    if db_locker_obj and not db_name:
+                        db_name = db_locker_obj.locker_full_name
+                resolved_droppers.append({
+                    'order': db_idx,
+                    'category': db_cat,
+                    'name': db_name or (f"{db_cat} #{db_item_id}" if db_item_id else db_cat),
+                    'length': db_length,
+                    'knot_obj': db_knot_obj,
+                    'locker_obj': db_locker_obj,
+                    'raw': db_step
+                })
+
+            resolved_items.append({
+                'order': idx,
+                'category': cat,
+                'name': item_name or (f"{cat} #{item_id}" if item_id else cat),
+                'length': length,
+                'attachments': attachments,
+                'dropper_branch': resolved_droppers,
+                'locker_obj': locker_obj,
+                'knot_obj': knot_obj,
+                'raw': step
+            })
+        return resolved_items
 
 
 class Strategy(models.Model):

@@ -72,6 +72,7 @@ urlpatterns = [
     path ('setups/', SetupListView.as_view(), name = 'setup_list'), 
     path ('setups/<int:pk>/', SetupDetailView.as_view(), name = 'setup_detail'), 
     path ('setups/new/', SetupCreateView.as_view(), name = 'setup_create'),  
+    path ('setups/<int:pk>/duplicate/', views.setup_duplicate_view, name = 'setup_duplicate'),
     path ('setups/update/<int:pk>/', SetupUpdateView.as_view(), name = 'setup_update'), 
     path ('setups/delete/<int:pk>/', SetupDeleteView.as_view(), name = 'setup_delete'),
     path ('api/quick-add-locker/', views.quick_add_locker_api, name='api_quick_add_locker'),

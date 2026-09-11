@@ -57,65 +57,77 @@
                     
                     <div class="rig-diagram-container p-3 rounded border bg-white shadow-sm overflow-auto">
                         <div class="d-flex flex-wrap align-items-center justify-content-start gap-2 py-2">
-                            <!-- Rod & Reel -->
-                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm" style="min-width: 130px;">
-                                <div class="badge bg-secondary mb-1">Rod & Reel</div>
-                                <div class="fw-bold text-truncate" style="max-width: 150px;">{{ strategy.setup.rod.name|default:"Rod" }}</div>
-                                <div class="small text-muted text-truncate" style="max-width: 150px;">{{ strategy.setup.reel.name|default:"Reel" }}</div>
-                            </div>
-                            <div class="rig-arrow text-primary fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
-                            <!-- Fly Line -->
-                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm" style="min-width: 120px;">
-                                <div class="badge bg-info text-dark mb-1">Fly Line</div>
-                                <div class="fw-bold text-truncate" style="max-width: 140px;">{{ strategy.setup.fly_line.name|default:"Fly Line" }}</div>
-                            </div>
-                            <!-- Knot -->
-                            <div class="rig-knot text-center px-2">
-                                <span class="badge rounded-pill bg-warning text-dark border shadow-sm">
-                                    <i class="bi bi-link-45deg me-1"></i>{{ strategy.setup.line_to_leader_knot.name|default:"Knot" }}
-                                </span>
-                            </div>
-                            <div class="rig-arrow text-primary fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
-                            <!-- Leader & Indicator -->
-                            <div class="rig-node text-center p-2 rounded border bg-light shadow-sm position-relative" style="min-width: 150px;">
-                                <div class="badge bg-success mb-1">Leader</div>
-                                <div class="fw-bold text-truncate" style="max-width: 160px;">{{ strategy.setup.leader.name|default:"Leader" }}</div>
-                                {% if strategy.setup.leader_length %}
-                                <div class="badge bg-dark text-light mt-1"><i class="bi bi-rulers me-1"></i>{{ strategy.setup.leader_length }}</div>
-                                {% endif %}
-                                {% if strategy.setup.strike_indicator %}
-                                <div class="mt-2 pt-2 border-top">
-                                    <span class="badge bg-danger"><i class="bi bi-geo-alt-fill me-1"></i>{{ strategy.setup.strike_indicator.name }}</span>
-                                    {% if strategy.setup.indicator_distance_from_fly_end %}
-                                    <div class="small text-danger fw-bold mt-1">{{ strategy.setup.indicator_distance_from_fly_end }} from fly end</div>
-                                    {% endif %}
-                                </div>
-                                {% endif %}
-                            </div>
-
-                            <!-- Downstream Sections -->
-                            {% if sections %}
-                                {% for sec in sections %}
-                                    <div class="rig-arrow text-primary fw-bold fs-4 px-1">
-                                        {% if sec.configuration == 'dropper' %}<i class="bi bi-bezier text-warning"></i>{% else %}<i class="bi bi-arrow-right"></i>{% endif %}
-                                    </div>
-                                    <div class="rig-node text-center p-2 rounded border shadow-sm {% if sec.configuration == 'dropper' %}border-warning bg-warning-subtle{% elif sec.configuration == 'trailer' %}border-info bg-info-subtle{% else %}bg-light{% endif %}" style="min-width: 140px;">
-                                        <div class="badge {% if sec.configuration == 'dropper' %}bg-warning text-dark{% elif sec.configuration == 'trailer' %}bg-info text-dark{% else %}bg-primary{% endif %} mb-1">
-                                            #{{ sec.order }} {{ sec.get_configuration_display }}
+                            {% if chain_items %}
+                                {% for step in chain_items %}
+                                    <div class="rig-node text-center p-2 rounded border shadow-sm position-relative 
+                                        {% if 'knot' in step.category|lower %}bg-warning-subtle border-warning
+                                        {% elif 'rod' in step.category|lower or 'reel' in step.category|lower %}bg-primary-subtle border-primary
+                                        {% elif 'line' in step.category|lower %}bg-info-subtle border-info
+                                        {% elif 'leader' in step.category|lower or 'tippet' in step.category|lower %}bg-success-subtle border-success
+                                        {% elif 'hardware' in step.category|lower %}bg-secondary-subtle border-secondary
+                                        {% elif 'fly' in step.category|lower %}bg-danger-subtle border-danger
+                                        {% else %}bg-light{% endif %}" 
+                                        style="min-width: 120px; max-width: 180px;">
+                                        
+                                        <div class="badge 
+                                            {% if 'rod' in step.category|lower %}bg-primary
+                                            {% elif 'reel' in step.category|lower %}bg-secondary
+                                            {% elif 'line' in step.category|lower %}bg-info text-dark
+                                            {% elif 'knot' in step.category|lower %}bg-warning text-dark
+                                            {% elif 'leader' in step.category|lower or 'tippet' in step.category|lower %}bg-success
+                                            {% elif 'hardware' in step.category|lower %}bg-dark
+                                            {% elif 'fly' in step.category|lower %}bg-danger
+                                            {% else %}bg-secondary{% endif %} mb-1">
+                                            #{{ step.order }} {{ step.category }}
                                         </div>
-                                        <div class="fw-bold small text-truncate" style="max-width: 150px;">{{ sec.tippet_material.name|default:"Tippet" }}</div>
-                                        {% if sec.length %}
-                                        <div class="badge bg-secondary mt-1"><i class="bi bi-rulers me-1"></i>{{ sec.length }}</div>
+
+                                        <div class="fw-bold small text-truncate" title="{{ step.name }}">
+                                            {% if step.locker_obj %}
+                                                <a href="{% url 'locker_detail' step.locker_obj.id %}" class="text-decoration-none text-dark">{{ step.locker_obj.name }}</a>
+                                            {% elif step.knot_obj %}
+                                                <a href="{% url 'knot_detail' step.knot_obj.id %}" class="text-decoration-none text-dark">🪢 {{ step.knot_obj.name }}</a>
+                                            {% else %}
+                                                {{ step.name }}
+                                            {% endif %}
+                                        </div>
+
+                                        {% if step.length %}
+                                        <div class="badge bg-dark text-light mt-1"><i class="bi bi-rulers me-1"></i>{{ step.length }}</div>
+                                        {% endif %}
+
+                                        {% if step.attachments %}
+                                            <div class="mt-1 pt-1 border-top">
+                                                {% for att in step.attachments %}
+                                                    <div class="badge bg-danger shadow-sm mb-1 d-block text-truncate" title="{{ att.name }}">
+                                                        {% if att.type == 'indicator' %}🔴{% else %}⚖️{% endif %} {{ att.name }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+
+                                        {% if step.dropper_branch %}
+                                            <div class="mt-1 pt-1 border-top bg-warning p-1 rounded text-dark text-start" style="font-size: 0.7rem;">
+                                                <b><i class="bi bi-bezier me-1"></i>Dropper:</b>
+                                                {% for db in step.dropper_branch %}
+                                                    <span class="badge bg-dark text-light d-block text-truncate my-1">{{ db.category }}: {{ db.name }}</span>
+                                                {% endfor %}
+                                            </div>
                                         {% endif %}
                                     </div>
-                                {% endfor %}
-                            {% endif %}
 
-                            <div class="rig-arrow text-success fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
-                            <div class="rig-node text-center p-2 rounded border bg-success text-white shadow-sm" style="min-width: 80px;">
-                                <i class="bi bi-bullseye fs-4 d-block mb-1"></i>
-                                <span class="badge bg-dark">Fly</span>
-                            </div>
+                                    {% if not forloop.last %}
+                                    <div class="rig-arrow text-primary fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="rig-arrow text-success fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
+                                <div class="rig-node text-center p-2 rounded border bg-success text-white shadow-sm" style="min-width: 80px;">
+                                    <i class="bi bi-bullseye fs-4 d-block mb-1"></i>
+                                    <span class="badge bg-dark">Hook / Fly</span>
+                                </div>
+                            {% else %}
+                                <div class="text-muted small">No components configured for this paired rig.</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

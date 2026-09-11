@@ -2244,8 +2244,8 @@ class SetupListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return Setup.objects.all().select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
-        return Setup.objects.filter(Q(is_private=False) | Q(owner=self.request.user)).select_related('rod', 'reel', 'fly_line', 'leader', 'strike_indicator')
+            return Setup.objects.all().select_related('owner')
+        return Setup.objects.filter(Q(is_private=False) | Q(owner=self.request.user)).select_related('owner')
 
 
 class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
@@ -2262,7 +2262,7 @@ class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['sections'] = self.object.sections.all().select_related('connection_knot', 'hardware', 'tippet_material')
+        context['chain_items'] = self.object.get_chain_items()
         context['videos_list'] = self.object.videos.all()
         context['articles_list'] = self.object.articles.all()
         context['pictures_list'] = self.object.pictures.all()
@@ -2275,6 +2275,18 @@ class SetupCreateView(LoginRequiredMixin, CreateView):
     form_class = New_Setup_Form
     template_name = 'catches/setup_form.html'
 
+    def get_initial(self):
+        initial = super().get_initial()
+        duplicate_id = self.request.GET.get('duplicate')
+        if duplicate_id:
+            source = Setup.objects.filter(pk=duplicate_id).first()
+            if source and (not source.is_private or source.owner == self.request.user or self.request.user.is_superuser):
+                initial['setup_data'] = source.json_string
+                initial['notes'] = source.notes
+                initial['is_private'] = source.is_private
+                initial['name'] = ""
+        return initial
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -2282,25 +2294,67 @@ class SetupCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['section_formset'] = SetupSectionFormSet(self.request.POST, form_kwargs={'user': self.request.user})
-        else:
-            context['section_formset'] = SetupSectionFormSet(queryset=SetupSection.objects.none(), form_kwargs={'user': self.request.user})
-        context['categories'] = Category.objects.all().order_by('sort_order', 'name')
+        categories = Category.objects.all().order_by('sort_order', 'name')
+        context['categories'] = categories
+        
+        knots = Knot.objects.all().order_by('name')
+        context['knots'] = knots
+
+        user = self.request.user
+        lockers_qs = Locker.objects.all() if user.is_superuser else Locker.objects.filter(owner=user)
+        lockers_qs = lockers_qs.select_related('category').order_by('name')
+        
+        items_by_cat = {}
+        for cat in categories:
+            items_by_cat[str(cat.id)] = []
+
+        for item in lockers_qs:
+            cat_id_str = str(item.category_id) if item.category_id else 'other'
+            if cat_id_str not in items_by_cat:
+                items_by_cat[cat_id_str] = []
+            items_by_cat[cat_id_str].append({
+                'id': item.id,
+                'name': item.name,
+                'full_name': item.locker_full_name,
+                'brand': item.brand or '',
+                'model': item.model or '',
+                'characteristics': item.characteristics or ''
+            })
+
+        items_by_cat['knot'] = [
+            {'id': k.id, 'name': k.name, 'full_name': k.name}
+            for k in knots
+        ]
+
+        context['items_by_cat_json'] = json.dumps(items_by_cat)
+
+        initial_setup_data = '[]'
+        duplicate_id = self.request.GET.get('duplicate')
+        if duplicate_id:
+            source = Setup.objects.filter(pk=duplicate_id).first()
+            if source and (not source.is_private or source.owner == self.request.user or self.request.user.is_superuser):
+                initial_setup_data = source.json_string
+                context['is_duplicate'] = True
+                context['duplicate_source_name'] = source.name
+
+        context['initial_setup_data_json'] = initial_setup_data
         return context
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        section_formset = context['section_formset']
         form.instance.owner = self.request.user
-        if section_formset.is_valid():
-            self.object = form.save()
-            section_formset.instance = self.object
-            section_formset.save()
-            messages.success(self.request, f"Line setup '{self.object.name}' created successfully!")
-            return redirect('setup_detail', pk=self.object.pk)
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+        self.object = form.save()
+        messages.success(self.request, f"Line setup '{self.object.name}' created successfully!")
+        return redirect('setup_detail', pk=self.object.pk)
+
+
+@login_required
+def setup_duplicate_view(request, pk):
+    source = get_object_or_404(Setup, pk=pk)
+    if source.is_private and source.owner != request.user and not request.user.is_superuser:
+        messages.error(request, "You do not have permission to duplicate this private setup.")
+        return redirect('setup_list')
+    messages.info(request, f"Duplicating setup '{source.name}'. Please give your new setup a name.")
+    return redirect(f"{reverse('setup_create')}?duplicate={source.pk}")
 
 
 class SetupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -2323,24 +2377,70 @@ class SetupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['section_formset'] = SetupSectionFormSet(self.request.POST, instance=self.object, form_kwargs={'user': self.request.user})
+        categories = Category.objects.all().order_by('sort_order', 'name')
+        context['categories'] = categories
+        
+        knots = Knot.objects.all().order_by('name')
+        context['knots'] = knots
+
+        user = self.request.user
+        lockers_qs = Locker.objects.all() if user.is_superuser else Locker.objects.filter(owner=user)
+        lockers_qs = lockers_qs.select_related('category').order_by('name')
+        
+        items_by_cat = {}
+        for cat in categories:
+            items_by_cat[str(cat.id)] = []
+
+        for item in lockers_qs:
+            cat_id_str = str(item.category_id) if item.category_id else 'other'
+            if cat_id_str not in items_by_cat:
+                items_by_cat[cat_id_str] = []
+            items_by_cat[cat_id_str].append({
+                'id': item.id,
+                'name': item.name,
+                'full_name': item.locker_full_name,
+                'brand': item.brand or '',
+                'model': item.model or '',
+                'characteristics': item.characteristics or ''
+            })
+
+        items_by_cat['knot'] = [
+            {'id': k.id, 'name': k.name, 'full_name': k.name}
+            for k in knots
+        ]
+
+        context['items_by_cat_json'] = json.dumps(items_by_cat)
+        
+        if self.object.setup_data:
+            if isinstance(self.object.setup_data, (list, dict)):
+                context['initial_setup_data_json'] = json.dumps(self.object.setup_data)
+            else:
+                context['initial_setup_data_json'] = str(self.object.setup_data)
         else:
-            context['section_formset'] = SetupSectionFormSet(instance=self.object, form_kwargs={'user': self.request.user})
-        context['categories'] = Category.objects.all().order_by('sort_order', 'name')
+            legacy_items = []
+            chain = self.object.get_chain_items()
+            for c in chain:
+                step_dict = {'category': c['category'], 'name': c['name']}
+                if c.get('locker_obj'):
+                    step_dict['id'] = c['locker_obj'].id
+                    if c['locker_obj'].category_id:
+                        step_dict['category_id'] = c['locker_obj'].category_id
+                elif c.get('knot_obj'):
+                    step_dict['id'] = c['knot_obj'].id
+                    step_dict['category_id'] = 'knot'
+                if c.get('length'):
+                    step_dict['length'] = c['length']
+                if c.get('attachments'):
+                    step_dict['attachments'] = c['attachments']
+                legacy_items.append(step_dict)
+            context['initial_setup_data_json'] = json.dumps(legacy_items) if legacy_items else '[]'
+
         return context
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        section_formset = context['section_formset']
-        if section_formset.is_valid():
-            self.object = form.save()
-            section_formset.instance = self.object
-            section_formset.save()
-            messages.success(self.request, f"Line setup '{self.object.name}' updated successfully!")
-            return redirect('setup_detail', pk=self.object.pk)
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+        self.object = form.save()
+        messages.success(self.request, f"Line setup '{self.object.name}' updated successfully!")
+        return redirect('setup_detail', pk=self.object.pk)
 
 
 class SetupDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
@@ -2388,7 +2488,7 @@ class StrategyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         context['pictures_list'] = self.object.pictures.all()
         context['catches_list'] = self.object.logs.all().order_by('-catch_date')[:10]
         if self.object.setup:
-            context['sections'] = self.object.setup.sections.all().select_related('connection_knot', 'hardware', 'tippet_material')
+            context['chain_items'] = self.object.setup.get_chain_items()
         return context
 
 

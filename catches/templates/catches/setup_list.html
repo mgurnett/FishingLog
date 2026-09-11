@@ -1,14 +1,15 @@
 {% extends "catches/base/base.html" %}
 {% block title %}Line Setups & Rigs{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container my-4">
     <div class="row align-items-center mb-3">
         <div class="col-md-6">
-            <h1 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>Line Setups & Rigs</h1>
+            <h1 class="mb-0 fw-bold"><i class="bi bi-diagram-3 text-primary me-2"></i>Line Setups & Rigs</h1>
+            <p class="text-muted small mb-0">Custom fishing rig configurations, tapered leaders, droppers, and terminal tackle.</p>
         </div>
         <div class="col-md-6 text-end">
             {% if user.is_authenticated %}
-            <a href="{% url 'setup_create' %}" class="btn btn-primary">
+            <a href="{% url 'setup_create' %}" class="btn btn-primary shadow-sm">
                 <i class="bi bi-plus-circle-fill me-1"></i>New Line Setup
             </a>
             {% endif %}
@@ -18,17 +19,15 @@
     <div class="row">
         <div class="col-md-12">
             {% if setups %}
-            <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
+            <div class="table-responsive shadow-sm rounded">
+                <table class="table table-striped table-hover align-middle mb-0 bg-white">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Setup Name</th>
-                            <th scope="col">Rod & Reel</th>
-                            <th scope="col">Fly Line & Leader</th>
-                            <th scope="col">Strike Indicator</th>
-                            <th scope="col">Sections</th>
-                            <th scope="col" class="text-center">Media</th>
-                            <th scope="col" class="text-end">Actions</th>
+                            <th scope="col" style="min-width: 200px;">Setup Name</th>
+                            <th scope="col">Rig Chain Summary</th>
+                            <th scope="col" class="text-center" style="width: 120px;">Components</th>
+                            <th scope="col" class="text-center" style="width: 130px;">Media</th>
+                            <th scope="col" class="text-end" style="width: 170px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,30 +37,36 @@
                                 <a href="{% url 'setup_detail' item.id %}" class="fw-bold text-decoration-none">
                                     {{ item.name }}
                                 </a>
+                                {% if item.is_private %}
+                                <span class="badge bg-secondary ms-1"><i class="bi bi-lock-fill"></i></span>
+                                {% endif %}
                                 {% if user.is_superuser and item.owner != user %}
-                                <span class="badge bg-secondary ms-1">Owner: {{ item.owner.username }}</span>
+                                <div class="small text-muted font-monospace">Owner: {{ item.owner.username }}</div>
                                 {% endif %}
                             </th>
                             <td>
-                                <div><small class="text-muted">Rod:</small> {{ item.rod.name|default:"-" }}</div>
-                                <div><small class="text-muted">Reel:</small> {{ item.reel.name|default:"-" }}</div>
+                                <div class="d-flex flex-wrap align-items-center gap-1">
+                                    {% with chain=item.get_chain_items %}
+                                        {% if chain %}
+                                            {% for node in chain|slice:":5" %}
+                                                <span class="badge bg-light text-dark border">
+                                                    <b>{{ node.category }}:</b> {{ node.name|truncatechars:18 }}
+                                                </span>
+                                                {% if not forloop.last %}<i class="bi bi-arrow-right text-muted small"></i>{% endif %}
+                                            {% endfor %}
+                                            {% if chain|length > 5 %}
+                                                <span class="badge bg-secondary">+{{ chain|length|add:"-5" }} more</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-muted small">No components configured</span>
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
                             </td>
-                            <td>
-                                <div><small class="text-muted">Line:</small> {{ item.fly_line.name|default:"-" }}</div>
-                                <div><small class="text-muted">Leader:</small> {{ item.leader.name|default:"-" }}{% if item.leader_length %} ({{ item.leader_length }}){% endif %}</div>
-                            </td>
-                            <td>
-                                {% if item.strike_indicator %}
-                                    <span class="badge bg-info text-dark">{{ item.strike_indicator.name }}</span>
-                                    {% if item.indicator_distance_from_fly_end %}
-                                    <div class="small text-muted"><i class="bi bi-rulers me-1"></i>{{ item.indicator_distance_from_fly_end }} from fly end</div>
-                                    {% endif %}
-                                    {% else %}
-                                    <span class="text-muted">None</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="badge bg-primary">{{ item.sections.count }} section{{ item.sections.count|pluralize }}</span>
+                            <td class="text-center">
+                                <span class="badge bg-primary fs-6">
+                                    {{ item.get_chain_items|length }}
+                                </span>
                             </td>
                             <td class="text-center">
                                 <span class="badge bg-secondary" title="Videos"><i class="bi bi-camera-video me-1"></i>{{ item.num_of_vids }}</span>
@@ -71,6 +76,9 @@
                             <td class="text-end text-nowrap">
                                 <a href="{% url 'setup_detail' item.id %}" class="btn btn-sm btn-outline-primary" title="View Detail">
                                     <i class="bi bi-eye-fill me-1"></i>View
+                                </a>
+                                <a href="{% url 'setup_duplicate' item.id %}" class="btn btn-sm btn-outline-info" title="Duplicate Setup">
+                                    <i class="bi bi-copy me-1"></i>Duplicate
                                 </a>
                                 <a href="{% url 'setup_update' item.id %}" class="btn btn-sm btn-outline-secondary" title="Edit Setup">
                                     <i class="bi bi-pencil-fill"></i>
@@ -85,11 +93,11 @@
                 </table>
             </div>
             {% else %}
-            <div class="alert alert-info mt-3 text-center p-4" role="alert">
-                <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
-                <h5>No Line Setups Found</h5>
-                <p class="mb-3">Configure complete line rigs with rods, reels, fly lines, leaders, indicators, and downstream dropper/tippet sections.</p>
-                <a href="{% url 'setup_create' %}" class="btn btn-primary">
+            <div class="alert alert-info mt-3 text-center p-5 shadow-sm" role="alert">
+                <i class="bi bi-diagram-3 fs-1 text-primary d-block mb-3"></i>
+                <h4>No Line Setups Found</h4>
+                <p class="mb-4 text-muted">Build freely customizable fishing setups from the rod down to the fly, with dropper branches, strike indicators, and split shot.</p>
+                <a href="{% url 'setup_create' %}" class="btn btn-primary btn-lg">
                     <i class="bi bi-plus-circle-fill me-1"></i>Create Your First Line Setup
                 </a>
             </div>

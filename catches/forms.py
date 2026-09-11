@@ -1,4 +1,5 @@
 import datetime
+import json
 from django import forms
 from django.forms import ModelForm, DateInput
 from django.utils import timezone
@@ -830,106 +831,43 @@ class New_Article_Form(forms.ModelForm):
 
 
 class New_Setup_Form(forms.ModelForm):
+    setup_data = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'id_setup_data'}),
+        required=False
+    )
+
     class Meta:
         model = Setup
-        fields = [
-            'name', 'rod', 'reel', 'fly_line', 'line_to_leader_knot',
-            'leader', 'leader_length', 'strike_indicator',
-            'indicator_distance_from_fly_end', 'is_private', 'notes'
-        ]
+        fields = ['name', 'setup_data', 'is_private', 'notes']
         widgets = {
             'notes': CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., Euro Nymphing Rig, 9ft 5wt Indicator Setup, Streamer Sinking Rig'}),
-            'rod': forms.Select(attrs={'class': 'form-select'}),
-            'reel': forms.Select(attrs={'class': 'form-select'}),
-            'fly_line': forms.Select(attrs={'class': 'form-select'}),
-            'line_to_leader_knot': forms.Select(attrs={'class': 'form-select'}),
-            'leader': forms.Select(attrs={'class': 'form-select'}),
-            'leader_length': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., 9ft, 7.5ft, 12ft'}),
-            'strike_indicator': forms.Select(attrs={'class': 'form-select'}),
-            'indicator_distance_from_fly_end': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., 18in, 3ft, 4.5ft'}),
+            'name': forms.TextInput(attrs={'class': 'form-control form-control-lg fw-bold', 'placeholder': 'e.g., Euro Nymphing Rig, 9ft 5wt Indicator Setup, Washing Line Buzzer Rig'}),
             'is_private': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
-        if user:
-            if user.is_superuser:
-                self.fields['rod'].queryset = Locker.objects.filter(category__name__icontains='rod').order_by('name')
-                self.fields['reel'].queryset = Locker.objects.filter(category__name__icontains='reel').order_by('name')
-                self.fields['fly_line'].queryset = Locker.objects.filter(category__name__icontains='line').order_by('name')
-                self.fields['leader'].queryset = Locker.objects.filter(category__name__icontains='leader').order_by('name')
-                self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
+        if self.instance and self.instance.pk and self.instance.setup_data:
+            if isinstance(self.instance.setup_data, (list, dict)):
+                self.initial['setup_data'] = json.dumps(self.instance.setup_data, indent=2)
             else:
-                self.fields['rod'].queryset = Locker.objects.filter(owner=user, category__name__icontains='rod').order_by('name')
-                self.fields['reel'].queryset = Locker.objects.filter(owner=user, category__name__icontains='reel').order_by('name')
-                self.fields['fly_line'].queryset = Locker.objects.filter(owner=user, category__name__icontains='line').order_by('name')
-                self.fields['leader'].queryset = Locker.objects.filter(owner=user, category__name__icontains='leader').order_by('name')
-                self.fields['strike_indicator'].queryset = Locker.objects.filter(owner=user, category__name__icontains='hardware').order_by('name')
-        else:
-            self.fields['rod'].queryset = Locker.objects.filter(category__name__icontains='rod').order_by('name')
-            self.fields['reel'].queryset = Locker.objects.filter(category__name__icontains='reel').order_by('name')
-            self.fields['fly_line'].queryset = Locker.objects.filter(category__name__icontains='line').order_by('name')
-            self.fields['leader'].queryset = Locker.objects.filter(category__name__icontains='leader').order_by('name')
-            self.fields['strike_indicator'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
+                self.initial['setup_data'] = str(self.instance.setup_data)
+        elif 'setup_data' not in self.initial or not self.initial['setup_data']:
+            self.initial['setup_data'] = '[]'
 
-        self.fields['line_to_leader_knot'].queryset = Knot.objects.all().order_by('name')
-        self.fields['rod'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['reel'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['fly_line'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['leader'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['strike_indicator'].label_from_instance = lambda obj: obj.locker_full_name
-
-        self.fields['rod'].empty_label = "-- Select Rod --"
-        self.fields['reel'].empty_label = "-- Select Reel --"
-        self.fields['fly_line'].empty_label = "-- Select Fly Line --"
-        self.fields['line_to_leader_knot'].empty_label = "-- Select Connection Knot --"
-        self.fields['leader'].empty_label = "-- Select Leader --"
-        self.fields['strike_indicator'].empty_label = "-- Select Indicator (Optional) --"
-
-
-class SetupSectionForm(forms.ModelForm):
-    class Meta:
-        model = SetupSection
-        fields = ['order', 'configuration', 'connection_knot', 'hardware', 'tippet_material', 'length', 'notes']
-        widgets = {
-            'order': forms.NumberInput(attrs={'class': 'form-control form-control-sm section-order-input', 'style': 'width: 70px;', 'min': 1}),
-            'configuration': forms.Select(attrs={'class': 'form-select form-select-sm section-config-select'}),
-            'connection_knot': forms.Select(attrs={'class': 'form-select form-select-sm knot-select'}),
-            'hardware': forms.Select(attrs={'class': 'form-select form-select-sm hardware-select'}),
-            'tippet_material': forms.Select(attrs={'class': 'form-select form-select-sm tippet-select'}),
-            'length': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'e.g., 4ft, 18in, 6in'}),
-            'notes': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'e.g., Point fly, Top dropper, Trailing nymph'}),
-        }
-
-    def __init__(self, *args, user=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        if user:
-            if user.is_superuser:
-                self.fields['hardware'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
-                self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader')).order_by('name')
-            else:
-                self.fields['hardware'].queryset = Locker.objects.filter(owner=user, category__name__icontains='hardware').order_by('name')
-                self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader'), owner=user).order_by('name')
-        else:
-            self.fields['hardware'].queryset = Locker.objects.filter(category__name__icontains='hardware').order_by('name')
-            self.fields['tippet_material'].queryset = Locker.objects.filter(models.Q(category__name__icontains='tippet') | models.Q(category__name__icontains='leader')).order_by('name')
-
-        self.fields['connection_knot'].queryset = Knot.objects.all().order_by('name')
-        self.fields['hardware'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['tippet_material'].label_from_instance = lambda obj: obj.locker_full_name
-        self.fields['connection_knot'].empty_label = "-- Knot --"
-        self.fields['hardware'].empty_label = "-- Hardware --"
-        self.fields['tippet_material'].empty_label = "-- Tippet / Material --"
-
-
-SetupSectionFormSet = forms.inlineformset_factory(
-    Setup,
-    SetupSection,
-    form=SetupSectionForm,
-    extra=1,
-    can_delete=True
-)
+    def clean_setup_data(self):
+        data = self.cleaned_data.get('setup_data')
+        if not data:
+            return []
+        if isinstance(data, (list, dict)):
+            return data
+        try:
+            parsed = json.loads(data)
+            if not isinstance(parsed, list):
+                raise forms.ValidationError("Setup rig configuration must be a valid list of components.")
+            return parsed
+        except json.JSONDecodeError:
+            raise forms.ValidationError("Invalid setup rig configuration. Please configure your rig using the component builder.")
 
 
 class New_Strategy_Form(forms.ModelForm):

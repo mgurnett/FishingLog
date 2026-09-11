@@ -7,19 +7,32 @@
 
 <div class="container my-4">
     <div class="row justify-content-center">
-        <div class="col-lg-11">
+        <div class="col-lg-12">
             <div class="card shadow-sm border-0">
+                <!-- Header -->
                 <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
-                    <h3 class="mb-0 fw-bold">
-                        <i class="bi bi-diagram-3 text-info me-2"></i>
-                        {% if form.instance.pk %}Edit Line Setup: {{ form.instance.name }}{% else %}Create New Line Setup{% endif %}
-                    </h3>
+                    <div>
+                        <h3 class="mb-0 fw-bold">
+                            <i class="bi bi-diagram-3 text-info me-2"></i>
+                            {% if form.instance.pk %}Edit Line Setup: {{ form.instance.name }}{% else %}Build New Line Setup{% endif %}
+                        </h3>
+                        <small class="text-white-50">Chain components freely from rod to fly, add droppers, attachments, and build your custom rig.</small>
+                    </div>
                     <a href="{% if form.instance.pk %}{% url 'setup_detail' form.instance.pk %}{% else %}{% url 'setup_list' %}{% endif %}" class="btn btn-outline-light btn-sm">
                         <i class="bi bi-x-lg me-1"></i>Cancel
                     </a>
                 </div>
 
                 <div class="card-body p-4 bg-light">
+                    {% if is_duplicate %}
+                    <div class="alert alert-info d-flex align-items-center mb-4 shadow-sm" role="alert">
+                        <i class="bi bi-info-circle-fill fs-4 me-2"></i>
+                        <div>
+                            <strong>Duplicating Setup:</strong> Copied components and notes from <em>"{{ duplicate_source_name }}"</em>. Give your new setup a name below and make any desired changes.
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <!-- Status message container for quick adds -->
                     <div id="quickAddAlert" class="alert alert-success d-none alert-dismissible fade show" role="alert">
                         <span id="quickAddAlertMsg"></span>
@@ -28,10 +41,11 @@
 
                     <form method="post" id="setupMainForm" novalidate>
                         {% csrf_token %}
+                        {{ form.setup_data }}
 
                         {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">
-                            <h6 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Please fix the following errors:</h6>
+                        <div class="alert alert-danger shadow-sm" role="alert">
+                            <h6 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Please correct the following:</h6>
                             <ul class="mb-0">
                                 {% for field, errors in form.errors.items %}
                                     {% for error in errors %}
@@ -42,231 +56,152 @@
                         </div>
                         {% endif %}
 
-                        <!-- Card 1: Setup General Info -->
+                        <!-- Card 1: Setup Title & Settings -->
                         <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-primary text-white py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-tag me-2"></i>Setup Title</h5>
+                            <div class="card-header bg-primary text-white py-2 d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-tag me-2"></i>Setup Title & Privacy</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-md-9">
+                                        <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">Setup Name <span class="text-danger">*</span></label>
+                                        {{ form.name }}
+                                        <small class="form-text text-muted">e.g., "Euro Nymphing 10ft 3wt Rig", "9ft 5wt Indicator Setup", "Washing Line Buzzer Rig", "Chironomid Deep Leader Rig"</small>
+                                    </div>
+                                    <div class="col-md-3 pt-md-3">
+                                        <div class="form-check form-switch mt-2">
+                                            {{ form.is_private }}
+                                            <label class="form-check-label fw-semibold" for="{{ form.is_private.id_for_label }}">
+                                                <i class="bi bi-lock-fill me-1 text-secondary"></i>Private Setup
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Interactive Rig Builder -->
+                        <div class="card border mb-4 shadow-sm bg-white border-primary">
+                            <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-0 fw-bold text-info">
+                                        <i class="bi bi-tools me-2"></i>Interactive Rig Chain Builder
+                                    </h5>
+                                    <small class="text-white-50">Select categories, pick items from your locker or knots, and build your setup step-by-step.</small>
+                                </div>
+                                <span class="badge bg-primary fs-6" id="chainStepCountBadge">0 Components</span>
+                            </div>
+
+                            <div class="card-body p-3 bg-light">
+                                <!-- Step Builder Input Control Bar -->
+                                <div class="p-3 bg-white rounded border shadow-sm mb-4">
+                                    <h6 class="fw-bold text-dark mb-3">
+                                        <i class="bi bi-plus-circle-fill text-success me-2"></i>Add Component to Rig
+                                    </h6>
+                                    
+                                    <div class="row g-2 align-items-end">
+                                        <!-- Category Select -->
+                                        <div class="col-md-3">
+                                            <label class="form-label fw-bold small text-muted mb-1">1. Category</label>
+                                            <select id="builderCategorySelect" class="form-select">
+                                                <option value="" disabled selected>-- Select Category --</option>
+                                                {% for cat in categories %}
+                                                <option value="{{ cat.id }}" data-cat-name="{{ cat.name }}">{{ cat.name }}</option>
+                                                {% endfor %}
+                                                <option value="knot" data-cat-name="Knot">🪢 Knot / Connection</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Item Select -->
+                                        <div class="col-md-4">
+                                            <label class="form-label fw-bold small text-muted mb-1">2. Locker Item / Knot</label>
+                                            <div class="input-group">
+                                                <select id="builderItemSelect" class="form-select" disabled>
+                                                    <option value="">-- Choose Category First --</option>
+                                                </select>
+                                                <button type="button" class="btn btn-outline-primary" id="btnQuickAddFromBuilder" title="Quick Add New Item to Locker" disabled>
+                                                    <i class="bi bi-plus-lg"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Length (Optional) -->
+                                        <div class="col-md-3">
+                                            <label class="form-label fw-bold small text-muted mb-1">3. Length (Optional)</label>
+                                            <input type="text" id="builderLengthInput" class="form-control" placeholder="e.g., 5ft, 2ft, 18in">
+                                        </div>
+
+                                        <!-- Add Button -->
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-success w-100 fw-bold" id="btnAddStepToChain">
+                                                <i class="bi bi-plus-circle me-1"></i>Add Step
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Length Presets -->
+                                    <div class="mt-2 pt-2 border-top d-flex flex-wrap align-items-center gap-1">
+                                        <span class="small text-muted me-2"><i class="bi bi-rulers me-1"></i>Length presets:</span>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="12ft">12ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="9ft">9ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="7.5ft">7.5ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="5ft">5ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="3ft">3ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="2ft">2ft</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="18in">18in</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="12in">12in</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="6in">6in</button>
+                                    </div>
+                                </div>
+
+                                <!-- Visual Rig Chain Container -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                                        <h6 class="fw-bold mb-0 text-dark">
+                                            <i class="bi bi-list-nested me-2 text-primary"></i>Rig Sequence Flow
+                                        </h6>
+                                        <div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm py-0" id="btnClearChain">
+                                                <i class="bi bi-trash me-1"></i>Clear Chain
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Chain Items List (Rendered dynamically by JS) -->
+                                    <div id="chainItemsContainer" class="d-flex flex-column gap-2">
+                                        <!-- Dynamically generated step cards will go here -->
+                                    </div>
+
+                                    <!-- Empty State -->
+                                    <div id="emptyChainState" class="text-center py-5 border rounded bg-white text-muted">
+                                        <i class="bi bi-diagram-3 fs-1 text-secondary opacity-50 d-block mb-2"></i>
+                                        <h6 class="fw-bold text-dark">No components in setup yet</h6>
+                                        <p class="small mb-0">Use the control bar above to add your Rod, Reel, Line, Knots, Leaders, Tippets, and Flies in order.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Detailed Notes & Tactics -->
+                        <div class="card border mb-4 shadow-sm bg-white">
+                            <div class="card-header bg-secondary text-white py-2">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-journal-text me-2"></i>Setup Notes & Fishing Tactics</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">Setup Name <span class="text-danger">*</span></label>
-                                    {{ form.name }}
-                                    <small class="form-text text-muted">Give your rig a descriptive name (e.g., "Euro Nymphing 10ft 3wt", "Indicator Rig for Deep Lakes", "Streamer Sinking Tip Rig").</small>
+                                    <label for="{{ form.notes.id_for_label }}" class="form-label fw-semibold">Casting Notes, Depth Control & Strategy</label>
+                                    {{ form.notes }}
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 2: Core Tackle (Rod, Reel, Fly Line) -->
-                        <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-primary text-white py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-slash-lg me-2"></i>Rod, Reel & Fly Line</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <!-- Rod -->
-                                    <div class="col-md-4">
-                                        <label for="{{ form.rod.id_for_label }}" class="form-label fw-bold">Rod</label>
-                                        <div class="input-group">
-                                            {{ form.rod }}
-                                            <button type="button" class="btn btn-outline-primary btn-sm btn-quick-add" data-category="Rod" data-target-select="{{ form.rod.id_for_label }}" title="Quick Add New Rod">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Reel -->
-                                    <div class="col-md-4">
-                                        <label for="{{ form.reel.id_for_label }}" class="form-label fw-bold">Reel</label>
-                                        <div class="input-group">
-                                            {{ form.reel }}
-                                            <button type="button" class="btn btn-outline-primary btn-sm btn-quick-add" data-category="Reel" data-target-select="{{ form.reel.id_for_label }}" title="Quick Add New Reel">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Fly Line -->
-                                    <div class="col-md-4">
-                                        <label for="{{ form.fly_line.id_for_label }}" class="form-label fw-bold">Fly Line</label>
-                                        <div class="input-group">
-                                            {{ form.fly_line }}
-                                            <button type="button" class="btn btn-outline-primary btn-sm btn-quick-add" data-category="Fly line" data-target-select="{{ form.fly_line.id_for_label }}" title="Quick Add New Fly Line">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Leader & Connection -->
-                        <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-primary text-white py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-water me-2"></i>Leader & Line Connection</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <!-- Line-to-Leader Knot -->
-                                    <div class="col-md-4">
-                                        <label for="{{ form.line_to_leader_knot.id_for_label }}" class="form-label fw-bold">Line-to-Leader Knot</label>
-                                        <div class="input-group">
-                                            {{ form.line_to_leader_knot }}
-                                            <button type="button" class="btn btn-outline-warning text-dark btn-sm btn-quick-add-knot" data-target-select="{{ form.line_to_leader_knot.id_for_label }}" title="Quick Add New Knot">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                        <small class="form-text text-muted">e.g., Loop to Loop, Nail Knot</small>
-                                    </div>
-
-                                    <!-- Leader -->
-                                    <div class="col-md-5">
-                                        <label for="{{ form.leader.id_for_label }}" class="form-label fw-bold">Leader Material / Tapered Leader</label>
-                                        <div class="input-group">
-                                            {{ form.leader }}
-                                            <button type="button" class="btn btn-outline-primary btn-sm btn-quick-add" data-category="Leader" data-target-select="{{ form.leader.id_for_label }}" title="Quick Add New Leader">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Leader Length -->
-                                    <div class="col-md-3">
-                                        <label for="{{ form.leader_length.id_for_label }}" class="form-label fw-bold">Leader Length</label>
-                                        {{ form.leader_length }}
-                                        <small class="form-text text-muted">e.g., 9ft, 7.5ft, 12ft</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Strike Indicator -->
-                        <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-primary text-white py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-2"></i>Strike Indicator Setup (Optional)</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <!-- Strike Indicator -->
-                                    <div class="col-md-6">
-                                        <label for="{{ form.strike_indicator.id_for_label }}" class="form-label fw-bold">Strike Indicator / Float</label>
-                                        <div class="input-group">
-                                            {{ form.strike_indicator }}
-                                            <button type="button" class="btn btn-outline-primary btn-sm btn-quick-add" data-category="Hardware" data-target-select="{{ form.strike_indicator.id_for_label }}" title="Quick Add Indicator to Hardware">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </button>
-                                        </div>
-                                        <small class="form-text text-muted">Thingamablogger, Air-Lock, Yarn, Slip Float, etc.</small>
-                                    </div>
-
-                                    <!-- Indicator Distance from Fly End -->
-                                    <div class="col-md-6">
-                                        <label for="{{ form.indicator_distance_from_fly_end.id_for_label }}" class="form-label fw-bold">
-                                            Indicator Distance from Fly End of Leader
-                                        </label>
-                                        {{ form.indicator_distance_from_fly_end }}
-                                        <small class="form-text text-muted">Measured distance from the fly end of the leader (e.g. 18in, 3ft, 6ft, 10ft).</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 5: Dynamic Tippet & Dropper Sections Formset -->
-                        <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-list-ol me-2"></i>Downstream Tippet & Dropper Sections</h5>
-                                <button type="button" class="btn btn-success btn-sm" id="btnAddSection">
-                                    <i class="bi bi-plus-circle me-1"></i>Add Another Section
-                                </button>
-                            </div>
-                            <div class="card-body p-3">
-                                <p class="text-muted small mb-3">
-                                    Configure downstream tippet sections, Y-dropper branches, trailing fly sections, tippet rings, and knots in order.
-                                </p>
-
-                                {{ section_formset.management_form }}
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered align-middle" id="sectionsTable">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th style="width: 75px;">Order</th>
-                                                <th style="width: 175px;">Configuration</th>
-                                                <th style="width: 170px;">Connection Knot</th>
-                                                <th style="width: 170px;">Hardware</th>
-                                                <th style="width: 180px;">Tippet Material</th>
-                                                <th style="width: 110px;">Length</th>
-                                                <th>Notes / Strategy</th>
-                                                <th style="width: 70px;" class="text-center">Del</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="sectionsTbody">
-                                            {% for sec_form in section_formset %}
-                                            <tr class="section-row" data-form-index="{{ forloop.counter0 }}">
-                                                <td>
-                                                    {{ sec_form.id }}
-                                                    {{ sec_form.order }}
-                                                </td>
-                                                <td>{{ sec_form.configuration }}</td>
-                                                <td>
-                                                    <div class="input-group input-group-sm">
-                                                        {{ sec_form.connection_knot }}
-                                                        <button type="button" class="btn btn-outline-warning text-dark btn-quick-add-knot" data-target-select="{{ sec_form.connection_knot.id_for_label }}" title="Quick Add Knot">
-                                                            <i class="bi bi-plus-lg"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group input-group-sm">
-                                                        {{ sec_form.hardware }}
-                                                        <button type="button" class="btn btn-outline-primary btn-quick-add" data-category="Hardware" data-target-select="{{ sec_form.hardware.id_for_label }}" title="Quick Add Hardware">
-                                                            <i class="bi bi-plus-lg"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group input-group-sm">
-                                                        {{ sec_form.tippet_material }}
-                                                        <button type="button" class="btn btn-outline-primary btn-quick-add" data-category="Tippet" data-target-select="{{ sec_form.tippet_material.id_for_label }}" title="Quick Add Tippet">
-                                                            <i class="bi bi-plus-lg"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td>{{ sec_form.length }}</td>
-                                                <td>{{ sec_form.notes }}</td>
-                                                <td class="text-center">
-                                                    {% if sec_form.instance.pk %}
-                                                        {{ sec_form.DELETE }}
-                                                    {% else %}
-                                                        <button type="button" class="btn btn-sm btn-outline-danger btn-remove-row" title="Remove Row">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 6: Notes (CKEditor 5) -->
-                        <div class="card border mb-4 shadow-sm bg-white">
-                            <div class="card-header bg-primary text-white py-2">
-                                <h5 class="mb-0 fw-bold"><i class="bi bi-journal-text me-2"></i>Rig Notes & Fishing Strategy</h5>
-                            </div>
-                            <div class="card-body">
-                                {{ form.notes }}
-                            </div>
-                        </div>
-
-                        <!-- Submit / Cancel -->
-                        <div class="d-flex justify-content-end gap-2 py-3">
-                            <a href="{% if form.instance.pk %}{% url 'setup_detail' form.instance.pk %}{% else %}{% url 'setup_list' %}{% endif %}" class="btn btn-secondary btn-lg me-2">
-                                Cancel
+                        <!-- Bottom Submit Bar -->
+                        <div class="d-flex justify-content-between align-items-center pt-2 pb-4">
+                            <a href="{% if form.instance.pk %}{% url 'setup_detail' form.instance.pk %}{% else %}{% url 'setup_list' %}{% endif %}" class="btn btn-secondary btn-lg">
+                                <i class="bi bi-x-circle me-1"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-success btn-lg px-4">
-                                <i class="bi bi-check-circle me-1"></i>Save Line Setup
+                            <button type="submit" class="btn btn-primary btn-lg px-5 shadow fw-bold" id="btnSaveSetup">
+                                <i class="bi bi-check-circle-fill me-2"></i>Save Line Setup
                             </button>
                         </div>
                     </form>
@@ -276,175 +211,224 @@
     </div>
 </div>
 
-<!-- ======================================================== -->
-<!-- MODAL 1: Quick Add Locker Item (Rod, Reel, Line, Leader, Tippet, Hardware) -->
-<!-- ======================================================== -->
-<div class="modal fade" id="quickAddLockerModal" tabindex="-1" role="dialog" aria-labelledby="quickAddLockerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title fw-bold" id="quickAddLockerModalLabel">
-                    <i class="bi bi-box-seam me-2"></i>Quick Add Equipment to Locker
+<!-- ========================================== -->
+<!-- MODAL: Add Attachment (Indicator / Split Shot) -->
+<!-- ========================================== -->
+<div class="modal fade" id="addAttachmentModal" tabindex="-1" aria-labelledby="addAttachmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="addAttachmentModalLabel">
+                    <i class="bi bi-paperclip text-warning me-2"></i>Attach Indicator or Split Shot
                 </h5>
-                <button type="button" class="close text-white border-0 bg-transparent fs-4" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
+            <div class="modal-body">
+                <input type="hidden" id="modalAttachmentTargetStepIndex" value="">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Attachment Type</label>
+                    <select id="modalAttachmentType" class="form-select">
+                        <option value="indicator">🔴 Strike Indicator / Float</option>
+                        <option value="split_shot">⚖️ Split Shot / Weight</option>
+                        <option value="other">📎 Other Line Attachment</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Item Name / Size</label>
+                    <input type="text" id="modalAttachmentName" class="form-control" placeholder="e.g., Thingamabobber 3/4in, 2x #4 Round Split Shot, Air Lock">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Position / Distance</label>
+                    <input type="text" id="modalAttachmentDistance" class="form-control" placeholder="e.g., 4ft from fly end, 12in above point fly">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSaveAttachment">Add Attachment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- MODAL: Add 'Y' Dropper Branch -->
+<!-- ========================================== -->
+<div class="modal fade" id="addDropperBranchModal" tabindex="-1" aria-labelledby="addDropperBranchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="addDropperBranchModalLabel">
+                    <i class="bi bi-bezier text-warning me-2"></i>Add 'Y' Dropper Branch (Tandem Rig / Washing Line)
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modalDropperTargetStepIndex" value="">
+                <p class="text-muted small">
+                    This branch branches off the selected knot or hardware connection (e.g. tag end or tippet ring).
+                </p>
+
+                <!-- Dropper Step Builder -->
+                <div class="p-3 bg-light rounded border mb-3">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted mb-1">Dropper Category</label>
+                            <select id="modalDropperCatSelect" class="form-select form-select-sm">
+                                <option value="" disabled selected>-- Category --</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat.id }}" data-cat-name="{{ cat.name }}">{{ cat.name }}</option>
+                                {% endfor %}
+                                <option value="knot" data-cat-name="Knot">🪢 Knot</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted mb-1">Dropper Item</label>
+                            <select id="modalDropperItemSelect" class="form-select form-select-sm" disabled>
+                                <option value="">-- Choose Category First --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label fw-bold small text-muted mb-1">Length</label>
+                            <input type="text" id="modalDropperLengthInput" class="form-control form-control-sm" placeholder="e.g. 6in">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-success btn-sm w-100" id="btnModalAddDropperStep">
+                                <i class="bi bi-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dropper Steps List -->
+                <h6 class="fw-bold small text-dark mb-2">Branch Components:</h6>
+                <div id="modalDropperStepsList" class="d-flex flex-column gap-2 mb-2">
+                    <!-- Rendered dropper steps -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSaveDropperBranch">Save Dropper Branch</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- MODAL: Quick Add Locker Item -->
+<!-- ========================================== -->
+<div class="modal fade" id="quickAddLockerModal" tabindex="-1" aria-labelledby="quickAddLockerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="quickAddLockerModalLabel"><i class="bi bi-plus-circle text-primary me-2"></i>Quick Add to Locker</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <div id="modalLockerError" class="alert alert-danger d-none" role="alert"></div>
-                
-                <form id="quickAddLockerForm">
-                    <div class="form-group mb-3">
-                        <label for="modalLockerCategory" class="form-label fw-bold">Category <span class="text-danger">*</span></label>
-                        <select class="form-select form-control" id="modalLockerCategory" required>
-                            {% for cat in categories %}
-                            <option value="{{ cat.name }}">{{ cat.name|title }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="modalLockerName" class="form-label fw-bold">Item Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="modalLockerName" placeholder="e.g., Orvis Recon 9ft 5wt, Scientific Anglers MPX" required>
+                <div class="mb-3">
+                    <label for="modalLockerCategory" class="form-label fw-bold">Category <span class="text-danger">*</span></label>
+                    <select id="modalLockerCategory" class="form-select">
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="modalLockerName" class="form-label fw-bold">Item Name <span class="text-danger">*</span></label>
+                    <input type="text" id="modalLockerName" class="form-control" placeholder="e.g., R8 Core 9ft 5wt, Mirage 5X Tippet">
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label for="modalLockerBrand" class="form-label fw-bold">Brand</label>
+                        <input type="text" id="modalLockerBrand" class="form-control" placeholder="e.g., Sage, Orvis, Rio">
                     </div>
-
-                    <div class="row g-2 mb-3">
-                        <div class="col-6">
-                            <label for="modalLockerBrand" class="form-label fw-bold">Brand</label>
-                            <input type="text" class="form-control" id="modalLockerBrand" placeholder="e.g., Orvis, Sage, Rio">
-                        </div>
-                        <div class="col-6">
-                            <label for="modalLockerModel" class="form-label fw-bold">Model</label>
-                            <input type="text" class="form-control" id="modalLockerModel" placeholder="e.g., Recon, Trout LT">
-                        </div>
+                    <div class="col-md-6">
+                        <label for="modalLockerModel" class="form-label fw-bold">Model</label>
+                        <input type="text" id="modalLockerModel" class="form-control" placeholder="e.g., Core 590-4">
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="modalLockerCharacteristics" class="form-label fw-bold">Characteristics / Specs</label>
-                        <input type="text" class="form-control" id="modalLockerCharacteristics" placeholder="e.g., 5wt 4pc Fast Action, 4X Fluorocarbon 30m">
-                    </div>
-                </form>
+                </div>
+                <div class="mb-3">
+                    <label for="modalLockerCharacteristics" class="form-label fw-bold">Specs / Characteristics</label>
+                    <input type="text" id="modalLockerCharacteristics" class="form-control" placeholder="e.g., Fast action, 5wt, 9ft 4pc, 4.5lb test">
+                </div>
             </div>
-            <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="btnSaveQuickLocker">
-                    <i class="bi bi-plus-circle me-1"></i>Save & Select
-                </button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSaveQuickLocker">Add to Locker</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ======================================================== -->
-<!-- MODAL 2: Quick Add Knot -->
-<!-- ======================================================== -->
-<div class="modal fade" id="quickAddKnotModal" tabindex="-1" role="dialog" aria-labelledby="quickAddKnotModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-warning text-dark">
-                <h5 class="modal-title fw-bold" id="quickAddKnotModalLabel">
-                    <i class="bi bi-link-45deg me-2"></i>Quick Add Knot
-                </h5>
-                <button type="button" class="close text-dark border-0 bg-transparent fs-4" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<!-- ========================================== -->
+<!-- MODAL: Quick Add Knot -->
+<!-- ========================================== -->
+<div class="modal fade" id="quickAddKnotModal" tabindex="-1" aria-labelledby="quickAddKnotModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="quickAddKnotModalLabel"><i class="bi bi-link-45deg text-warning me-2"></i>Quick Add New Knot</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
+            <div class="modal-body">
                 <div id="modalKnotError" class="alert alert-danger d-none" role="alert"></div>
-                
-                <form id="quickAddKnotForm">
-                    <div class="form-group mb-3">
-                        <label for="modalKnotName" class="form-label fw-bold">Knot Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="modalKnotName" placeholder="e.g., Blood Knot, Davy Knot, Non-Slip Loop" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="modalKnotNotes" class="form-label fw-bold">Quick Notes</label>
-                        <textarea class="form-control" id="modalKnotNotes" rows="3" placeholder="Description or tying steps..."></textarea>
-                    </div>
-                </form>
+                <div class="mb-3">
+                    <label for="modalKnotName" class="form-label fw-bold">Knot Name <span class="text-danger">*</span></label>
+                    <input type="text" id="modalKnotName" class="form-control" placeholder="e.g., Non-Slip Mono Loop, Davy Knot, Perfection Loop">
+                </div>
+                <div class="mb-3">
+                    <label for="modalKnotNotes" class="form-label fw-bold">Notes / Tying Tips</label>
+                    <textarea id="modalKnotNotes" class="form-control" rows="3" placeholder="Connection strength, usage instructions, etc."></textarea>
+                </div>
             </div>
-            <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-warning text-dark fw-bold" id="btnSaveQuickKnot">
-                    <i class="bi bi-plus-circle me-1"></i>Save & Select
-                </button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning text-dark fw-bold" id="btnSaveQuickKnot">Save Knot</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Template for adding new dynamic section rows -->
-<template id="emptySectionRowTemplate">
-    <tr class="section-row" data-form-index="__prefix__">
-        <td>
-            <input type="hidden" name="sections-__prefix__-id" id="id_sections-__prefix__-id">
-            <input type="number" name="sections-__prefix__-order" value="__order__" min="1" class="form-control form-control-sm section-order-input" style="width: 70px;" id="id_sections-__prefix__-order">
-        </td>
-        <td>
-            <select name="sections-__prefix__-configuration" class="form-select form-select-sm section-config-select" id="id_sections-__prefix__-configuration">
-                <option value="main" selected>Main Line (Point Fly)</option>
-                <option value="dropper">Y-Dropper / Tag Branch</option>
-                <option value="trailer">Trailing Fly Section</option>
-            </select>
-        </td>
-        <td>
-            <div class="input-group input-group-sm">
-                <select name="sections-__prefix__-connection_knot" class="form-select form-select-sm knot-select" id="id_sections-__prefix__-connection_knot">
-                    <option value="" selected>-- Knot --</option>
-                    {% for knot in form.fields.line_to_leader_knot.queryset %}
-                    <option value="{{ knot.id }}">{{ knot.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" class="btn btn-outline-warning text-dark btn-quick-add-knot" data-target-select="id_sections-__prefix__-connection_knot" title="Quick Add Knot">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
-            </div>
-        </td>
-        <td>
-            <div class="input-group input-group-sm">
-                <select name="sections-__prefix__-hardware" class="form-select form-select-sm hardware-select" id="id_sections-__prefix__-hardware">
-                    <option value="" selected>-- Hardware --</option>
-                    {% for hw in form.fields.strike_indicator.queryset %}
-                    <option value="{{ hw.id }}">{{ hw.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" class="btn btn-outline-primary btn-quick-add" data-category="Hardware" data-target-select="id_sections-__prefix__-hardware" title="Quick Add Hardware">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
-            </div>
-        </td>
-        <td>
-            <div class="input-group input-group-sm">
-                <select name="sections-__prefix__-tippet_material" class="form-select form-select-sm tippet-select" id="id_sections-__prefix__-tippet_material">
-                    <option value="" selected>-- Tippet / Material --</option>
-                    {% for item in form.fields.leader.queryset %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" class="btn btn-outline-primary btn-quick-add" data-category="Tippet" data-target-select="id_sections-__prefix__-tippet_material" title="Quick Add Tippet">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
-            </div>
-        </td>
-        <td>
-            <input type="text" name="sections-__prefix__-length" placeholder="e.g. 4ft, 18in" class="form-control form-control-sm" id="id_sections-__prefix__-length">
-        </td>
-        <td>
-            <input type="text" name="sections-__prefix__-notes" placeholder="e.g., Point fly, Top dropper" class="form-control form-control-sm" id="id_sections-__prefix__-notes">
-        </td>
-        <td class="text-center">
-            <button type="button" class="btn btn-sm btn-outline-danger btn-remove-row" title="Remove Row">
-                <i class="bi bi-trash"></i>
-            </button>
-        </td>
-    </tr>
-</template>
+<!-- Pass Backend Data to JS -->
+<script id="itemsByCatData" type="application/json">
+{{ items_by_cat_json|safe }}
+</script>
 
+<script id="initialSetupData" type="application/json">
+{{ initial_setup_data_json|safe }}
+</script>
+
+<!-- Interactive Rig Builder JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    let currentTargetSelectId = null;
+    // 1. Data Store
+    const itemsByCat = JSON.parse(document.getElementById('itemsByCatData').textContent || '{}');
+    let rigChain = [];
 
+    try {
+        const rawInitial = JSON.parse(document.getElementById('initialSetupData').textContent || '[]');
+        if (Array.isArray(rawInitial)) {
+            rigChain = rawInitial;
+        }
+    } catch(e) {
+        console.warn('Could not parse initial setup data:', e);
+        rigChain = [];
+    }
+
+    // DOM Elements
+    const builderCategorySelect = document.getElementById('builderCategorySelect');
+    const builderItemSelect = document.getElementById('builderItemSelect');
+    const builderLengthInput = document.getElementById('builderLengthInput');
+    const btnAddStepToChain = document.getElementById('btnAddStepToChain');
+    const btnQuickAddFromBuilder = document.getElementById('btnQuickAddFromBuilder');
+    const chainItemsContainer = document.getElementById('chainItemsContainer');
+    const emptyChainState = document.getElementById('emptyChainState');
+    const chainStepCountBadge = document.getElementById('chainStepCountBadge');
+    const setupDataInput = document.getElementById('id_setup_data');
+    const btnClearChain = document.getElementById('btnClearChain');
+
+    // Helper: CSRF Token
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -467,41 +451,460 @@ document.addEventListener('DOMContentLoaded', function() {
         alertMsg.textContent = msg;
         alertBox.classList.remove('d-none');
         alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        setTimeout(() => {
-            alertBox.classList.add('d-none');
-        }, 5000);
+        setTimeout(() => { alertBox.classList.add('d-none'); }, 5000);
     }
 
-    // Modal Triggers for Quick Add Locker
-    document.addEventListener('click', function(e) {
-        const btn = e.target.closest('.btn-quick-add');
-        if (btn) {
-            e.preventDefault();
-            currentTargetSelectId = btn.getAttribute('data-target-select');
-            const category = btn.getAttribute('data-category');
-            
-            const catSelect = document.getElementById('modalLockerCategory');
-            if (category && catSelect) {
-                for (let i = 0; i < catSelect.options.length; i++) {
-                    const optVal = catSelect.options[i].value.toLowerCase();
-                    const targetCat = category.toLowerCase();
-                    if (optVal === targetCat || optVal.includes(targetCat) || targetCat.includes(optVal)) {
-                        catSelect.selectedIndex = i;
-                        break;
-                    }
+    // Helper: Category styling badge classes
+    function getCategoryBadgeClass(category) {
+        const cat = (category || '').toLowerCase();
+        if (cat.includes('rod')) return 'bg-primary';
+        if (cat.includes('reel')) return 'bg-secondary';
+        if (cat.includes('line')) return 'bg-info text-dark';
+        if (cat.includes('knot')) return 'bg-warning text-dark';
+        if (cat.includes('leader')) return 'bg-success';
+        if (cat.includes('tippet')) return 'bg-teal text-white bg-opacity-75' || 'bg-success';
+        if (cat.includes('hardware')) return 'bg-dark';
+        if (cat.includes('fly') || cat.includes('hook')) return 'bg-danger';
+        return 'bg-secondary';
+    }
+
+    // 2. Populate Item Select based on Category
+    function populateItemSelect(catVal, targetSelectEl) {
+        targetSelectEl.innerHTML = '';
+        if (!catVal) {
+            targetSelectEl.disabled = true;
+            targetSelectEl.innerHTML = '<option value="">-- Choose Category First --</option>';
+            return;
+        }
+
+        const items = itemsByCat[catVal] || [];
+        if (items.length === 0) {
+            targetSelectEl.disabled = false;
+            targetSelectEl.innerHTML = '<option value="">-- No items found (click + to add) --</option>';
+        } else {
+            targetSelectEl.disabled = false;
+            const placeholder = catVal === 'knot' ? '-- Select Knot --' : '-- Select Item --';
+            targetSelectEl.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
+            items.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.textContent = item.full_name || item.name;
+                opt.setAttribute('data-name', item.name);
+                opt.setAttribute('data-full-name', item.full_name || item.name);
+                targetSelectEl.appendChild(opt);
+            });
+        }
+    }
+
+    builderCategorySelect.addEventListener('change', function() {
+        const catVal = this.value;
+        populateItemSelect(catVal, builderItemSelect);
+        btnQuickAddFromBuilder.disabled = !catVal;
+    });
+
+    // Quick length preset buttons
+    document.querySelectorAll('.btn-length-preset').forEach(btn => {
+        btn.addEventListener('click', function() {
+            builderLengthInput.value = this.getAttribute('data-length');
+        });
+    });
+
+    // 3. Render Visual Chain
+    function renderRigChain() {
+        chainItemsContainer.innerHTML = '';
+        if (rigChain.length === 0) {
+            emptyChainState.classList.remove('d-none');
+            chainStepCountBadge.textContent = '0 Components';
+        } else {
+            emptyChainState.classList.add('d-none');
+            chainStepCountBadge.textContent = `${rigChain.length} Component${rigChain.length === 1 ? '' : 's'}`;
+
+            rigChain.forEach((step, index) => {
+                const stepEl = createStepCardElement(step, index);
+                chainItemsContainer.appendChild(stepEl);
+            });
+        }
+        // Keep form input in sync
+        updateSetupDataInput();
+    }
+
+    function updateSetupDataInput() {
+        if (setupDataInput) {
+            setupDataInput.value = JSON.stringify(rigChain);
+        }
+    }
+
+    function createStepCardElement(step, index) {
+        const card = document.createElement('div');
+        const isKnotOrHardware = (step.category || '').toLowerCase().includes('knot') || (step.category || '').toLowerCase().includes('hardware');
+        const isLineOrLeader = (step.category || '').toLowerCase().includes('leader') || (step.category || '').toLowerCase().includes('tippet') || (step.category || '').toLowerCase().includes('line');
+
+        card.className = 'card border shadow-sm p-2 bg-white position-relative';
+        card.setAttribute('data-index', index);
+
+        // Header / main step row
+        let html = `
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <div class="d-flex align-items-center gap-2 flex-grow-1">
+                    <span class="badge bg-dark rounded-circle py-2 px-2" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;">
+                        ${index + 1}
+                    </span>
+                    <span class="badge ${getCategoryBadgeClass(step.category)}">
+                        ${step.category || 'Gear'}
+                    </span>
+                    <div class="fw-bold text-dark">
+                        ${step.name || (step.category + ' #' + (step.id || ''))}
+                    </div>
+                    ${step.length ? `<span class="badge bg-light text-dark border"><i class="bi bi-rulers me-1"></i>${step.length}</span>` : ''}
+                </div>
+
+                <div class="d-flex align-items-center gap-1">
+                    ${isLineOrLeader ? `
+                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-open-attach-modal" data-index="${index}" title="Attach Strike Indicator or Split Shot">
+                            <i class="bi bi-paperclip me-1"></i>Attach
+                        </button>
+                    ` : ''}
+
+                    ${isKnotOrHardware ? `
+                        <button type="button" class="btn btn-outline-warning text-dark btn-sm py-0 px-2 btn-open-dropper-modal" data-index="${index}" title="Add 'Y' Dropper Branch">
+                            <i class="bi bi-bezier me-1"></i>+ 'Y' Dropper
+                        </button>
+                    ` : ''}
+
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-outline-secondary py-0 px-1 btn-move-up" data-index="${index}" title="Move Up" ${index === 0 ? 'disabled' : ''}>
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary py-0 px-1 btn-move-down" data-index="${index}" title="Move Down" ${index === rigChain.length - 1 ? 'disabled' : ''}>
+                            <i class="bi bi-arrow-down"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger py-0 px-1 btn-delete-step" data-index="${index}" title="Delete Step">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Render Attachments (if any)
+        if (step.attachments && step.attachments.length > 0) {
+            html += `<div class="mt-2 pt-2 border-top d-flex flex-wrap gap-2 align-items-center">`;
+            html += `<span class="small text-muted fw-bold"><i class="bi bi-paperclip me-1"></i>Attachments:</span>`;
+            step.attachments.forEach((att, attIdx) => {
+                const icon = att.type === 'indicator' ? '🔴' : '⚖️';
+                html += `
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle d-inline-flex align-items-center gap-1">
+                        ${icon} <b>${att.name || att.type}</b> ${att.distance ? `(${att.distance})` : ''}
+                        <button type="button" class="btn-close btn-close-sm py-0 btn-delete-attachment" data-step-index="${index}" data-att-index="${attIdx}" aria-label="Remove" style="font-size: 0.65rem;"></button>
+                    </span>
+                `;
+            });
+            html += `</div>`;
+        }
+
+        // Render Dropper Branches (if any)
+        if (step.dropper_branch && step.dropper_branch.length > 0) {
+            html += `
+                <div class="mt-2 pt-2 border-top bg-warning-subtle p-2 rounded border border-warning-subtle">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="small fw-bold text-dark"><i class="bi bi-bezier text-warning me-1"></i>'Y' Dropper Branch:</span>
+                        <button type="button" class="btn btn-link text-danger p-0 small text-decoration-none btn-clear-dropper" data-index="${index}">Remove Branch</button>
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+            `;
+            step.dropper_branch.forEach((dbItem, dbIdx) => {
+                if (dbIdx > 0) html += `<i class="bi bi-arrow-right text-muted small"></i>`;
+                html += `
+                    <span class="badge bg-white text-dark border shadow-sm py-1">
+                        <span class="badge ${getCategoryBadgeClass(dbItem.category)} me-1">${dbItem.category}</span>
+                        ${dbItem.name || ''}
+                        ${dbItem.length ? `(${dbItem.length})` : ''}
+                    </span>
+                `;
+            });
+            html += `</div></div>`;
+        }
+
+        card.innerHTML = html;
+        return card;
+    }
+
+
+
+    // 5. Add Step Event
+    btnAddStepToChain.addEventListener('click', function() {
+        const catOpt = builderCategorySelect.options[builderCategorySelect.selectedIndex];
+        const itemOpt = builderItemSelect.options[builderItemSelect.selectedIndex];
+
+        if (!builderCategorySelect.value) {
+            alert('Please select a category first.');
+            builderCategorySelect.focus();
+            return;
+        }
+
+        if (!builderItemSelect.value) {
+            alert('Please select an item from your locker or knot list.');
+            builderItemSelect.focus();
+            return;
+        }
+
+        const catId = builderCategorySelect.value;
+        const catName = catOpt ? catOpt.getAttribute('data-cat-name') : 'Gear';
+        const itemId = itemOpt ? parseInt(itemOpt.value) : null;
+        const itemName = itemOpt ? (itemOpt.getAttribute('data-full-name') || itemOpt.getAttribute('data-name') || itemOpt.text) : '';
+        const length = builderLengthInput.value.trim();
+
+        const stepObj = {
+            category: catName,
+            category_id: catId === 'knot' ? 'knot' : parseInt(catId),
+            id: itemId,
+            name: itemName
+        };
+
+        if (length) {
+            stepObj.length = length;
+        }
+
+        rigChain.push(stepObj);
+        renderRigChain();
+
+        // Reset length for next item, keep category or clear
+        builderLengthInput.value = '';
+    });
+
+    // 6. Chain Interactions (Move up, Move down, Delete)
+    chainItemsContainer.addEventListener('click', function(e) {
+        // Move Up
+        const moveUpBtn = e.target.closest('.btn-move-up');
+        if (moveUpBtn) {
+            const idx = parseInt(moveUpBtn.getAttribute('data-index'));
+            if (idx > 0) {
+                const temp = rigChain[idx];
+                rigChain[idx] = rigChain[idx - 1];
+                rigChain[idx - 1] = temp;
+                renderRigChain();
+            }
+            return;
+        }
+
+        // Move Down
+        const moveDownBtn = e.target.closest('.btn-move-down');
+        if (moveDownBtn) {
+            const idx = parseInt(moveDownBtn.getAttribute('data-index'));
+            if (idx < rigChain.length - 1) {
+                const temp = rigChain[idx];
+                rigChain[idx] = rigChain[idx + 1];
+                rigChain[idx + 1] = temp;
+                renderRigChain();
+            }
+            return;
+        }
+
+        // Delete Step
+        const deleteBtn = e.target.closest('.btn-delete-step');
+        if (deleteBtn) {
+            const idx = parseInt(deleteBtn.getAttribute('data-index'));
+            rigChain.splice(idx, 1);
+            renderRigChain();
+            return;
+        }
+
+        // Delete Attachment
+        const delAttBtn = e.target.closest('.btn-delete-attachment');
+        if (delAttBtn) {
+            const stepIdx = parseInt(delAttBtn.getAttribute('data-step-index'));
+            const attIdx = parseInt(delAttBtn.getAttribute('data-att-index'));
+            if (rigChain[stepIdx] && rigChain[stepIdx].attachments) {
+                rigChain[stepIdx].attachments.splice(attIdx, 1);
+                if (rigChain[stepIdx].attachments.length === 0) {
+                    delete rigChain[stepIdx].attachments;
                 }
+                renderRigChain();
+            }
+            return;
+        }
+
+        // Clear Dropper Branch
+        const clearDropperBtn = e.target.closest('.btn-clear-dropper');
+        if (clearDropperBtn) {
+            const idx = parseInt(clearDropperBtn.getAttribute('data-index'));
+            if (rigChain[idx]) {
+                delete rigChain[idx].dropper_branch;
+                renderRigChain();
+            }
+            return;
+        }
+
+        // Open Attachment Modal
+        const attachBtn = e.target.closest('.btn-open-attach-modal');
+        if (attachBtn) {
+            const idx = attachBtn.getAttribute('data-index');
+            document.getElementById('modalAttachmentTargetStepIndex').value = idx;
+            document.getElementById('modalAttachmentName').value = '';
+            document.getElementById('modalAttachmentDistance').value = '';
+            $('#addAttachmentModal').modal('show');
+            return;
+        }
+
+        // Open Dropper Modal
+        const dropperBtn = e.target.closest('.btn-open-dropper-modal');
+        if (dropperBtn) {
+            const idx = dropperBtn.getAttribute('data-index');
+            document.getElementById('modalDropperTargetStepIndex').value = idx;
+            currentModalDropperSteps = [];
+            if (rigChain[idx] && Array.isArray(rigChain[idx].dropper_branch)) {
+                currentModalDropperSteps = JSON.parse(JSON.stringify(rigChain[idx].dropper_branch));
+            }
+            renderModalDropperSteps();
+            $('#addDropperBranchModal').modal('show');
+            return;
+        }
+    });
+
+    // Clear whole chain
+    btnClearChain.addEventListener('click', function() {
+        if (rigChain.length > 0 && confirm('Are you sure you want to clear all steps in the rig chain?')) {
+            rigChain = [];
+            renderRigChain();
+        }
+    });
+
+    // 7. Attachments Modal Logic
+    document.getElementById('btnSaveAttachment').addEventListener('click', function() {
+        const stepIdx = parseInt(document.getElementById('modalAttachmentTargetStepIndex').value);
+        const type = document.getElementById('modalAttachmentType').value;
+        const name = document.getElementById('modalAttachmentName').value.trim();
+        const distance = document.getElementById('modalAttachmentDistance').value.trim();
+
+        if (!name) {
+            alert('Please specify an item name or size (e.g. Thingamabobber 3/4", 2x Split Shot).');
+            return;
+        }
+
+        if (rigChain[stepIdx]) {
+            if (!rigChain[stepIdx].attachments) {
+                rigChain[stepIdx].attachments = [];
+            }
+            rigChain[stepIdx].attachments.push({
+                type: type,
+                name: name,
+                distance: distance
+            });
+            renderRigChain();
+            $('#addAttachmentModal').modal('hide');
+        }
+    });
+
+    // 8. Dropper Branch Modal Logic
+    let currentModalDropperSteps = [];
+    const modalDropperCatSelect = document.getElementById('modalDropperCatSelect');
+    const modalDropperItemSelect = document.getElementById('modalDropperItemSelect');
+    const modalDropperLengthInput = document.getElementById('modalDropperLengthInput');
+    const btnModalAddDropperStep = document.getElementById('btnModalAddDropperStep');
+    const modalDropperStepsList = document.getElementById('modalDropperStepsList');
+
+    modalDropperCatSelect.addEventListener('change', function() {
+        populateItemSelect(this.value, modalDropperItemSelect);
+    });
+
+    function renderModalDropperSteps() {
+        modalDropperStepsList.innerHTML = '';
+        if (currentModalDropperSteps.length === 0) {
+            modalDropperStepsList.innerHTML = '<div class="text-muted small fst-italic">No steps added to this branch yet.</div>';
+        } else {
+            currentModalDropperSteps.forEach((s, i) => {
+                const row = document.createElement('div');
+                row.className = 'd-flex align-items-center justify-content-between p-2 bg-white rounded border';
+                row.innerHTML = `
+                    <div>
+                        <span class="badge ${getCategoryBadgeClass(s.category)} me-1">${s.category}</span>
+                        <b>${s.name}</b> ${s.length ? `(${s.length})` : ''}
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm py-0 px-1 btn-del-dropper-step" data-index="${i}">&times;</button>
+                `;
+                modalDropperStepsList.appendChild(row);
+            });
+        }
+    }
+
+    btnModalAddDropperStep.addEventListener('click', function() {
+        const catOpt = modalDropperCatSelect.options[modalDropperCatSelect.selectedIndex];
+        const itemOpt = modalDropperItemSelect.options[modalDropperItemSelect.selectedIndex];
+        if (!modalDropperCatSelect.value || !modalDropperItemSelect.value) {
+            alert('Please select category and item.');
+            return;
+        }
+        const catId = modalDropperCatSelect.value;
+        const catName = catOpt ? catOpt.getAttribute('data-cat-name') : 'Gear';
+        const itemId = itemOpt ? parseInt(itemOpt.value) : null;
+        const itemName = itemOpt ? (itemOpt.getAttribute('data-full-name') || itemOpt.getAttribute('data-name') || itemOpt.text) : '';
+        const length = modalDropperLengthInput.value.trim();
+
+        const itemObj = {
+            category: catName,
+            category_id: catId === 'knot' ? 'knot' : parseInt(catId),
+            id: itemId,
+            name: itemName
+        };
+        if (length) itemObj.length = length;
+        currentModalDropperSteps.push(itemObj);
+        modalDropperLengthInput.value = '';
+        renderModalDropperSteps();
+    });
+
+    modalDropperStepsList.addEventListener('click', function(e) {
+        const delBtn = e.target.closest('.btn-del-dropper-step');
+        if (delBtn) {
+            const idx = parseInt(delBtn.getAttribute('data-index'));
+            currentModalDropperSteps.splice(idx, 1);
+            renderModalDropperSteps();
+        }
+    });
+
+    document.getElementById('btnSaveDropperBranch').addEventListener('click', function() {
+        const stepIdx = parseInt(document.getElementById('modalDropperTargetStepIndex').value);
+        if (rigChain[stepIdx]) {
+            if (currentModalDropperSteps.length > 0) {
+                rigChain[stepIdx].dropper_branch = currentModalDropperSteps;
+            } else {
+                delete rigChain[stepIdx].dropper_branch;
+            }
+            renderRigChain();
+            $('#addDropperBranchModal').modal('hide');
+        }
+    });
+
+    // Ensure data is synced before form submission
+    const setupMainForm = document.getElementById('setupMainForm');
+    if (setupMainForm) {
+        setupMainForm.addEventListener('submit', function() {
+            updateSetupDataInput();
+        });
+    }
+
+    // 10. Quick Add Button Trigger in Builder Bar
+    btnQuickAddFromBuilder.addEventListener('click', function() {
+        const catVal = builderCategorySelect.value;
+        if (catVal === 'knot') {
+            document.getElementById('modalKnotError').classList.add('d-none');
+            document.getElementById('modalKnotName').value = '';
+            document.getElementById('modalKnotNotes').value = '';
+            $('#quickAddKnotModal').modal('show');
+        } else {
+            const catSelect = document.getElementById('modalLockerCategory');
+            if (catSelect && catVal) {
+                catSelect.value = catVal;
             }
             document.getElementById('modalLockerError').classList.add('d-none');
             document.getElementById('modalLockerName').value = '';
             document.getElementById('modalLockerBrand').value = '';
             document.getElementById('modalLockerModel').value = '';
             document.getElementById('modalLockerCharacteristics').value = '';
-
             $('#quickAddLockerModal').modal('show');
         }
     });
 
-    // Save Quick Add Locker
+    // 11. Quick Add Save Handlers
     document.getElementById('btnSaveQuickLocker').addEventListener('click', function() {
         const category = document.getElementById('modalLockerCategory').value;
         const name = document.getElementById('modalLockerName').value.trim();
@@ -526,51 +929,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetch("{% url 'api_quick_add_locker' %}", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
             body: JSON.stringify(payload)
         })
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             if (data.success && data.item) {
                 const item = data.item;
-                const newOption = new Option(item.full_name || item.name, item.id, true, true);
-
-                if (currentTargetSelectId) {
-                    const targetEl = document.getElementById(currentTargetSelectId);
-                    if (targetEl) {
-                        targetEl.add(newOption);
-                        targetEl.value = item.id;
-                    }
-                }
-
-                // Also populate other matching selects in form
-                const catNameLower = (item.category_name || '').toLowerCase();
-                document.querySelectorAll('select').forEach(sel => {
-                    if (sel.id !== currentTargetSelectId) {
-                        const isRod = catNameLower.includes('rod') && sel.id.includes('rod');
-                        const isReel = catNameLower.includes('reel') && sel.id.includes('reel');
-                        const isFlyLine = (catNameLower.includes('line') || catNameLower.includes('fly line')) && sel.id.includes('fly_line');
-                        const isLeader = catNameLower.includes('leader') && (sel.id.includes('leader') || sel.id.includes('tippet_material'));
-                        const isTippet = catNameLower.includes('tippet') && sel.id.includes('tippet_material');
-                        const isHardware = catNameLower.includes('hardware') && (sel.id.includes('strike_indicator') || sel.id.includes('hardware'));
-
-                        if (isRod || isReel || isFlyLine || isLeader || isTippet || isHardware) {
-                            sel.add(new Option(item.full_name || item.name, item.id));
-                            if (
-                                (isRod && sel.id === 'id_rod') ||
-                                (isReel && sel.id === 'id_reel') ||
-                                (isFlyLine && sel.id === 'id_fly_line') ||
-                                (isLeader && sel.id === 'id_leader') ||
-                                (isHardware && sel.id === 'id_strike_indicator')
-                            ) {
-                                sel.value = item.id;
-                            }
-                        }
-                    }
+                const catKey = String(item.category_id);
+                if (!itemsByCat[catKey]) itemsByCat[catKey] = [];
+                itemsByCat[catKey].push({
+                    id: item.id,
+                    name: item.name,
+                    full_name: item.full_name || item.name
                 });
+
+                if (builderCategorySelect.value === catKey) {
+                    populateItemSelect(catKey, builderItemSelect);
+                    builderItemSelect.value = item.id;
+                }
 
                 $('#quickAddLockerModal').modal('hide');
                 showAlert(`"${item.name}" added to Locker and selected!`);
@@ -585,20 +962,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Modal Triggers for Quick Add Knot
-    document.addEventListener('click', function(e) {
-        const btn = e.target.closest('.btn-quick-add-knot');
-        if (btn) {
-            e.preventDefault();
-            currentTargetSelectId = btn.getAttribute('data-target-select');
-            document.getElementById('modalKnotError').classList.add('d-none');
-            document.getElementById('modalKnotName').value = '';
-            document.getElementById('modalKnotNotes').value = '';
-            $('#quickAddKnotModal').modal('show');
-        }
-    });
-
-    // Save Quick Add Knot
     document.getElementById('btnSaveQuickKnot').addEventListener('click', function() {
         const name = document.getElementById('modalKnotName').value.trim();
         const notes = document.getElementById('modalKnotNotes').value.trim();
@@ -610,39 +973,26 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const payload = {
-            name: name,
-            notes: notes
-        };
-
         fetch("{% url 'api_quick_add_knot' %}", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(payload)
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+            body: JSON.stringify({ name: name, notes: notes })
         })
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             if (data.success && data.item) {
                 const item = data.item;
-                const newOption = new Option(item.name, item.id, true, true);
-
-                if (currentTargetSelectId) {
-                    const targetEl = document.getElementById(currentTargetSelectId);
-                    if (targetEl) {
-                        targetEl.add(newOption);
-                        targetEl.value = item.id;
-                    }
-                }
-
-                // Also populate all knot selects
-                document.querySelectorAll('select.knot-select, select#id_line_to_leader_knot').forEach(sel => {
-                    if (sel.id !== currentTargetSelectId) {
-                        sel.add(new Option(item.name, item.id));
-                    }
+                if (!itemsByCat['knot']) itemsByCat['knot'] = [];
+                itemsByCat['knot'].push({
+                    id: item.id,
+                    name: item.name,
+                    full_name: item.name
                 });
+
+                if (builderCategorySelect.value === 'knot') {
+                    populateItemSelect('knot', builderItemSelect);
+                    builderItemSelect.value = item.id;
+                }
 
                 $('#quickAddKnotModal').modal('hide');
                 showAlert(`Knot "${item.name}" created and selected!`);
@@ -657,45 +1007,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Dynamic Formset Addition for Sections
-    const totalFormsInput = document.getElementById('id_sections-TOTAL_FORMS');
-    const tbody = document.getElementById('sectionsTbody');
-    const btnAddSection = document.getElementById('btnAddSection');
-    const template = document.getElementById('emptySectionRowTemplate').innerHTML;
-
-    btnAddSection.addEventListener('click', function() {
-        let currentCount = parseInt(totalFormsInput.value);
-        let nextOrder = currentCount + 1;
-        
-        let newRowHtml = template.replace(/__prefix__/g, currentCount).replace(/__order__/g, nextOrder);
-        
-        const tempDiv = document.createElement('tbody');
-        tempDiv.innerHTML = newRowHtml;
-        const newRow = tempDiv.firstElementChild;
-        
-        tbody.appendChild(newRow);
-        totalFormsInput.value = currentCount + 1;
-    });
-
-    // Remove dynamic row (for new unpersisted rows)
-    tbody.addEventListener('click', function(e) {
-        const removeBtn = e.target.closest('.btn-remove-row');
-        if (removeBtn) {
-            const row = removeBtn.closest('tr');
-            if (row) {
-                row.remove();
-            }
-        }
-    });
+    // Initialize initial render
+    renderRigChain();
 });
 </script>
 
 <style>
-.section-row td {
-    padding: 0.5rem;
-}
-.btn-quick-add, .btn-quick-add-knot {
-    padding: 0.25rem 0.5rem;
+.bg-teal {
+    background-color: #20c997 !important;
 }
 </style>
 {% endblock content %}
