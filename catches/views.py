@@ -1722,8 +1722,15 @@ def searchview (request):
 @user_passes_test(lambda u: u.is_superuser)
 def system_errors_dashboard(request):
     log_path = os.path.join(settings.BASE_DIR, 'logs/django_errors.log')
-    log_entries = []
     
+    if request.method == 'POST' and 'clear_logs' in request.POST:
+        if os.path.exists(log_path):
+            with open(log_path, 'w', encoding='utf-8') as f:
+                f.truncate(0)
+        messages.success(request, "System error logs have been cleared.")
+        return redirect('system_errors')
+
+    log_entries = []
     if os.path.exists(log_path):
         with open(log_path, 'r', encoding='utf-8') as f:
             # Read lines and keep them in reverse order (newest errors first)
