@@ -96,7 +96,7 @@
                                 <!-- Step Builder Input Control Bar -->
                                 <div class="p-3 bg-white rounded border shadow-sm mb-4">
                                     <h6 class="fw-bold text-dark mb-3">
-                                        <i class="bi bi-plus-circle-fill text-success me-2"></i>Add Component to Rig
+                                        <i class="bi bi-plus-circle-fill text-success me-2"></i>Add Component / Attachment to Rig
                                     </h6>
                                     
                                     <div class="row g-2 align-items-end">
@@ -113,8 +113,8 @@
                                         </div>
 
                                         <!-- Item Select -->
-                                        <div class="col-md-4">
-                                            <label class="form-label fw-bold small text-muted mb-1">2. Locker Item / Knot</label>
+                                        <div class="col-md-3" id="builderItemCol">
+                                            <label class="form-label fw-bold small text-muted mb-1" id="builderItemLabel">2. Locker Item / Knot</label>
                                             <div class="input-group">
                                                 <select id="builderItemSelect" class="form-select" disabled>
                                                     <option value="">-- Choose Category First --</option>
@@ -125,22 +125,39 @@
                                             </div>
                                         </div>
 
-                                        <!-- Length (Optional) -->
-                                        <div class="col-md-3">
+                                        <!-- Standard Length (For Sequential Steps) -->
+                                        <div class="col-md-3" id="builderLengthCol">
                                             <label class="form-label fw-bold small text-muted mb-1">3. Length (Optional)</label>
                                             <input type="text" id="builderLengthInput" class="form-control" placeholder="e.g., 5ft, 2ft, 18in">
                                         </div>
 
+                                        <!-- Flexible Hardware Target Component (For Flexible Hardware) -->
+                                        <div class="col-md-2 d-none" id="builderAttachTargetCol">
+                                            <label class="form-label fw-bold small text-danger mb-1"><i class="bi bi-link-45deg me-1"></i>3. Attach To</label>
+                                            <select id="builderAttachTargetSelect" class="form-select border-danger">
+                                                <!-- Dynamically populated from rigChain -->
+                                            </select>
+                                        </div>
+
+                                        <!-- Flexible Hardware Distance (For Flexible Hardware) -->
+                                        <div class="col-md-2 d-none" id="builderAttachDistCol">
+                                            <label class="form-label fw-bold small text-muted mb-1">4. Distance/Position</label>
+                                            <input type="text" id="builderAttachDistInput" class="form-control" placeholder="e.g., 7ft from fly end">
+                                        </div>
+
                                         <!-- Add Button -->
-                                        <div class="col-md-2">
+                                        <div class="col-md-2" id="builderActionCol">
                                             <button type="button" class="btn btn-success w-100 fw-bold" id="btnAddStepToChain">
                                                 <i class="bi bi-plus-circle me-1"></i>Add Step
+                                            </button>
+                                            <button type="button" class="btn btn-danger w-100 fw-bold d-none" id="btnAddFlexAttachment">
+                                                <i class="bi bi-paperclip me-1"></i>Attach
                                             </button>
                                         </div>
                                     </div>
 
-                                    <!-- Quick Length Presets -->
-                                    <div class="mt-2 pt-2 border-top d-flex flex-wrap align-items-center gap-1">
+                                    <!-- Quick Length Presets (Sequential) -->
+                                    <div id="sequentialLengthPresets" class="mt-2 pt-2 border-top d-flex flex-wrap align-items-center gap-1">
                                         <span class="small text-muted me-2"><i class="bi bi-rulers me-1"></i>Length presets:</span>
                                         <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="12ft">12ft</button>
                                         <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="9ft">9ft</button>
@@ -152,13 +169,38 @@
                                         <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="12in">12in</button>
                                         <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-length-preset" data-length="6in">6in</button>
                                     </div>
+
+                                    <!-- Quick Distance Presets (Flexible Hardware) -->
+                                    <div id="flexibleDistPresets" class="mt-2 pt-2 border-top d-flex flex-wrap align-items-center gap-1 d-none">
+                                        <span class="small text-danger me-2"><i class="bi bi-geo-alt me-1"></i>Distance presets:</span>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="7ft from fly end">7ft from fly end</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="5ft from fly end">5ft from fly end</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="4ft from fly end">4ft from fly end</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="3ft from fly end">3ft from fly end</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="18in above point fly">18in above point fly</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="12in above point fly">12in above point fly</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-dist-preset" data-dist="6in above tippet ring">6in above tippet ring</button>
+                                    </div>
                                 </div>
 
-                                <!-- Visual Rig Chain Container -->
-                                <div class="mb-3">
+                                <!-- Live Illustrated Diagram Preview -->
+                                <div class="mb-4">
                                     <div class="d-flex justify-content-between align-items-center mb-2 px-1">
                                         <h6 class="fw-bold mb-0 text-dark">
-                                            <i class="bi bi-list-nested me-2 text-primary"></i>Rig Sequence Flow
+                                            <i class="bi bi-image me-2 text-primary"></i>Live Illustrated Rig Diagram
+                                        </h6>
+                                        <small class="text-muted">Updates in real-time as you add components</small>
+                                    </div>
+                                    <div id="formIllustratedDiagramContainer" class="p-2 rounded border bg-dark shadow-sm overflow-hidden">
+                                        <!-- Rendered by RigDiagramRenderer -->
+                                    </div>
+                                </div>
+
+                                <!-- Visual Rig Chain Container (Sequential Steps) -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                                        <h6 class="fw-bold mb-0 text-dark">
+                                            <i class="bi bi-list-nested me-2 text-primary"></i>Rig Sequential Steps
                                         </h6>
                                         <div>
                                             <button type="button" class="btn btn-outline-danger btn-sm py-0" id="btnClearChain">
@@ -177,6 +219,25 @@
                                         <i class="bi bi-diagram-3 fs-1 text-secondary opacity-50 d-block mb-2"></i>
                                         <h6 class="fw-bold text-dark">No components in setup yet</h6>
                                         <p class="small mb-0">Use the control bar above to add your Rod, Reel, Line, Knots, Leaders, Tippets, and Flies in order.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Dedicated Flexible Hardware Attachments Section (Bottom of Builder) -->
+                                <div class="p-3 bg-white rounded border shadow-sm border-danger-subtle">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-dark">
+                                                <i class="bi bi-paperclip text-danger me-2"></i>Flexible Hardware Attachments
+                                            </h6>
+                                            <small class="text-muted">Strike indicators, floats, split shot, and weights attached to specific rig components.</small>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" id="btnOpenGlobalAttachModal">
+                                            <i class="bi bi-plus-lg me-1"></i>Attach Flexible Hardware
+                                        </button>
+                                    </div>
+
+                                    <div id="builderFlexibleAttachmentsList" class="d-flex flex-column gap-2 mt-3">
+                                        <!-- Dynamically rendered list of flexible attachments -->
                                     </div>
                                 </div>
                             </div>
@@ -212,19 +273,36 @@
 </div>
 
 <!-- ========================================== -->
-<!-- MODAL: Add Attachment (Indicator / Split Shot) -->
+<!-- MODAL: Add Attachment (Flexible Hardware: Indicator / Split Shot) -->
 <!-- ========================================== -->
 <div class="modal fade" id="addAttachmentModal" tabindex="-1" aria-labelledby="addAttachmentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="addAttachmentModalLabel">
-                    <i class="bi bi-paperclip text-warning me-2"></i>Attach Indicator or Split Shot
+                    <i class="bi bi-paperclip text-warning me-2"></i>Attach Flexible Hardware (Indicator / Split Shot)
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="modalAttachmentTargetStepIndex" value="">
+                <input type="hidden" id="modalAttachmentEditIndex" value="-1">
+                
+                <!-- Target Component Selector -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-danger"><i class="bi bi-link-45deg me-1"></i>Attach To Rig Component <span class="text-danger">*</span></label>
+                    <select id="modalAttachmentTargetStepSelect" class="form-select border-danger">
+                        <!-- Populated dynamically with all components in rigChain -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-muted">From Flexible Hardware Locker</label>
+                    <select id="modalFlexibleHardwareSelect" class="form-select form-select-sm">
+                        <option value="">-- Select from your Flexible Hardware or type below --</option>
+                    </select>
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label fw-bold">Attachment Type</label>
                     <select id="modalAttachmentType" class="form-select">
@@ -235,16 +313,16 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold">Item Name / Size</label>
-                    <input type="text" id="modalAttachmentName" class="form-control" placeholder="e.g., Thingamabobber 3/4in, 2x #4 Round Split Shot, Air Lock">
+                    <input type="text" id="modalAttachmentName" class="form-control" placeholder="e.g., Strike Indicators, Thingamabobber 3/4in, 2x #4 Split Shot">
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold">Position / Distance</label>
-                    <input type="text" id="modalAttachmentDistance" class="form-control" placeholder="e.g., 4ft from fly end, 12in above point fly">
+                    <input type="text" id="modalAttachmentDistance" class="form-control" placeholder="e.g., 7ft from fly end, 12in above point fly">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="btnSaveAttachment">Add Attachment</button>
+                <button type="button" class="btn btn-primary fw-bold" id="btnSaveAttachment">Save Attachment</button>
             </div>
         </div>
     </div>
@@ -399,6 +477,8 @@
 {{ initial_setup_data_json|safe }}
 </script>
 
+<script src="{% static 'catches/site/js/rig_diagram_renderer.js' %}?v=20260911_v5"></script>
+
 <!-- Interactive Rig Builder JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -406,25 +486,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemsByCat = JSON.parse(document.getElementById('itemsByCatData').textContent || '{}');
     let rigChain = [];
 
+    // Helper: Sanitize initial rigChain so standalone flexible hardware steps are migrated to attachments
+    function sanitizeRigChain(chain) {
+        if (!Array.isArray(chain)) return [];
+        const sanitized = [];
+        const flexItems = [];
+        chain.forEach(step => {
+            const cat = (step.category || '').toLowerCase();
+            const catId = String(step.category_id || '').toLowerCase();
+            if (cat.includes('flexible') || catId === '7') {
+                flexItems.push(step);
+            } else {
+                sanitized.push(step);
+            }
+        });
+
+        if (flexItems.length > 0 && sanitized.length > 0) {
+            let targetIdx = -1;
+            for (let i = sanitized.length - 1; i >= 0; i--) {
+                const c = (sanitized[i].category || '').toLowerCase();
+                if (c.includes('tippet') || c.includes('leader') || c.includes('line')) {
+                    targetIdx = i;
+                    break;
+                }
+            }
+            if (targetIdx === -1) targetIdx = sanitized.length - 1;
+
+            if (!sanitized[targetIdx].attachments) sanitized[targetIdx].attachments = [];
+            flexItems.forEach(fi => {
+                const isInd = (fi.name || '').toLowerCase().includes('indicator') || (fi.name || '').toLowerCase().includes('float');
+                sanitized[targetIdx].attachments.push({
+                    id: fi.id,
+                    name: fi.name,
+                    type: isInd ? 'indicator' : 'split_shot',
+                    distance: fi.length || fi.distance || ''
+                });
+            });
+        }
+        return sanitized;
+    }
+
     try {
         const rawInitial = JSON.parse(document.getElementById('initialSetupData').textContent || '[]');
         if (Array.isArray(rawInitial)) {
-            rigChain = rawInitial;
+            rigChain = sanitizeRigChain(rawInitial);
         }
     } catch(e) {
         console.warn('Could not parse initial setup data:', e);
         rigChain = [];
     }
 
-    // DOM Elements
+    // DOM Elements - Builder Controls
     const builderCategorySelect = document.getElementById('builderCategorySelect');
     const builderItemSelect = document.getElementById('builderItemSelect');
+    const builderLengthCol = document.getElementById('builderLengthCol');
     const builderLengthInput = document.getElementById('builderLengthInput');
+    const builderAttachTargetCol = document.getElementById('builderAttachTargetCol');
+    const builderAttachTargetSelect = document.getElementById('builderAttachTargetSelect');
+    const builderAttachDistCol = document.getElementById('builderAttachDistCol');
+    const builderAttachDistInput = document.getElementById('builderAttachDistInput');
     const btnAddStepToChain = document.getElementById('btnAddStepToChain');
+    const btnAddFlexAttachment = document.getElementById('btnAddFlexAttachment');
     const btnQuickAddFromBuilder = document.getElementById('btnQuickAddFromBuilder');
+    const sequentialLengthPresets = document.getElementById('sequentialLengthPresets');
+    const flexibleDistPresets = document.getElementById('flexibleDistPresets');
+
+    // DOM Elements - Containers & States
     const chainItemsContainer = document.getElementById('chainItemsContainer');
     const emptyChainState = document.getElementById('emptyChainState');
     const chainStepCountBadge = document.getElementById('chainStepCountBadge');
+    const builderFlexibleAttachmentsList = document.getElementById('builderFlexibleAttachmentsList');
+    const btnOpenGlobalAttachModal = document.getElementById('btnOpenGlobalAttachModal');
     const setupDataInput = document.getElementById('id_setup_data');
     const btnClearChain = document.getElementById('btnClearChain');
 
@@ -445,6 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     const csrftoken = getCookie('csrftoken');
 
+    const categoryList = [
+        {% for cat in categories %}
+        { id: {{ cat.id }}, name: "{{ cat.name|escapejs }}", sort_order: {{ cat.sort_order }} },
+        {% endfor %}
+    ];
+
     function showAlert(msg) {
         const alertBox = document.getElementById('quickAddAlert');
         const alertMsg = document.getElementById('quickAddAlertMsg');
@@ -462,13 +600,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cat.includes('line')) return 'bg-info text-dark';
         if (cat.includes('knot')) return 'bg-warning text-dark';
         if (cat.includes('leader')) return 'bg-success';
-        if (cat.includes('tippet')) return 'bg-teal text-white bg-opacity-75' || 'bg-success';
+        if (cat.includes('tippet')) return 'bg-success';
+        if (cat.includes('in-line') || cat.includes('inline')) return 'bg-dark';
+        if (cat.includes('flexible')) return 'bg-danger';
         if (cat.includes('hardware')) return 'bg-dark';
         if (cat.includes('fly') || cat.includes('hook')) return 'bg-danger';
         return 'bg-secondary';
     }
 
-    // 2. Populate Item Select based on Category
+    // Populate Item Select based on Category
     function populateItemSelect(catVal, targetSelectEl) {
         targetSelectEl.innerHTML = '';
         if (!catVal) {
@@ -496,16 +636,89 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Populate Target Component Selects for Flexible Hardware
+    function populateTargetStepSelects(preselectedIdx) {
+        const selects = [builderAttachTargetSelect, document.getElementById('modalAttachmentTargetStepSelect')];
+        selects.forEach(selectEl => {
+            if (!selectEl) return;
+            selectEl.innerHTML = '';
+            if (rigChain.length === 0) {
+                selectEl.innerHTML = '<option value="">-- No components in chain yet --</option>';
+                return;
+            }
+            let lastLineOrTippetIdx = -1;
+            rigChain.forEach((step, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                const lenStr = step.length ? ` (${step.length})` : '';
+                opt.textContent = `#${idx + 1} ${step.category}: ${step.name || ''}${lenStr}`;
+                selectEl.appendChild(opt);
+
+                const cat = (step.category || '').toLowerCase();
+                if (cat.includes('tippet') || cat.includes('leader') || cat.includes('line')) {
+                    lastLineOrTippetIdx = idx;
+                }
+            });
+
+            if (preselectedIdx !== undefined && preselectedIdx !== null && preselectedIdx >= 0 && preselectedIdx < rigChain.length) {
+                selectEl.value = preselectedIdx;
+            } else if (lastLineOrTippetIdx >= 0) {
+                selectEl.value = lastLineOrTippetIdx;
+            } else {
+                selectEl.value = rigChain.length - 1;
+            }
+        });
+    }
+
+    // Builder Category Select Change
     builderCategorySelect.addEventListener('change', function() {
         const catVal = this.value;
-        populateItemSelect(catVal, builderItemSelect);
+        const catOpt = this.options[this.selectedIndex];
+        const catName = (catOpt ? catOpt.getAttribute('data-cat-name') : '').toLowerCase();
+        const isFlex = catName.includes('flexible') || catVal === '7';
+
+        if (isFlex) {
+            // Flexible Hardware Attachment Mode
+            builderLengthCol.classList.add('d-none');
+            btnAddStepToChain.classList.add('d-none');
+            sequentialLengthPresets.classList.add('d-none');
+
+            builderAttachTargetCol.classList.remove('d-none');
+            builderAttachDistCol.classList.remove('d-none');
+            btnAddFlexAttachment.classList.remove('d-none');
+            flexibleDistPresets.classList.remove('d-none');
+
+            populateItemSelect(catVal, builderItemSelect);
+            populateTargetStepSelects();
+        } else {
+            // Standard Sequential Step Mode
+            builderLengthCol.classList.remove('d-none');
+            btnAddStepToChain.classList.remove('d-none');
+            sequentialLengthPresets.classList.remove('d-none');
+
+            builderAttachTargetCol.classList.add('d-none');
+            builderAttachDistCol.classList.add('d-none');
+            btnAddFlexAttachment.classList.add('d-none');
+            flexibleDistPresets.classList.add('d-none');
+
+            populateItemSelect(catVal, builderItemSelect);
+        }
         btnQuickAddFromBuilder.disabled = !catVal;
     });
 
-    // Quick length preset buttons
+    // Preset buttons
     document.querySelectorAll('.btn-length-preset').forEach(btn => {
         btn.addEventListener('click', function() {
             builderLengthInput.value = this.getAttribute('data-length');
+        });
+    });
+
+    document.querySelectorAll('.btn-dist-preset').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const dist = this.getAttribute('data-dist');
+            if (builderAttachDistInput) builderAttachDistInput.value = dist;
+            const modalDistInput = document.getElementById('modalAttachmentDistance');
+            if (modalDistInput) modalDistInput.value = dist;
         });
     });
 
@@ -517,15 +730,27 @@ document.addEventListener('DOMContentLoaded', function() {
             chainStepCountBadge.textContent = '0 Components';
         } else {
             emptyChainState.classList.add('d-none');
-            chainStepCountBadge.textContent = `${rigChain.length} Component${rigChain.length === 1 ? '' : 's'}`;
+            chainStepCountBadge.textContent = `${rigChain.length} Sequential Step${rigChain.length === 1 ? '' : 's'}`;
 
             rigChain.forEach((step, index) => {
                 const stepEl = createStepCardElement(step, index);
                 chainItemsContainer.appendChild(stepEl);
             });
         }
+
+        // Render dedicated Flexible Hardware Attachments section
+        renderFlexibleAttachmentsSection();
+
+        // Update target selects
+        populateTargetStepSelects();
+
         // Keep form input in sync
         updateSetupDataInput();
+
+        // Update Live Illustrated Diagram
+        if (window.RigDiagramRenderer) {
+            RigDiagramRenderer.render('formIllustratedDiagramContainer', rigChain);
+        }
     }
 
     function updateSetupDataInput() {
@@ -560,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <div class="d-flex align-items-center gap-1">
                     ${isLineOrLeader ? `
-                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-open-attach-modal" data-index="${index}" title="Attach Strike Indicator or Split Shot">
+                        <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-open-attach-modal" data-index="${index}" title="Attach Strike Indicator or Split Shot to this component">
                             <i class="bi bi-paperclip me-1"></i>Attach
                         </button>
                     ` : ''}
@@ -586,12 +811,12 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        // Render Attachments (if any)
+        // Render Attachments on this step (if any)
         if (step.attachments && step.attachments.length > 0) {
             html += `<div class="mt-2 pt-2 border-top d-flex flex-wrap gap-2 align-items-center">`;
-            html += `<span class="small text-muted fw-bold"><i class="bi bi-paperclip me-1"></i>Attachments:</span>`;
+            html += `<span class="small text-danger fw-bold"><i class="bi bi-paperclip me-1"></i>Mounted Attachments:</span>`;
             step.attachments.forEach((att, attIdx) => {
-                const icon = att.type === 'indicator' ? '🔴' : '⚖️';
+                const icon = (att.type === 'indicator' || (att.name || '').toLowerCase().includes('indicator') || (att.name || '').toLowerCase().includes('float')) ? '🔴' : '⚖️';
                 html += `
                     <span class="badge bg-danger-subtle text-danger border border-danger-subtle d-inline-flex align-items-center gap-1">
                         ${icon} <b>${att.name || att.type}</b> ${att.distance ? `(${att.distance})` : ''}
@@ -629,9 +854,68 @@ document.addEventListener('DOMContentLoaded', function() {
         return card;
     }
 
+    // Render Dedicated Flexible Hardware Attachments Section at Bottom
+    function renderFlexibleAttachmentsSection() {
+        if (!builderFlexibleAttachmentsList) return;
+        builderFlexibleAttachmentsList.innerHTML = '';
 
+        let allAttachments = [];
+        rigChain.forEach((step, stepIdx) => {
+            if (step.attachments && Array.isArray(step.attachments)) {
+                step.attachments.forEach((att, attIdx) => {
+                    allAttachments.push({
+                        stepIdx: stepIdx,
+                        attIdx: attIdx,
+                        step: step,
+                        att: att
+                    });
+                });
+            }
+        });
 
-    // 5. Add Step Event
+        if (allAttachments.length === 0) {
+            builderFlexibleAttachmentsList.innerHTML = `
+                <div class="text-muted small fst-italic py-2 px-1">
+                    <i class="bi bi-info-circle me-1"></i>No flexible hardware attached yet. Select "Flexible Hardware" in the category dropdown above, or click "Attach" on any line component to mount a strike indicator or split shot.
+                </div>
+            `;
+            return;
+        }
+
+        allAttachments.forEach(item => {
+            const { stepIdx, attIdx, step, att } = item;
+            const isInd = (att.type === 'indicator') || (att.name || '').toLowerCase().includes('indicator') || (att.name || '').toLowerCase().includes('float');
+            const icon = isInd ? '🔴' : '⚖️';
+            const badgeClass = isInd ? 'bg-danger-subtle text-danger border border-danger-subtle' : 'bg-secondary-subtle text-dark border border-secondary-subtle';
+
+            const row = document.createElement('div');
+            row.className = `p-2 rounded border shadow-sm bg-white d-flex flex-wrap align-items-center justify-content-between gap-2 border-start border-4 ${isInd ? 'border-start-danger' : 'border-start-secondary'}`;
+            row.innerHTML = `
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <span class="fs-5">${icon}</span>
+                    <div>
+                        <span class="fw-bold text-dark">${att.name || 'Flexible Hardware'}</span>
+                        <span class="badge ${badgeClass} ms-1">${isInd ? 'Strike Indicator' : 'Split Shot'}</span>
+                    </div>
+                    <span class="badge bg-primary">
+                        <i class="bi bi-link-45deg me-1"></i>Attached to #${stepIdx + 1} ${step.category}: ${step.name || ''} ${step.length ? `(${step.length})` : ''}
+                    </span>
+                    ${att.distance ? `<span class="badge bg-info text-dark fw-bold"><i class="bi bi-geo-alt-fill me-1"></i>${att.distance}</span>` : ''}
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                    <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2 btn-edit-attachment" data-step-index="${stepIdx}" data-att-index="${attIdx}" title="Edit Attachment">
+                        <i class="bi bi-pencil me-1"></i>Edit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm py-0 px-2 btn-delete-attachment" data-step-index="${stepIdx}" data-att-index="${attIdx}" title="Remove Attachment">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `;
+            builderFlexibleAttachmentsList.appendChild(row);
+        });
+    }
+
+    // 5. Add Step Event (Sequential)
     btnAddStepToChain.addEventListener('click', function() {
         const catOpt = builderCategorySelect.options[builderCategorySelect.selectedIndex];
         const itemOpt = builderItemSelect.options[builderItemSelect.selectedIndex];
@@ -668,12 +952,55 @@ document.addEventListener('DOMContentLoaded', function() {
         rigChain.push(stepObj);
         renderRigChain();
 
-        // Reset length for next item, keep category or clear
         builderLengthInput.value = '';
     });
 
-    // 6. Chain Interactions (Move up, Move down, Delete)
-    chainItemsContainer.addEventListener('click', function(e) {
+    // Add Flexible Hardware Attachment from Top Control Bar
+    btnAddFlexAttachment.addEventListener('click', function() {
+        if (rigChain.length === 0) {
+            alert('Please add at least one component (Fly Line, Leader, Tippet) to your rig before attaching flexible hardware.');
+            return;
+        }
+        const itemOpt = builderItemSelect.options[builderItemSelect.selectedIndex];
+        if (!builderItemSelect.value || !itemOpt) {
+            alert('Please select a Flexible Hardware item.');
+            builderItemSelect.focus();
+            return;
+        }
+        const targetStepIdx = parseInt(builderAttachTargetSelect.value);
+        if (isNaN(targetStepIdx) || !rigChain[targetStepIdx]) {
+            alert('Please select a valid component to attach to.');
+            return;
+        }
+
+        const itemId = parseInt(itemOpt.value);
+        const itemName = itemOpt.getAttribute('data-full-name') || itemOpt.getAttribute('data-name') || itemOpt.text;
+        const dist = builderAttachDistInput.value.trim();
+
+        let attType = 'indicator';
+        const lower = itemName.toLowerCase();
+        if (lower.includes('shot') || lower.includes('weight') || lower.includes('sinker') || lower.includes('putty')) {
+            attType = 'split_shot';
+        }
+
+        if (!rigChain[targetStepIdx].attachments) {
+            rigChain[targetStepIdx].attachments = [];
+        }
+
+        rigChain[targetStepIdx].attachments.push({
+            id: itemId,
+            name: itemName,
+            type: attType,
+            distance: dist
+        });
+
+        showAlert(`Attached "${itemName}" to #${targetStepIdx + 1} ${rigChain[targetStepIdx].category}!`);
+        builderAttachDistInput.value = '';
+        renderRigChain();
+    });
+
+    // 6. Chain Interactions & Attachments Editing
+    document.addEventListener('click', function(e) {
         // Move Up
         const moveUpBtn = e.target.closest('.btn-move-up');
         if (moveUpBtn) {
@@ -724,6 +1051,23 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Edit Attachment
+        const editAttBtn = e.target.closest('.btn-edit-attachment');
+        if (editAttBtn) {
+            const stepIdx = parseInt(editAttBtn.getAttribute('data-step-index'));
+            const attIdx = parseInt(editAttBtn.getAttribute('data-att-index'));
+            openAttachmentModal(stepIdx, attIdx);
+            return;
+        }
+
+        // Open Attachment Modal from step card
+        const attachBtn = e.target.closest('.btn-open-attach-modal');
+        if (attachBtn) {
+            const idx = parseInt(attachBtn.getAttribute('data-index'));
+            openAttachmentModal(idx, -1);
+            return;
+        }
+
         // Clear Dropper Branch
         const clearDropperBtn = e.target.closest('.btn-clear-dropper');
         if (clearDropperBtn) {
@@ -732,17 +1076,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 delete rigChain[idx].dropper_branch;
                 renderRigChain();
             }
-            return;
-        }
-
-        // Open Attachment Modal
-        const attachBtn = e.target.closest('.btn-open-attach-modal');
-        if (attachBtn) {
-            const idx = attachBtn.getAttribute('data-index');
-            document.getElementById('modalAttachmentTargetStepIndex').value = idx;
-            document.getElementById('modalAttachmentName').value = '';
-            document.getElementById('modalAttachmentDistance').value = '';
-            $('#addAttachmentModal').modal('show');
             return;
         }
 
@@ -761,6 +1094,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    function openAttachmentModal(targetStepIdx, editAttIdx) {
+        document.getElementById('modalAttachmentTargetStepIndex').value = targetStepIdx >= 0 ? targetStepIdx : 0;
+        document.getElementById('modalAttachmentEditIndex').value = editAttIdx !== undefined ? editAttIdx : -1;
+
+        populateTargetStepSelects(targetStepIdx >= 0 ? targetStepIdx : undefined);
+
+        const flexSelect = document.getElementById('modalFlexibleHardwareSelect');
+        if (flexSelect) {
+            flexSelect.innerHTML = '<option value="">-- Select from your Flexible Hardware or type below --</option>';
+            const flexCat = categoryList.find(c => (c.name || '').toLowerCase().includes('flexible'));
+            const flexCatId = flexCat ? String(flexCat.id) : '7';
+            const flexItems = itemsByCat[flexCatId] || [];
+            flexItems.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.textContent = item.full_name || item.name;
+                opt.setAttribute('data-name', item.name);
+                opt.setAttribute('data-full-name', item.full_name || item.name);
+                flexSelect.appendChild(opt);
+            });
+            flexSelect.value = '';
+        }
+
+        if (editAttIdx >= 0 && targetStepIdx >= 0 && rigChain[targetStepIdx] && rigChain[targetStepIdx].attachments) {
+            const att = rigChain[targetStepIdx].attachments[editAttIdx];
+            if (att) {
+                document.getElementById('modalAttachmentName').value = att.name || '';
+                document.getElementById('modalAttachmentType').value = att.type || 'indicator';
+                document.getElementById('modalAttachmentDistance').value = att.distance || '';
+                if (att.id && flexSelect) flexSelect.value = att.id;
+            }
+        } else {
+            document.getElementById('modalAttachmentName').value = '';
+            document.getElementById('modalAttachmentDistance').value = '';
+            document.getElementById('modalAttachmentType').value = 'indicator';
+        }
+
+        $('#addAttachmentModal').modal('show');
+    }
+
+    if (btnOpenGlobalAttachModal) {
+        btnOpenGlobalAttachModal.addEventListener('click', function() {
+            if (rigChain.length === 0) {
+                alert('Please add at least one component (Fly Line, Leader, Tippet) to your rig before attaching flexible hardware.');
+                return;
+            }
+            openAttachmentModal(-1, -1);
+        });
+    }
+
+    // Flexible hardware select change in modal
+    const modalFlexibleHardwareSelect = document.getElementById('modalFlexibleHardwareSelect');
+    if (modalFlexibleHardwareSelect) {
+        modalFlexibleHardwareSelect.addEventListener('change', function() {
+            const selOpt = this.options[this.selectedIndex];
+            if (selOpt && selOpt.value) {
+                const itemName = selOpt.getAttribute('data-name') || selOpt.text;
+                document.getElementById('modalAttachmentName').value = itemName;
+                const lower = itemName.toLowerCase();
+                if (lower.includes('indicator') || lower.includes('float') || lower.includes('bobber') || lower.includes('yarn')) {
+                    document.getElementById('modalAttachmentType').value = 'indicator';
+                } else if (lower.includes('shot') || lower.includes('weight') || lower.includes('sinker') || lower.includes('putty')) {
+                    document.getElementById('modalAttachmentType').value = 'split_shot';
+                }
+            }
+        });
+    }
+
     // Clear whole chain
     btnClearChain.addEventListener('click', function() {
         if (rigChain.length > 0 && confirm('Are you sure you want to clear all steps in the rig chain?')) {
@@ -769,30 +1170,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 7. Attachments Modal Logic
+    // 7. Attachments Modal Save Logic
     document.getElementById('btnSaveAttachment').addEventListener('click', function() {
-        const stepIdx = parseInt(document.getElementById('modalAttachmentTargetStepIndex').value);
+        const origStepIdx = parseInt(document.getElementById('modalAttachmentTargetStepIndex').value);
+        const editIdx = parseInt(document.getElementById('modalAttachmentEditIndex').value);
+        const targetStepIdx = parseInt(document.getElementById('modalAttachmentTargetStepSelect').value);
         const type = document.getElementById('modalAttachmentType').value;
         const name = document.getElementById('modalAttachmentName').value.trim();
         const distance = document.getElementById('modalAttachmentDistance').value.trim();
+        const flexSelect = document.getElementById('modalFlexibleHardwareSelect');
+        const flexId = flexSelect && flexSelect.value ? parseInt(flexSelect.value) : null;
 
         if (!name) {
-            alert('Please specify an item name or size (e.g. Thingamabobber 3/4", 2x Split Shot).');
+            alert('Please specify an item name (e.g. Strike Indicators, Thingamabobber 3/4", 2x Split Shot).');
             return;
         }
 
-        if (rigChain[stepIdx]) {
-            if (!rigChain[stepIdx].attachments) {
-                rigChain[stepIdx].attachments = [];
-            }
-            rigChain[stepIdx].attachments.push({
-                type: type,
-                name: name,
-                distance: distance
-            });
-            renderRigChain();
-            $('#addAttachmentModal').modal('hide');
+        if (isNaN(targetStepIdx) || !rigChain[targetStepIdx]) {
+            alert('Please select a valid component to attach to.');
+            return;
         }
+
+        // If editing and target step changed or replacing old
+        if (!isNaN(origStepIdx) && origStepIdx >= 0 && origStepIdx < rigChain.length && editIdx >= 0) {
+            if (rigChain[origStepIdx] && rigChain[origStepIdx].attachments) {
+                rigChain[origStepIdx].attachments.splice(editIdx, 1);
+                if (rigChain[origStepIdx].attachments.length === 0) {
+                    delete rigChain[origStepIdx].attachments;
+                }
+            }
+        }
+
+        if (!rigChain[targetStepIdx].attachments) {
+            rigChain[targetStepIdx].attachments = [];
+        }
+
+        const attObj = {
+            type: type,
+            name: name,
+            distance: distance
+        };
+        if (flexId) attObj.id = flexId;
+
+        rigChain[targetStepIdx].attachments.push(attObj);
+
+        renderRigChain();
+        $('#addAttachmentModal').modal('hide');
     });
 
     // 8. Dropper Branch Modal Logic
@@ -882,7 +1305,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 10. Quick Add Button Trigger in Builder Bar
+    // Quick Add Button Trigger in Builder Bar
     btnQuickAddFromBuilder.addEventListener('click', function() {
         const catVal = builderCategorySelect.value;
         if (catVal === 'knot') {
@@ -904,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 11. Quick Add Save Handlers
+    // Quick Add Save Handlers
     document.getElementById('btnSaveQuickLocker').addEventListener('click', function() {
         const category = document.getElementById('modalLockerCategory').value;
         const name = document.getElementById('modalLockerName').value.trim();

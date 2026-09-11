@@ -1,4 +1,5 @@
 {% extends "catches/base/base.html" %}
+{% load static %}
 {% block title %}Setup: {{ setup.name }}{% endblock %}
 {% block content %}
 
@@ -26,14 +27,33 @@
 
                 <!-- Visual Rig Flowchart / Diagram -->
                 <div class="card-body bg-light">
-                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
-                        <h5 class="fw-bold text-dark mb-0">
-                            <i class="bi bi-bezier2 text-primary me-2"></i>Visual Rig Sequence Diagram
-                        </h5>
-                        <span class="badge bg-primary fs-6">{{ chain_items|length }} Components</span>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2 mb-3 gap-2">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-0">
+                                <i class="bi bi-diagram-3 text-primary me-2"></i>Visual Rig Sequence Diagram
+                            </h5>
+                            <small class="text-muted">Interactive fly rod rigging flow & sequence</small>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-primary fs-6">{{ chain_items|length }} Component{{ chain_items|length|pluralize }}</span>
+                            <div class="btn-group btn-group-sm shadow-sm" role="group" aria-label="Diagram View Mode">
+                                <button type="button" class="btn btn-primary" id="btnViewIllustrated" title="Illustrated Graphic Rig Diagram">
+                                    <i class="bi bi-image me-1"></i>Illustrated
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="btnViewSequence" title="Node Card Sequence Flow">
+                                    <i class="bi bi-list-nested me-1"></i>Cards
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="rig-diagram-container p-3 rounded border bg-white shadow-sm overflow-auto">
+                    <!-- View 1: Illustrated Graphic Rig Diagram (Default) -->
+                    <div id="illustratedRigContainer" class="p-2 rounded border bg-dark shadow-sm overflow-hidden mb-3">
+                        <!-- Rendered by RigDiagramRenderer in JS -->
+                    </div>
+
+                    <!-- View 2: Node Cards Flow (Toggleable) -->
+                    <div id="sequenceCardsContainer" class="rig-diagram-container p-3 rounded border bg-white shadow-sm overflow-auto mb-3 d-none">
                         <div class="d-flex flex-wrap align-items-center justify-content-start gap-2 py-2">
                             
                             {% if chain_items %}
@@ -129,13 +149,6 @@
                                     {% endif %}
                                 {% endfor %}
 
-                                <!-- Terminal Fly / End Indicator -->
-                                <div class="rig-arrow text-success fw-bold fs-4 px-1"><i class="bi bi-arrow-right"></i></div>
-                                <div class="rig-node text-center p-2 rounded border bg-success text-white shadow-sm" style="min-width: 90px;">
-                                    <i class="bi bi-bullseye fs-4 d-block mb-1"></i>
-                                    <span class="badge bg-dark">Hook / Fly</span>
-                                </div>
-
                             {% else %}
                                 <div class="alert alert-info py-2 px-3 mb-0">
                                     No components added to this rig yet. <a href="{% url 'setup_update' setup.id %}" class="alert-link">Edit setup</a> to build your chain.
@@ -146,19 +159,21 @@
                     </div>
                 </div>
 
-                <!-- Step Breakdown Table -->
+                <!-- Step Breakdown Table (Sequential Components) -->
                 <div class="card-body border-top">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-list-ol me-2"></i>Rig Component Breakdown</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-list-ol me-2"></i>Rig Component Breakdown</h5>
+                        <span class="badge bg-primary fs-6">{{ chain_items|length }} Sequential Step{{ chain_items|length|pluralize }}</span>
+                    </div>
                     {% if chain_items %}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 60px;" class="text-center">#</th>
-                                    <th style="width: 130px;">Category</th>
+                                    <th style="width: 140px;">Category</th>
                                     <th>Component / Item Details</th>
-                                    <th style="width: 110px;">Length</th>
-                                    <th>Attachments (Indicator / Split Shot)</th>
+                                    <th style="width: 120px;">Length</th>
                                     <th>'Y' Dropper Branch</th>
                                 </tr>
                             </thead>
@@ -185,6 +200,11 @@
                                             <a href="{% url 'locker_detail' item.locker_obj.id %}" class="fw-bold text-decoration-none">
                                                 {{ item.locker_obj.locker_full_name }}
                                             </a>
+                                            {% if item.locker_obj.brand or item.locker_obj.model %}
+                                            <div class="text-muted small">
+                                                {{ item.locker_obj.brand }} {{ item.locker_obj.model }}
+                                            </div>
+                                            {% endif %}
                                         {% elif item.knot_obj %}
                                             <a href="{% url 'knot_detail' item.knot_obj.id %}" class="fw-bold text-decoration-none">
                                                 🪢 {{ item.knot_obj.name }}
@@ -198,17 +218,6 @@
                                         <span class="badge bg-dark"><i class="bi bi-rulers me-1"></i>{{ item.length }}</span>
                                         {% else %}
                                         <span class="text-muted">-</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if item.attachments %}
-                                            {% for att in item.attachments %}
-                                            <span class="badge bg-danger shadow-sm mb-1">
-                                                {% if att.type == 'indicator' %}🔴{% else %}⚖️{% endif %} {{ att.name }} {% if att.distance %}({{ att.distance }}){% endif %}
-                                            </span>
-                                            {% endfor %}
-                                        {% else %}
-                                            <span class="text-muted">-</span>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -232,7 +241,101 @@
                     </div>
                     {% else %}
                     <div class="alert alert-secondary text-center mb-0">
-                        No components configured yet.
+                        No sequential components configured yet.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Dedicated Flexible Hardware & Line Attachments Section (Bottom) -->
+                <div class="card-body border-top bg-light-subtle">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-paperclip text-danger me-2"></i>Flexible Hardware Attachments
+                        </h5>
+                        <span class="badge bg-danger fs-6">{{ flexible_attachments|length }} Attachment{{ flexible_attachments|length|pluralize }}</span>
+                    </div>
+                    <p class="text-muted small mb-3">
+                        Non-structural line attachments (strike indicators, floats, split shot, weights) attached to specific rig components.
+                    </p>
+
+                    {% if flexible_attachments %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle bg-white shadow-sm mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 50px;" class="text-center">#</th>
+                                    <th style="width: 250px;">Attachment Item</th>
+                                    <th style="width: 160px;">Type</th>
+                                    <th>Attached To Component</th>
+                                    <th style="width: 200px;">Position / Distance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for att in flexible_attachments %}
+                                <tr>
+                                    <td class="fw-bold text-center text-muted">{{ forloop.counter }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="fs-5">
+                                                {% if att.type == 'indicator' or 'indicator' in att.name|lower or 'float' in att.name|lower %}🔴{% else %}⚖️{% endif %}
+                                            </span>
+                                            <div>
+                                                {% if att.locker_obj %}
+                                                    <a href="{% url 'locker_detail' att.locker_obj.id %}" class="fw-bold text-decoration-none text-dark">
+                                                        {{ att.locker_obj.locker_full_name }}
+                                                    </a>
+                                                    {% if att.locker_obj.brand or att.locker_obj.characteristics %}
+                                                    <div class="text-muted" style="font-size: 0.75rem;">
+                                                        {{ att.locker_obj.brand }} {{ att.locker_obj.characteristics }}
+                                                    </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="fw-bold text-dark">{{ att.name }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if att.type == 'indicator' or 'indicator' in att.name|lower or 'float' in att.name|lower %}
+                                            <span class="badge bg-danger">🔴 Strike Indicator / Float</span>
+                                        {% elif att.type == 'split_shot' or 'shot' in att.name|lower or 'weight' in att.name|lower %}
+                                            <span class="badge bg-secondary">⚖️ Split Shot / Weight</span>
+                                        {% else %}
+                                            <span class="badge bg-dark">📎 Line Attachment</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if att.attached_to_order %}
+                                            <div class="d-flex align-items-center flex-wrap gap-1">
+                                                <span class="badge bg-primary">#{{ att.attached_to_order }} {{ att.attached_to_category }}</span>
+                                                {% if att.attached_to_obj %}
+                                                    <span class="fw-semibold text-dark">{{ att.attached_to_obj.name }}</span>
+                                                {% else %}
+                                                    <span class="fw-semibold text-dark">{{ att.attached_to_name }}</span>
+                                                {% endif %}
+                                                {% if att.attached_to_length %}
+                                                    <span class="badge bg-dark text-light"><i class="bi bi-rulers me-1"></i>{{ att.attached_to_length }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <span class="text-muted fst-italic">Rig Line ({{ att.attached_to_category|default:"Main Line" }})</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if att.distance %}
+                                            <span class="badge bg-info text-dark fw-bold"><i class="bi bi-geo-alt-fill me-1"></i>{{ att.distance }}</span>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-light border text-muted py-2 px-3 mb-0">
+                        <i class="bi bi-info-circle me-1"></i>No flexible hardware (strike indicators or split shot) attached to this setup.
                     </div>
                     {% endif %}
                 </div>
@@ -403,4 +506,47 @@
     </div>
 </div>
 
+<script id="rigSetupDataJson" type="application/json">
+{{ setup.json_string|safe }}
+</script>
+<script src="{% static 'catches/site/js/rig_diagram_renderer.js' %}?v=20260911_v5"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const rawData = document.getElementById('rigSetupDataJson').textContent || '[]';
+    let chainData = [];
+    try {
+        chainData = JSON.parse(rawData);
+    } catch (e) {
+        console.warn('Could not parse rig data:', e);
+        chainData = [];
+    }
+
+    // Render Illustrated Diagram
+    if (window.RigDiagramRenderer) {
+        RigDiagramRenderer.render('illustratedRigContainer', chainData);
+    }
+
+    // View Mode Toggle Handlers
+    const btnIllustrated = document.getElementById('btnViewIllustrated');
+    const btnSequence = document.getElementById('btnViewSequence');
+    const containerIllustrated = document.getElementById('illustratedRigContainer');
+    const containerSequence = document.getElementById('sequenceCardsContainer');
+
+    if (btnIllustrated && btnSequence) {
+        btnIllustrated.addEventListener('click', function() {
+            btnIllustrated.className = 'btn btn-primary';
+            btnSequence.className = 'btn btn-outline-secondary';
+            containerIllustrated.classList.remove('d-none');
+            containerSequence.classList.add('d-none');
+        });
+
+        btnSequence.addEventListener('click', function() {
+            btnSequence.className = 'btn btn-primary';
+            btnIllustrated.className = 'btn btn-outline-secondary';
+            containerSequence.classList.remove('d-none');
+            containerIllustrated.classList.add('d-none');
+        });
+    }
+});
+</script>
 {% endblock content %}

@@ -2263,6 +2263,7 @@ class SetupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['chain_items'] = self.object.get_chain_items()
+        context['flexible_attachments'] = self.object.get_flexible_attachments()
         context['videos_list'] = self.object.videos.all()
         context['articles_list'] = self.object.articles.all()
         context['pictures_list'] = self.object.pictures.all()
@@ -2489,6 +2490,7 @@ class StrategyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         context['catches_list'] = self.object.logs.all().order_by('-catch_date')[:10]
         if self.object.setup:
             context['chain_items'] = self.object.setup.get_chain_items()
+            context['flexible_attachments'] = self.object.setup.get_flexible_attachments()
         return context
 
 

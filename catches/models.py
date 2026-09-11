@@ -1174,9 +1174,15 @@ class Setup(models.Model):
         knots_map = {k.id: k for k in Knot.objects.filter(id__in=knot_ids)} if knot_ids else {}
 
         resolved_items = []
-        for idx, step in enumerate(data, start=1):
+        seq_idx = 1
+        for step in data:
             cat = step.get('category', 'Gear')
             cat_id = str(step.get('category_id', ''))
+            
+            # Flexible Hardware items are attachments, not sequential chain links
+            if 'flexible' in cat.lower() or 'flexible' in cat_id.lower():
+                continue
+
             item_id = step.get('id')
             item_name = step.get('name', '')
             length = step.get('length', '')
@@ -1223,7 +1229,7 @@ class Setup(models.Model):
                 })
 
             resolved_items.append({
-                'order': idx,
+                'order': seq_idx,
                 'category': cat,
                 'name': item_name or (f"{cat} #{item_id}" if item_id else cat),
                 'length': length,
@@ -1233,7 +1239,93 @@ class Setup(models.Model):
                 'knot_obj': knot_obj,
                 'raw': step
             })
+            seq_idx += 1
         return resolved_items
+
+    def get_flexible_attachments(self):
+        """
+        Returns all flexible hardware attachments attached to components in the rig chain,
+        including details about the parent component they are mounted on.
+        """
+        if not self.setup_data:
+            return []
+
+        data = self.setup_data
+        if isinstance(data, str):
+            try:
+                data = json.loads(data)
+            except Exception:
+                data = []
+        if not isinstance(data, list) or len(data) == 0:
+            return []
+
+        chain = self.get_chain_items()
+
+        # Collect any locker IDs for attachments
+        att_locker_ids = []
+        for step in chain:
+            for att in step.get('attachments', []):
+                att_id = att.get('id')
+                if att_id and str(att_id).isdigit():
+                    att_locker_ids.append(int(att_id))
+        for raw_item in data:
+            raw_cat = str(raw_item.get('category', '')).lower()
+            if 'flexible' in raw_cat:
+                raw_id = raw_item.get('id')
+                if raw_id and str(raw_id).isdigit():
+                    att_locker_ids.append(int(raw_id))
+
+        att_lockers_map = {l.id: l for l in Locker.objects.filter(id__in=att_locker_ids)} if att_locker_ids else {}
+
+        attachments_list = []
+        for step in chain:
+            for att in step.get('attachments', []):
+                att_id = att.get('id')
+                locker_obj = att_lockers_map.get(int(att_id)) if att_id and str(att_id).isdigit() else None
+                name = att.get('name', '')
+                if locker_obj and not name:
+                    name = locker_obj.locker_full_name
+                attachments_list.append({
+                    'id': att_id,
+                    'name': name or 'Flexible Hardware',
+                    'type': att.get('type', 'indicator'),
+                    'distance': att.get('distance', ''),
+                    'attached_to_order': step.get('order'),
+                    'attached_to_category': step.get('category'),
+                    'attached_to_name': step.get('name'),
+                    'attached_to_length': step.get('length'),
+                    'attached_to_obj': step.get('locker_obj') or step.get('knot_obj'),
+                    'locker_obj': locker_obj,
+                })
+
+        # Also handle any legacy standalone flexible hardware items in raw data
+        for raw_item in data:
+            raw_cat = str(raw_item.get('category', '')).lower()
+            if 'flexible' in raw_cat:
+                raw_id = raw_item.get('id')
+                locker_obj = att_lockers_map.get(int(raw_id)) if raw_id and str(raw_id).isdigit() else None
+                name = raw_item.get('name', '')
+                if locker_obj and not name:
+                    name = locker_obj.locker_full_name
+                already = any(a.get('name') == name for a in attachments_list)
+                if not already:
+                    # Find preceding line if available
+                    preceding = chain[-1] if chain else None
+                    attachments_list.append({
+                        'id': raw_id,
+                        'name': name or 'Flexible Hardware',
+                        'type': 'indicator' if ('indicator' in name.lower() or 'float' in name.lower()) else 'split_shot',
+                        'distance': raw_item.get('distance', raw_item.get('length', '')),
+                        'attached_to_order': preceding.get('order') if preceding else None,
+                        'attached_to_category': preceding.get('category') if preceding else 'Tippet',
+                        'attached_to_name': preceding.get('name') if preceding else 'Tippet Line',
+                        'attached_to_length': preceding.get('length') if preceding else '',
+                        'attached_to_obj': preceding.get('locker_obj') if preceding else None,
+                        'locker_obj': locker_obj,
+                    })
+
+        return attachments_list
+
 
 
 class Strategy(models.Model):
