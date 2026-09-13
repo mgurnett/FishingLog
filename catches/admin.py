@@ -81,6 +81,10 @@ class LakeAdmin (admin.ModelAdmin):
 class RegionAdmin (admin.ModelAdmin):
     list_display = ['name', 'profile', 'address', 'city', 'prov']
 
+@admin.register (Updated)
+class UpdatedAdmin (admin.ModelAdmin):
+    list_display = ['date_stocked', 'number']
+
 @admin.register (Favorite)
 class FavoriteAdmin (admin.ModelAdmin):
     list_display = ['lake', 'user']

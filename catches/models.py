@@ -1364,3 +1364,10 @@ class Strategy(models.Model):
     @property
     def num_of_pics(self):
         return self.pictures.count()
+
+class Updated(models.Model):
+    date_stocked = models.DateField(auto_now=True)
+    number = models.IntegerField ()
+
+    def __str__(self):
+        return f'{self.date_stocked} - {self.number}'

@@ -374,6 +374,12 @@ def stock_import_process(df):
 
         percent = round((line_count + 1) / num_lines * 100, 1)
         print(f'Line count: {line_count+1} of {num_lines} or {percent}% | {total_trout_stocked:,} trout stocked', end="\r")
+    
+    last_update = Updated(
+        date_stocked=timezone.now().date(),
+        number=total_fish_stocked
+    )
+    last_update.save()
 
     return f'\n{total_trout_stocked:,} trout stocked\nTotal of {total_fish_stocked:,} database writes complete.'
 

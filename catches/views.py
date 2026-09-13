@@ -91,6 +91,8 @@ class Home (TemplateView):
         context ['announcments'] = announce_list
         context ['trip'] = trip_str
         context ['lake_link'] = trip_str
+        context ['updated_at'] = Updated.objects.order_by('-id').first().date_stocked
+        context ['updated_num'] = Updated.objects.order_by('-id').first().number
         return context
 
 class RegionListView (PermissionRequiredMixin, ListView):
