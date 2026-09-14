@@ -121,7 +121,7 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
         list_of_lakes = get_lakes_for_user_by_region(self.kwargs['pk'], self.request.user.id)
 
         # Get the current date and time
-        current_time = datetime.now()
+        current_time = timezone.now()
 
         # Access the year attribute
         current_year = current_time.year
@@ -149,7 +149,7 @@ class RegionDetailView(PermissionRequiredMixin, FormMixin, DetailView):
 
 
     def get_context_data(self, **kwargs):
-        current_time = datetime.now()
+        current_time = timezone.now()
         context = super().get_context_data(**kwargs)
         
         # 1. Fetch the user's lakes queryset for this region and convert to a list
@@ -553,7 +553,7 @@ class LakeListView_districts(SuccessMessageMixin, UserAccessMixin, TemplateView)
 
     def get_the_distances(self, lakes_queryset):
         distance_to_lakes = []
-        current_year = datetime.now().year
+        current_year = timezone.now().year
 
         for lake_dis in lakes_queryset:
             lake_distance = find_dist(lake_dis, self.request.user)
@@ -577,7 +577,7 @@ class LakeListView_districts(SuccessMessageMixin, UserAccessMixin, TemplateView)
         
         # 1. Fetch the lakes for this district
         lakes_qs = list(Lake.objects.filter(district=dist[0]))
-        current_time = datetime.now()
+        current_time = timezone.now()
 
         # 2. Check which lakes are favorites for the current user
         if self.request.user.is_authenticated:
@@ -1990,7 +1990,7 @@ def mobile_log_submit_api(request):
         strategy = Strategy.objects.filter(pk=strategy_id).first() if strategy_id else None
 
         # Create Log instance
-        now_dt = dt_module.datetime.now()
+        now_dt = dt_module.timezone.now()
         log = Log.objects.create(
             angler=request.user,
             lake=lake,
