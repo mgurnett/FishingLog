@@ -9,6 +9,7 @@ from crispy_forms.layout import Layout, Fieldset, Field, Submit, Button, Row, Co
 from crispy_forms.bootstrap import FormActions
 # from ckeditor.widgets import CKEditorWidget
 from django_ckeditor_5.widgets import CKEditor5Widget
+from taggit.forms import TagField
 from .models import *
 from catches.helpers.fish_data import *
 
@@ -728,7 +729,7 @@ class New_Video_Form(forms.ModelForm):
         widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
         required=False
     )
-    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+    tags = TagField(required=False, help_text="Comma-separated tags")
 
     class Meta:
         model = Video
@@ -767,7 +768,7 @@ class New_Picture_Form(forms.ModelForm):
         widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
         required=False
     )
-    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+    tags = TagField(required=False, help_text="Comma-separated tags")
 
     class Meta:
         model = Picture
@@ -808,7 +809,7 @@ class New_Article_Form(forms.ModelForm):
         widget=CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="notes"),
         required=False
     )
-    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags")
+    tags = TagField(required=False, help_text="Comma-separated tags")
 
     class Meta:
         model = Article
@@ -900,7 +901,7 @@ class New_Post_Form(forms.ModelForm):
         required=False,
         label="Post Content"
     )
-    tags = forms.CharField(max_length=255, required=False, help_text="Comma-separated tags (e.g., fishing, trout, dryfly)")
+    tags = TagField(required=False, help_text="Comma-separated tags (e.g., fishing, trout, dryfly)")
 
     class Meta:
         model = Post

@@ -1901,8 +1901,6 @@ def mobile_log_submit_api(request):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'Authentication required. Please log in.'}, status=401)
 
-    import datetime as dt_module
-
     try:
         if request.content_type == 'application/json':
             data = json.loads(request.body.decode('utf-8'))
@@ -1990,7 +1988,7 @@ def mobile_log_submit_api(request):
         strategy = Strategy.objects.filter(pk=strategy_id).first() if strategy_id else None
 
         # Create Log instance
-        now_dt = dt_module.timezone.now()
+        now_dt = timezone.now()
         log = Log.objects.create(
             angler=request.user,
             lake=lake,

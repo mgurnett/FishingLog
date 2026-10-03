@@ -1,4 +1,7 @@
 ## Bugs
+- [*] On the mobile section, I often get the error: "type object 'datetime.timezone' has no attribute 'now' (Fixed: used Django timezone.now() in mobile_log_submit_api)
+- [*] I just tried to save a picture to a lake, and the tags were all messed up. (Fixed: used TagField in New_Picture_Form, New_Video_Form, New_Article_Form, and New_Post_Form so taggit properly parses and saves tag lists instead of individual characters)
+
 
 ## High
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
