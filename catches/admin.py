@@ -66,7 +66,7 @@ class LogWeatherAdmin (admin.ModelAdmin):
 
 @admin.register (Lake)
 class LakeAdmin (admin.ModelAdmin):
-    list_display = ['name', 'landl', 'static_tag', 'dist_name', 'reg_location']
+    list_display = ['name', 'landl', 'static_tag', 'dist_name', 'reg_location', 'ats']
 
     def landl (self, obj):
         return str(f'{obj.lat:.5f} & {obj.long:.5f}')
