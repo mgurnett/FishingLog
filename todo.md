@@ -2,8 +2,6 @@
 
 
 ## High
-- [ ] I want to automate the import of stocks into the database, so that I don't have to manually import them.  There is a script called pdf_to_db_stockings.py that I use to import them.  
-
 - [ ] Add a list of regions that a lake can be added to.  The opposite of what I have now which is a list of lakes that can be added to a region
 - [ ] Rethink tags (rethink tags across the site, articles, videos, and how tagging is approached)
 - [ ] work on validations
@@ -22,6 +20,7 @@
 - [ ] distance - run each lake once from a script and put in the distance into a separate model.  Then I can sort by distance.
 
 ## DONE
+- [*] Automate stock import into database (Updated pdf_to_db_stockings.py to auto-download from Open Alberta, fixed multi-line column wrapping for strains and ATS, eliminated manual CSV editing pause, and created run_stock_import.sh for daily cron execution)
 - [*] On the mobile section, I often get the error: "type object 'datetime.timezone' has no attribute 'now' (Fixed: used Django timezone.now() in mobile_log_submit_api)
 - [*] I just tried to save a picture to a lake, and the tags were all messed up. (Fixed: used TagField in New_Picture_Form, New_Video_Form, New_Article_Form, and New_Post_Form so taggit properly parses and saves tag lists instead of individual characters)
 - [*] Change the landing page (3x3 grid: Lakes/Bugs/Flys, Equipment/Knots/Setups, Fish/Strategies/Blog, with Library in top nav).

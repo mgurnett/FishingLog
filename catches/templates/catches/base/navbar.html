@@ -23,6 +23,7 @@
         </div>
         <div class="col-md-5 d-flex justify-content-end"> <!-- Navbar login buttons -->
             <div class="navbar-nav">
+                <a class="nav-item nav-link text-info fw-semibold" href="{% url 'cheat_sheet' %}" title="Site Field Manual & Cheat Sheet"><i class="bi bi-journal-bookmark-fill"></i> Manual</a>
                 {% if user.is_authenticated %}
                 <a class="nav-item nav-link text-warning fw-semibold" href="{% url 'mobile_log' %}"><i
                         class="bi bi-phone"></i> Mobile</a>

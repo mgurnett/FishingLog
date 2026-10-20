@@ -6,6 +6,8 @@ from catches.helpers.fish_data import *
         
 urlpatterns = [
     path('', views.Home.as_view(), name='catch_home'),
+    path('cheat-sheet/', views.CheatSheetView.as_view(), name='cheat_sheet'),
+    path('manual/', views.CheatSheetView.as_view(), name='site_manual'),
     
     # 1. Security Policy HTML page
     path(

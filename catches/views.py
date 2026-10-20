@@ -95,6 +95,24 @@ class Home (TemplateView):
         context ['updated_num'] = Updated.objects.order_by('-id').first().number
         return context
 
+class CheatSheetView(TemplateView):
+    template_name = 'catches/cheat_sheet.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['lake_count'] = Lake.objects.count()
+            context['log_count'] = Log.objects.count()
+            context['setup_count'] = Setup.objects.count()
+            context['strategy_count'] = Strategy.objects.count()
+            context['knot_count'] = Knot.objects.count()
+            context['bug_count'] = Bug.objects.count()
+            context['fly_count'] = Fly.objects.count()
+            context['fish_count'] = Fish.objects.count()
+        except Exception:
+            pass
+        return context
+
 class RegionListView (PermissionRequiredMixin, ListView):
     permission_required = 'catches.view_region'
     model = Region
